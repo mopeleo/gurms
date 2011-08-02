@@ -55,7 +55,4 @@ public class CommonController extends BaseController {
 			e.printStackTrace();
 		}
 	}
-	
-	@RequestMapping
-	public void welcome(){}
 }

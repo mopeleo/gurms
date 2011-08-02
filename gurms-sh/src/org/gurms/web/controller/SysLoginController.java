@@ -76,4 +76,7 @@ public class SysLoginController extends BaseController {
 		session.invalidate();
 		return redirect(WebConstants.URL_INDEX);
 	}	
+	
+	@RequestMapping(value="/welcome")
+	public void welcome(){}
 }

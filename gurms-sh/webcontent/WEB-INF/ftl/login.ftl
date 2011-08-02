@@ -172,7 +172,7 @@
         		</td>
         		<td id="dynamicDiv">
                     <div class="right_all" id="testdynamicdiv">
-                        <iframe class="iframestyle" src="common/welcome.ftl" name="rightiframe"  frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        <iframe class="iframestyle" src="welcome" name="rightiframe"  frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                     </div>
             	</td>
             </tr>

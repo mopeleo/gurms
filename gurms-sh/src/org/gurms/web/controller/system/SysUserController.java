@@ -56,7 +56,7 @@ public class SysUserController extends BaseController {
 	@RequestMapping
 	public void password(SysUser user){
 		if(user != null){
-			userService.save(user);
+			userService.setPassword(user);
 		}
 	}
 }
