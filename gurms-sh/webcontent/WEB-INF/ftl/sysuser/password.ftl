@@ -1,8 +1,8 @@
 <@c.html title="用户信息">
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$.get('validscript',
-				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword'},
+			$.get('${base}/validscript',
+				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword,confirmpassword'},
 				  function(data){
 					$("head").append(data); //alert(data);
 				  }

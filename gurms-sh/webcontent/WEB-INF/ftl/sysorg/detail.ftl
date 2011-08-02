@@ -7,14 +7,14 @@
 	
 	$(document).ready(function(){
 		$.get('${base}/validscript',
-			  {className:'org.gurms.entity.system.SysOrg',formId:'ajaxSubmitForm'},
+			  {className:'org.gurms.entity.system.SysOrg',formId:'ajaxform'},
 			  function(data){
 				$("head").append(data); //alert(data);
 			  }
 		);
 	})
 </script>
-	<form method="post" id="ajaxSubmitForm" action="${base}/sysorg/ajaxSave">
+	<form method="post" id="ajaxform" action="${base}/sysorg/ajaxSave">
         <div class="messagelist">
             <div class="title_bg">
                 <span>基本信息</span>
@@ -65,7 +65,7 @@
                         <td class="tdwidth2"></td>
                         <td>
 							<input type="submit" class="button" value="保存" />
-							<input type="button" class="button" onclick="submiturl('ajaxSubmitForm','${base}/sysorg/delete')" value="删除" />
+							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysorg/delete')" value="删除" />
 							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
 							<input type="reset" class="button" value="重置"/>
 						</td>

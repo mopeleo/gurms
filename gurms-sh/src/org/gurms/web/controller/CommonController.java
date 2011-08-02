@@ -14,15 +14,9 @@ import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CommonController extends BaseController {
-
-	@ResponseBody
-	public void ajaxValid(){
-		
-	}
 
 	// 生成验证码
 	@RequestMapping("/validatecode")
