@@ -15,7 +15,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.get('validscript',
-			  {className:'org.gurms.entity.system.SysUser',formId:'ajaxSubmitForm',props:'userid,loginpassword'},
+			  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword'},
 			  function(data){
 				$("head").append(data); //alert(data);
 			  }
@@ -24,7 +24,7 @@
 	
 	function afterReturn(result, status){
 		if(result['success']){
-			forward('${base}/login');
+			forward('login');
 		}else{
 			$("span.orange").text(result['returnmsg']);
 		}
@@ -38,7 +38,7 @@
 <div id="main">
 	<div id="maincontect">
     	<div class="message">
-    	<form id="ajaxSubmitForm" action="ajaxlogin" method="post">
+    	<form id="ajaxform" action="ajaxlogin" method="post">
         	<table>
             	<tr><td colspan="2"><span class="orange">&nbsp;</span></td></tr>
             	<tr>

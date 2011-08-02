@@ -68,7 +68,7 @@
             	<a href="${base}/">首页</a><span>|</span>
             	<a href="#">桌面快捷</a><span>|</span>
             	<a href="sysuser/password" target="rightiframe">修改密码</a><span>|</span>
-            	<a href="${base}/logout">注销</a><span>|</span>
+            	<a href="logout">注销</a><span>|</span>
             	<a href="#" onclick="window.close();">退出</a>
             </div>
             

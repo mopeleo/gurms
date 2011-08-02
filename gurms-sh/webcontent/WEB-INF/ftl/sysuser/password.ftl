@@ -2,7 +2,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$.get('validscript',
-				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxSubmitForm',props:'userid,loginpassword,confirmpassword'},
+				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword,confirmpassword'},
 				  function(data){
 					$("head").append(data); //alert(data);
 				  }
@@ -15,7 +15,7 @@
 		
 	</script> 
 
-	<form method="post" id="mainForm" action="${base}/sysuser/save">
+	<form method="post" id="ajaxform" action="${base}/sysuser/save">
         <div class="messagelist">
             <div class="title_bg">
                 <span>密码修改</span>

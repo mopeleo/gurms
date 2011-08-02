@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("#ajaxSubmitForm").ajaxForm({
+	$("#ajaxform").ajaxForm({
 		beforeSubmit:_beforeSubmit,
 		success:_processResponse
 	});
