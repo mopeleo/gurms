@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+
+	<!-- 自动搜索@Controller标注的类 -->
+	<context:component-scan base-package="org.gurms.web.controller" />
+
+	<!-- 通过这个标签来处理静态资源,不被DispatcherServlet处理 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 支持spring mvc的注解类型 -->
+	<mvc:annotation-driven />
+
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*" />
+			<bean class="org.gurms.web.spring.ControllerInterceptor">
+				<property name="ignoreSession" value="validscript,login" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!--使用freemarker的resolver-->
+	<bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+		<property name="cache" value="false" />
+		<property name="suffix" value=".ftl" />
+		<property name="contentType" value="text/html;charset=utf-8" />
+		<!-- 设置模板里是否可以直接取request的属性 值为true就是允许 --> 
+		<property name="exposeRequestAttributes" value="true" /> 
+		<!-- 设置模板里是否可以直接取session的属性 值为true就是允许 -->
+        <property name="exposeSessionAttributes" value="true" />
+		<!-- 如果你需要使用Spring 对 FreeMarker 宏命令的支持, 将这个属性设为true -->
+		<property name="exposeSpringMacroHelpers" value="true" />
+	</bean>
+	
+	<!-- 这里定义freemarker.properties文件的加载，和后面的对应。 -->
+	<bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+ 		<property name="location" value="classpath:freemarker.properties"/>  
+	</bean>
+	
+	<!-- ftl设置-->
+	<bean id="freemarkerConfig" class="org.gurms.web.spring.FreeMarkerConfigurerExt">
+		<property name="templateLoaderPath" value="/WEB-INF/ftl/"/> 
+		<property name="freemarkerSettings" ref="freemarkerConfiguration"/>
+	</bean>
+	
+	
+	<!-- 使用JSP 的resolver-->
+	<!-- 
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />  
+         <property name="prefix" value="/pages" />  
+         <property name="suffix" value=".jsp" />  
+     </bean>  
+	 -->
+</beans>

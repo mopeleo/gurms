@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+	<diskStore path="java.io.tmpdir/hibernate/gurms" />
+
+	<!--
+		DefaultCache setting.
+		Modify ehcache-safe.xml for timeToIdleSeconds,timeToLiveSecond,diskExpiryThreadIntervalSeconds.
+		Use ehcache-safe.xml default for maxElementsInMemory,maxElementsOnDisk,overflowToDisk,eternal.
+		Use ehcache default for memoryStoreEvictionPolicy,diskPersistent.
+	-->
+	<defaultCache maxElementsInMemory="10000" memoryStoreEvictionPolicy="LRU" eternal="false"
+		timeToIdleSeconds="300" timeToLiveSeconds="300" overflowToDisk="false" diskPersistent="false" />
+
+
+	<!-- org.gurms.entity.system.SysMenu -->
+	<cache name="org.gurms.entity.system.SysMenu" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysMenu.submenus" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+	<!-- org.gurms.entity.system.SysOrg -->
+	<cache name="org.gurms.entity.system.SysOrg" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysOrg.suborgs" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysOrg.sysusers" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+	<!-- org.gurms.entity.system.SysRole -->
+	<cache name="org.gurms.entity.system.SysRole" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysRole.sysusers" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysRole.sysmenus" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+	<!-- org.gurms.entity.system.SysUser -->
+	<cache name="org.gurms.entity.system.SysUser" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysUser.sysorg" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+	<cache name="org.gurms.entity.system.SysUser.sysroles" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+	<!-- org.gurms.entity.system.SysDict -->
+	<cache name="org.gurms.entity.system.SysDict" maxElementsInMemory="10000" 
+		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
+
+</ehcache>

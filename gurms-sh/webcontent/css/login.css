@@ -1,0 +1,19 @@
+body,div,p,ul,li,form,input,h1,h2,h3,h4,h5,h6,textarea{margin:0px; padding:0px; font-family:Arial,"宋体"; font-size:12px;}
+ul{list-style:none;}
+a{text-decoration:none;}
+a:hover{cursor:pointer;}
+h1,h2,h3,h4,h5,h6{font-weight:bold; font-size:inherit;}
+img{border:none;}
+body{background-color:#ffffff; color:#474747;}
+.clear{clear:both;}
+a:focus{-moz-outline:none; outline:none;}
+
+#main{background:url(../img/LOGIN_bg.gif) repeat-x top; width:100%;}
+#maincontect{background:url(../img/ztlogin.jpg) no-repeat top; width:782px; height:600px; margin:0 auto; position:relative;}
+.message{width:360px; position:absolute; top:250px; left:290px;}
+.inputbg{background:url(../img/input_bg.gif) repeat-x top; height:17px; border:1px solid #ccc; padding-top:1px; padding-left:1px; width:140px;}
+.inputbg input{background:none; border:none; width:140px; height:17px;}
+.orange{color:#F0910F;}
+.button{background:url(../img/button_bg.gif) no-repeat; width:70px; height:23px; border:none; cursor:hand;}
+
+input{border:1px solid #ccc; height:18px; width:128px; padding-top:1px; padding-left:1px;}
