@@ -64,6 +64,7 @@
 				<prop key="hibernate.cache.provider_configuration_file_resource_path">${hibernate.ehcache_config_file}</prop>
 			</props>
 		</property>
+		<!-- hibernate 事件监听器
 		<property name="eventListeners">
 		    <map>
 		         <entry key="post-commit-insert"><bean class="org.gurms.dao.hibernate.HibernateEventListener" /></entry>
@@ -71,6 +72,7 @@
 		         <entry key="post-commit-delete"><bean class="org.gurms.dao.hibernate.HibernateEventListener" /></entry>
 		    </map>
 		</property>
+		 -->
 		<property name="packagesToScan" value="org.gurms.entity.*" />
 	</bean>
 

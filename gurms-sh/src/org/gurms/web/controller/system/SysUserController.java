@@ -5,8 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.gurms.entity.PageResult;
 import org.gurms.entity.PageRequest;
+import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysUser;
 import org.gurms.service.system.SysUserService;
 import org.gurms.web.ServletUtil;
@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SysUserController extends BaseController {
@@ -54,9 +55,11 @@ public class SysUserController extends BaseController {
 	}
 	
 	@RequestMapping
-	public void password(SysUser user){
-		if(user != null){
-			userService.setPassword(user);
-		}
+	public void password(){}
+	
+	@RequestMapping
+	@ResponseBody
+	public PageResult<SysUser> setPassword(SysUser user){
+		return userService.setPassword(user);
 	}
 }

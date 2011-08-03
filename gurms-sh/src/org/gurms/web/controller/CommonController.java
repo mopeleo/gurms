@@ -41,7 +41,10 @@ public class CommonController extends BaseController {
 		String formId = request.getParameter("formId");
 		String prop = request.getParameter("props");
 		String filter = request.getParameter("filter");
-		FilterType filterType = Enum.valueOf(FilterType.class, filter);
+		FilterType filterType = FilterType.INCLUDE;
+		if(StringUtils.isNotBlank(filter)){
+			filterType = Enum.valueOf(FilterType.class, filter.toUpperCase());
+		}
 		String[] props = null;
 		if(StringUtils.isNotBlank(prop)){
 			props = StringUtils.split(prop, GlobalParam.STRING_SEPARATOR);

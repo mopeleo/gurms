@@ -2,7 +2,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$.get('${base}/validscript',
-				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword,confirmpassword'},
+				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'oldpassword,loginpassword,confirmpassword',filter:'include'},
 				  function(data){
 					$("head").append(data); //alert(data);
 				  }
@@ -11,11 +11,12 @@
 		
 		function afterReturn(result, status){
 			new Dialog(result['returnmsg']).show();
+			$('#ajaxform').clearForm();
 		}
 		
 	</script> 
 
-	<form method="post" id="ajaxform" action="${base}/sysuser/password">
+	<form method="post" id="ajaxform" action="${base}/sysuser/setPassword">
         <div class="messagelist">
             <div class="title_bg">
                 <span>密码修改</span>

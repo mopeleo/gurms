@@ -103,15 +103,21 @@ public class SysUserServiceImpl implements SysUserService{
 	public PageResult<SysUser> setPassword(SysUser user) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
 		
-		SysUser u = sysUserDao.get(user.getUserid());
-		String pw = EncryptUtil.md5Encode(user.getOldpassword());
-		if(!u.getLoginpassword().equalsIgnoreCase(pw)){
-			result.setReturnmsg("输入的原密码错误!");
+		try{
+			SysUser u = sysUserDao.get(user.getUserid());
+			String pw = EncryptUtil.md5Encode(user.getOldpassword());
+			if(!u.getLoginpassword().equalsIgnoreCase(pw)){
+				result.setReturnmsg("输入的原密码错误!");
+				result.setSuccess(false);			
+			}else{
+				pw = EncryptUtil.md5Encode(user.getLoginpassword());
+				u.setLoginpassword(pw);
+				sysUserDao.save(u);
+			}
+		}catch(Exception e){
+			logger.warn("修改密码异常", e);
+			result.setReturnmsg(e.getMessage());
 			result.setSuccess(false);			
-		}else{
-			pw = EncryptUtil.md5Encode(user.getLoginpassword());
-			user.setLoginpassword(pw);
-			sysUserDao.save(user);
 		}
 		
 		return result;		
