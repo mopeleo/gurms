@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.ValidateCodeGenerater;
+import org.gurms.common.validate.GurmsValid.FilterType;
 import org.gurms.common.validate.GurmsValidator;
+import org.gurms.entity.PropertyFilter.MatchType;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
 import org.springframework.stereotype.Controller;
@@ -38,11 +40,13 @@ public class CommonController extends BaseController {
 		String className = request.getParameter("className");
 		String formId = request.getParameter("formId");
 		String prop = request.getParameter("props");
+		String filter = request.getParameter("filter");
+		FilterType filterType = Enum.valueOf(FilterType.class, filter);
 		String[] props = null;
 		if(StringUtils.isNotBlank(prop)){
 			props = StringUtils.split(prop, GlobalParam.STRING_SEPARATOR);
 		}
-		String js = GurmsValidator.script(className, formId, props);
+		String js = GurmsValidator.script(className, formId, props, filterType);
 		try {
 			response.getOutputStream().write(js.getBytes());
 		} catch (IOException e) {

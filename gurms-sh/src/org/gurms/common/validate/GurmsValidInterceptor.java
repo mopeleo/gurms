@@ -6,6 +6,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.exception.GurmsException;
+import org.gurms.common.validate.GurmsValid.FilterType;
 import org.gurms.entity.PageResult;
 
 public class GurmsValidInterceptor implements MethodInterceptor {
@@ -20,12 +21,13 @@ public class GurmsValidInterceptor implements MethodInterceptor {
 			
 			String clzName = valid.type().getName();
 			String[] props = valid.props();
+			FilterType filter = valid.filter();
 
 			Object[] args = invocation.getArguments();
 			String validMsg = null;
 			for(Object arg : args){
 				if(valid.type().isInstance(arg)){
-					validMsg = GurmsValidator.valid(clzName, props, arg);
+					validMsg = GurmsValidator.valid(clzName, props, filter, arg);
 					break;
 				}
 			}

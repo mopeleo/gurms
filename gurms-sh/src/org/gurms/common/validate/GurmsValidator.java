@@ -3,11 +3,12 @@ package org.gurms.common.validate;
 import java.util.List;
 
 import org.gurms.common.util.ReflectionUtil;
+import org.gurms.common.validate.GurmsValid.FilterType;
 
 public class GurmsValidator {
 
-	public static String valid(String clzName, String[] props, Object o){
-		List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props);
+	public static String valid(String clzName, String[] props, FilterType filter, Object o){
+		List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter);
 		//若没有配置规则，则不验证
 		if(rules == null || rules.size() == 0){
 			return null;
@@ -17,16 +18,14 @@ public class GurmsValidator {
 		if("1".equals(GurmsValidConfig.MSG_TYPE)){
 			for(GurmsValidRule g : rules){
 				g.setValue((String)ReflectionUtil.getFieldValue(o, g.getField()));
-				boolean tmp = g.validField();
-				if(!tmp){
+				if(!g.validField()){
 					sb.append(g.getMsg()).append(",");
 				}
 			}
 		}else{
 			for(GurmsValidRule g : rules){
 				g.setValue((String)ReflectionUtil.getFieldValue(o, g.getField()));
-				boolean tmp = g.validField();
-				if(!tmp){
+				if(!g.validField()){
 					sb.append(g.getJsonMsg()).append(",");
 				}
 			}			
@@ -47,11 +46,15 @@ public class GurmsValidator {
 	}
 	
 	public static String script(String clzName, String formId, String[] props){
+		return script(clzName, formId, props, FilterType.INCLUDE);
+	}
+	
+	public static String script(String clzName, String formId, String[] props, FilterType filter){
 		StringBuffer script = new StringBuffer();
 		script.append("<script>");
 
 		try{
-			List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props);
+			List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter);
 			
 			GurmsValidRule temp = new GurmsValidRule();
 			for(GurmsValidRule g : rules){

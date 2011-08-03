@@ -16,4 +16,9 @@ public @interface GurmsValid {
 	
 	//需要效验的属性，默认空，即只要gurms-validate.properties配置了的属性都要效验
 	String[] props() default {};
+	
+	//属性过滤，props中的属性字段默认include包含，可选项exclude不包含
+	FilterType filter() default FilterType.INCLUDE;
+	
+	public enum FilterType{INCLUDE,EXCLUDE}
 }

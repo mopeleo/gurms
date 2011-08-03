@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.sf.json.JSONArray;
+
+import org.apache.commons.lang.StringUtils;
+import org.gurms.common.util.CommonUtil;
+import org.gurms.common.validate.GurmsValid.FilterType;
 
 public class GurmsValidConfig {
 	
@@ -51,16 +53,28 @@ public class GurmsValidConfig {
      * @param props 属性集合
      * @return ArrayList<GurmsValidRule>
      */
-    public static List<GurmsValidRule> getBeanRules(String className, String[] props){
+    public static List<GurmsValidRule> getBeanRules(String className, String[] props, FilterType filter){
 		List<GurmsValidRule> rules = null;
 		if(props == null || props.length == 0){
 			rules = GurmsValidConfig.getBeanRules(className);			
 		}else{
 			rules = new ArrayList<GurmsValidRule>();
-			for(String field : props){
-				String validField = className + "." + field;
-				List<GurmsValidRule> gvr = GurmsValidConfig.getFieldRules(validField);
-				rules.addAll(gvr);
+			if(filter == FilterType.INCLUDE){
+				for(String field : props){
+					String validField = className + "." + field;
+					List<GurmsValidRule> gvr = GurmsValidConfig.getFieldRules(validField);
+					rules.addAll(gvr);
+				}
+			}else{
+		    	String tmpKey = className + ".";
+		    	for(String key : keySet){
+		    		if(key.startsWith(tmpKey)){
+		    			if(!CommonUtil.existSuffix(key, props)){
+							List<GurmsValidRule> gvr = json2Rule(key);
+			    			rules.addAll(gvr);
+		    			}
+		    		}
+		    	}
 			}
 		}
 		return rules;
