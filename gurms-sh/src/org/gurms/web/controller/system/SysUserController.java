@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysUser;
+import org.gurms.service.system.SysRoleService;
 import org.gurms.service.system.SysUserService;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
@@ -26,6 +27,9 @@ public class SysUserController extends BaseController {
 	@Autowired
 	private SysUserService userService;
 	
+	@Autowired
+	private SysRoleService roleService;
+	
 	@RequestMapping
 	public void list(HttpServletRequest request, PageRequest page, Model model){
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
@@ -36,6 +40,7 @@ public class SysUserController extends BaseController {
 	
 	@RequestMapping
 	public void detail(String userid, Model model){
+		model.addAttribute("allroles", roleService.getAll());
 		if(StringUtils.isNotBlank(userid)){
 			SysUser vo = userService.get(userid);
 			model.addAttribute(WebConstants.KEY_RESULT, vo);

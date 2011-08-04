@@ -1,5 +1,6 @@
 package org.gurms.service.system.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -77,6 +78,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 		}catch(Exception e){
 			logger.warn("删除角色异常", e);
 		}
+	}
+
+	@Override
+	public List<SysRole> getAll() {
+		return sysRoleDao.getAll();
 	}	
 
 }

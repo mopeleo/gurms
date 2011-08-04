@@ -22,12 +22,11 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
-                        <td><input type="text" name="sysorg.orgid" value="<#if result.sysorg != null>${result.sysorg.orgid}</#if>" /></td>
+                        <td><@c.dynamictree id="sysorg.orgid" ajaxurl="${base}/sysorg/ajaxOrgTree" display="${(result.sysorg.shortname)!!}" actual="${(result.sysorg.orgid)!!}" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户角色</td>
-                        <td><input type="text" name="sysroleids" 
-                        	value="<#if result.sysroles??><#list result.sysroles as role>${role.rolename},</#list></#if>" />
+                        <td><@c.multiselect id="id" left=allroles right=result.sysroles />
                         </td>
                     </tr>
                 </table>
@@ -67,11 +66,11 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
-                        <td><input type="text" name="sysorg.orgid" /></td>
+                        <td><@c.dynamictree id="sysorg.orgid" ajaxurl="${base}/sysorg/ajaxOrgTree" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户角色</td>
-                        <td><input type="text" name="sysroleids" /></td>
+                        <td><@c.multiselect id="id" left=allroles /></td>
                     </tr>
                 </table>
             </div><!--2 end -->                    

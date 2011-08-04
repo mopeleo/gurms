@@ -122,6 +122,53 @@
 </#macro> 
 
 
+<#macro multiselect id left right>  
+	<script src="${base}/js/jquery.multiselect2side.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#searchable').multiselect2side({
+				search: "Search...: "
+			});
+		});
+	</script>
+	
+	<select name="searchableSelect[]" id="searchable" multiple="multiple">
+	<#if right?exists>
+		<#list left as obj>
+			<option value="${obj.roleid}" <#if right?seq_contains(obj)>selected</#if> >${obj.rolename}</option>
+		</#list>
+	<#else>
+		<#list left as obj>
+			<option value="${obj.roleid}">${obj.rolename}</option>
+		</#list>
+	</#if>
+	</select>
+</#macro> 
+
+<#macro multiselect id left>  
+	<script src="${base}/js/jquery.multiselect2side.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#searchable').multiselect2side({
+				search: "过滤: ",
+				selectedPosition: 'right',
+				moveOptions: false,
+				labelsx: '',
+				labeldx: '已选择:',
+				autoSort: true,
+				autoSortAvailable: true
+			});
+		});
+	</script>
+	
+	<select name="searchable" id="searchable" multiple="multiple">
+		<#list left as obj>
+			<option value="${obj.roleid}">${obj.rolename}</option>
+		</#list>
+	</select>
+</#macro> 
+
+
 
 
 

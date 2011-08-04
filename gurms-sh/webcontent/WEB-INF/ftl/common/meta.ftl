@@ -7,6 +7,7 @@
 <link href="${base}/css/global.css" type="text/css" rel="stylesheet"/>
 <link href="${base}/css/dialog.css" type="text/css" rel="stylesheet"/>
 <link href="${base}/css/livevalidation.css" type="text/css" rel="stylesheet"/>
+<link href="${base}/css/jquery.multiselect2side.css" type="text/css" rel="stylesheet"/>
 <link href="${base}/css/treeview/jquery.treeview.css" type="text/css" rel="stylesheet"/>
 
 <script src="${base}/js/jquery-1.6.2.min.js" type="text/javascript"></script>

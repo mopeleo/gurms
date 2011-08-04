@@ -1,5 +1,6 @@
 package org.gurms.service.system;
 
+import java.util.List;
 import java.util.Map;
 
 import org.gurms.entity.PageRequest;
@@ -11,6 +12,8 @@ public interface SysRoleService {
 	public PageResult<SysRole> query(Map<String, Object> request, PageRequest page);
 	
 	public SysRole get(String id);
+	
+	public List<SysRole> getAll();
 	
 	public void save(SysRole role);
 	
