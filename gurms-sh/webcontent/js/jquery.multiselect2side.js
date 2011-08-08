@@ -128,7 +128,7 @@
 						"</div>" +
 						"<div class='ms2side__select'>" +
 							((o.labeldx || rightSearch != false) ? ("<div class='ms2side__header'>" + (rightSearch != false ? rightSearch : o.labeldx) + "</div>") : "") +
-							"<select title='" + o.labeldx + "' name='" + nameDx + "' id='" + nameDx + "' size='" + size + "' multiple='multiple' ></select>" +
+							"<select name='" + nameDx + "' id='" + nameDx + "' size='" + size + "' multiple='multiple' ></select>" +
 						"</div>" +
 						((o.selectedPosition == 'right' && o.moveOptions) ? divUpDown : "") +
 					"</div>";
@@ -273,7 +273,7 @@
 
 				// SELECT FIRST LEFT ITEM AND DESELECT IN RIGHT (NOT IN IE6)
 				if (!($.browser.msie && $.browser.version == '6.0')) {
-					leftSel.find("option").eq(0).attr("selected", true);
+					leftSel.find("option").eq(0).attr("selected", "selected");
 					rightSel.children().removeAttr("selected");
 				}
 
@@ -282,7 +282,6 @@
 				if (o.autoSort)
 					allSel.change(function() {
 						var	selectDx = rightSel.find("option");
-
 						if (selectDx.length != nLastAutosort) {
 							// SORT SELECTED ELEMENT
 							selectDx.sort(internalSort);
@@ -291,7 +290,7 @@
 							// AFTER ADD ON ORIGINAL AND RIGHT SELECT
 							selectDx.each(function() {
 								rightSel.append($(this).clone());
-								$(this).appendTo(el).attr("selected", true);
+								$(this).appendTo(el).attr("selected", "selected");
 								//el.append($(this).attr("selected", true));		HACK IE6
 							});
 							nLastAutosort = selectDx.length;
@@ -303,7 +302,6 @@
 				if (o.autoSortAvailable)
 					allSel.change(function() {
 						var	selectSx = leftSel.find("option");
-
 						if (selectSx.length != nLastAutosortAvailable) {
 							// SORT SELECTED ELEMENT
 							selectSx.sort(internalSort);
@@ -365,8 +363,8 @@
 					$(this).find("option:selected").each(function(i, selected){
 
 						if (o.maxSelected < 0 || rightSel.children().size() < o.maxSelected) {
-							$(this).remove().appendTo(rightSel);
-							el.find("[value='" + $(selected).val() + "']").remove().appendTo(el).attr("selected", true);
+							$(this).remove().appendTo(rightSel).removeAttr('selected');
+							el.find("[value='" + $(selected).val() + "']").attr("selected", "selected");
 						}
 					});
 					$(this).trigger('change');
@@ -375,8 +373,8 @@
 				// DOUBLE CLICK ON RIGHT SELECT OPTION
 				rightSel.dblclick(function () {
 					$(this).find("option:selected").each(function(i, selected){
-						$(this).remove().appendTo(leftSel);
-						el.find("[value='" + $(selected).val() + "']").removeAttr("selected").remove().appendTo(el);
+						$(this).remove().appendTo(leftSel).removeAttr('selected');
+						el.find("[value='" + $(selected).val() + "']").removeAttr("selected");
 					});
 					$(this).trigger('change');
 
@@ -391,27 +389,27 @@
 					if (!$(this).hasClass("ms2side__hide")) {
 						if ($(this).hasClass("AddOne")) {
 							leftSel.find("option:selected").each(function(i, selected){
-								$(this).remove().appendTo(rightSel);
-								el.find("[value='" + $(selected).val() + "']").remove().appendTo(el).attr("selected", true);
+								$(this).remove().appendTo(rightSel).removeAttr('selected');
+								el.find("[value='" + $(selected).val() + "']").attr("selected", "selected");
 							});
 						}
 						else if ($(this).hasClass("AddAll")) {	// ALL SELECTED
 							// TEST IF HAVE A FILTER OR A SELECT OPTGROUP
 							if (removeFilter.is(":visible") || (searchSelect.length > 0 && searchSelect.val() != "__null__"))
 								leftSel.children().each(function(i, selected){
-									$(this).remove().appendTo(rightSel);
-									el.find("[value='" + $(selected).val() + "']").remove().appendTo(el).attr("selected", true);
+									$(this).remove().appendTo(rightSel).removeAttr('selected');
+									el.find("[value='" + $(selected).val() + "']").attr("selected", "selected");
 								});
 							else {
-								leftSel.children().remove().appendTo(rightSel);
-								el.find('option').attr("selected", true);
+								leftSel.children().remove().appendTo(rightSel).removeAttr('selected');
+								el.find('option').attr("selected", "selected");
 								// el.children().attr("selected", true); -- PROBLEM WITH OPTGROUP
 							}
 						}
 						else if ($(this).hasClass("RemoveOne")) {
 							rightSel.find("option:selected").each(function(i, selected){
-								$(this).remove().appendTo(leftSel);
-								el.find("[value='" + $(selected).val() + "']").remove().appendTo(el).removeAttr("selected");
+								$(this).remove().appendTo(leftSel).removeAttr('selected');
+								el.find("[value='" + $(selected).val() + "']").removeAttr("selected");
 							});
 							// TRIGGER CLICK ON REMOVE FILTER (IF EXIST)
 							removeFilter.click();
@@ -419,7 +417,7 @@
 							searchSelect.val("__null__").trigger("change");
 						}
 						else if ($(this).hasClass("RemoveAll")) {	// ALL REMOVED
-							rightSel.children().appendTo(leftSel);
+							rightSel.children().appendTo(leftSel).removeAttr('selected');
 							rightSel.children().remove();
 							el.find('option').removeAttr("selected");
 							//el.children().removeAttr("selected"); -- PROBLEM WITH OPTGROUP
@@ -446,8 +444,8 @@
 							el.find("option:selected").remove();
 							// AFTER ADD ON ORIGINAL AND RIGHT SELECT
 							selectDx.each(function() {
-								rightSel.append($(this).clone().attr("selected", true));
-								el.append($(this).attr("selected", true));
+								rightSel.append($(this).clone().attr("selected", "selected"));
+								el.append($(this).attr("selected", "selected"));
 							});
 						}
 						else if ($(this).hasClass("MoveUp")) {
@@ -535,7 +533,7 @@
 				if (options)
 					$.extend(oAddOption, options);
 
-				var	strEl = "<option value='" + oAddOption.value + "' " + (oAddOption.selected ? "selected" : "") + " >" + oAddOption.name + "</option>";
+				var	strEl = "<option value='" + oAddOption.value + "' " + (oAddOption.selected ? "selected='selected'" : "") + " >" + oAddOption.name + "</option>";
 
 				el.append(strEl);
 
