@@ -80,7 +80,7 @@
 				if (o.search != false && o.optGroupSearch != false) {
 					var ss = 
 						o.optGroupSearch + "<select class='small' ><option value=__null__> </option></select> " +
-						o.search + "<input class='small' type='text' /><a href='#'> </a>";
+						o.search + "<input class='small' type='text' />";
 
 					if (o.selectedPosition == 'right')
 						leftSearch = ss;
@@ -88,7 +88,7 @@
 						rightSearch = ss;
 				}
 				else if (o.search != false) {
-					var	ss = o.search + "<input type='text' /><a href='#'> </a>";
+					var	ss = o.search + "<input type='text' />";
 
 					if (o.selectedPosition == 'right')
 						leftSearch = ss;

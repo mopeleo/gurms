@@ -31,6 +31,8 @@ function _processResponse(responseText, statusText){
 //	}
 	if(typeof(afterReturn) != 'undefined' && afterReturn instanceof Function){
 		afterReturn(responseText, statusText);
+	}else{
+		new Dialog(responseText['returnmsg']).show();
 	}
 }
 

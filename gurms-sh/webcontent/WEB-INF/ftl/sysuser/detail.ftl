@@ -1,5 +1,16 @@
 <@c.html title="用户信息">
-	<form method="post" id="mainForm" action="${base}/sysuser/save">
+	<script type="text/javascript">	
+		$(document).ready(function(){
+			$.get('${base}/validscript',
+				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,username'},
+				  function(data){
+					$("head").append(data); //alert(data);
+				  }
+			);
+		})
+	</script>
+	
+	<form method="post" id="ajaxform" action="${base}/sysuser/ajaxSave">
         <div class="messagelist">
             <div class="title_bg">
                 <span>基本信息</span>
@@ -26,7 +37,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户角色</td>
-                        <td><@c.multiselect id="id" left=allroles right=result.sysroles />
+                        <td><@c.multiselect id="sysroleids" left=allroles right=result.sysroles />
                         </td>
                     </tr>
                 </table>
@@ -62,7 +73,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户状态</td>
-                        <td><input type="text" name="userstatus" /></td>
+                        <td><input type="text" name="userstatus" onclick="getmsval()"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
@@ -70,7 +81,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户角色</td>
-                        <td><@c.multiselect id="id" left=allroles /></td>
+                        <td><@c.multiselect id="sysroleids" left=allroles /></td>
                     </tr>
                 </table>
             </div><!--2 end -->                    

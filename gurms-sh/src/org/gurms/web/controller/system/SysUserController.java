@@ -54,6 +54,12 @@ public class SysUserController extends BaseController {
 	}
 	
 	@RequestMapping
+	@ResponseBody
+	public PageResult<SysUser> ajaxSave(SysUser user){
+		return userService.save(user);
+	}
+	
+	@RequestMapping
 	public String delete(String userid){
 		userService.delete(userid);
 		return redirect(USER_LIST);

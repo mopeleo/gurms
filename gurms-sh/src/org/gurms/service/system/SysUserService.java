@@ -9,8 +9,8 @@ import org.gurms.entity.system.SysUser;
 
 public interface SysUserService{
 
-	@GurmsValid(type=SysUser.class)
-	public void save(SysUser user);
+	@GurmsValid(type=SysUser.class, props={"userid","username"})
+	public PageResult<SysUser> save(SysUser user);
 
 	public SysUser get(String userid);
 	

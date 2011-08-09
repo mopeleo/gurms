@@ -10,8 +10,8 @@ import org.gurms.common.util.FormatUtil;
 import org.gurms.dao.hibernate.system.SysRoleDao;
 import org.gurms.dao.hibernate.system.SysUserDao;
 import org.gurms.entity.PageRequest;
-import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.PageResult;
+import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
 import org.gurms.service.system.SysUserService;
@@ -55,7 +55,7 @@ public class SysUserServiceImpl implements SysUserService{
 		return sysUserDao.get(id);
 	}
 	
-	public void save(SysUser user) {
+	public PageResult<SysUser> save(SysUser user) {
 		if(StringUtils.isBlank(user.getUserid())){
 			String pw = EncryptUtil.md5Encode(user.getLoginpassword());
 			user.setLoginpassword(pw);
@@ -63,14 +63,22 @@ public class SysUserServiceImpl implements SysUserService{
 		user.setLogintime(FormatUtil.getCurrentTime());
 		user.setLogindate(FormatUtil.getCurrentDate());
 		
-		if(StringUtils.isNotBlank(user.getSysroleids())){
-			String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
-			for(String roleid : roleids){
-				SysRole role = sysRoleDao.get(roleid);
-				user.getSysroles().add(role);
+		PageResult<SysUser> result = new PageResult<SysUser>();
+		try{
+			if(StringUtils.isNotBlank(user.getSysroleids())){
+				String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
+				for(String roleid : roleids){
+					SysRole role = sysRoleDao.get(roleid);
+					user.getSysroles().add(role);
+				}
 			}
+			sysUserDao.save(user);
+		}catch(Exception e){
+			logger.warn("保存用户信息异常", e);
+			result.setSuccess(false);
+			result.setReturnmsg(e.getMessage());
 		}
-		sysUserDao.save(user);
+		return result;
 	}
 
 	@Override

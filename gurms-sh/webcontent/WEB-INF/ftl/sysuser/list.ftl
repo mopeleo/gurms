@@ -33,7 +33,7 @@
 						<tr>
 							<td><a href="${base}/sysuser/detail?userid=${user.userid}" >${user.userid}</a></td>
 							<td>${user.username}</td>
-							<td>${(user.sysorg.orgid)!}</td>
+							<td>${(user.sysorg.shortname)!}</td>
 							<td>
 								<#if user.sysroles??>
 	                        		<#list user.sysroles as role>

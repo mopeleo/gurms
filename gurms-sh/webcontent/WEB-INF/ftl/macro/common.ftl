@@ -41,13 +41,12 @@
 </#macro> 
 
 
-<#macro recOrg orgnode>
-	treestring += '<li><span class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span>';
-	treestring += '<input type="hidden" value="${orgnode.orgid}">';
+<#macro recorg orgnode>
+	treestring += '<li id='${orgnode.orgid}'><span class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span>';
 	<#if orgnode.suborgs?size != 0>
 		treestring += '<ul>';
 		<#list orgnode.suborgs as org>
-			<@c.recOrg org />
+			<@c.recorg org />
 		</#list>
 		treestring += '</ul>';
 	</#if>
@@ -55,12 +54,12 @@
 </#macro> 
 
 
-<#macro recMenu menunode>
-	treestring += '<li><span class="<#if menunode.menutype='0'>folder<#else>file</#if>">${menunode.menuname}</span>';
+<#macro recmenu menunode>
+	treestring += '<li id='${menunode.menuid}'><span class="<#if menunode.menutype='0'>folder<#else>file</#if>">${menunode.menuname}</span>';
 	<#if menunode.menutype ='0'>
 		treestring += '<ul>';
 		<#list menunode.submenus as menu>
-			<@c.recMenu menu />
+			<@c.recmenu menu />
 		</#list>
 		treestring += '</ul>';
 	</#if>
@@ -68,7 +67,7 @@
 </#macro> 
 
 
-<#macro tree id treeData type defaultValue="" defaultDisp="">
+<#macro tree id node type actual="" display="">
 	<script type="text/javascript">
 		var _dialog;    
 	    function createTree(){
@@ -76,9 +75,9 @@
 	    	}else{
 	    		var treestring = '<ul id="__tree" class="filetree">';
 			    <#if type=1>
-					<@c.recMenu treeData />
+					<@c.recmenu node />
 				<#elseif type=2>
-					<@c.recOrg treeData />
+					<@c.recorg node />
 				</#if>
 	    		treestring += '</ul>';
 				_dialog = new Dialog(treestring);
@@ -87,13 +86,13 @@
 		 	$("#__tree").treeview({
 		 		clickext:function(obj){
 					$("#displayarea").val($(obj).text());
-					$("#${id}").val($(obj).next("input").val());
+					$("#displayarea").next("input").val($(obj).parent().attr("id"));
 		 		}
 		 	});
 	    }	    
 	</script>
-	<input type="text" id="displayarea" onclick="createTree()" value="${defaultDisp}" readonly="readonly"/>
-	<input type="hidden" id="${id}" name="${id}" value="${defaultValue}" />
+	<input type="text" id="displayarea" onclick="createTree()" value="${display}" readonly="readonly"/>
+	<input type="hidden" id="${id}" name="${id}" value="${actual}" />
 </#macro> 
 
 
@@ -122,54 +121,26 @@
 </#macro> 
 
 
-<#macro multiselect id left right>  
+<#-- 多重选择控制 left 左边面板的结果集，right 右边面板的结果集-->
+<#macro multiselect id left right=[]>  
 	<script src="${base}/js/jquery.multiselect2side.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#searchable').multiselect2side({
-				search: "Search...: "
-			});
-		});
-	</script>
-	
-	<select name="searchableSelect[]" id="searchable" multiple="multiple">
-	<#if right?exists>
-		<#list left as obj>
-			<option value="${obj.roleid}" <#if right?seq_contains(obj)>selected</#if> >${obj.rolename}</option>
-		</#list>
-	<#else>
-		<#list left as obj>
-			<option value="${obj.roleid}">${obj.rolename}</option>
-		</#list>
-	</#if>
-	</select>
-</#macro> 
-
-<#macro multiselect id left>  
-	<script src="${base}/js/jquery.multiselect2side.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#searchable').multiselect2side({
-				search: "过滤: ",
+			$('#${id}').multiselect2side({
+				search: '过滤:',
 				selectedPosition: 'right',
 				moveOptions: false,
 				labelsx: '',
-				labeldx: '已选择:',
-				autoSort: true,
-				autoSortAvailable: true
+				labeldx: '已选择:'
 			});
 		});
 	</script>
-	
-	<select name="searchable" id="searchable" multiple="multiple">
+	<select name="${id}" id="${id}" multiple="multiple">
 		<#list left as obj>
-			<option value="${obj.roleid}">${obj.rolename}</option>
+			<option value="${obj.roleid}" <#if right?seq_contains(obj)>selected="selected"</#if> >${obj.rolename}</option>
 		</#list>
 	</select>
 </#macro> 
-
-
-
 
 
 
