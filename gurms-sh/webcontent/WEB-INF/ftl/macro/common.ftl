@@ -11,7 +11,6 @@
 	            <#nested/>
 	        </div>
 	    </body>  
-	  
 	</html>  
 </#macro> 
 
@@ -41,58 +40,52 @@
 </#macro> 
 
 
-<#macro recorg orgnode>
-	treestring += '<li id='${orgnode.orgid}'><span class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span>';
-	<#if orgnode.suborgs?size != 0>
-		treestring += '<ul>';
-		<#list orgnode.suborgs as org>
-			<@c.recorg org />
-		</#list>
-		treestring += '</ul>';
-	</#if>
-	treestring += '</li>';
-</#macro> 
+<#macro recorg orgnode><li><span id="${orgnode.orgid}" class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span><#if orgnode.suborgs?size != 0><ul><#list orgnode.suborgs as org><@c.recorg org /></#list></ul></#if></li></#macro> 
 
 
-<#macro recmenu menunode>
-	treestring += '<li id='${menunode.menuid}'><span class="<#if menunode.menutype='0'>folder<#else>file</#if>">${menunode.menuname}</span>';
-	<#if menunode.menutype ='0'>
-		treestring += '<ul>';
-		<#list menunode.submenus as menu>
-			<@c.recmenu menu />
-		</#list>
-		treestring += '</ul>';
-	</#if>
-	treestring += '</li>';
-</#macro> 
+<#macro recmenu menunode><li><span id="${menunode.menuid}" class="<#if menunode.menutype='0'>folder<#else>file</#if>">${menunode.menuname}</span><#if menunode.menutype ='0'><ul><#list menunode.submenus as menu><@c.recmenu menu/></#list></ul></#if></li></#macro> 
 
 
-<#macro tree id node type actual="" display="">
-	<script type="text/javascript">
-		var _dialog;    
-	    function createTree(){
-	    	if(_dialog && _dialog != null){
-	    	}else{
-	    		var treestring = '<ul id="__tree" class="filetree">';
-			    <#if type=1>
-					<@c.recmenu node />
-				<#elseif type=2>
-					<@c.recorg node />
-				</#if>
-	    		treestring += '</ul>';
-				_dialog = new Dialog(treestring);
-	    	}
-			_dialog.show();
-		 	$("#__tree").treeview({
-		 		clickext:function(obj){
-					$("#displayarea").val($(obj).text());
-					$("#displayarea").next("input").val($(obj).parent().attr("id"));
-		 		}
-		 	});
-	    }	    
-	</script>
-	<input type="text" id="displayarea" onclick="createTree()" value="${display}" readonly="readonly"/>
-	<input type="hidden" id="${id}" name="${id}" value="${actual}" />
+<#-- 静态树  id:表单中input的ID,nodeid:树的根节点,actual:隐藏的真实的值,display:页面显示的值,popup:是否弹出,checkable:是否有checkbox-->
+<#macro tree id node type actual="" display="" checkable=false popup=true>
+	<#if popup>
+	
+		<script type="text/javascript">
+			var _dialog;    
+		    function createTree(){
+		    	if(_dialog && _dialog != null){
+		    	}else{
+		    		var treestring = '<ul id="__tree" class="filetree"><#if type=1><@c.recmenu node/><#elseif type=2><@c.recorg node /></#if></ul>';
+		    		
+					_dialog = new Dialog(treestring);					
+				 	$("#__tree").treeview({
+				 		checkboxId:'${id}',
+				 		checkable: ${checkable?string("true","false")},
+				 		clickext:function(obj){
+							$("#displayarea").val($(obj).text());
+							$("#displayarea").next("input").val(obj.id);
+				 		}
+				 	});
+		    	}
+				_dialog.show();
+		    }	    
+		</script>
+		<input type="text" id="displayarea" onclick="createTree()" value="${display}" readonly="readonly"/>
+		<input type="text" id="${id}" name="${id}" value="${actual}" />
+	
+	<#else>
+	
+		<script type="text/javascript">
+		 	$(document).ready(function(){
+			 	$("#__tree").treeview({
+			 		checkboxId:'${id}',
+			 		checkable: ${checkable?string("true","false")}
+			 	});
+			});
+		</script>
+		<ul id="__tree" class="filetree"><#if type=1><@c.recmenu node/><#elseif type=2><@c.recorg node /></#if></ul>
+
+	</#if>	
 </#macro> 
 
 
@@ -109,7 +102,7 @@
 		 			data:{root:'${nodeid}'},
 			 		clickext:function(obj){
 						$("#displayarea").val($(obj).text());
-						$("#displayarea").next("input").val($(obj).parent().attr("id"));
+						$("#displayarea").next("input").val(obj.id);
 		 		}
 			 	});
 	    	}

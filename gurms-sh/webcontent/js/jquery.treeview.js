@@ -75,9 +75,15 @@
 			
 			if (!settings.prerendered) {
 				// handle closed ones first
-				this.filter(":has(>ul:hidden)")
-						.addClass(CLASSES.expandable)
-						.replaceClass(CLASSES.last, CLASSES.lastExpandable);
+				if(settings.collapsed){
+					this.filter(":has(>ul:hidden)")
+							.addClass(CLASSES.expandable)
+							.replaceClass(CLASSES.last, CLASSES.lastExpandable);
+				}else{
+					this.filter(":has(>ul:hidden)")
+							.addClass(CLASSES.collapsable)
+							.replaceClass(CLASSES.last, CLASSES.lastCollapsable);					
+				}
 						
 				// handle open ones
 				this.not(":has(>ul:hidden)")
@@ -227,7 +233,7 @@
 			
 			// add by hyh begin
 			// change color of text-area in the tree when click it
-			$(this).find("li span").unbind("click.treeviewext").bind("click.treeviewext", function(event) {
+			var allSpan = $(this).find("li span").unbind("click.treeviewext").bind("click.treeviewext", function(event) {
 				// don't handle click events on children, eg. checkboxes
 				if ( this == event.target ){
 					$(".treeview").find(".hoverClick").removeClass("hoverClick");
@@ -238,6 +244,29 @@
 				}
 			}).hoverClass();
 			// add by hyh end
+
+			if( settings.checkable ){
+				var checkboxId = settings.checkboxid || "_checkid";
+				allSpan.each(function(){
+					$(this).prepend("<input type='checkbox' class='checkbox' id='" + checkboxId + "' value='" + this.id + "'>");
+				});
+				$(":checkbox", allSpan).click(function(){
+					var checkboxInLi = $(this).closest("li").find(":checkbox");
+					var allLi = $(this).parents("li");
+					if($(this).attr("checked")){
+						if(checkboxInLi.length > 1){
+							checkboxInLi.attr("checked", true);
+						}
+						allLi.find(":checkbox:first").attr("checked", true);	
+					}else{
+						if(checkboxInLi.length > 1){
+							checkboxInLi.removeAttr("checked");
+						}
+						allLi.find(":checkbox:first").removeAttr("checked");
+						allLi.find(":checkbox[checked='true']").parents("li").find(":checkbox:first").attr("checked", true);
+					}
+				});
+			}
 
 			branches.applyClasses(settings, toggler);
 				

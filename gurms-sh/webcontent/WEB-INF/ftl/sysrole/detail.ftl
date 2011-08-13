@@ -1,4 +1,22 @@
 <@c.html title="角色信息">
+	<script type="text/javascript">	
+		$(document).ready(function(){
+			var idx = 0;
+			$("#tabtitle").children("li").each(function(){
+				$(this).click(function(){
+					if($(this).index() != idx){
+						$("#tabtitle").children("li").addClass("messageaiout");
+						$(this).removeClass().addClass("messageaion");
+						$("#tabtitle").parent().children("div").addClass("messagedivnone");
+						var clickdiv = $("#tabtitle").parent().children("div").eq($(this).index());
+						clickdiv.removeClass().addClass("messagedivblock");
+						idx = $(this).index();
+					}
+				});
+			})
+		})
+	</script>
+
 	<form method="post" id="mainForm" action="${base}/sysrole/save">
         <div class="messagelist">
             <div class="title_bg">
@@ -33,7 +51,7 @@
                         <td><input type="text" name="enddate" value="${result.enddate}" /></td>
                     </tr>
                     <tr>
-                        <td class="tdwidth2">用户权限</td>
+                        <td class="tdwidth2">角色权限</td>
                         <td><input type="text" name="sysmenuids" 
                         	value="<#if result.sysmenus??><#list result.sysmenus as menu>${menu.menuid},</#list></#if>" />
                         </td>
@@ -59,36 +77,48 @@
             </div>
 		<#else>
             <div class="messagetable">
-                <table>
-                    <tr>
-                        <td class="tdwidth2">角色名称</td>
-                        <td><input type="text" name="rolename" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">角色状态</td>
-                        <td><input type="text" name="rolestatus" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">角色类型</td>
-                        <td><input type="text" name="roletype" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">生效日期</td>
-                        <td><input type="text" name="startdate" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">失效日期</td>
-                        <td><input type="text" name="enddate" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">用户权限</td>
-                        <td><input type="text" name="sysmenuids" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">备注</td>
-                        <td><input type="text" name="remark" /></td>
-                    </tr>
-                </table>
+                <div class="messageall">
+			        <ul id="tabtitle">
+			            <li class="messageaion">基本信息</li>
+			            <li class="messageaiout">用户权限</li>
+			        </ul>
+			        <div class="messagedivblock">
+		                <table>
+		                    <tr>
+		                        <td class="tdwidth2">角色名称</td>
+		                        <td><input type="text" name="rolename" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td class="tdwidth2">角色状态</td>
+		                        <td><input type="text" name="rolestatus" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td class="tdwidth2">角色类型</td>
+		                        <td><input type="text" name="roletype" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td class="tdwidth2">生效日期</td>
+		                        <td><input type="text" name="startdate" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td class="tdwidth2">失效日期</td>
+		                        <td><input type="text" name="enddate" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td class="tdwidth2">备注</td>
+		                        <td><input type="text" name="remark" /></td>
+		                    </tr>
+		                </table>
+			        </div>
+			        <div class="messagedivnone">
+			        	<table>
+			        	<tr><td>
+						<@c.tree id="sysmenuids" type=1 node=context_menu checkable=true popup=true/>
+			        	</td></tr>
+			        	</table>
+			        </div>
+			    </div>
+            
             </div><!--2 end -->                    
             <div class="messagetable messageOK">
                 <table>
