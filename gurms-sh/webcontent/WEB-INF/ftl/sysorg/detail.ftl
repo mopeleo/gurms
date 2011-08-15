@@ -20,8 +20,8 @@
                 <span>基本信息</span>
             </div>
 
-		<#if result?exists>
             <div class="messagetable">
+			<#if result?exists>
                 <table>
                     <tr>
                         <td class="tdwidth2">机构简称<input type="hidden" name="orgid" value="${result.orgid}"  /></td>
@@ -58,22 +58,7 @@
                         <td><input type="text" name="remark" value="${result.remark}" /></td>
                     </tr>
                 </table>
-            </div><!--2 end -->                    
-            <div class="messagetable messageOK">
-                <table>
-                    <tr>
-                        <td class="tdwidth2"></td>
-                        <td>
-							<input type="submit" class="button" value="保存" />
-							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysorg/delete')" value="删除" />
-							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
-							<input type="reset" class="button" value="重置"/>
-						</td>
-					</tr>
-				</table>
-            </div>
-		<#else>
-            <div class="messagetable">
+			<#else>
                 <table>
                     <tr>
                         <td class="tdwidth2">机构简称</td>
@@ -108,20 +93,23 @@
                         <td><input type="text" name="remark" /></td>
                     </tr>
                 </table>
-            </div><!--2 end -->                    
+            </#if>
+            </div>                   
             <div class="messagetable messageOK">
                 <table>
                     <tr>
                         <td class="tdwidth2"></td>
                         <td>
 							<input type="submit" class="button" value="保存" />
+							<#if result?exists>
+							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysorg/delete')" value="删除" />
+							</#if>
 							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
 							<input type="reset" class="button" value="重置"/>
 						</td>
 					</tr>
 				</table>
             </div>
-		</#if>
         </div>
 	</form>  
 
