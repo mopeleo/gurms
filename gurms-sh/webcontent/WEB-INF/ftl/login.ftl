@@ -89,8 +89,16 @@
 		}
 		
 		function closewindow(divid){
-			var currTitle = $("#dynamicTitle #" + divid + "_li");
-			var currFrame = $("#dynamicIframe #" + divid + "_div");
+			var currTitle;
+			var currFrame;
+			if(!divid){
+				currTitle = $("#dynamicTitle div.changebodylefton").parent();
+				currFrame = $("#dynamicIframe div:not(:hidden)");
+			}else{
+				currTitle = $("#dynamicTitle #" + divid + "_li");
+				currFrame = $("#dynamicIframe #" + divid + "_div");
+			}
+			
 			currTitle.hide();
 			currFrame.hide();
 			
@@ -164,8 +172,7 @@
           </ul>
           <div class="window">
           	  <ul class="window_kz">
-              	  <li class="closewindow"><a href="#">关闭</a></li>
-                  <li class="fullsrceen"><a href="#">全屏</a></li>
+                  <li class="closewindow"><a href="#" onclick="closewindow()">关闭</a></li>
               </ul>
           </div>
        </div>

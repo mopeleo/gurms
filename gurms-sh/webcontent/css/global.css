@@ -73,7 +73,7 @@ a:focus{-moz-outline:none; outline:none;}
 .middlenone{display:none; padding-top:8px;}
 .middleblock{display:block; padding-top:8px;}
 
-.window{position:absolute; right:1%; width:100px; top:5px;}
+.window{position:absolute; right:1%; width:50px; top:5px;}
 .window_kz li{float:left; margin-left:5px; display:inline; width:45px;}
 .window_kz li a{padding-left:18px; height:17px; display:block; line-height:17px; color:#666;}
 .window_kz li a:hover{color:#999;}
