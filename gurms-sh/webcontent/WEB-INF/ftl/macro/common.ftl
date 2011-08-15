@@ -47,7 +47,7 @@
 
 
 <#-- 静态树  id:表单中input的ID,nodeid:树的根节点,actual:隐藏的真实的值,display:页面显示的值,popup:是否弹出,checkable:是否有checkbox-->
-<#macro tree id node type actual="" display="" checkable=false popup=true>
+<#macro tree id node type actual="" display="" checkable=false popup=true actual="">
 	<#if popup>
 	
 		<script type="text/javascript">
@@ -59,8 +59,9 @@
 		    		
 					_dialog = new Dialog(treestring);					
 				 	$("#__tree").treeview({
-				 		checkboxId:'${id}',
+				 		checkboxid:'${id}',
 				 		checkable: ${checkable?string("true","false")},
+				 		checkvalue: '${actual}',
 				 		clickext:function(obj){
 							$("#displayarea").val($(obj).text());
 							$("#displayarea").next("input").val(obj.id);
@@ -78,7 +79,8 @@
 		<script type="text/javascript">
 		 	$(document).ready(function(){
 			 	$("#__tree").treeview({
-			 		checkboxId:'${id}',
+			 		checkboxid:'${id}',
+				 	checkvalue: '${actual}',
 			 		checkable: ${checkable?string("true","false")}
 			 	});
 			});

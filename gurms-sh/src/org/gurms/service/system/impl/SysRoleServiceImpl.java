@@ -3,13 +3,11 @@ package org.gurms.service.system.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.gurms.common.config.GlobalParam;
 import org.gurms.dao.hibernate.system.SysMenuDao;
 import org.gurms.dao.hibernate.system.SysRoleDao;
 import org.gurms.entity.PageRequest;
-import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.PageResult;
+import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysMenu;
 import org.gurms.entity.system.SysRole;
 import org.gurms.service.system.SysRoleService;
@@ -61,9 +59,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public void save(SysRole role) {
-		if(StringUtils.isNotBlank(role.getSysmenuids())){
-			String[] menuids = StringUtils.split(role.getSysmenuids(), GlobalParam.STRING_SEPARATOR);
-			for(String menuid : menuids){
+		if(role.getSysmenuids() != null){
+			for(String menuid : role.getSysmenuids()){
 				SysMenu menu = sysMenuDao.get(menuid);
 				role.getSysmenus().add(menu);
 			}

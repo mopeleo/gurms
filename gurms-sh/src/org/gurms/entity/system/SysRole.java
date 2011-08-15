@@ -38,7 +38,7 @@ public class SysRole implements Serializable {
 	private List<SysUser> sysusers = new ArrayList<SysUser>();
 	
 	/////-------------------扩展属性，非持久层属性------------------
-	private String sysmenuids;
+	private String[] sysmenuids;
 
 	@Id
 	@GeneratedValue(generator = "uuid")    
@@ -154,11 +154,11 @@ public class SysRole implements Serializable {
 	
 	/////扩展属性，非持久层属性
 	@Transient
-	public String getSysmenuids() {
+	public String[] getSysmenuids() {
 		return sysmenuids;
 	}
 	
-	public void setSysmenuids(String sysmenuids) {
+	public void setSysmenuids(String[] sysmenuids) {
 		this.sysmenuids = sysmenuids;
 	}
 }
