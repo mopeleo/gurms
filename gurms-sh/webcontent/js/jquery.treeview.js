@@ -247,9 +247,20 @@
 
 			if( settings.checkable ){
 				var checkboxId = settings.checkboxid || "_checkid";
-				allSpan.each(function(){
-					$(this).prepend("<input type='checkbox' class='checkbox' id='" + checkboxId + "' value='" + this.id + "'>");
-				});
+				if( settings.checkvalue ){
+					var checkedv = ',' + settings.checkvalue + ',';
+					allSpan.each(function(){
+						if(checkedv.indexOf((',' + this.id + ',')) != -1){
+							$(this).prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "' checked='true'>");
+						}else{
+							$(this).prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "'>");
+						}
+					});
+				}else{
+					allSpan.each(function(){
+						$(this).prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "'>");
+					});
+				}
 				$(":checkbox", allSpan).click(function(){
 					var checkboxInLi = $(this).closest("li").find(":checkbox");
 					var allLi = $(this).parents("li");
@@ -275,7 +286,7 @@
 				treeController(this, settings.control);
 				$(settings.control).show();
 			}
-			
+
 			return this;
 		}
 	});
