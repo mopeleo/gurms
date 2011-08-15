@@ -20,14 +20,14 @@
 	<form method="post" id="mainForm" action="${base}/sysrole/save">
         <div class="messagelist">
             <div class="title_bg">
-                <span>基本信息</span>
+                <span>角色维护</span>
             </div>
 
             <div class="messagetable">
                 <div class="messageall">
 			        <ul id="tabtitle">
 			            <li class="messageaion">基本信息</li>
-			            <li class="messageaiout">用户权限</li>
+			            <li class="messageaiout">角色权限</li>
 			        </ul>
 			        
 			<#if result?exists>

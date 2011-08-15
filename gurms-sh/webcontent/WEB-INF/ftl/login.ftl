@@ -51,9 +51,73 @@
 			}
 		}
 
-		function menuChange(obj){
+		var windowCount = 1;
+		var maxWindow = 10;
+		function openwindow(obj, divid, divtitle, url){
+
 			$("div.secondmenu a").removeClass("menuon");
 			$(obj).addClass("menuon");
+
+			if($("#dynamicIframe #" + divid + "_div").length == 1){
+				$("#dynamicIframe div").hide();
+				$("#dynamicIframe #" + divid + "_div").show();
+	
+				$("#dynamicTitle .changebodylefton").removeClass().addClass("changebodyleftout");
+				$("#dynamicTitle .changebodymiddleon").removeClass().addClass("changebodymiddleout");
+				$("#dynamicTitle .changebodyrighton").removeClass().addClass("changebodyrightout");
+
+				$("#dynamicTitle #" + divid + "_li div").eq(0).removeClass().addClass("changebodylefton");
+				$("#dynamicTitle #" + divid + "_li div").eq(1).removeClass().addClass("changebodymiddleon");
+				$("#dynamicTitle #" + divid + "_li div").eq(2).removeClass().addClass("changebodyrighton");
+				$("#dynamicTitle #" + divid + "_li").show();
+			}else{
+				if(windowCount == maxWindow){
+					$("#dynamicTitle li").eq(1).remove();
+					$("#dynamicIframe div").eq(1).remove();
+					windowCount--;
+				}
+				$("#dynamicIframe div").hide();
+				$("#dynamicIframe").append('<div id="' + divid + '_div" class="right_all"><iframe class="iframestyle" src="' + url + '" name="rightiframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>');
+	
+				$("#dynamicTitle .changebodylefton").removeClass().addClass("changebodyleftout");
+				$("#dynamicTitle .changebodymiddleon").removeClass().addClass("changebodymiddleout");
+				$("#dynamicTitle .changebodyrighton").removeClass().addClass("changebodyrightout");
+				$("#dynamicTitle").append('<li id="' + divid + '_li"><div class="changebodylefton"/><div class="changebodymiddleon"  onclick="changewindow(' + divid + ')">' + divtitle + '</div><div class="changebodyrighton" onclick="closewindow(' + divid + ')" title="关闭当前窗口"/></li>');
+	
+				windowCount++;
+			}
+		}
+		
+		function closewindow(divid){
+			var currTitle = $("#dynamicTitle #" + divid + "_li");
+			var currFrame = $("#dynamicIframe #" + divid + "_div");
+			currTitle.hide();
+			currFrame.hide();
+			
+			if(currTitle.index() == $("#dynamicTitle li").last().index()){
+				currTitle.prev().children().eq(0).removeClass().addClass("changebodylefton");
+				currTitle.prev().children().eq(1).removeClass().addClass("changebodymiddleon");
+				currTitle.prev().children().eq(2).removeClass().addClass("changebodyrighton");
+				currFrame.prev().show();
+			}else{
+				$("#dynamicTitle li:not(:hidden)").last().children().eq(0).removeClass().addClass("changebodylefton");
+				$("#dynamicTitle li:not(:hidden)").last().children().eq(1).removeClass().addClass("changebodymiddleon");
+				$("#dynamicTitle li:not(:hidden)").last().children().eq(2).removeClass().addClass("changebodyrighton");
+				$("#dynamicIframe div").last().show();
+			}
+		}
+		
+		function changewindow(divid){
+			$("#dynamicIframe div").hide();
+			$("#dynamicIframe #" + divid + "_div").show();
+
+			$("#dynamicTitle .changebodylefton").removeClass().addClass("changebodyleftout");
+			$("#dynamicTitle .changebodymiddleon").removeClass().addClass("changebodymiddleout");
+			$("#dynamicTitle .changebodyrighton").removeClass().addClass("changebodyrightout");
+
+			$("#dynamicTitle #" + divid + "_li div").eq(0).removeClass().addClass("changebodylefton");
+			$("#dynamicTitle #" + divid + "_li div").eq(1).removeClass().addClass("changebodymiddleon");
+			$("#dynamicTitle #" + divid + "_li div").eq(2).removeClass().addClass("changebodyrighton");
 		}
 	</script>
 </head>  
@@ -91,15 +155,10 @@
     	<div class="left"><a href="#"><img src="img/left_jiantou.gif" width="27" height="30" /></a></div>
         <div class="middle"></div>
         <div class="right">
-            <ul class="weball">
-               <li>
-				  <div class="changebodyleftout"></div>
-                  <div class="changebodymiddleout" onclick="">首页</div>
-                  <div class="changebodyrightout" title="关闭当前窗口"></div>
-               </li>
-               <li>
+            <ul id="dynamicTitle" class="weball">
+               <li id="index_li">
 				  <div class="changebodylefton"></div>
-                  <div class="changebodymiddleon" onclick="">科目信息</div>
+                  <div class="changebodymiddleon" onclick="changewindow('index')">首页</div>
                   <div class="changebodyrighton" title="关闭当前窗口"></div>
                </li>
           </ul>
@@ -139,7 +198,7 @@
 			                                                    <p onclick="folderChange()"><span>${leafs.menuname}</span></p>
 			                                                    <ul class="menulinone">
 			                                               	        <#list leafs.submenus as leaf>
-			                                                            <li><a class="menulion" target="rightiframe" href="${leaf.menuurl}">${leaf.menuname}</a></li>
+			                                                            <li><a class="menulion" target="rightiframe" href="#" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leaf.menuurl}')">${leaf.menuname}</a></li>
 			                                               	        </#list>
 			                                                    </ul>
 			                                                </div>
@@ -147,7 +206,7 @@
 	                                                     
 	                                                    <#if leafs.menutype="1">	                                              
 			                                                <ul class="menublock" id="menu">
-			                                                    <li><a onclick="menuChange(this)" target="rightiframe" class="menuout" href="${leafs.menuurl}">${leafs.menuname}</a></li>
+			                                                    <li><a target="rightiframe" class="menuout" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leafs.menuurl}')">${leafs.menuname}</a></li>
 			                                                </ul>
 	                                                    </#if>
 	                                                </#list>
@@ -170,9 +229,9 @@
 						</div><!--mainleft end -->
                     </div><!--left_all end -->
         		</td>
-        		<td id="dynamicDiv">
-                    <div class="right_all" id="testdynamicdiv">
-                        <iframe class="iframestyle" src="welcome" name="rightiframe"  frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        		<td id="dynamicIframe">
+                    <div class="right_all" id="index_div">
+                        <iframe class="iframestyle" src="welcome" name="rightiframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                     </div>
             	</td>
             </tr>
