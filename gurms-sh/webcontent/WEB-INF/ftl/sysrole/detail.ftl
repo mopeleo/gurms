@@ -34,12 +34,11 @@
 	            <div class="messagedivblock">
 	                <table>
 	                    <tr>
-	                        <td class="tdwidth2">角色ID</td>
-	                        <td><input type="text" name="roleid" value="${result.roleid}" readonly="true" /></td>
-	                    </tr>
-	                    <tr>
 	                        <td class="tdwidth2">角色名称</td>
-	                        <td><input type="text" name="rolename" value="${result.rolename}" /></td>
+	                        <td>
+		                        <input type="hidden" name="roleid" value="${result.roleid}" />
+		                        <input type="text" name="rolename" value="${result.rolename}" />
+	                        </td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">角色状态</td>
@@ -64,11 +63,16 @@
 	                </table>
 	            </div>                    
 	        	<#assign listmenus="">
-	        	<#if result.sysmenus??><#list result.sysmenus as menu><#assign listmenus = listmenus + menu.menuid + ","></#list></#if>
+	        	<#assign listmenusname="">
+	        	<#if result.sysmenus??>
+	        		<#list result.sysmenus as menu>
+	        			<#assign listmenus = listmenus + menu.menuid + ",">
+	        		</#list>
+	        	</#if>
 		        <div class="messagedivnone">
 		        	<table>
 		        	<tr><td>
-					<@c.tree id="sysmenuids" type=1 node=context_menu checkable=true popup=false actual=listmenus/>
+					<@c.tree id="sysmenuids" type=1 node=context_menu actual=listmenus checkable=true/>
 		        	</td></tr>
 		        	</table>
 		        </div>
@@ -104,7 +108,7 @@
 		        <div class="messagedivnone">
 		        	<table>
 		        	<tr><td>
-					<@c.tree id="sysmenuids" type=1 node=context_menu checkable=true popup=false/>
+					<@c.tree id="sysmenuids" type=1 node=context_menu checkable=true />
 		        	</td></tr>
 		        	</table>
 		        </div>

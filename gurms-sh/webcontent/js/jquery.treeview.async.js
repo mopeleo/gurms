@@ -24,6 +24,40 @@ function load(settings, root, child, container) {
 		if (this.expanded) {
 			current.addClass("open");
 		}
+		
+		//add begin by huangyh
+		if( settings.checkable ){
+			var checkboxId = settings.checkboxid || "_checkid";
+			if( settings.checkvalue ){
+				var checkedv = ',' + settings.checkvalue + ',';
+				if(checkedv.indexOf((',' + this.id + ',')) != -1){
+					current.children("span").prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "' checked='true'>");
+				}else{
+					current.children("span").prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "'>");
+				}
+			}else{
+				current.children("span").prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "'>");
+			}
+		}
+		$(":checkbox", current).click(function(){
+			var checkboxInLi = $(this).closest("li").find(":checkbox");
+			var allLi = $(this).parents("li");
+			if($(this).attr("checked")){
+				if(checkboxInLi.length > 1){
+					checkboxInLi.attr("checked", true);
+				}
+				allLi.find(":checkbox:first").attr("checked", true);	
+			}else{
+				if(checkboxInLi.length > 1){
+					checkboxInLi.removeAttr("checked");
+				}
+				allLi.find(":checkbox:first").removeAttr("checked");
+				allLi.find(":checkbox[checked='true']").parents("li").find(":checkbox:first").attr("checked", true);
+			}
+		});
+		// add end huangyh 20110816
+		
+
 		if (this.hasChildren || this.children && this.children.length) {
 			var branch = $("<ul/>").appendTo(current);
 			if (this.hasChildren) {

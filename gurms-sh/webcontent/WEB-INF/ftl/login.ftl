@@ -61,6 +61,7 @@
 			if($("#dynamicIframe #" + divid + "_div").length == 1){
 				$("#dynamicIframe div").hide();
 				$("#dynamicIframe #" + divid + "_div").show();
+//				alert($("#dynamicIframe #" + divid + "_div").children().eq(0).attr("src"));
 	
 				$("#dynamicTitle .changebodylefton").removeClass().addClass("changebodyleftout");
 				$("#dynamicTitle .changebodymiddleon").removeClass().addClass("changebodymiddleout");

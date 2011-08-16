@@ -1,10 +1,5 @@
 <@c.html title="机构信息">
 <script type="text/javascript">	
-	function afterReturn(result, status){
-		new Dialog(result['returnmsg']).show();
-//		alert(result['returnmsg']);
-	}
-	
 	$(document).ready(function(){
 		$.get('${base}/validscript',
 			  {className:'org.gurms.entity.system.SysOrg',formId:'ajaxform'},
