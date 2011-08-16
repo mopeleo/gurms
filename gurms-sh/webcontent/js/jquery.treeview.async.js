@@ -39,22 +39,7 @@ function load(settings, root, child, container) {
 				current.children("span").prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "'>");
 			}
 		}
-		$(":checkbox", current).click(function(){
-			var checkboxInLi = $(this).closest("li").find(":checkbox");
-			var allLi = $(this).parents("li");
-			if($(this).attr("checked")){
-				if(checkboxInLi.length > 1){
-					checkboxInLi.attr("checked", true);
-				}
-				allLi.find(":checkbox:first").attr("checked", true);	
-			}else{
-				if(checkboxInLi.length > 1){
-					checkboxInLi.removeAttr("checked");
-				}
-				allLi.find(":checkbox:first").removeAttr("checked");
-				allLi.find(":checkbox[checked='true']").parents("li").find(":checkbox:first").attr("checked", true);
-			}
-		});
+		$(":checkbox", current).click($.fn.checkboxClick);
 		// add end huangyh 20110816
 		
 

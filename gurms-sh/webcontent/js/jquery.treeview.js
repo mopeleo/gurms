@@ -18,6 +18,22 @@
 
 	// TODO rewrite as a widget, removing all the extra plugins
 	$.extend($.fn, {
+		checkboxClick: function(){
+			var checkboxInLi = $(this).closest("li").find(":checkbox");
+			var allLi = $(this).parents("li");
+			if($(this).attr("checked")){
+				if(checkboxInLi.length > 1){
+					checkboxInLi.attr("checked", true);
+				}
+				allLi.find(":checkbox:first").attr("checked", true);	
+			}else{
+				if(checkboxInLi.length > 1){
+					checkboxInLi.removeAttr("checked");
+				}
+				allLi.find(":checkbox:first").removeAttr("checked");
+				allLi.find(":checkbox[checked='true']").parents("li").find(":checkbox:first").attr("checked", true);
+			}
+		},
 		swapClass: function(c1, c2) {
 			var c1Elements = this.filter('.' + c1);
 			this.filter('.' + c2).removeClass(c2).addClass(c1);
@@ -261,22 +277,7 @@
 						$(this).prepend("<input type='checkbox' id='" + checkboxId + "' name='" + checkboxId + "' value='" + this.id + "'>");
 					});
 				}
-				$(":checkbox", allSpan).click(function(){
-					var checkboxInLi = $(this).closest("li").find(":checkbox");
-					var allLi = $(this).parents("li");
-					if($(this).attr("checked")){
-						if(checkboxInLi.length > 1){
-							checkboxInLi.attr("checked", true);
-						}
-						allLi.find(":checkbox:first").attr("checked", true);	
-					}else{
-						if(checkboxInLi.length > 1){
-							checkboxInLi.removeAttr("checked");
-						}
-						allLi.find(":checkbox:first").removeAttr("checked");
-						allLi.find(":checkbox[checked='true']").parents("li").find(":checkbox:first").attr("checked", true);
-					}
-				});
+				$(":checkbox", allSpan).click($.fn.checkboxClick);
 			}
 
 			branches.applyClasses(settings, toggler);
