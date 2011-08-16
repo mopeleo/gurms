@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">上级机构</td>
-		                <td><@c.dynamictree id="parentorg.orgid" ajaxurl="${base}/sysorg/ajaxOrgTree" display="${(result.parentorg.shortname)!!}" actual="${(result.parentorg.orgid)!!}" /></td>
+		                <td><@c.popuptree id="parentorg.orgid" node="" type="${base}/sysorg/ajaxOrgTree" display="${(result.parentorg.shortname)!!}" actual="${(result.parentorg.orgid)!!}" dynamic=true /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构状态</td>
@@ -73,7 +73,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">上级机构</td>
-		                <td><@c.dynamictree id="parentorg.orgid" ajaxurl="${base}/sysorg/ajaxOrgTree" /></td>
+		                <td><@c.popuptree id="parentorg.orgid" node="" type="${base}/sysorg/ajaxOrgTree" dynamic=true /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构状态</td>
