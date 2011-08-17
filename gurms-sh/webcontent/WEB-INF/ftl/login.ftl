@@ -55,8 +55,12 @@
 		var maxWindow = 10;
 		function openwindow(obj, divid, divtitle, url){
 
-			$("div.secondmenu a").removeClass("menuon");
-			$(obj).addClass("menuon");
+			$("div.secondmenu a").removeClass("menuon").removeClass("menulion");
+			if($(obj).closest("ul").hasClass("menuliblock")){
+				$(obj).addClass("menulion");
+			}else{
+				$(obj).addClass("menuon");			
+			}
 
 			if($("#dynamicIframe #" + divid + "_div").length == 1){
 				$("#dynamicIframe div").hide();
@@ -204,9 +208,9 @@
 	                                          	   	    <#if leafs.menutype="0">
 			                                                <div class="menuitem">
 			                                                    <p onclick="folderChange()"><span>${leafs.menuname}</span></p>
-			                                                    <ul class="menulinone">
+			                                                    <ul class="menuliblock">
 			                                               	        <#list leafs.submenus as leaf>
-			                                                            <li><a class="menulion" target="rightiframe" href="#" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leaf.menuurl}')">${leaf.menuname}</a></li>
+			                                                            <li><a class="menuliout" target="rightiframe" onclick="openwindow(this,'${leaf.menuid}','${leaf.menuname}','${leaf.menuurl}')">${leaf.menuname}</a></li>
 			                                               	        </#list>
 			                                                    </ul>
 			                                                </div>
@@ -214,7 +218,7 @@
 	                                                     
 	                                                    <#if leafs.menutype="1">	                                              
 			                                                <ul class="menublock" id="menu">
-			                                                    <li><a target="rightiframe" class="menuout" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leafs.menuurl}')">${leafs.menuname}</a></li>
+			                                                    <li><a class="menuout" target="rightiframe" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leafs.menuurl}')">${leafs.menuname}</a></li>
 			                                                </ul>
 	                                                    </#if>
 	                                                </#list>
