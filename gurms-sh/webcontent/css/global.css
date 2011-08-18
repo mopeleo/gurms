@@ -29,13 +29,16 @@ a:focus{-moz-outline:none; outline:none;}
 
 #changeweb{position:absolute; top:50px; width:100%}
 .maintable{width:100%; height:100px;}
-.left{width:27px; height:30px; float:left;}
+.left{width:27px; height:30px; float:left; background:url(../img/left_jiantou.gif) no-repeat; cursor:pointer;}
+.right2{background:url(../img/topright_bg.gif) repeat-x; height:30px; margin-left:27px; position:relative; padding-left:1px;}
+.left2{background:url(../img/left_jiantou2.gif) no-repeat; width:27px; height:30px; float:left; cursor:pointer;}
+
 .middle{width:151px; background:url(../img/topleft_bg.gif) repeat-x; height:30px; float:left;}
 .right{background:url(../img/topright_bg.gif) repeat-x; height:30px; margin-left:178px; position:relative; padding-left:1px;}
-#changeweb .right ul.weball{padding-top:5px;}
-#changeweb .right ul.weball li{float:left; margin-right:1px; _display:inline;}
-#changeweb .right ul.weball li div{float:left;}
-#changeweb .right ul.weball li div a{color:#333;}
+#changeweb #topright ul.weball{padding-top:5px;}
+#changeweb #topright ul.weball li{float:left; margin-right:1px; _display:inline;}
+#changeweb #topright ul.weball li div{float:left;}
+#changeweb #topright ul.weball li div a{color:#333;}
 
 #main_body{width:100%; height:442px; position:relative; top:80px;}
 #left_all{float:left; height:100%; width:178px;}

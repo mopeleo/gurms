@@ -134,6 +134,23 @@
 			$("#dynamicTitle #" + divid + "_li div").eq(1).removeClass().addClass("changebodymiddleon");
 			$("#dynamicTitle #" + divid + "_li div").eq(2).removeClass().addClass("changebodyrighton");
 		}
+
+		function hiddenleft(){
+			 $("#lefttd").toggle();
+			 $("#topmiddle").toggle();
+			 if($("#lefttu").hasClass("left2")){
+				 $("#lefttu").removeClass("left2").addClass("left");
+			 }
+			 else{
+				 $("#lefttu").removeClass("left").addClass("left2");
+			 }
+			 if($("#topright").hasClass("right2")){
+				$("#topright").removeClass("right2").addClass("right");	 
+			 }else{
+				$("#topright").removeClass("right").addClass("right2");
+			 }
+		}
+
 	</script>
 </head>  
   
@@ -167,9 +184,9 @@
     
     <div class="clear"></div>
     <div id="changeweb">
-    	<div class="left"><a href="#"><img src="img/left_jiantou.gif" width="27" height="30" /></a></div>
-        <div class="middle"></div>
-        <div class="right">
+    	<div class="left" id="lefttu" onclick="hiddenleft()"></div>
+        <div class="middle" id="topmiddle"></div>
+        <div class="right" id="topright">
             <ul id="dynamicTitle" class="weball">
                <li id="index_li">
 				  <div class="changebodylefton"></div>
@@ -189,7 +206,7 @@
     <div id="main_body">
     	<table class="maintable" cellpadding="0" cellspacing="0" border="0">
         	<tr>
-            	<td class="lefttdwidth" width="178">
+            	<td class="lefttdwidth" width="178" id="lefttd">
                     <div id="left_all">
                         <div id="mainleft">
                         
