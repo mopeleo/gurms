@@ -69,7 +69,7 @@
 
 
 <#-- 树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->
-<#macro tree id node type display="" actual="" checkable=false dynamic=false>
+<#macro tree id type node="" display="" actual="" checkable=false dynamic=false>
 	
 	<script type="text/javascript">
 	 	$(document).ready(function(){
@@ -111,7 +111,7 @@
 
 
 <#-- 弹出树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->
-<#macro popuptree id node type display="" actual="" checkable=false dynamic=false>
+<#macro popuptree id type node="" display="" actual="" checkable=false dynamic=false>
 	
 	<script type="text/javascript">
 		var _dialog;    

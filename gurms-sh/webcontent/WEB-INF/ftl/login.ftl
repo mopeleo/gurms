@@ -65,7 +65,9 @@
 			if($("#dynamicIframe #" + divid + "_div").length == 1){
 				$("#dynamicIframe div").hide();
 				$("#dynamicIframe #" + divid + "_div").show();
-//				alert($("#dynamicIframe #" + divid + "_div").children().eq(0).attr("src"));
+				if($("#dynamicTitle #" + divid + "_li div").eq(0).hasClass("changebodylefton")){
+					$("#dynamicIframe #" + divid + "_div").children().eq(0).attr("src", url);
+				}
 	
 				$("#dynamicTitle .changebodylefton").removeClass().addClass("changebodyleftout");
 				$("#dynamicTitle .changebodymiddleon").removeClass().addClass("changebodymiddleout");

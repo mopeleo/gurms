@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
-                        <td><@c.dynamictree id="sysorg.orgid" ajaxurl="${base}/sysorg/ajaxOrgTree" display="${(result.sysorg.shortname)!!}" actual="${(result.sysorg.orgid)!!}" /></td>
+                        <td><@c.popuptree id="sysorg.orgid" type="${base}/sysorg/ajaxOrgTree" display="${(result.sysorg.shortname)!!}" actual="${(result.sysorg.orgid)!!}" dynamic=true/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户角色</td>
@@ -62,7 +62,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
-                        <td><@c.dynamictree id="sysorg.orgid" ajaxurl="${base}/sysorg/ajaxOrgTree" /></td>
+                        <td><@c.popuptree id="sysorg.orgid" type="${base}/sysorg/ajaxOrgTree" dynamic=true /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户角色</td>
