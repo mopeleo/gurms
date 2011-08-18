@@ -58,7 +58,7 @@
 			$("div.secondmenu a").removeClass("menuon").removeClass("menulion");
 			if($(obj).closest("ul").hasClass("menuliblock")){
 				$(obj).addClass("menulion");
-			}else{
+			}else if($(obj).closest("ul").hasClass("menublock")){
 				$(obj).addClass("menuon");			
 			}
 
@@ -163,7 +163,7 @@
         	<div class="logo_rt">
             	<a href="${base}/">首页</a><span>|</span>
             	<a href="#">桌面快捷</a><span>|</span>
-            	<a href="sysuser/password" target="rightiframe">修改密码</a><span>|</span>
+            	<a href="#" onclick="openwindow(this,'1001003','密码修改','sysuser/password')" target="rightiframe">修改密码</a><span>|</span>
             	<a href="logout">注销</a><span>|</span>
             	<a href="#" onclick="window.close();">退出</a>
             </div>
