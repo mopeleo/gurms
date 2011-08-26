@@ -36,7 +36,7 @@
 							<td>${org.linkman}</td>
 							<td>${org.linktel}</td>
 							<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
-							<td><@c.dict dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_EFFECT}" dictcode="${org.orgstatus}"/></td>
+							<td><@c.dictdesc dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_EFFECT}" dictcode="${org.orgstatus}"/></td>
 						</tr>
 					</#list>
 				</table>

@@ -9,13 +9,15 @@
 <link href="${base}/css/livevalidation.css" type="text/css" rel="stylesheet"/>
 <link href="${base}/css/jquery.multiselect2side.css" type="text/css" rel="stylesheet"/>
 <link href="${base}/css/treeview/jquery.treeview.css" type="text/css" rel="stylesheet"/>
+<link href="${base}/css/lhgcalendar/lhgcalendar.css" type="text/css" rel="stylesheet"/>
 
 <script src="${base}/js/jquery-1.6.2.min.js" type="text/javascript"></script>
 <script src="${base}/js/jquery.treeview.js" type="text/javascript"></script>
 <script src="${base}/js/jquery.treeview.edit.js" type="text/javascript"></script>
 <script src="${base}/js/jquery.treeview.async.js" type="text/javascript"></script>
+<script src="${base}/js/common.js" type="text/javascript"></script>
+<script src="${base}/js/dialog.js" type="text/javascript"></script>
+<script src="${base}/js/lhgcalendar.js" type="text/javascript"></script>
 <script src="${base}/js/jquery.form.js" type="text/javascript"></script>
 <script src="${base}/js/livevalidation_standalone.js" type="text/javascript"></script>
-<script src="${base}/js/dialog.js" type="text/javascript"></script>
-<script src="${base}/js/common.js" type="text/javascript"></script>
 

@@ -15,7 +15,14 @@
 </#macro> 
 
 
-<#macro select id dicttype="" default="" nullable=false>  
+<#macro dictdesc dicttype dictcode>  
+	<#list context_dict[dicttype] as dict>
+		<#if dict.dictcode=dictcode>${dict.dictvalue}</#if>
+	</#list>
+</#macro> 
+
+
+<#macro dict id dicttype="" default="" nullable=false>  
 	<select class="selectstyle" name="${id}" id="${id}">
 		<#if nullable>
 			<option>-请选择-</option>
@@ -52,13 +59,6 @@
 			<option value="${obj.roleid}" <#if right?seq_contains(obj)>selected="selected"</#if> >${obj.rolename}</option>
 		</#list>
 	</select>
-</#macro> 
-
-
-<#macro dict dicttype dictcode>  
-	<#list context_dict[dicttype] as dict>
-		<#if dict.dictcode=dictcode>${dict.dictvalue}</#if>
-	</#list>
 </#macro> 
 
 
