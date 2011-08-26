@@ -50,11 +50,11 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>
-	                        <td><input type="text" name="startdate" value="${result.startdate}" /></td>
+	                        <td><@c.calendar id="startdate" default="${result.startdate}" nextdate="enddate"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">失效日期</td>
-	                        <td><input type="text" name="enddate" value="${result.enddate}" /></td>
+	                        <td><@c.calendar id="enddate" default="${result.enddate}" predate="startdate"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>

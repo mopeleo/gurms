@@ -17,7 +17,7 @@
 <script src="${base}/js/jquery.treeview.async.js" type="text/javascript"></script>
 <script src="${base}/js/common.js" type="text/javascript"></script>
 <script src="${base}/js/dialog.js" type="text/javascript"></script>
-<script src="${base}/js/lhgcalendar.js" type="text/javascript"></script>
+<script src="${base}/js/lhgcalendar.min.js" type="text/javascript"></script>
 <script src="${base}/js/jquery.form.js" type="text/javascript"></script>
 <script src="${base}/js/livevalidation_standalone.js" type="text/javascript"></script>
 

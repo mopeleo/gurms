@@ -62,6 +62,23 @@
 </#macro> 
 
 
+<#macro calendar id default="" predate="" nextdate="">
+	<input id="${id}" name="${id}" type="text" value="${default}" readonly="true">&nbsp;<img id="_img${id}" src="${base}/img/icon_time.gif"/>
+	<script type="text/javascript">
+		$(function(){ 
+		    $('#_img${id}').calendar({
+		    	id:'${id}',
+		    	btnBar:false,
+		    	<#if predate != "">minDate:'#${predate}',</#if>
+		    	<#if nextdate != "">maxDate:'#${nextdate}',</#if>
+		    	format:'yyyyMMdd',
+		    	targetFormat:'yyyyMMdd'
+		    }); 
+		}); 	
+	</script>
+</#macro>
+
+
 <#macro recorg orgnode><li><span id="${orgnode.orgid}" class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span><#if orgnode.suborgs?size != 0><ul><#list orgnode.suborgs as org><@c.recorg org /></#list></ul></#if></li></#macro> 
 
 
