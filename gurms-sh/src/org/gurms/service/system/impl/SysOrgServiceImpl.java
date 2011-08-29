@@ -11,7 +11,6 @@ import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.PropertyFilter.MatchType;
-import org.gurms.entity.system.SysMenu;
 import org.gurms.entity.system.SysOrg;
 import org.gurms.service.system.SysOrgService;
 import org.slf4j.Logger;
