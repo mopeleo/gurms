@@ -4,7 +4,7 @@
 </head>
 
 <body>
-	<span>${bundle("0001",session_user.userid)},${bundle("9000")}</span>
-	<span>${statics["org.gurms.common.config.GlobalParam"].STRING_SEPARATOR}</span>
+	<span>${bundle("0001",session_user.userid,session_user.logincount,session_user.logindate+session_user.logintime)}</span>
+	<span>${bundle("9000")}[${statics["org.gurms.common.config.GlobalParam"].STRING_SEPARATOR}]</span>
 </body>
 </html>

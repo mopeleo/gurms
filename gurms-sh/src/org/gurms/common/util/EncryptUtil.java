@@ -96,7 +96,7 @@ public class EncryptUtil {
 	 */
 	public static void main(String[] args) {
 		//202cb962ac59075b964b07152d234b70 === 123
-		String s = "111111";
+		String s = "wym123";
 		try {
 			System.out.println(s.getBytes().length);
 			System.out.println(md5Encode(s));

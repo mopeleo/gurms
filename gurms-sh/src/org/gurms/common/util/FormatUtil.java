@@ -2,15 +2,17 @@ package org.gurms.common.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class FormatUtil {
 
 	private static final String symbol = "\r\n\t";
-	private static final String pattern_time = "HHmmss";
-	private static final String pattern_date = "yyyyMMdd";
-	private static final String pattern_fulltime = "yyyyMMddHHmmss";
+	public static final String pattern_time = "HHmmss";
+	public static final String pattern_date = "yyyyMMdd";
+	public static final String pattern_fulltime = "yyyyMMddHHmmss";
 
 	private FormatUtil(){}
 	
@@ -50,5 +52,26 @@ public class FormatUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf.applyPattern(pattern);
 		return sdf.format(Calendar.getInstance().getTime());
+	}
+	
+	public static Date getDate(String pattern, String datestring) throws ParseException{
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf.applyPattern(pattern);
+		return sdf.parse(datestring);
+	}
+	
+	public static void main(String[] args) {
+		Date d = null;
+		try {
+			d = getDate(pattern_fulltime,"20110828171900");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date d2 = new Date();
+		System.out.println(d.getTime());
+		System.out.println(d2.getTime());
+		System.out.println(System.currentTimeMillis());
+		System.out.println((d2.getTime()-d.getTime())/1000);
 	}
 }
