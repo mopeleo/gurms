@@ -10,7 +10,7 @@ import org.gurms.common.exception.GurmsException;
 
 public class EncryptUtil {
 
-	private final static String DESKEY = "kjdp"; // 默认密钥
+	private final static String DESKEY = "gurms"; // 默认密钥
 	private final static String MD5 = "MD5";
 	private final static String DES = "DES";
 	private final static char hexDigits[] = { '0', '1', '2', '3', '4', '5',
