@@ -18,6 +18,9 @@ public interface SysUserService{
 	
 	public void delete(String id);
 	
+	@GurmsValid(type=SysUser.class, props={"userid","loginpassword"})
+	public PageResult<SysUser> login(SysUser user);
+	
 	public boolean isAdmin(String userid);
 	
 	@GurmsValid(type=SysUser.class, props={"userid","loginpassword"})

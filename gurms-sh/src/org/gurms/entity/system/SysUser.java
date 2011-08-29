@@ -29,6 +29,8 @@ public class SysUser implements Serializable {
 	private String username;
 	private String logintime;
 	private String logindate;
+	private String errortime;
+	private String errordate;
 	private String onlineflag;
 	private String userstatus;
 	private String loginpassword;
@@ -43,6 +45,7 @@ public class SysUser implements Serializable {
 	/////扩展属性，非持久层属性
 	private String sysroleids;
 	private String oldpassword;
+	private String loginip;
 
 	@Id
 	public String getUserid() {
@@ -148,6 +151,22 @@ public class SysUser implements Serializable {
 		this.getSysroles().add(role);
 	}
 	
+	public String getErrortime() {
+		return errortime;
+	}
+
+	public void setErrortime(String errortime) {
+		this.errortime = errortime;
+	}
+
+	public String getErrordate() {
+		return errordate;
+	}
+
+	public void setErrordate(String errordate) {
+		this.errordate = errordate;
+	}
+
 	public boolean equals(Object o) {
 		if (o == null || !(o instanceof SysUser)) {
 			return false;
@@ -186,4 +205,12 @@ public class SysUser implements Serializable {
 		this.oldpassword = oldpassword;
 	}
 
+	@Transient
+	public String getLoginip() {
+		return loginip;
+	}
+
+	public void setLoginip(String loginip) {
+		this.loginip = loginip;
+	}
 }

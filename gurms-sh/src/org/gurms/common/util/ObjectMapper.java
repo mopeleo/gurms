@@ -23,11 +23,19 @@ public class ObjectMapper {
 	 */
 	private static DozerBeanMapper dozer = new DozerBeanMapper();
 
+	public static DozerBeanMapper getDozer(){
+		return dozer;
+	}
+	
 	/**
 	 * 基于Dozer转换对象的类型.
 	 */
 	public static <T> T map(Object source, Class<T> destinationClass) {
 		return dozer.map(source, destinationClass);
+	}
+
+	public static void map(Object source, Object destination) {
+		dozer.map(source, destination);
 	}
 
 	/**
