@@ -2,11 +2,13 @@ package org.gurms.web.controller.system;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.gurms.entity.system.SysParam;
 import org.gurms.service.system.SysParamService;
+import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
 import org.gurms.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,13 @@ public class SysParamController extends BaseController {
 				paramList.add(new SysParam(paramids[i], paramvalues[i]));
 			}
 			sysParamService.save(paramList);
+			
+			//更新缓存
+			Map<String, String> paramMap = (Map<String, String>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_PARAM);
+			for(SysParam param : paramList){
+				paramMap.put(param.getParamid(), param.getParamvalue());
+			}
+
 		}
 		return redirect(PARAM_LIST);
 	}
