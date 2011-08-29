@@ -9,8 +9,9 @@
 <link rel="stylesheet" type="text/css" href="css/livevalidation.css"/>
 <script src="js/jquery-1.6.2.min.js" type="text/javascript"></script>
 <script src="js/jquery.form.js" type="text/javascript"></script>
-<script src="js/livevalidation_standalone.js" type="text/javascript"></script>
+<script src="js/md5.js" type="text/javascript"></script>
 <script src="js/common.js" type="text/javascript"></script>
+<script src="js/livevalidation_standalone.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -21,6 +22,18 @@
 			  }
 		);
 	});
+
+	function preSubmit(formData){
+		for(var i = 0; i < formData.length; i++){
+			if(formData[i]['name'] == 'loginpassword'){
+				var pw = formData[i]['value'];
+				formData[i]['value'] = get_md5_string(pw);
+				break;
+			}
+		}
+
+		return true;
+	}
 	
 	function afterReturn(result, status){
 		if(result['success']){
@@ -43,11 +56,11 @@
             	<tr><td colspan="2"><span class="orange">&nbsp;</span></td></tr>
             	<tr>
                 	<td>用户名：</td>
-                    <td><input type="text" name="userid"/></td>
+                    <td><input type="text" id="userid" name="userid"/></td>
                 </tr>
                 <tr>
                 	<td>密　码：</td>
-                    <td><input type="password" name="loginpassword"/></td>
+                    <td><input type="password" id="loginpassword" name="loginpassword"/></td>
                 </tr>
                 <tr><td colspan="2"><span>&nbsp;</span></td></tr>
                 <tr>
