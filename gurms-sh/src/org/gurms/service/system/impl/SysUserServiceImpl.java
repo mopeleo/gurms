@@ -137,6 +137,7 @@ public class SysUserServiceImpl implements SysUserService{
 				result.setReturnmsg("输入的原密码错误!");
 				result.setSuccess(false);			
 			}else{
+				u.setLoginpassword(user.getLoginpassword());
 				sysUserDao.save(u);
 			}
 		}catch(Exception e){
@@ -221,7 +222,7 @@ public class SysUserServiceImpl implements SysUserService{
 			sll.setLogindate(currentDate);
 			sll.setLogintime(currentTime);
 			sll.setLoginip(user.getLoginip());
-			sll.setLoginpassword(u.getLoginpassword());
+			sll.setLoginpassword(user.getLoginpassword());
 			sll.setSuccess(result.isSuccess() ? GlobalParam.DICT_YESORNO_YES : GlobalParam.DICT_YESORNO_NO);
 			sysLogLoginDao.save(sll);
 		}
