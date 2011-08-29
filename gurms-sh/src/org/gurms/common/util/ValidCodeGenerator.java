@@ -10,7 +10,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class ValidateCodeGenerater {
+public class ValidCodeGenerator {
 	private static char[] CODES;
 	static {
 		CODES = new char[('z' - 'a' + 1) + ('Z' - 'A' + 1)];
