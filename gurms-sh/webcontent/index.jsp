@@ -16,7 +16,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$.get('validscript',
-			  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword'},
+			  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,loginpassword,validcode'},
 			  function(data){
 				$("head").append(data); //alert(data);
 			  }
@@ -40,6 +40,8 @@
 			forward('login');
 		}else{
 			$("span.orange").text(result['returnmsg']);
+			var imgsrc = 'validcode?' + new Date().getTime();
+			$("#validcode_img").attr("src",imgsrc);
 		}
 	}
 	
@@ -62,7 +64,14 @@
                 	<td>密　码：</td>
                     <td><input type="password" id="loginpassword" name="loginpassword"/></td>
                 </tr>
-                <tr><td colspan="2"><span>&nbsp;</span></td></tr>
+                <tr>
+                	<td>验证码：</td>
+                    <td><input type="text" id="validcode" name="validcode"/></td>
+                </tr>
+                <tr>
+                	<td></td>
+                    <td><img onclick="this.src='validcode'+'?'+new Date().getTime();" id="validcode_img" src="validcode" style="cursor:pointer;border:1px solid #555"/><p>点击换一张</p></td>
+                </tr>
                 <tr>
                     <td colspan="2">
                     	<input type="submit" class="button" value="登录" />

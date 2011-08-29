@@ -29,6 +29,10 @@ public class SysLogServiceImpl implements SysLogService{
 	@Override
 	@Transactional(readOnly = true)
 	public PageResult<SysLogLogin> queryLogin(Map<String, Object> request, PageRequest page) {
+		if(!page.isOrderBySetted()){
+			page.setOrderBy("logindate,logintime");
+			page.setOrderDir("desc,desc");
+		}
 		return sysLogLoginDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}
 

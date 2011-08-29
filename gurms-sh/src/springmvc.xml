@@ -22,7 +22,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/*" />
 			<bean class="org.gurms.web.spring.ControllerInterceptor">
-				<property name="ignoreSession" value="validscript,login" />
+				<property name="ignoreSession" value="validscript,validcode,login" />
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

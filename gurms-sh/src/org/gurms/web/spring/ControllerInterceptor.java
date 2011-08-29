@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.exception.GurmsException;
 import org.gurms.common.util.CommonUtil;
 import org.gurms.entity.system.SysMenu;
 import org.gurms.web.ServletUtil;
@@ -36,7 +37,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 		if(!CommonUtil.existSuffix(requestUrl,ignoreSuffix)){
 			Object user = request.getSession().getAttribute(WebConstants.S_KEY_USER);
 			if(user == null){
-				return false;
+				throw new GurmsException("用户信息不存在，请重新登录");
 			}
 		}
 
@@ -47,7 +48,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 			SysMenu privilege = (SysMenu)request.getSession().getAttribute(WebConstants.S_KEY_MENU);
 			//再判断用户是否有权限
 			if(!hasPrivilege(requestUrl, privilege)){
-				return false;
+				throw new GurmsException("您没有此权限");
 			}
 		}			
 		return true;

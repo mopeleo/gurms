@@ -8,10 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
-import org.gurms.common.util.ValidateCodeGenerater;
+import org.gurms.common.util.ValidCodeGenerator;
 import org.gurms.common.validate.GurmsValid.FilterType;
 import org.gurms.common.validate.GurmsValidator;
-import org.gurms.entity.PropertyFilter.MatchType;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
 import org.springframework.stereotype.Controller;
@@ -21,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CommonController extends BaseController {
 
 	// 生成验证码
-	@RequestMapping("/validatecode")
+	@RequestMapping("/validcode")
 	public void genValidateCodeImg(HttpSession session, HttpServletResponse response) {
 		try {
 			response.setContentType(ServletUtil.IMG_TYPE);
-			String code = ValidateCodeGenerater.generate(response.getOutputStream());
+			String code = ValidCodeGenerator.generate(response.getOutputStream());
 			session.setAttribute(WebConstants.S_KEY_VALIDCODE, code);
 		} catch (IOException e) {
 			e.printStackTrace();
