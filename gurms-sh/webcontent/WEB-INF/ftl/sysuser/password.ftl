@@ -1,4 +1,5 @@
 <@c.html title="用户信息">
+	<script src="${base}/js/md5.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$.get('${base}/validscript',
@@ -9,6 +10,21 @@
 			);
 		});
 		
+		function preSubmit(formData){
+			for(var i = 0; i < formData.length; i++){
+				if(formData[i]['name'] == 'loginpassword'){
+					var pw = formData[i]['value'];
+					formData[i]['value'] = get_md5_string(pw);
+				} else if(formData[i]['name'] == 'oldpassword'){
+					var pw = formData[i]['value'];
+					formData[i]['value'] = get_md5_string(pw);
+				}
+				
+			}
+	
+			return true;
+		}
+
 		function afterReturn(result, status){
 			new Dialog(result['returnmsg']).show();
 			$('#ajaxform').clearForm();
