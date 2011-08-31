@@ -185,6 +185,8 @@ public class HibernateDao<T> extends SimpleHibernateDao<T> {
 		c.setFirstResult(pageRequest.getOffset());
 		c.setMaxResults(pageRequest.getPageSize());
 
+		setDefaultOrderBy(c, pageRequest);
+		
 		if (pageRequest.isOrderBySetted()) {
 			for (Sort sort : pageRequest.findSort()) {
 				if (Sort.ASC.equals(sort.getDir())) {
@@ -197,6 +199,23 @@ public class HibernateDao<T> extends SimpleHibernateDao<T> {
 		return c;
 	}
 
+	/**
+	 * 设置默认的排序参数到Criteria对象,辅助函数.
+	 */
+	protected void setDefaultOrderBy(final Criteria c, final PageRequest pageRequest){
+	}
+	
+	protected void setOrderByToCriteria(final Criteria c, final PageRequest pageRequest, Sort orderBy){
+		List<Sort> sorts = pageRequest.findSort();
+		if(!sorts.contains(orderBy)){
+			if(Sort.ASC.equals(orderBy.getDir())){
+				c.addOrder(Order.asc(orderBy.getProperty()));
+			}else{
+				c.addOrder(Order.desc(orderBy.getProperty()));
+			}
+		}
+	}
+	
 	/**
 	 * 执行count查询获得本次Hql查询所能获得的对象总数.
 	 * 

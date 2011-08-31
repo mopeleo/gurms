@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalConfig;
+import org.gurms.entity.system.SysMenu;
 
 /**
  * 分页参数封装类.
@@ -81,6 +82,25 @@ public class PageRequest {
 	public void setOrderBy(final String orderBy) {
 		this.orderBy = orderBy;
 	}
+	
+	/**
+	 * 增加排序字段, 只能单个增加.
+	 */
+	public void addOrderBy(String orderBy, String orderDir){
+		if(isOrderBySetted()){
+			String dir = StringUtils.lowerCase(orderDir);
+			if (!StringUtils.equals(Sort.DESC, dir) && !StringUtils.equals(Sort.ASC, dir)) {
+				throw new IllegalArgumentException("排序方向" + orderDir + "不是合法值");
+			}
+			if(this.orderBy.indexOf(orderBy) != -1){
+				this.orderBy += "," + orderBy;
+				this.orderDir += "," + dir;
+			}
+		}else{
+			setOrderBy(orderBy);
+			setOrderDir(orderDir);
+		}
+	}
 
 	/**
 	 * 获得排序方向, 无默认值.
@@ -112,6 +132,10 @@ public class PageRequest {
 	 * 获得排序参数.
 	 */
 	public List<Sort> findSort() {
+		if(StringUtils.isBlank(orderBy)){
+			return new ArrayList<Sort>();
+		}
+
 		String[] orderBys = StringUtils.split(orderBy, ',');
 		String[] orderDirs = null;
 		
@@ -182,6 +206,25 @@ public class PageRequest {
 
 		public String getDir() {
 			return dir;
+		}
+		
+		public boolean equals(Object o){
+			if (o == null || !(o instanceof Sort)) {
+				return false;
+			} else {
+				Sort s = (Sort) o;
+				if (s.getProperty() == null) {
+					return false;
+				} else {
+					return s.getProperty().equals(property);
+				}
+			}
+		}
+		
+		public int hashCode(){
+			if (property == null)
+				return super.hashCode();
+			return property.hashCode();
 		}
 	}
 }

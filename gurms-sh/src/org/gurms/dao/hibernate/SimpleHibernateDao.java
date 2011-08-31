@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.gurms.common.util.ReflectionUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -132,7 +133,7 @@ public class SimpleHibernateDao<T>{
 	}
 
 	/**
-	 *	获取全部对象,支持排序.
+	 *	获取全部对象,支持单个字段排序.
 	 *	@param order 排序方向,可选值为asc 或 desc.
 	 */
 	public List<T> getAll(String orderBy, boolean isAsc) {
@@ -141,6 +142,34 @@ public class SimpleHibernateDao<T>{
 			c.addOrder(Order.asc(orderBy));
 		} else {
 			c.addOrder(Order.desc(orderBy));
+		}
+		return c.list();
+	}
+
+	/**
+	 *	获取全部对象,支持多个字段排序.
+	 *	@param order 排序方向,可选值为asc 或 desc.
+	 */
+	public List<T> getAll(String orderBy, String orderDir) {
+		//检查order字符串的合法值
+		String[] orderDirs = StringUtils.split(orderDir, ',');
+		String[] orderBys = StringUtils.split(orderBy, ',');
+		if(orderDirs.length != orderBys.length){
+			throw new IllegalArgumentException("排序方向与排序字段不一致");
+		}
+		for (String orderDirStr : orderDirs) {
+			if (!StringUtils.equals("desc", orderDirStr) && !StringUtils.equals("asc", orderDirStr)) {
+				throw new IllegalArgumentException("排序方向" + orderDirStr + "不是合法值");
+			}
+		}
+		
+		Criteria c = createCriteria();
+		for(int i = 0; i < orderBys.length; i++){
+			if(StringUtils.equals("asc", orderDirs[i])){
+				c.addOrder(Order.asc(orderBys[i]));
+			}else{
+				c.addOrder(Order.desc(orderBys[i]));
+			}
 		}
 		return c.list();
 	}

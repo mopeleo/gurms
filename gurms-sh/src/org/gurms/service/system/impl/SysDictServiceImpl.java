@@ -35,9 +35,6 @@ public class SysDictServiceImpl implements SysDictService {
 	@Override
 	@Transactional(readOnly = true)
 	public PageResult<SysDict> query(Map<String, Object> request, PageRequest page) {
-		if(!page.isOrderBySetted()){
-			page.setOrderBy("dicttype,dictorder");
-		}
 		return sysDictDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}
 

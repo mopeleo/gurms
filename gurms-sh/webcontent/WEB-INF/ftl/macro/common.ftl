@@ -25,7 +25,7 @@
 <#macro dict id dicttype="" default="" nullable=false>  
 	<select class="selectstyle" name="${id}" id="${id}">
 		<#if nullable>
-			<option>-请选择-</option>
+			<option value="">-请选择-</option>
 		</#if>
 		<#if dicttype="">
 			<#list context_dict?keys as dict>
