@@ -27,12 +27,28 @@
                         <td><input type="text" name="fullname" value="${result.fullname}" /></td>
                     </tr>
                     <tr>
-                        <td class="tdwidth2">机构负责人</td>
+                        <td class="tdwidth2">机构联系人</td>
                         <td><input type="text" name="linkman" value="${result.linkman}" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">联系电话</td>
                         <td><input type="text" name="linktel" value="${result.linktel}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">传真号码</td>
+                        <td><input type="text" name="faxno" value="${result.faxno}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">通信地址</td>
+                        <td><input type="text" name="address" value="${result.address}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">邮政编码</td>
+                        <td><input type="text" name="postcode" value="${result.postcode}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">电子邮件</td>
+                        <td><input type="text" name="email" value="${result.email}" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">上级机构</td>
@@ -70,6 +86,22 @@
                     <tr>
                         <td class="tdwidth2">联系电话</td>
                         <td><input type="text" name="linktel" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">传真号码</td>
+                        <td><input type="text" name="faxno" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">通信地址</td>
+                        <td><input type="text" name="address" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">邮政编码</td>
+                        <td><input type="text" name="postcode" /></td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">电子邮件</td>
+                        <td><input type="text" name="email" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">上级机构</td>

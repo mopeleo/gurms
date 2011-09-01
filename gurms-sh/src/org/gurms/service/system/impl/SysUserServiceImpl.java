@@ -182,6 +182,7 @@ public class SysUserServiceImpl implements SysUserService{
 				
 				u.setLogindate(currentDate);
 				u.setLogintime(currentTime);
+				u.setOnlineflag(GlobalParam.DICT_ONLINEFLAG_YES);
 			//密码错误
 			}else{
 				//距上次锁定间隔是否达到清0条件

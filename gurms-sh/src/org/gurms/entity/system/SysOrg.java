@@ -23,12 +23,16 @@ import org.hibernate.annotations.GenericGenerator;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysOrg implements Serializable {
 	private String orgid;
-	private String remark;
+	private String shortname;
+	private String fullname;
 	private String linkman;
 	private String linktel;
-	private String fullname;
+	private String faxno;
+	private String address;
+	private String postcode;
+	private String email;
 	private String orgstatus;
-	private String shortname;
+	private String remark;
 	private int    orgorder;
 
 	private SysOrg parentorg;
@@ -129,6 +133,38 @@ public class SysOrg implements Serializable {
 
 	public void setLinktel(String linktel) {
 		this.linktel = linktel;
+	}
+
+	public String getFaxno() {
+		return faxno;
+	}
+
+	public void setFaxno(String faxno) {
+		this.faxno = faxno;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getRemark() {

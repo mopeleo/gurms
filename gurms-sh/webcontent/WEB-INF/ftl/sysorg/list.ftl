@@ -24,10 +24,11 @@
 					<tr class="tr1">
 						<td>机构简称</td>
 						<td>机构全称</td>
-						<td>机构负责人</td>
+						<td>机构联系人</td>
 						<td>联系电话</td>
-						<td>上级机构</td>
+						<td>联系地址</td>
 						<td>状态</td>
+						<td>上级机构</td>
 					</tr>
 					<#list result.result as org>
 						<tr>
@@ -35,8 +36,9 @@
 							<td>${org.fullname}</td>
 							<td>${org.linkman}</td>
 							<td>${org.linktel}</td>
-							<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
+							<td>${org.address}</td>
 							<td><@c.dictdesc dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_EFFECT}" dictcode="${org.orgstatus}"/></td>
+							<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
 						</tr>
 					</#list>
 				</table>

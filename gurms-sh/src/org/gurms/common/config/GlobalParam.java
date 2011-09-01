@@ -15,6 +15,10 @@ public class GlobalParam {
 	public static final String PARAM_LOCKTIME = "004";
 	
 	//数据库字典
+	public static final String DICT_ONLINEFLAG = "0001";
+	public static final String DICT_ONLINEFLAG_YES = "1";
+	public static final String DICT_ONLINEFLAG_NO  = "0";
+
 	public static final String DICT_YESORNO = "0003";
 	public static final String DICT_YESORNO_YES = "1";
 	public static final String DICT_YESORNO_NO  = "0";
