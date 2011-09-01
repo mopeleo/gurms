@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.FormatUtil;
 import org.gurms.common.util.ObjectMapper;
@@ -118,7 +117,7 @@ public class SysUserServiceImpl implements SysUserService{
 		SysUser user = sysUserDao.get(userid);
 		boolean isAdmin = false;
 		for(SysRole role : user.getSysroles()){
-			if(GlobalConfig.ID_SYS_ROLE_SYSTEM.equals(role.getRoleid())){
+			if(GlobalParam.SYSTEM_ROLE.equals(role.getRoleid())){
 				isAdmin = true;
 				break;
 			}

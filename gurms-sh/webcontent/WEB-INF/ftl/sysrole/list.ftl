@@ -29,6 +29,7 @@
 						<td>失效日期</td>
 					</tr>
 					<#list result.result as role>
+						<#if role.roleid != statics["org.gurms.common.config.GlobalParam"].SYSTEM_ROLE>
 						<tr>
 							<td><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
 							<td>${role.roletype}</td>
@@ -36,6 +37,7 @@
 							<td>${role.startdate}</td>
 							<td>${role.enddate}</td>
 						</tr>
+						</#if>
 					</#list>
 				</table>
 			</div>

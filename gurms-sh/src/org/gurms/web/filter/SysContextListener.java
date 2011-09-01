@@ -7,15 +7,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalMessage;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.SpringUtil;
 import org.gurms.entity.system.SysDict;
 import org.gurms.entity.system.SysMenu;
-import org.gurms.entity.system.SysOrg;
 import org.gurms.service.system.SysDictService;
 import org.gurms.service.system.SysMenuService;
-import org.gurms.service.system.SysOrgService;
 import org.gurms.service.system.SysParamService;
 import org.gurms.web.WebConstants;
 import org.slf4j.Logger;
@@ -61,7 +59,7 @@ public class SysContextListener implements ServletContextListener {
 		logger.info("cache sys_param data success......");
 		
 		SysMenuService menuService = SpringUtil.getBean("sysMenuServiceImpl");
-		SysMenu menuList = menuService.getMenuTree(GlobalConfig.ID_SYS_MENU_ROOT);
+		SysMenu menuList = menuService.getMenuTree(GlobalParam.MENU_ROOTID);
 		context.setAttribute(WebConstants.C_KEY_MENU, menuList);
 		logger.info("cache sys_menu data success......");
 		

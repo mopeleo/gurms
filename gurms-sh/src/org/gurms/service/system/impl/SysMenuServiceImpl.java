@@ -3,7 +3,7 @@ package org.gurms.service.system.impl;
 import java.util.Iterator;
 import java.util.List;
 
-import org.gurms.common.config.GlobalConfig;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.dao.hibernate.system.SysMenuDao;
 import org.gurms.entity.system.SysMenu;
 import org.gurms.service.system.SysMenuService;
@@ -38,8 +38,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Transactional(readOnly = true)
 	public SysMenu getUserMenuTree(String userid, SysMenu root) {
 		SysMenu allMenu = null;
-		if(root == null || !GlobalConfig.ID_SYS_MENU_ROOT.equals(root.getMenuid())){
-			allMenu = getMenuTree(GlobalConfig.ID_SYS_MENU_ROOT);
+		if(root == null || !GlobalParam.MENU_ROOTID.equals(root.getMenuid())){
+			allMenu = getMenuTree(GlobalParam.MENU_ROOTID);
 		}else{
 			allMenu = root;
 		}

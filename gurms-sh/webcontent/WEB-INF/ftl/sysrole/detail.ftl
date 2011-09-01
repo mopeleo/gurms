@@ -93,11 +93,11 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>
-	                        <td><input type="text" name="startdate" /></td>
+	                        <td><@c.calendar id="startdate" nextdate="enddate"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">失效日期</td>
-	                        <td><input type="text" name="enddate" /></td>
+	                        <td><@c.calendar id="enddate" predate="startdate"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>

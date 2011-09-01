@@ -8,7 +8,8 @@ public class GlobalParam {
 	//---------------------系统参数------------------------
 	//系统字符串分隔符
 	public static final String STRING_SEPARATOR = ",";
-	
+	public static final String SYSTEM_ROLE = "system";
+	public static final String MENU_ROOTID = "root";
 	
 	//数据库参数
 	public static final String PARAM_ERRORCOUNT = "003";

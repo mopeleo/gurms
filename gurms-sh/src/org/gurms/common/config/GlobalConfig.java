@@ -13,10 +13,6 @@ public final class GlobalConfig {
     public static final int MIN_PAGESIZE = getIntConfig("min_pagesize");
     public static final int MAX_PAGESIZE = getIntConfig("max_pagesize");
 
-    // ------------数据库------------
-    public static final String ID_SYS_ROLE_SYSTEM = getConfig("id_sys_role_system");
-    public static final String ID_SYS_MENU_ROOT = getConfig("id_sys_menu_root");
-
     private GlobalConfig() {}
 
     public static String getConfig(String key) {
