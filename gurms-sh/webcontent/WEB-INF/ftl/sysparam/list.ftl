@@ -7,17 +7,24 @@
 
             <div class="messagetable">
                 <table>
-				<#list result as param>
+				<#list result?chunk(2) as row>
                     <tr>
-                        <td class="tdwidth2">${param.paramext.paramtitle}：</td>
-                    	<#if param.paramext.distype = "0">
-                        	<td style="text-align:left">${param.paramvalue}</td>
-                    	<#else>
-                    		<td>
-                        	<input type="hidden" name="paramid" value="${param.paramid}"  />
-                        	<input type="text" name="paramvalue" value="${param.paramvalue}"  />
-                        	</td>
-                    	</#if>
+                    	<#list row as param>
+	                        <td class="longtd">${param.paramext.paramtitle}：</td>
+	                    	<#if param.paramext.distype = "1">
+	                    		<td>
+	                        	<input type="hidden" name="paramid" value="${param.paramid}" />
+	                        	<input type="text" name="paramvalue" value="${param.paramvalue}" />
+	                        	</td>
+	                    	<#elseif param.paramext.distype = "2">
+	                    		<td>
+	                        	<input type="hidden" name="paramid" value="${param.paramid}" />
+	                        	<@c.dict id="paramvalue" dicttype="${param.paramext.dicttype}" default="${param.paramvalue}"/>
+	                        	</td>
+	                    	<#else>
+	                        	<td style="text-align:left">${param.paramvalue}</td>
+	                    	</#if>
+	                    </#list>
                     </tr>
 		        </#list>
                 </table>

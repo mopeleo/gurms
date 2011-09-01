@@ -117,6 +117,7 @@ div.table1{background-color:#fff;}
 .messagetable table{padding:0; margin:0; border:0;}
 .messagetable table tr td{text-align:left; height:19px;}
 .messagetable table tr td.tdwidth2{text-align:right; width:140px;}
+.messagetable table tr td.longtd{text-align:right; width:240px;}
 .messagetable table tr td.dialogtd{text-align:left; width:440px;}
 .title_bg{background:url(../img/divtitlebg.gif) repeat-x; height:24px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; line-height:24px; font-weight:bold;}
 .title_bg span{padding-left:8px;}
