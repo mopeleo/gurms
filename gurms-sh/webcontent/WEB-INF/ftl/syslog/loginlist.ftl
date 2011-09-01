@@ -8,6 +8,8 @@
                         <tr>
                             <td>用户ID:</td>
                             <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
+                            <td>登录日期:</td>
+                            <td><@c.calendar id="filter_EQS_logindate" default="${EQS_logindate}"/></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>
@@ -34,7 +36,7 @@
 							<td>${log.logintime}</td>
 							<td>${log.loginpassword}</td>
 							<td>${log.loginip}</td>
-							<td>${log.success}</td>
+							<td><@c.dictdesc dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_YESORNO}" dictcode="${log.success}"/></td>
 						</tr>
 					</#list>
 				</table>
