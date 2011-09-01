@@ -272,8 +272,7 @@
     <div id="foot">
     	<div class="foot_div">
         	<ul>
-            	<li>${bundle("0001",session_user.username)}</li>
-                <li>交易日期：<span>2011年4月19日10:27:30</span></li>
+            	<li>${bundle("0001",session_user.username,session_user.logincount,session_user.logindate+session_user.logintime)}</li>
                 <li class="foot_divli3">金证科技股份有限公司  <span>金证信托综合业务平台  </span><span>版本号：3.0</span></li>
             </ul>
         </div>
