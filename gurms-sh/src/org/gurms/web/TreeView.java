@@ -16,11 +16,12 @@ public class TreeView {
 	
 	private TreeView(){}
 	
-	public static TreeView getSysOrgTree(SysOrg org){
+	public static TreeView getSysOrgTree(SysOrg org, String endnode){
 		TreeView tree = new TreeView();
 		tree.setId(org.getOrgid());
 		tree.setText(org.getShortname());
-		if(org.getSuborgs().size() > 0){
+		List<SysOrg> suborgs = org.getSuborgs();		
+		if(suborgs.size() > 0 && !org.getOrgid().equals(endnode)){
 			tree.setClasses("folder");
 			tree.setHasChildren(true);
 		}else{

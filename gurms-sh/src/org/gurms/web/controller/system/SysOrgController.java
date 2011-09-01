@@ -65,15 +65,15 @@ public class SysOrgController extends BaseController {
 
 	@RequestMapping
 	@ResponseBody
-	public List<TreeView> ajaxOrgTree(String root){
+	public List<TreeView> ajaxOrgTree(String root, String endnode){
 		List<TreeView> list = new ArrayList<TreeView>();
 		if(StringUtils.isBlank(root)){
 			SysOrg org = orgService.getRoot();
-			list.add(TreeView.getSysOrgTree(org));
+			list.add(TreeView.getSysOrgTree(org, endnode));
 		}else{
 			SysOrg org = orgService.get(root);
 			for(SysOrg o : org.getSuborgs()){
-				list.add(TreeView.getSysOrgTree(o));
+				list.add(TreeView.getSysOrgTree(o, endnode));
 			}
 		}		
 		return list;
