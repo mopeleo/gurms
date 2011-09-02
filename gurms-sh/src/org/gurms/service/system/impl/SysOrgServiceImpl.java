@@ -1,16 +1,13 @@
 package org.gurms.service.system.impl;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.gurms.common.config.GlobalMessage;
-import org.gurms.common.exception.GurmsException;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.dao.hibernate.system.SysOrgDao;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
-import org.gurms.entity.PropertyFilter.MatchType;
 import org.gurms.entity.system.SysOrg;
 import org.gurms.service.system.SysOrgService;
 import org.slf4j.Logger;
@@ -81,12 +78,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@Override
 	@Transactional(readOnly = true)
 	public SysOrg getRoot() {
-		List<SysOrg> result = sysOrgDao.findBy("parentorg", null, MatchType.NULL);
-		if(result == null || result.size() != 1){
-			logger.warn(GlobalMessage.getMessage("9100"));
-			throw new GurmsException(GlobalMessage.getMessage("9100"));
-		}
-		SysOrg root = result.get(0);
+		SysOrg root = sysOrgDao.get(GlobalParam.ORG_ROOTID);
 //		initOrgs(root);
 		return root;
 	}

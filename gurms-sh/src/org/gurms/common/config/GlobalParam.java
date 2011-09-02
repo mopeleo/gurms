@@ -10,6 +10,7 @@ public class GlobalParam {
 	public static final String STRING_SEPARATOR = ",";
 	public static final String SYSTEM_ROLE = "system";
 	public static final String MENU_ROOTID = "root";
+	public static final String ORG_ROOTID  = "root";
 	
 	//数据库参数
 	public static final String PARAM_ERRORCOUNT = "003";
