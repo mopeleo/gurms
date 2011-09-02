@@ -17,7 +17,8 @@
 
 function load(settings, root, child, container) {
 	function createNode(parent) {
-		var current = $("<li/>").attr("id", this.id || "").html("<span>" + this.text + "</span>").appendTo(parent);
+		var spanid = this.id || "";
+		var current = $("<li/>").attr("id", spanid).html("<span id=" + spanid + ">" + this.text + "</span>").appendTo(parent);
 		if (this.classes) {
 			current.children("span").addClass(this.classes);
 		}
@@ -54,7 +55,7 @@ function load(settings, root, child, container) {
 				}, branch);
 			}
 			if (this.children && this.children.length) {
-				$.each(this.children, createNode, [branch])
+				$.each(this.children, createNode, [branch]);
 			}
 		}
 	}
