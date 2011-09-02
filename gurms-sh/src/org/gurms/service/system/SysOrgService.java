@@ -16,7 +16,7 @@ public interface SysOrgService {
 	@GurmsValid(type=SysOrg.class)
 	public PageResult<SysOrg> save(SysOrg org);
 	
-	public void delete(String id);
+	public PageResult<SysOrg> delete(String id);
 	
 	public SysOrg getRoot();
 }

@@ -71,8 +71,18 @@ public class SysOrgServiceImpl implements SysOrgService {
 	}
 
 	@Override
-	public void delete(String id) {
-		sysOrgDao.delete(id);
+	public PageResult<SysOrg> delete(String id) {
+		PageResult<SysOrg> result = new PageResult<SysOrg>();
+		if(StringUtils.isBlank(id)){
+			result.setSuccess(false);
+			result.setReturnmsg("机构ID不能为空");
+		}else if(id.equals(GlobalParam.ORG_ROOTID)){
+			result.setSuccess(false);
+			result.setReturnmsg("根机构不能删除");
+		}else{
+			sysOrgDao.delete(id);
+		}
+		return result;
 	}
 
 	@Override
