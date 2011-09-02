@@ -227,7 +227,18 @@ public class ReflectionUtil {
 			return ((Map)object).get(fieldName);
 		}
 		
-		Object result = invokeGetterMethod(object, fieldName);
+		Field field = getAccessibleField(object, fieldName);
+		Object result = null;
+		if (field == null){
+			result = invokeGetterMethod(object, fieldName);
+		}else{
+			try {
+				result = field.get(object);
+			} catch (IllegalAccessException e) {
+				logger.error("不可能抛出的异常{}", e.getMessage());
+			}
+		}
+
 		return result;
 	}
 

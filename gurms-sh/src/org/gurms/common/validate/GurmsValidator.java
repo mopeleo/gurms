@@ -7,28 +7,23 @@ import org.gurms.common.validate.GurmsValid.FilterType;
 
 public class GurmsValidator {
 
-	public static String valid(String clzName, String[] props, FilterType filter, Object o){
-		List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter);
+	public static String serverValid(String clzName, String[] props, FilterType filter, Object o){
+		List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter, true);
 		//若没有配置规则，则不验证
 		if(rules == null || rules.size() == 0){
 			return null;
 		}
 		
 		StringBuffer sb = new StringBuffer(2048);
-		if("1".equals(GurmsValidConfig.MSG_TYPE)){
-			for(GurmsValidRule g : rules){
-				g.setValue((String)ReflectionUtil.getFieldValue(o, g.getField()));
-				if(!g.validField()){
+		for(GurmsValidRule g : rules){
+			g.setValue((String)ReflectionUtil.recGetPropertyValue(o, g.getField()));
+			if(!g.validField()){
+				if("1".equals(GurmsValidConfig.MSG_TYPE)){
 					sb.append(g.getMsg()).append(",");
-				}
-			}
-		}else{
-			for(GurmsValidRule g : rules){
-				g.setValue((String)ReflectionUtil.getFieldValue(o, g.getField()));
-				if(!g.validField()){
+				}else{
 					sb.append(g.getJsonMsg()).append(",");
 				}
-			}			
+			}
 		}
 		
 		if(sb.length() > 1){
@@ -54,7 +49,7 @@ public class GurmsValidator {
 		script.append("<script>");
 
 		try{
-			List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter);
+			List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter, false);
 			
 			GurmsValidRule temp = new GurmsValidRule();
 			for(GurmsValidRule g : rules){

@@ -27,7 +27,7 @@ public class GurmsValidInterceptor implements MethodInterceptor {
 			String validMsg = null;
 			for(Object arg : args){
 				if(valid.type().isInstance(arg)){
-					validMsg = GurmsValidator.valid(clzName, props, filter, arg);
+					validMsg = GurmsValidator.serverValid(clzName, props, filter, arg);
 					break;
 				}
 			}
