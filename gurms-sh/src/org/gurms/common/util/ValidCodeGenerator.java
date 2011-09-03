@@ -11,9 +11,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 public class ValidCodeGenerator {
-	private static char[] CODES;
+	private static char[] CODES = new char[52];
 	static {
-		CODES = new char[('z' - 'a' + 1) + ('Z' - 'A' + 1)];
 		int y = 0;
 		for (int i = 'A'; i <= 'Z'; i++) {
 			CODES[y++] = (char) i;
@@ -26,8 +25,7 @@ public class ValidCodeGenerator {
 	public static void generate(OutputStream stream, String code, int width,
 			int height) throws IOException {
 
-		BufferedImage buffImg = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
+		BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = buffImg.createGraphics();
 		Random random = new Random();
 		g.setColor(Color.WHITE);
@@ -35,8 +33,7 @@ public class ValidCodeGenerator {
 		Font font = new Font(Font.DIALOG, Font.PLAIN | Font.BOLD, 25);
 		g.setFont(font);
 		for (int i = 0; i < 200; i++) {
-			g.setColor(new Color(random.nextInt(255), random.nextInt(255),
-					random.nextInt(255)));
+			g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
 			int x = random.nextInt(width);
 			int y = random.nextInt(height);
 			g.drawLine(x, y, x, y);
@@ -44,8 +41,7 @@ public class ValidCodeGenerator {
 		int offX = 10;
 		int offY = 20;
 		for (int i = 0; i < code.length(); i++) {
-			g.setColor(new Color(random.nextInt(128), random.nextInt(128),
-					random.nextInt(128)));
+			g.setColor(new Color(random.nextInt(128), random.nextInt(128), random.nextInt(128)));
 			g.drawString(code.substring(i, i + 1), offX, offY);
 			offX += 23;
 		}
