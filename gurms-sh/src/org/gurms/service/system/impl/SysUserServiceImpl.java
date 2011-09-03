@@ -196,7 +196,7 @@ public class SysUserServiceImpl implements SysUserService{
 						result.setSuccess(false);
 						return result;
 					}
-					if(dif > (Integer.parseInt(locktime.getParamvalue()))*3600*1000){
+					if(dif > (Long.parseLong(locktime.getParamvalue()))*3600*1000){
 						u.setErrorcount(0);
 					}
 				}
