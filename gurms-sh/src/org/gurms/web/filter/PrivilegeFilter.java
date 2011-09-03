@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.gurms.common.config.GlobalMessage;
 import org.gurms.common.exception.GurmsException;
 import org.gurms.common.util.CommonUtil;
 import org.gurms.entity.system.SysMenu;
@@ -49,7 +48,7 @@ public class PrivilegeFilter implements Filter {
 		if(!CommonUtil.existSuffix(requestUrl,ignoreSuffix)){
 			Object user = request.getSession().getAttribute(WebConstants.S_KEY_USER);
 			if(user == null){
-				throw new GurmsException(GlobalMessage.getMessage("9500"));
+				throw new GurmsException("未登录或会话超时，请重新登录");
 			}
 
 			// TODO 菜单、请求的权限
@@ -59,7 +58,7 @@ public class PrivilegeFilter implements Filter {
 				SysMenu privilege = (SysMenu)request.getSession().getAttribute(WebConstants.S_KEY_MENU);
 				//再判断用户是否有权限
 				if(!hasPrivilege(requestUrl, privilege)){
-					throw new GurmsException(GlobalMessage.getMessage("9500"));
+					throw new GurmsException("您没有此权限，请联系管理员");
 				}
 			}			
 		}
