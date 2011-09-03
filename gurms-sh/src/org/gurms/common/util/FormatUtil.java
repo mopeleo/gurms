@@ -60,18 +60,4 @@ public class FormatUtil {
 		return sdf.parse(datestring);
 	}
 	
-	public static void main(String[] args) {
-		Date d = null;
-		try {
-			d = getDate(pattern_fulltime,"20110828171900");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Date d2 = new Date();
-		System.out.println(d.getTime());
-		System.out.println(d2.getTime());
-		System.out.println(System.currentTimeMillis());
-		System.out.println((d2.getTime()-d.getTime())/1000);
-	}
 }
