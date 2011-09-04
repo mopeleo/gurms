@@ -7,7 +7,7 @@
                     <table>
                         <tr>
                             <td>字典类别:</td>
-                            <td><@c.dict id="filter_EQS_dicttype" default="${EQS_dicttype}" nullable=true /></td>
+                            <td><@c.select id="filter_EQS_dicttype" options=context_dicttype default="${EQS_dicttype}" nullable=true /></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>
@@ -53,7 +53,7 @@
             <table>
                 <tr>
                     <td class="tdwidth2">字典类别</td>
-                    <td class="dialogtd"><@c.dict id="dicttype" nullable=true /></td>
+                    <td class="dialogtd"><@c.select id="dicttype" options=context_dicttype nullable=true /></td>
                 </tr>
                 <tr>
                     <td class="tdwidth2">字典代码</td>

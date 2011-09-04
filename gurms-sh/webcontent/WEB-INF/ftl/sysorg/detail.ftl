@@ -57,7 +57,7 @@
                     <tr>
                         <td class="tdwidth2">机构状态</td>
                         <td>
-        					<@c.dict id="orgstatus" default="${result.orgstatus}" dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_EFFECT}"/>
+        					<@c.dict id="orgstatus" default="${result.orgstatus}" dicttype="0002"/>
                         </td>
                     </tr>
                     <tr>
@@ -109,7 +109,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构状态</td>
-						<td><@c.dict id="orgstatus" dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_EFFECT}"/></td>
+						<td><@c.dict id="orgstatus" dicttype="0002"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">排序号</td>

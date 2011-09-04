@@ -36,7 +36,7 @@
 							<td>${log.logintime}</td>
 							<td>${log.loginpassword}</td>
 							<td>${log.loginip}</td>
-							<td><@c.dictdesc dicttype="${statics['org.gurms.common.config.GlobalParam'].DICT_YESORNO}" dictcode="${log.success}"/></td>
+							<td><@c.dictdesc dicttype="0003" dictcode="${log.success}"/></td>
 						</tr>
 					</#list>
 				</table>

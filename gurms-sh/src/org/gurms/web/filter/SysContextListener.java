@@ -51,6 +51,9 @@ public class SysContextListener implements ServletContextListener {
 		SysDictService dictService = SpringUtil.getBean("sysDictServiceImpl");
 		Map<String, List<SysDict>> dictMap = dictService.getDictMap();
 		context.setAttribute(WebConstants.C_KEY_DICT, dictMap);
+		
+		List<SysDict> dictType = dictService.getDictType();
+		context.setAttribute(WebConstants.C_KEY_DICTTYPE, dictType);
 		logger.info("cache sys_dict data success......");
 		
 		SysParamService paramService = SpringUtil.getBean("sysParamServiceImpl");

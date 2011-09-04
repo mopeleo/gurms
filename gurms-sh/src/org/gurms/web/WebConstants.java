@@ -9,6 +9,7 @@ public class WebConstants {
 	
 	//context中的key
 	public static final String C_KEY_DICT = "context_dict";
+	public static final String C_KEY_DICTTYPE = "context_dicttype";
 	public static final String C_KEY_PARAM = "context_param";
 	public static final String C_KEY_MENU = "context_menu";
 	public static final String C_KEY_ORG = "context_org";

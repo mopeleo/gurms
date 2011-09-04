@@ -13,6 +13,7 @@ import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysDict;
 import org.gurms.entity.system.SysDictPK;
 import org.gurms.service.system.SysDictService;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SysDictServiceImpl implements SysDictService {
 
+	private static final String GROUP_CODE = "*";
 	@Autowired
 	private SysDictDao sysDictDao;
 
@@ -73,7 +75,7 @@ public class SysDictServiceImpl implements SysDictService {
 	@Transactional(readOnly = true)
 	public Map<String, List<SysDict>> getDictMap() {
 		Map<String, List<SysDict>> map = new HashMap<String, List<SysDict>>();
-		List<SysDict> list = sysDictDao.getAll();
+		List<SysDict> list = sysDictDao.find(Restrictions.ne("dictcode", GROUP_CODE));
 		if(list != null){
 			Iterator<SysDict> it = list.iterator();
 			while(it.hasNext()){
@@ -93,6 +95,12 @@ public class SysDictServiceImpl implements SysDictService {
 			}
 		}
 		return map;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<SysDict> getDictType() {
+		return sysDictDao.findBy("dictcode", GROUP_CODE);
 	}
 
 }

@@ -21,4 +21,6 @@ public interface SysDictService {
 	public PageResult<SysDict> save(SysDict org);
 	
 	public PageResult<SysDict> delete(SysDictPK id);
+	
+	public List<SysDict> getDictType();
 }

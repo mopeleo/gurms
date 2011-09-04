@@ -15,6 +15,18 @@
 </#macro> 
 
 
+<#macro select id options default="" nullable=false>  
+	<select class="selectstyle" name="${id}" id="${id}">
+		<#if nullable>
+			<option value="">-请选择-</option>
+		</#if>
+		<#list options as option>
+			<option value="${option.dicttype}" <#if option.dicttype=default>selected="selected"</#if>>${option.dicttype} - ${option.dictvalue}</option>
+		</#list>
+	</select>
+</#macro> 
+
+
 <#macro dictdesc dicttype dictcode>  
 	<#list context_dict[dicttype] as dict>
 		<#if dict.dictcode=dictcode>${dict.dictvalue}</#if>
@@ -22,20 +34,14 @@
 </#macro> 
 
 
-<#macro dict id dicttype="" default="" nullable=false>  
+<#macro dict id dicttype default="" nullable=false>  
 	<select class="selectstyle" name="${id}" id="${id}">
 		<#if nullable>
 			<option value="">-请选择-</option>
 		</#if>
-		<#if dicttype="">
-			<#list context_dict?keys as dict>
-				<option value="${dict}" <#if dict=default>selected="selected"</#if>>${dict}</option>
-			</#list>
-		<#else>
-			<#list context_dict[dicttype] as dict>
-				<option value="${dict.dictcode}" <#if dict.dictcode=default>selected="selected"</#if>>${dict.dictvalue}</option>
-			</#list>
-		</#if>
+		<#list context_dict[dicttype] as dict>
+			<option value="${dict.dictcode}" <#if dict.dictcode=default>selected="selected"</#if>>${dict.dictcode} - ${dict.dictvalue}</option>
+		</#list>
 	</select>
 </#macro> 
 
