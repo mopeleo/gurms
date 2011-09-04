@@ -1,3 +1,5 @@
+var VALID_URL = "validscript";
+
 $(document).ready(function(){
 	$("#ajaxform").ajaxForm({
 		beforeSubmit:_beforeSubmit,

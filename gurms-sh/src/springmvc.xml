@@ -6,7 +6,13 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+		<property name="interceptors">
+			<bean class="org.gurms.web.spring.ControllerInterceptor">
+				<property name="ignoreSession" value="validscript,validcode,login" />
+			</bean>
+		</property>
+	</bean>
 
 	<!-- 自动搜索@Controller标注的类 -->
 	<context:component-scan base-package="org.gurms.web.controller" />

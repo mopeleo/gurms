@@ -1,7 +1,7 @@
 <@c.html title="机构信息">
 <script type="text/javascript">	
 	$(document).ready(function(){
-		$.get('${base}/validscript',
+		$.get('${base}/'+VALID_URL,
 			  {className:'org.gurms.entity.system.SysOrg',formId:'ajaxform'},
 			  function(data){
 				$("head").append(data); //alert(data);
