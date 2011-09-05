@@ -1,6 +1,6 @@
 package org.gurms.web.spring;
 
-import org.gurms.entity.EntityExt;
+import org.gurms.entity.Logable;
 import org.gurms.entity.system.SysOrg;
 import org.gurms.entity.system.SysUser;
 import org.gurms.web.WebConstants;
@@ -16,9 +16,9 @@ public class OperatorInjectResolver implements WebArgumentResolver {
 			throws Exception {
 		// TODO Auto-generated method stub
 		Class argType = arg.getParameterType();
-		if(EntityExt.class.isAssignableFrom(argType)){
+		if(Logable.class.isAssignableFrom(argType)){
 			SysUser user = (SysUser)request.getAttribute(WebConstants.S_KEY_USER, RequestAttributes.SCOPE_SESSION);
-			EntityExt ext = (EntityExt)argType.newInstance();
+			Logable ext = (Logable)argType.newInstance();
 			ext.setOperator(user.getUserid());
 			return ext;
 		}
@@ -27,7 +27,7 @@ public class OperatorInjectResolver implements WebArgumentResolver {
 	
 	public static void main(String[] args) {
 		SysOrg user = new SysOrg();
-		System.out.println(user.getClass().isAssignableFrom(EntityExt.class));
+		System.out.println(user.getClass().isAssignableFrom(Logable.class));
 		System.out.println(Object.class.isAssignableFrom(user.getClass()));
 	}
 
