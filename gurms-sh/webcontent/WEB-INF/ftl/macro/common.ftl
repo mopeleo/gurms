@@ -15,13 +15,41 @@
 </#macro> 
 
 
-<#macro select id options default="" nullable=false>  
+<#macro ajaxform action>  
+	<form method="post" id="ajaxform" action="${action}">
+		<input type="hidden" name="operator" id="operator" value="${session_user.userid}">
+        <#nested/>
+    </form>
+</#macro> 
+
+
+<#macro validscript classname formid props="">  
+	<script type="text/javascript">	
+		$(document).ready(function(){
+			$.get('${base}/'+VALID_URL,
+				  {className:'${classname}',formId:'${formid}',props:'${props}'},
+				  function(data){
+					$("head").append(data); //alert(data);
+				  }
+			);
+		})
+	</script>
+</#macro> 
+
+
+<#macro select id options key value default="" nullable=false> 
+	<#assign keySource = "$"+"{option.${key}}"> 
+	<#assign keyTemplate = keySource?interpret>
+	<#assign valueSource = "$"+"{option.${value}}"> 
+	<#assign valueTemplate = valueSource?interpret>
+	<#assign judgeSource = "<#if option.${key}=default>selected=selected</#if>"> 
+	<#assign judgeTemplate = judgeSource?interpret>
 	<select class="selectstyle" name="${id}" id="${id}">
 		<#if nullable>
 			<option value="">-请选择-</option>
 		</#if>
 		<#list options as option>
-			<option value="${option.dicttype}" <#if option.dicttype=default>selected="selected"</#if>>${option.dicttype} - ${option.dictvalue}</option>
+			<option value="<@keyTemplate/>" <@judgeTemplate/>><@keyTemplate/> - <@valueTemplate/></option>
 		</#list>
 	</select>
 </#macro> 
