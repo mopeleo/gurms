@@ -1,6 +1,5 @@
 package org.gurms.entity.system;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -21,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate=true,dynamicInsert=true) 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class SysOrg implements Serializable {
+public class SysOrg extends Logable {
 	private String orgid;
 	private String shortname;
 	private String fullname;

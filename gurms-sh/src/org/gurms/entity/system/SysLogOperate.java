@@ -10,8 +10,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="sys_log")
-public class SysLog implements Serializable{
+@Table(name="sys_log_operate")
+public class SysLogOperate implements Serializable{
 
 	private String logid;
 	private String userid;
