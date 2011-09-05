@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysLogLogin;
+import org.gurms.entity.system.SysLogOperate;
 import org.gurms.service.system.SysLogService;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
@@ -32,6 +33,9 @@ public class SysLogController extends BaseController {
 	
 	@RequestMapping
 	public void operatelist(HttpServletRequest request, PageRequest page, Model model){
-		
+		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
+		PageResult<SysLogOperate> result = sysLogService.queryOperate(requestMap, page);
+		model.addAttribute(WebConstants.KEY_RESULT, result);
+		model.addAllAttributes(requestMap);
 	}
 }
