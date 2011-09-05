@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
-public class EntityExt implements Serializable {
-
+public abstract class Logable implements Serializable {
 	private String operator;
 
 	@Transient
@@ -16,5 +15,4 @@ public class EntityExt implements Serializable {
 	public void setOperator(String operator) {
 		this.operator = operator;
 	}
-	
 }
