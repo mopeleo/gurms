@@ -3,12 +3,12 @@ package org.gurms.dao.hibernate.system;
 import org.gurms.dao.hibernate.HibernateDao;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageRequest.Sort;
-import org.gurms.entity.system.SysLog;
+import org.gurms.entity.system.SysLogOperate;
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SysLogDao extends HibernateDao<SysLog> {
+public class SysLogOperateDao extends HibernateDao<SysLogOperate> {
 	
 	@Override
 	protected void setDefaultOrderBy(final Criteria c, final PageRequest pageRequest){
