@@ -13,21 +13,19 @@ public class GlobalParam {
 	public static final String ORG_ROOTID  = "root";
 	
 	//数据库参数
-	public static final String PARAM_ERRORCOUNT = "003";
-	public static final String PARAM_LOCKTIME = "004";
+	public static final String PARAM_ERRORCOUNT = "0003";
+	public static final String PARAM_LOCKTIME = "0004";
 	
 	//数据库字典
-	public static final String DICT_ONLINEFLAG = "0001";
-	public static final String DICT_ONLINEFLAG_YES = "1";
-	public static final String DICT_ONLINEFLAG_NO  = "0";
-
-	public static final String DICT_YESORNO = "0003";
+	public static final String DICT_YESORNO = "0001";
 	public static final String DICT_YESORNO_YES = "1";
 	public static final String DICT_YESORNO_NO  = "0";
 
-	public static final String DICT_SEX     = "0004";
-	public static final String DICT_EFFECT  = "0002";
-	
+	public static final String DICT_ONLINEFLAG = "0003";
+	public static final String DICT_ONLINEFLAG_YES = "1";
+	public static final String DICT_ONLINEFLAG_NO  = "0";
+
+	public static final String DICT_USERSTATUS = "0005";
 	public static final String DICT_USERSTATUS_NORMAL = "1";
 	public static final String DICT_USERSTSTUS_PWLOCK = "2";
 	

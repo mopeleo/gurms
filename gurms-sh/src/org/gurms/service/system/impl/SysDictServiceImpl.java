@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SysDictServiceImpl implements SysDictService {
 
-	private static final String GROUP_CODE = "*";
+	private static final String GROUP_CODE = "-";
 	@Autowired
 	private SysDictDao sysDictDao;
 
