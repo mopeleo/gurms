@@ -1,6 +1,6 @@
 <@c.html title="机构信息">
 	<@c.validscript classname="org.gurms.entity.system.SysOrg" formid="ajaxform"/>
-	<form method="post" id="ajaxform" action="${base}/sysorg/ajaxSave">
+	<@c.ajaxform action="${base}/sysorg/ajaxSave">
         <div class="messagelist">
             <div class="title_bg">
                 <span>基本信息</span>
@@ -129,6 +129,6 @@
 				</table>
             </div>
         </div>
-	</form>  
+	</@c.ajaxform>  
 
 </@c.html>
