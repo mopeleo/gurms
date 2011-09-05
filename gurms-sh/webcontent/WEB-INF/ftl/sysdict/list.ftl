@@ -35,6 +35,7 @@
 							<td>${dict.remark}</td>
 						</tr>
 					</#list>
+					<@c.filltable rows=result.result?size cols=5 />
 				</table>
 			</div>
 			

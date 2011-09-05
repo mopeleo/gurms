@@ -41,6 +41,7 @@
 							<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
 						</tr>
 					</#list>
+					<@c.filltable rows=result.result?size cols=7 />
 				</table>
 			</div>
 			

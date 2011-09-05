@@ -36,9 +36,10 @@
 							<td>${log.logintime}</td>
 							<td>${log.loginpassword}</td>
 							<td>${log.loginip}</td>
-							<td><@c.dictdesc dicttype="0003" dictcode="${log.success}"/></td>
+							<td><@c.dictdesc dicttype="0001" dictcode="${log.success}"/></td>
 						</tr>
 					</#list>
+					<@c.filltable rows=result.result?size cols=6 />
 				</table>
 			</div>
 			

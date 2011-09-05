@@ -39,6 +39,7 @@
 						</tr>
 						</#if>
 					</#list>
+					<@c.filltable rows=result.result?size cols=5 />
 				</table>
 			</div>
 			

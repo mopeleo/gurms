@@ -45,6 +45,7 @@
 							<td>${user.logintime}</td>
 						</tr>
 					</#list>
+					<@c.filltable rows=result.result?size cols=6 />
 				</table>
 			</div>
 			

@@ -23,6 +23,20 @@
 </#macro> 
 
 
+<#macro filltable rows cols>
+	<#assign pagerows=statics["org.gurms.common.config.GlobalConfig"].MIN_PAGESIZE>
+	<#if rows lt pagerows>
+		<#list 1..(pagerows-rows) as x>
+			<tr onclick="checklist(this)">
+				<#list 1..cols as y>
+					<td>&nbsp;</td>
+				</#list>
+			</tr>
+		</#list>
+	</#if>
+</#macro>
+
+
 <#macro validscript classname formid props="">  
 	<script type="text/javascript">	
 		$(document).ready(function(){
