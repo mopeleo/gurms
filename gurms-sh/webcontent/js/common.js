@@ -23,6 +23,11 @@ $(document).ready(function(){
 	});
 });
 
+function checklist(obj){
+	$(".trcoloryellow").removeClass();
+	$(obj).addClass("trcoloryellow");
+}
+
 var loadingDialog;
 function _beforeSubmit(formData, jqForm, options){
 	// 显示进度条

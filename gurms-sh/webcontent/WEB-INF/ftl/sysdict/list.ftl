@@ -27,7 +27,7 @@
 						<td>说明</td>
 					</tr>
 					<#list result.result as dict>
-						<tr>
+						<tr onclick="checklist(this)">
 							<td>${dict.dicttype}</td>
 							<td>${dict.dictcode}</td>
 							<td>${dict.dictvalue}</td>

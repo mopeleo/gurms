@@ -30,7 +30,7 @@
 						<td>是否成功</td>
 					</tr>
 					<#list result.result as log>
-						<tr>
+						<tr onclick="checklist(this)">
 							<td>${log.userid}</td>
 							<td>${log.logindate}</td>
 							<td>${log.logintime}</td>

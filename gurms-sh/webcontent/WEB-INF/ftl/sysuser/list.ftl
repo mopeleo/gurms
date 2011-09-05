@@ -30,7 +30,7 @@
 						<td>登录时间</td>
 					</tr>
 					<#list result.result as user>
-						<tr>
+						<tr onclick="checklist(this)">
 							<td><a href="${base}/sysuser/detail?userid=${user.userid}" >${user.userid}</a></td>
 							<td>${user.username}</td>
 							<td>${(user.sysorg.shortname)!}</td>

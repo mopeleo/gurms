@@ -30,7 +30,7 @@
 					</tr>
 					<#list result.result as role>
 						<#if role.roleid != statics["org.gurms.common.config.GlobalParam"].SYSTEM_ROLE>
-						<tr>
+						<tr onclick="checklist(this)">
 							<td><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
 							<td>${role.roletype}</td>
 							<td>${role.rolestatus}</td>

@@ -31,7 +31,7 @@
 						<td>上级机构</td>
 					</tr>
 					<#list result.result as org>
-						<tr>
+						<tr onclick="checklist(this)">
 							<td><a href="${base}/sysorg/detail?orgid=${org.orgid}" >${org.shortname}</a></td>
 							<td>${org.fullname}</td>
 							<td>${org.linkman}</td>
