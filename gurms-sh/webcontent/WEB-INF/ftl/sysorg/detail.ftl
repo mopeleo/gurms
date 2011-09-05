@@ -1,14 +1,5 @@
 <@c.html title="机构信息">
-<script type="text/javascript">	
-	$(document).ready(function(){
-		$.get('${base}/'+VALID_URL,
-			  {className:'org.gurms.entity.system.SysOrg',formId:'ajaxform'},
-			  function(data){
-				$("head").append(data); //alert(data);
-			  }
-		);
-	})
-</script>
+	<@c.validscript classname="org.gurms.entity.system.SysOrg" formid="ajaxform"/>
 	<form method="post" id="ajaxform" action="${base}/sysorg/ajaxSave">
         <div class="messagelist">
             <div class="title_bg">
