@@ -16,7 +16,7 @@ public interface SysUserService{
 	
 	public PageResult<SysUser> query(Map<String, Object> request, PageRequest page);
 	
-	public void delete(String id);
+	public PageResult<SysUser> delete(String id);
 	
 	@GurmsValid(type=SysUser.class, props={"userid","loginpassword"})
 	public PageResult<SysUser> login(SysUser user);
