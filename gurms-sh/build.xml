@@ -11,7 +11,9 @@
 	</target>
 
 	<target name="jar">
-		<jar basedir="${gurmsclass}" destfile="${newprojectweb}/WEB-INF/lib/gurms.jar" />
+		<jar basedir="${gurmsclass}" 
+			destfile="${newprojectweb}/WEB-INF/lib/gurms.jar"
+			excludes="*.xml,*.properties" />
 	</target>
 
 	<target name="newproject" depends="init,jar">
