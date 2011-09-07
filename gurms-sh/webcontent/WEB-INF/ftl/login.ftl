@@ -22,24 +22,17 @@
 			}
 		}
 		
-		function middlechange(middleindex,middlesize){
-			for(var i = 0; i < middlesize; i++){
-				var id = "middle_"+i;
-				var id_top = "middle_top_"+i;
-				var id_contect = "middle_contect_"+i;
-				var id_bottom = "middle_bottom_"+i;
-				if(i == middleindex){
-					document.getElementById(id).className = "middle middleblock";
-					document.getElementById(id_top).className = "leftdaohang_topon";
-					document.getElementById(id_contect).className = "leftdaohang_contecton";
-					document.getElementById(id_bottom).className = "leftdaohang_bottomon";
-				}else{
-				    document.getElementById(id).className = "middle middlenone";
-					document.getElementById(id_top).className = "leftdaohang_top";
-					document.getElementById(id_contect).className = "leftdaohang_contect";
-					document.getElementById(id_bottom).className = "leftdaohang_bottom";
-				}
-			}
+		function middlechange(obj){
+			var ctx=$(obj).parents("ul");
+			$(".leftdaohang_topon", ctx).removeClass("leftdaohang_topon").addClass("leftdaohang_top");
+			$(".leftdaohang_contecton", ctx).removeClass("leftdaohang_contecton").addClass("leftdaohang_contect");
+			$(".leftdaohang_bottomon", ctx).removeClass("leftdaohang_bottomon").addClass("leftdaohang_bottom");
+			$(".middleblock", ctx).removeClass("middleblock").addClass("middlenone");
+
+			$(obj).removeClass("leftdaohang_contect").addClass("leftdaohang_contecton");
+			$(obj).prev().removeClass("leftdaohang_top").addClass("leftdaohang_topon");
+			$(obj).next().removeClass("leftdaohang_bottom").addClass("leftdaohang_bottomon");
+			$(obj).siblings("div .secondmenu").find(".middlenone").removeClass("middlenone").addClass("middleblock");
 		}
 
 		function folderChange(folderid){
@@ -215,14 +208,13 @@
 	                            <div class="left">
 	                                <div class="left_top">
 	                                    <ul>
-	                                        <#assign middlesize = menus.submenus?size>	                                  	  
 	                              	        <#list menus.submenus as menu>
 	                                  	    <li>
-	                                        <div class="leftdaohang_top" id="middle_top_${menu_index}"></div>
-	                                        <div class="leftdaohang_contect" id="middle_contect_${menu_index}" onclick="middlechange(${menu_index},${middlesize})">${menu.menuname}</div>
-	                                        <div class="leftdaohang_bottom" id="middle_bottom_${menu_index}"></div>
+	                                        <div class="leftdaohang_top"></div>
+	                                        <div class="leftdaohang_contect" onclick="middlechange(this)">${menu.menuname}</div>
+	                                        <div class="leftdaohang_bottom"></div>
 	                                        <div class="secondmenu">	
-	                                            <div class="middle <#if menu_index=0>middleblock<#else>middlenone</#if>" id="middle_${menu_index}">
+	                                            <div class="middle <#if menu_index=0>middleblock<#else>middlenone</#if>">
 	                                          	    <#list menu.submenus as leafs>
 	                                          	   	    <#if leafs.menutype="0">
 			                                                <div class="menuitem">
