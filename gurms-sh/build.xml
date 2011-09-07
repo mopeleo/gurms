@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="main" default="all" basedir=".">
+	<property name="gurmsweb" value="${basedir}/webcontent" />
+	<property name="gurmsclass" value="${gurmsweb}/WEB-INF/classes" />
+	<property name="newproject" value="D:/ktws/src/fxq2" />
+	<property name="newprojectweb" value="${newproject}/webcontent" />
+
+	<target name="init">
+		<delete dir="${newproject}" />
+		<mkdir dir="${newproject}" />
+	</target>
+
+	<target name="jar">
+		<jar basedir="${gurmsclass}" destfile="${newprojectweb}/WEB-INF/lib/gurms.jar" />
+	</target>
+
+	<target name="newproject" depends="init,jar">
+		<copy todir="${newproject}" overwrite="true">
+			<fileset dir="${basedir}">
+				<include name=".settings/" />
+				<include name="src/" />
+				<include name=".classpath" />
+				<include name=".project" />
+				<exclude name="src/org/" />
+			</fileset>
+		</copy>
+		<copy todir="${newprojectweb}" overwrite="true">
+			<fileset dir="${gurmsweb}">
+				<include name="**/*" />
+				<exclude name="WEB-INF/classes/org/" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="update" depends="jar">
+		<copy todir="${newprojectweb}" overwrite="true">
+			<fileset dir="${gurmsweb}">
+				<include name="js/" />
+				<include name="WEB-INF/ftl/" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="all" depends="update" />
+	
+</project>
