@@ -215,7 +215,7 @@ textarea{width:427px; height:100px; border:1px solid #ccc; overflow:auto;}
 .messageall{padding:10px 0 0 0;}
 .messageall div{clear:both;}
 .messageall ul#tabtitle li{float:left; width:81px; margin-left:3px; text-align:center; cursor:pointer;}
-.messagedivblock{border-top:1px solid #bab8b8; display:block; padding:1px 10px; max-height:450px; overflow-y:auto; overflow-x:hidden;}
+.messagedivblock{border-top:1px solid #bab8b8; display:block; padding:1px 10px; max-height:320px; overflow-y:auto; overflow-x:hidden;}
 .messagedivnone{border-top:1px solid #bab8b8; display:none; padding:5px 10px;}
 .messageaion{background:url(../img/changelionbg.gif) no-repeat; padding-top:5px; height:18px; color:#333;}
 .messageaiout{background:url(../img/changelioutbg.gif) no-repeat; padding-top:6px; height:17px; color:#aaa;}
