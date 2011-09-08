@@ -59,42 +59,21 @@ function _processResponse(responseText, statusText){
 	}
 }
 
-Array.prototype.contains=function(obj){
-    var arrayStr = "\x0f" + this.join("\x0f") + "\x0f";
-    if(arrayStr.indexOf("\x0f" + obj + "\x0f")>=0) return true;
-    return false;
-}
-
-String.prototype.trim=function(){
-    return this.replace(/(^"s+)|("s+$)/g, "");
-}
-
-String.prototype.endWith=function(str){
-    if(str==null||str==""||this.length==0||str.length>this.length)
-        return false;
-    if(this.substring(this.length-str.length)==str)
-        return true;
-    else
-        return false;
-    return true;
-}
-
-String.prototype.startWith=function(str){
-    if(str==null||str==""||this.length==0||str.length>this.length)
-        return false;
-    if(this.substr(0,str.length)==str)
-        return true;
-    else
-        return false;
-    return true;
-}
-
 function submiturl(formid, urlstring){
 	var form = document.getElementById(formid);
 	if(urlstring && urlstring != null){
 		form.action = urlstring;
 	}	
 	form.submit();
+}
+
+function ajaxsubmiturl(formid, urlstring){
+	$("#"+formid).ajaxSubmit({
+		url: urlstring,
+		beforeSubmit: _beforeSubmit,
+		success: _processResponse
+	});
+	return false;
 }
 
 function forward(urlstring){
@@ -135,3 +114,34 @@ function totalIFrameSize(){
 		document.write("<style type='text/css'>.right_kz{width:auto;} body{overflow:auto;} html{overflow:auto;}</style>");
 	}
 }
+
+Array.prototype.contains=function(obj){
+    var arrayStr = "\x0f" + this.join("\x0f") + "\x0f";
+    if(arrayStr.indexOf("\x0f" + obj + "\x0f")>=0) return true;
+    return false;
+}
+
+String.prototype.trim=function(){
+    return this.replace(/(^"s+)|("s+$)/g, "");
+}
+
+String.prototype.endWith=function(str){
+    if(str==null||str==""||this.length==0||str.length>this.length)
+        return false;
+    if(this.substring(this.length-str.length)==str)
+        return true;
+    else
+        return false;
+    return true;
+}
+
+String.prototype.startWith=function(str){
+    if(str==null||str==""||this.length==0||str.length>this.length)
+        return false;
+    if(this.substr(0,str.length)==str)
+        return true;
+    else
+        return false;
+    return true;
+}
+

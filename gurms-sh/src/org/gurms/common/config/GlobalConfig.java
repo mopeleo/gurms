@@ -13,6 +13,8 @@ public final class GlobalConfig {
     public static final int MIN_PAGESIZE = getIntConfig("min_pagesize");
     public static final int MAX_PAGESIZE = getIntConfig("max_pagesize");
 
+    public static final String INIT_PASSWORD = getConfig("init_password");
+    
     private GlobalConfig() {}
 
     public static String getConfig(String key) {
