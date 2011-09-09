@@ -102,17 +102,13 @@
 			currTitle.hide();
 			currFrame.hide();
 			
-			if(currTitle.index() == $("#dynamicTitle li").last().index()){
-				currTitle.prev().children().eq(0).removeClass().addClass("changebodylefton");
-				currTitle.prev().children().eq(1).removeClass().addClass("changebodymiddleon");
-				currTitle.prev().children().eq(2).removeClass().addClass("changebodyrighton");
-				currFrame.prev().show();
-			}else{
-				$("#dynamicTitle li:not(:hidden)").last().children().eq(0).removeClass().addClass("changebodylefton");
-				$("#dynamicTitle li:not(:hidden)").last().children().eq(1).removeClass().addClass("changebodymiddleon");
-				$("#dynamicTitle li:not(:hidden)").last().children().eq(2).removeClass().addClass("changebodyrighton");
-				$("#dynamicIframe div").last().show();
-			}
+			var lastli = $("#dynamicTitle li:not(:hidden)").last();
+			var lastliid = lastli.attr("id");
+			var frameid = lastliid.split("_")[0] + "_div";
+			lastli.children().eq(0).removeClass().addClass("changebodylefton");
+			lastli.children().eq(1).removeClass().addClass("changebodymiddleon");
+			lastli.children().eq(2).removeClass().addClass("changebodyrighton");
+			$("#dynamicIframe #" + frameid).show();
 		}
 		
 		function changewindow(divid){
@@ -156,7 +152,7 @@
         	<div class="logo_rt">
             	<a href="${base}/">首页</a><span>|</span>
             	<a href="#">桌面快捷</a><span>|</span>
-            	<a href="#" onclick="openwindow(this,'1001003','密码修改','sysuser/password')" target="rightiframe">修改密码</a><span>|</span>
+            	<a onclick="openwindow(this,'1003009','密码修改','sysuser/password')" target="rightiframe">修改密码</a><span>|</span>
             	<a href="logout">注销</a><span>|</span>
             	<a href="#" onclick="window.close();">退出</a>
             </div>
