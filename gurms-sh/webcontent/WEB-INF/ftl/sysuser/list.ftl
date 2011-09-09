@@ -28,6 +28,7 @@
 						<td>用户角色</td>
 						<td>登录日期</td>
 						<td>登录时间</td>
+						<td>用户状态</td>
 					</tr>
 					<#list result.result as user>
 						<tr onclick="checklist(this)">
@@ -43,9 +44,10 @@
 							</td>
 							<td>${user.logindate}</td>
 							<td>${user.logintime}</td>
+							<td><@c.dictdesc dicttype="0005" dictcode="${user.userstatus}" /></td>
 						</tr>
 					</#list>
-					<@c.filltable rows=result.result?size cols=6 />
+					<@c.filltable rows=result.result?size cols=7 />
 				</table>
 			</div>
 			
@@ -53,6 +55,7 @@
             	<#include "common/page.ftl" />
                 <div class="pager">
                     <input type="button" class="button" value="新增" onclick="forward('${base}/sysuser/detail')"/>
+                    <!-- <input type="button" class="button" value="密码重置" onclick="forward('${base}/sysuser/detail')"/> -->
                 </div>
             </div>
         </div>
