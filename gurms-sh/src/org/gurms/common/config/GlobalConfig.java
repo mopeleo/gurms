@@ -14,6 +14,7 @@ public final class GlobalConfig {
     public static final int MAX_PAGESIZE = getIntConfig("max_pagesize");
 
     public static final String INIT_PASSWORD = getConfig("init_password");
+//    public static final String SYSTEM_MODE = getConfig("system_mode");
     
     private GlobalConfig() {}
 
