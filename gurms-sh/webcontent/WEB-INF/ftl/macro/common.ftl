@@ -25,6 +25,9 @@
 
 <#macro filltable rows cols>
 	<#assign pagerows=statics["org.gurms.common.config.GlobalConfig"].MIN_PAGESIZE>
+	<#if result.pageSize?exists>
+		<#assign pagerows=result.pageSize>
+	</#if>
 	<#if rows lt pagerows>
 		<#list 1..(pagerows-rows) as x>
 			<tr onclick="checklist(this)">
