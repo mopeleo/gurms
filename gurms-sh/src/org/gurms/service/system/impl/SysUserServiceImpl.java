@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
+import org.gurms.common.util.EncryptUtil;
 import org.gurms.common.util.FormatUtil;
 import org.gurms.common.util.ObjectMapper;
 import org.gurms.dao.hibernate.system.SysLogLoginDao;
@@ -24,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 @Transactional
@@ -91,9 +92,39 @@ public class SysUserServiceImpl implements SysUserService{
 					user.getSysroles().add(role);
 				}
 			}
+			if(StringUtils.isBlank(user.getUserstatus())){
+				
+			}
 			sysUserDao.save(user);
 		}catch(Exception e){
 			logger.warn("保存用户信息异常", e);
+			result.setSuccess(false);
+			result.setReturnmsg(e.getMessage());
+		}
+		return result;
+	}
+
+	public PageResult<SysUser> insert(SysUser user) {
+		PageResult<SysUser> result = new PageResult<SysUser>();
+		try{
+			if(sysUserDao.get(user.getUserid()) != null){
+				result.setSuccess(false);
+				result.setReturnmsg("用户[" + user.getUserid() + "]已存在");
+			}else{
+				if(StringUtils.isNotBlank(user.getSysroleids())){
+					String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
+					for(String roleid : roleids){
+						SysRole role = sysRoleDao.get(roleid);
+						user.getSysroles().add(role);
+					}
+				}
+				if(StringUtils.isBlank(user.getLoginpassword())){
+					user.setLoginpassword(EncryptUtil.md5Encode(GlobalConfig.INIT_PASSWORD));
+				}
+				sysUserDao.save(user);
+			}
+		}catch(Exception e){
+			logger.warn("新增用户信息异常", e);
 			result.setSuccess(false);
 			result.setReturnmsg(e.getMessage());
 		}
@@ -107,8 +138,22 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 
 	@Override
-	public void delete(String userid) {
-		sysUserDao.delete(userid);
+	public PageResult<SysUser> delete(String userid) {
+		PageResult<SysUser> result = new PageResult<SysUser>();
+		try{
+			SysUser user = sysUserDao.get(userid);
+			if(GlobalParam.DICT_ONLINEFLAG_YES.equals(user.getOnlineflag())){
+				result.setSuccess(false);
+				result.setReturnmsg("在线用户不能删除");
+			}else{
+				sysUserDao.delete(userid);
+			}
+		}catch(Exception e){
+			logger.warn("删除用户信息异常", e);
+			result.setSuccess(false);
+			result.setReturnmsg(e.getMessage());
+		}
+		return result;
 	}
 
 	@Override
@@ -150,6 +195,7 @@ public class SysUserServiceImpl implements SysUserService{
 
 	@Override
 	public PageResult<SysUser> login(SysUser user) {
+		
 		PageResult<SysUser> result = new PageResult<SysUser>();
 		SysUser sessionUser = null;
 

@@ -12,6 +12,9 @@ public interface SysUserService{
 	@GurmsValid(type=SysUser.class, props={"userid","username"})
 	public PageResult<SysUser> save(SysUser user);
 
+	@GurmsValid(type=SysUser.class, props={"userid","username"})
+	public PageResult<SysUser> insert(SysUser user);
+
 	public SysUser get(String userid);
 	
 	public PageResult<SysUser> query(Map<String, Object> request, PageRequest page);

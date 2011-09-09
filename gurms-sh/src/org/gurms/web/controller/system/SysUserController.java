@@ -60,6 +60,13 @@ public class SysUserController extends BaseController {
 	}
 	
 	@RequestMapping
+	@ResponseBody
+	public PageResult<SysUser> ajaxInsert(SysUser user){
+		PageResult<SysUser> r =  userService.insert(user);
+		return r;
+	}
+	
+	@RequestMapping
 	public String delete(String userid){
 		userService.delete(userid);
 		return redirect(USER_LIST);

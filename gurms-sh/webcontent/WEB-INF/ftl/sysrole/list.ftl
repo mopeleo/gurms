@@ -33,7 +33,7 @@
 						<tr onclick="checklist(this)">
 							<td><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
 							<td>${role.roletype}</td>
-							<td>${role.rolestatus}</td>
+							<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
 							<td>${role.startdate}</td>
 							<td>${role.enddate}</td>
 						</tr>

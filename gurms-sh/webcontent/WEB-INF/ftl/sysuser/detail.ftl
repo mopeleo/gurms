@@ -53,10 +53,6 @@
                         <td><input type="text" name="username" /></td>
                     </tr>
                     <tr>
-                        <td class="tdwidth2">登录密码</td>
-                        <td><input type="password" name="loginpassword" /></td>
-                    </tr>
-                    <tr>
                         <td class="tdwidth2">用户状态</td>
                         <td><input type="text" name="userstatus" onclick="getmsval()"/></td>
                     </tr>
@@ -77,9 +73,11 @@
                     <tr>
                         <td class="tdwidth2"></td>
                         <td>
-							<input type="submit" class="button" value="保存" />
 							<#if result?exists>
-							<input type="button" class="button" onclick="submiturl('mainForm','${base}/sysuser/delete')" value="删除" />
+							<input type="submit" class="button" value="保存" />
+							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysuser/delete')" value="删除" />
+							<#else>
+							<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysuser/ajaxInsert')" value="保存" />
 							</#if>
 							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
 							<input type="reset" class="button" value="重置"/>

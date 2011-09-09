@@ -42,7 +42,7 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">角色状态</td>
-	                        <td><input type="text" name="rolestatus" value="${result.rolestatus}" /></td>
+	                        <td><@c.dict id="rolestatus" dicttype="0002" default="${result.rolestatus}" nullable=false /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">角色类型</td>
@@ -58,7 +58,10 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
-	                        <td><input type="text" name="remark" value="${result.remark}" /></td>
+	                        <td>
+	                        	<input type="hidden" name="creater" value="${result.creater}" />
+	                        	<input type="text" name="remark" value="${result.remark}" />
+	                        </td>
 	                    </tr>
 	                </table>
 	            </div>                    
@@ -85,7 +88,7 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">角色状态</td>
-	                        <td><input type="text" name="rolestatus" /></td>
+	                        <td><@c.dict id="rolestatus" dicttype="0002" nullable=false /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">角色类型</td>
@@ -101,7 +104,10 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
-	                        <td><input type="text" name="remark" /></td>
+	                        <td>
+	                        	<input type="text" name="remark" />
+	                        	<input type="hidden" name="creater" value="${session_user.userid}" />
+	                        </td>
 	                    </tr>
 	                </table>
 		        </div>
