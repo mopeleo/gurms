@@ -81,8 +81,10 @@ function forward(urlstring){
 }
 
 function jumpPage(pageNo) {
-	$("#pageNo").val(pageNo);
-	$("#mainForm").submit();
+	if(pageNo){
+		$("#pageNo").val(pageNo);
+	}
+	$("#pageNo").parents("form:first").submit();
 }
 
 function search() {
@@ -90,7 +92,7 @@ function search() {
 	$("#orderBy").val("");
 	$("#pageNo").val("1");
 
-	$("#mainForm").submit();
+	$("#pageNo").parents("form:first").submit();
 }
 
 /** 计算 整个页面的大小 */

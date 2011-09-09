@@ -62,11 +62,11 @@
             	<tr><td colspan="2"><span class="orange">&nbsp;</span></td></tr>
             	<tr>
                 	<td>用户名：</td>
-                    <td><input type="text" id="userid" name="userid"/></td>
+                    <td><input type="text" id="userid" name="userid" value="system"/></td>
                 </tr>
                 <tr>
                 	<td>密　码：</td>
-                    <td><input type="password" id="loginpassword" name="loginpassword"/></td>
+                    <td><input type="password" id="loginpassword" name="loginpassword" value="123"/></td>
                 </tr>
                 <tr>
                 	<td>验证码：</td>
