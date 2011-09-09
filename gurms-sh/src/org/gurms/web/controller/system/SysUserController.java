@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysUser;
+import org.gurms.entity.system.SysUserInfo;
 import org.gurms.service.system.SysRoleService;
 import org.gurms.service.system.SysUserService;
 import org.gurms.web.ServletUtil;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SysUserController extends BaseController {
 
 	public static final String USER_LIST ="/sysuser/list";
+	public static final String USER_SELF ="/sysuser/self";
 
 	@Autowired
 	private SysUserService userService;
@@ -45,6 +47,19 @@ public class SysUserController extends BaseController {
 			SysUser vo = userService.get(userid);
 			model.addAttribute(WebConstants.KEY_RESULT, vo);
 		}
+	}
+	
+	@RequestMapping
+	public void self(HttpServletRequest request, Model model){
+		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
+		SysUserInfo vo = userService.getUserInfo(user.getUserid());
+		model.addAttribute(WebConstants.KEY_RESULT, vo);
+	}
+	
+	@RequestMapping
+	public String userinfo(SysUserInfo userinfo){
+		userService.saveUserInfo(userinfo);
+		return redirect(USER_SELF);
 	}
 	
 	@RequestMapping

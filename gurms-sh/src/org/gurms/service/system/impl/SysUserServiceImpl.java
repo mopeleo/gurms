@@ -13,6 +13,7 @@ import org.gurms.dao.hibernate.system.SysLogLoginDao;
 import org.gurms.dao.hibernate.system.SysParamDao;
 import org.gurms.dao.hibernate.system.SysRoleDao;
 import org.gurms.dao.hibernate.system.SysUserDao;
+import org.gurms.dao.hibernate.system.SysUserInfoDao;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
@@ -20,6 +21,7 @@ import org.gurms.entity.system.SysLogLogin;
 import org.gurms.entity.system.SysParam;
 import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
+import org.gurms.entity.system.SysUserInfo;
 import org.gurms.service.system.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,37 +47,8 @@ public class SysUserServiceImpl implements SysUserService{
 	@Autowired
 	private SysLogLoginDao sysLogLoginDao;
 	
-	public SysUserDao getSysUserDao() {
-		return sysUserDao;
-	}
-
-	public SysRoleDao getSysRoleDao() {
-		return sysRoleDao;
-	}
-
-	public void setSysRoleDao(SysRoleDao sysRoleDao) {
-		this.sysRoleDao = sysRoleDao;
-	}
-
-	public void setSysUserDao(SysUserDao sysUserDao) {
-		this.sysUserDao = sysUserDao;
-	}
-
-	public SysParamDao getSysParamDao() {
-		return sysParamDao;
-	}
-
-	public void setSysParamDao(SysParamDao sysParamDao) {
-		this.sysParamDao = sysParamDao;
-	}
-
-	public SysLogLoginDao getSysLogLoginDao() {
-		return sysLogLoginDao;
-	}
-
-	public void setSysLogLoginDao(SysLogLoginDao sysLogLoginDao) {
-		this.sysLogLoginDao = sysLogLoginDao;
-	}
+	@Autowired
+	private SysUserInfoDao sysUserInfoDao;
 
 	@Transactional(readOnly = true)
 	public SysUser get(String id){
@@ -92,10 +65,12 @@ public class SysUserServiceImpl implements SysUserService{
 					user.getSysroles().add(role);
 				}
 			}
-			if(StringUtils.isBlank(user.getUserstatus())){
-				
-			}
-			sysUserDao.save(user);
+			
+			SysUser po = sysUserDao.get(user.getUserid());
+			po.setSysroles(user.getSysroles());
+			po.setUsername(user.getUsername());
+			po.setSysorg(user.getSysorg());
+			sysUserDao.save(po);
 		}catch(Exception e){
 			logger.warn("保存用户信息异常", e);
 			result.setSuccess(false);
@@ -274,6 +249,66 @@ public class SysUserServiceImpl implements SysUserService{
 		}
 		result.addResult(sessionUser);
 		return result;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public SysUserInfo getUserInfo(String userid) {
+		return sysUserInfoDao.get(userid);
+	}
+
+	@Override
+	public void saveUserInfo(SysUserInfo userinfo) {
+		SysUserInfo info = sysUserInfoDao.get(userinfo.getUserid());
+		if(info == null){
+			userinfo.setCreatedate(FormatUtil.getCurrentDate());
+			sysUserInfoDao.save(userinfo);
+		}else{
+			String createDate = info.getCreatedate();
+			ObjectMapper.map(userinfo, info);
+			info.setCreatedate(createDate);
+			sysUserInfoDao.save(info);
+		}
+	}
+	
+	public SysUserDao getSysUserDao() {
+		return sysUserDao;
+	}
+
+	public SysRoleDao getSysRoleDao() {
+		return sysRoleDao;
+	}
+
+	public void setSysRoleDao(SysRoleDao sysRoleDao) {
+		this.sysRoleDao = sysRoleDao;
+	}
+
+	public void setSysUserDao(SysUserDao sysUserDao) {
+		this.sysUserDao = sysUserDao;
+	}
+
+	public SysParamDao getSysParamDao() {
+		return sysParamDao;
+	}
+
+	public void setSysParamDao(SysParamDao sysParamDao) {
+		this.sysParamDao = sysParamDao;
+	}
+
+	public SysLogLoginDao getSysLogLoginDao() {
+		return sysLogLoginDao;
+	}
+
+	public void setSysLogLoginDao(SysLogLoginDao sysLogLoginDao) {
+		this.sysLogLoginDao = sysLogLoginDao;
+	}
+
+	public SysUserInfoDao getSysUserInfoDao() {
+		return sysUserInfoDao;
+	}
+
+	public void setSysUserInfoDao(SysUserInfoDao sysUserInfoDao) {
+		this.sysUserInfoDao = sysUserInfoDao;
 	}
 	
 }

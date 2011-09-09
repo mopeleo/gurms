@@ -6,6 +6,7 @@ import org.gurms.common.validate.GurmsValid;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysUser;
+import org.gurms.entity.system.SysUserInfo;
 
 public interface SysUserService{
 
@@ -28,4 +29,8 @@ public interface SysUserService{
 	
 	@GurmsValid(type=SysUser.class, props={"userid","loginpassword"})
 	public PageResult<SysUser> setPassword(SysUser user);
+	
+	public SysUserInfo getUserInfo(String userid);
+	
+	public void saveUserInfo(SysUserInfo userinfo);
 }
