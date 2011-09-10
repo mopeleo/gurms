@@ -22,6 +22,8 @@ public class ValidCodeGenerator {
 		}
 	}
 
+	private ValidCodeGenerator(){}
+	
 	public static void generate(OutputStream stream, String code, int width,
 			int height) throws IOException {
 

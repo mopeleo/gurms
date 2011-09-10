@@ -7,15 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class FormatUtil {
+public abstract class FormatUtil {
 
 	private static final String symbol = "\r\n\t";
 	public static final String pattern_time = "HHmmss";
 	public static final String pattern_date = "yyyyMMdd";
 	public static final String pattern_fulltime = "yyyyMMddHHmmss";
 
-	private FormatUtil(){}
-	
 	public static String bean2string(Object obj){
 		StringBuffer sb = new StringBuffer();
 		Class c = obj.getClass();
