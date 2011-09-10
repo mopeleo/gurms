@@ -48,24 +48,18 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@Override
 	public PageResult<SysOrg> save(SysOrg org) {
 		PageResult<SysOrg> result = new PageResult<SysOrg>();
-		try{
-			SysOrg parent = org.getParentorg();
-			if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){
-				if(parent.getOrgid().equals(org.getOrgid())){
-					result.setSuccess(false);
-					result.setReturnmsg("上级机构不能是自己");
-				}else{
-					parent = sysOrgDao.get(parent.getOrgid());
-					parent.addOrg(org);
-					sysOrgDao.save(parent);
-				}
+		SysOrg parent = org.getParentorg();
+		if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){
+			if(parent.getOrgid().equals(org.getOrgid())){
+				result.setSuccess(false);
+				result.setReturnmsg("上级机构不能是自己");
 			}else{
-				sysOrgDao.save(org);
+				parent = sysOrgDao.get(parent.getOrgid());
+				parent.addOrg(org);
+				sysOrgDao.save(parent);
 			}
-		}catch(Exception e){
-			logger.warn("保存机构信息异常", e);
-			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
+		}else{
+			sysOrgDao.save(org);
 		}
 		return result;
 	}

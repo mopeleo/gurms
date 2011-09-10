@@ -70,11 +70,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public void delete(String id) {
-		try{
-			sysRoleDao.delete(id);
-		}catch(Exception e){
-			logger.warn("删除角色异常", e);
-		}
+		sysRoleDao.delete(id);
 	}
 
 	@Override

@@ -49,25 +49,15 @@ public class SysDictServiceImpl implements SysDictService {
 	@Override
 	public PageResult<SysDict> save(SysDict dict) {
 		PageResult<SysDict> result = new PageResult<SysDict>();
-		try{
-			sysDictDao.save(dict);
-			result.addResult(dict);
-		}catch(Exception e){
-			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
-		}
+		sysDictDao.save(dict);
+		result.addResult(dict);
 		return result;
 	}
 
 	@Override
 	public PageResult<SysDict> delete(SysDictPK id) {
 		PageResult<SysDict> result = new PageResult<SysDict>();
-		try{
-			sysDictDao.delete(id);
-		}catch(Exception e){
-			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
-		}
+		sysDictDao.delete(id);
 		return result;
 	}
 

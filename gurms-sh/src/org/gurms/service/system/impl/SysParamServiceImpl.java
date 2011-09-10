@@ -30,13 +30,8 @@ public class SysParamServiceImpl implements SysParamService {
 	@Override
 	public PageResult<SysParam> save(List<SysParam> paramList) {
 		PageResult<SysParam> result = new PageResult<SysParam>();
-		try{
-			for(SysParam param : paramList){
-				paramDao.save(param);
-			}
-		}catch(Exception e){
-			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
+		for(SysParam param : paramList){
+			paramDao.save(param);
 		}
 		return result;
 	}

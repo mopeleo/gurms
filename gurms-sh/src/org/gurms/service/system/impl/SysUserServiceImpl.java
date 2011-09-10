@@ -57,7 +57,28 @@ public class SysUserServiceImpl implements SysUserService{
 	
 	public PageResult<SysUser> save(SysUser user) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
-		try{
+		if(StringUtils.isNotBlank(user.getSysroleids())){
+			String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
+			for(String roleid : roleids){
+				SysRole role = sysRoleDao.get(roleid);
+				user.getSysroles().add(role);
+			}
+		}
+		
+		SysUser po = sysUserDao.get(user.getUserid());
+		po.setSysroles(user.getSysroles());
+		po.setUsername(user.getUsername());
+		po.setSysorg(user.getSysorg());
+		sysUserDao.save(po);
+		return result;
+	}
+
+	public PageResult<SysUser> insert(SysUser user) {
+		PageResult<SysUser> result = new PageResult<SysUser>();
+		if(sysUserDao.get(user.getUserid()) != null){
+			result.setSuccess(false);
+			result.setReturnmsg("用户[" + user.getUserid() + "]已存在");
+		}else{
 			if(StringUtils.isNotBlank(user.getSysroleids())){
 				String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 				for(String roleid : roleids){
@@ -65,43 +86,15 @@ public class SysUserServiceImpl implements SysUserService{
 					user.getSysroles().add(role);
 				}
 			}
-			
-			SysUser po = sysUserDao.get(user.getUserid());
-			po.setSysroles(user.getSysroles());
-			po.setUsername(user.getUsername());
-			po.setSysorg(user.getSysorg());
-			sysUserDao.save(po);
-		}catch(Exception e){
-			logger.warn("保存用户信息异常", e);
-			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
-		}
-		return result;
-	}
-
-	public PageResult<SysUser> insert(SysUser user) {
-		PageResult<SysUser> result = new PageResult<SysUser>();
-		try{
-			if(sysUserDao.get(user.getUserid()) != null){
-				result.setSuccess(false);
-				result.setReturnmsg("用户[" + user.getUserid() + "]已存在");
-			}else{
-				if(StringUtils.isNotBlank(user.getSysroleids())){
-					String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
-					for(String roleid : roleids){
-						SysRole role = sysRoleDao.get(roleid);
-						user.getSysroles().add(role);
-					}
-				}
-				if(StringUtils.isBlank(user.getLoginpassword())){
-					user.setLoginpassword(EncryptUtil.md5Encode(GlobalConfig.INIT_PASSWORD));
-				}
-				sysUserDao.save(user);
+			if(StringUtils.isBlank(user.getLoginpassword())){
+				user.setLoginpassword(EncryptUtil.md5Encode(GlobalConfig.INIT_PASSWORD));
 			}
-		}catch(Exception e){
-			logger.warn("新增用户信息异常", e);
-			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
+			sysUserDao.save(user);
+			
+			SysUserInfo userinfo = new SysUserInfo();
+			userinfo.setUserid(userinfo.getUserid());
+			userinfo.setCreatedate(FormatUtil.getCurrentDate());
+			sysUserInfoDao.save(userinfo);
 		}
 		return result;
 	}
@@ -115,18 +108,13 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public PageResult<SysUser> delete(String userid) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
-		try{
-			SysUser user = sysUserDao.get(userid);
-			if(GlobalParam.DICT_ONLINEFLAG_YES.equals(user.getOnlineflag())){
-				result.setSuccess(false);
-				result.setReturnmsg("在线用户不能删除");
-			}else{
-				sysUserDao.delete(userid);
-			}
-		}catch(Exception e){
-			logger.warn("删除用户信息异常", e);
+		SysUser user = sysUserDao.get(userid);
+		if(GlobalParam.DICT_ONLINEFLAG_YES.equals(user.getOnlineflag())){
 			result.setSuccess(false);
-			result.setReturnmsg(e.getMessage());
+			result.setReturnmsg("在线用户不能删除");
+		}else{
+			sysUserDao.delete(userid);
+			sysUserInfoDao.delete(userid);
 		}
 		return result;
 	}
@@ -149,22 +137,14 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public PageResult<SysUser> setPassword(SysUser user) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
-		
-		try{
-			SysUser u = sysUserDao.get(user.getUserid());
-			if(!u.getLoginpassword().equalsIgnoreCase(user.getOldpassword())){
-				result.setReturnmsg("输入的原密码错误!");
-				result.setSuccess(false);			
-			}else{
-				u.setLoginpassword(user.getLoginpassword());
-				sysUserDao.save(u);
-			}
-		}catch(Exception e){
-			logger.warn("修改密码异常", e);
-			result.setReturnmsg(e.getMessage());
+		SysUser u = sysUserDao.get(user.getUserid());
+		if(!u.getLoginpassword().equalsIgnoreCase(user.getOldpassword())){
+			result.setReturnmsg("输入的原密码错误!");
 			result.setSuccess(false);			
+		}else{
+			u.setLoginpassword(user.getLoginpassword());
+			sysUserDao.save(u);
 		}
-		
 		return result;		
 	}
 
