@@ -70,15 +70,26 @@ public class SysUserController extends BaseController {
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult<SysUser> ajaxSave(SysUser user){
-		return userService.save(user);
+	public PageResult ajaxSave(SysUser user){
+		PageResult page = null;
+		try{
+			page = userService.save(user);
+		}catch(Exception e){
+			page = processException(e);
+		}
+		return page;
 	}
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult<SysUser> ajaxInsert(SysUser user){
-		PageResult<SysUser> r =  userService.insert(user);
-		return r;
+	public PageResult ajaxInsert(SysUser user){
+		PageResult page = null;
+		try{
+			page =  userService.insert(user);
+		}catch(Exception e){
+			page = processException(e);
+		}
+		return page;
 	}
 	
 	@RequestMapping
@@ -92,7 +103,13 @@ public class SysUserController extends BaseController {
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult<SysUser> setPassword(SysUser user){
-		return userService.setPassword(user);
+	public PageResult setPassword(SysUser user){
+		PageResult page = null;
+		try{
+			page = userService.setPassword(user);
+		}catch(Exception e){
+			page = processException(e);
+		}
+		return page;
 	}
 }

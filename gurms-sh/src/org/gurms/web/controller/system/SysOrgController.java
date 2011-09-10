@@ -53,8 +53,14 @@ public class SysOrgController extends BaseController {
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult<SysOrg> ajaxSave(SysOrg org){
-		return orgService.save(org);
+	public PageResult ajaxSave(SysOrg org){
+		PageResult page = null;
+		try{
+			page = orgService.save(org);
+		}catch(Exception e){
+			page = processException(e);
+		}
+		return page;
 	}
 	
 	@RequestMapping
