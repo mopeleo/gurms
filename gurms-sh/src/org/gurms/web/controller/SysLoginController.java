@@ -54,6 +54,7 @@ public class SysLoginController extends BaseController {
 				SysUser sessionUser = result.getResult().get(0);
 				setUserSession(request, sessionUser);
 			}
+			result.setResult(null);
 		}else{
 			result = new PageResult<SysUser>();
 			result.setSuccess(false);
