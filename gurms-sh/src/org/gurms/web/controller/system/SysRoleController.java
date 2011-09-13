@@ -5,9 +5,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysRole;
+import org.gurms.entity.system.SysUser;
 import org.gurms.service.system.SysRoleService;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
@@ -21,14 +23,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SysRoleController extends BaseController {
 	
-	public static final String ROLE_LIST = "/sysrole/list";
+	public static final String ROLE_PULBIC = "/sysrole/publics";
+	public static final String ROLE_PRIVATE = "/sysrole/privates";
 
 	@Autowired
 	private SysRoleService roleService;
 	
 	@RequestMapping
-	public void list(HttpServletRequest request, PageRequest page, Model model){
+	public void publics(HttpServletRequest request, PageRequest page, Model model){
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
+		requestMap.put("EQ_roletype", GlobalParam.DICT_ROLETYPE_PUBLIC);
+		PageResult<SysRole> result = roleService.query(requestMap, page);
+		model.addAttribute(WebConstants.KEY_RESULT, result);
+		model.addAllAttributes(requestMap);
+	}
+	
+	@RequestMapping
+	public void privates(HttpServletRequest request, PageRequest page, Model model){
+		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
+		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
+		requestMap.put("EQ_roletype", GlobalParam.DICT_ROLETYPE_PRIVATE);
+		requestMap.put("EQ_creater", user.getUserid());
 		PageResult<SysRole> result = roleService.query(requestMap, page);
 		model.addAttribute(WebConstants.KEY_RESULT, result);
 		model.addAllAttributes(requestMap);
@@ -43,9 +58,17 @@ public class SysRoleController extends BaseController {
 	}
 	
 	@RequestMapping
+	public void grant(String roleid, Model model){
+		if(StringUtils.isNotBlank(roleid)){
+			SysRole role = roleService.get(roleid);
+			model.addAttribute(WebConstants.KEY_RESULT, role);
+		}
+	}
+	
+	@RequestMapping
 	public String save(SysRole role){
 		roleService.save(role);
-		return redirect(ROLE_LIST);
+		return redirect(ROLE_PULBIC);
 	}
 	
 	@RequestMapping
@@ -75,6 +98,6 @@ public class SysRoleController extends BaseController {
 	@RequestMapping
 	public String delete(String roleid){
 		roleService.delete(roleid);
-		return redirect(ROLE_LIST);
+		return redirect(ROLE_PULBIC);
 	}
 }

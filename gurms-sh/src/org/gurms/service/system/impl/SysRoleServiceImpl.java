@@ -47,6 +47,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional(readOnly = true)
+	public List<SysRole> query(Map<String, Object> request) {
+		return sysRoleDao.find(PropertyFilter.buildFromRequestMap(request));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public PageResult<SysRole> query(Map<String, Object> request, PageRequest page) {
 		return sysRoleDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}

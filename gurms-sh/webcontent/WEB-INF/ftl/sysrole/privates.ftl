@@ -29,17 +29,13 @@
 						<td>失效日期</td>
 					</tr>
 					<#list result.result as role>
-						<#assign idx = 1>
-						<#if role.roleid != statics["org.gurms.common.config.GlobalParam"].SYSTEM_ROLE>
 						<tr onclick="checklist(this)">
-							<td>${idx}</td>
+							<td>${role_index+1}</td>
 							<td><a href="${base}/sysrole/grant?roleid=${role.roleid}" >${role.rolename}</a></td>
 							<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
 							<td>${role.startdate}</td>
 							<td>${role.enddate}</td>
-							<#assign idx= idx+1>
 						</tr>
-						</#if>
 					</#list>
 					<@c.filltable rows=result.result?size cols=5 />
 				</table>

@@ -29,5 +29,9 @@ public class GlobalParam {
 	public static final String DICT_USERSTATUS_NORMAL = "1";
 	public static final String DICT_USERSTSTUS_PWLOCK = "2";
 	
+	public static final String DICT_ROLETYPE = "0006";
+	public static final String DICT_ROLETYPE_PUBLIC = "0";
+	public static final String DICT_ROLETYPE_PRIVATE = "1";
+	
 	private GlobalParam(){}
 }

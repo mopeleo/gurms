@@ -1,12 +1,16 @@
 package org.gurms.web.controller.system;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
+import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
 import org.gurms.entity.system.SysUserConfig;
 import org.gurms.entity.system.SysUserInfo;
@@ -44,7 +48,11 @@ public class SysUserController extends BaseController {
 	
 	@RequestMapping
 	public void detail(String userid, Model model){
-		model.addAttribute("allroles", roleService.getAll());
+		Map<String, Object> roleMap = new HashMap<String, Object>();
+		roleMap.put("EQ_roletype", GlobalParam.DICT_ROLETYPE_PUBLIC);
+		List<SysRole> publics = roleService.query(roleMap);		
+		model.addAttribute("allroles", publics);
+		
 		if(StringUtils.isNotBlank(userid)){
 			SysUser vo = userService.get(userid);
 			model.addAttribute(WebConstants.KEY_RESULT, vo);

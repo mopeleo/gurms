@@ -72,7 +72,7 @@
 		        <div class="messagedivnone">
 		        	<table>
 		        	<tr><td>
-					<@c.tree id="sysmenuids" type=1 node=context_menu actual=listmenus checkable=true/>
+					<@c.tree id="sysmenuids" type=1 node=session_menu actual=listmenus checkable=true/>
 		        	</td></tr>
 		        	</table>
 		        </div>
@@ -99,7 +99,7 @@
 	                        <td class="tdwidth2">备注</td>
 	                        <td>
 	                        	<input type="text" name="remark" />
-	                        	<input type="hidden" name="roletype" value="0"/>
+	                        	<input type="hidden" name="roletype" value="1"/>
 	                        	<input type="hidden" name="creater" value="${session_user.userid}" />
 	                        </td>
 	                    </tr>
@@ -108,7 +108,7 @@
 		        <div class="messagedivnone">
 		        	<table>
 		        	<tr><td>
-					<@c.tree id="sysmenuids" type=1 node=context_menu checkable=true />
+					<@c.tree id="sysmenuids" type=1 node=session_menu checkable=true />
 		        	</td></tr>
 		        	</table>
 		        </div>
@@ -122,10 +122,8 @@
                         <td class="tdwidth2"></td>
                         <td>
 							<#if result?exists>
-								<#if result.roleid != statics["org.gurms.common.config.GlobalParam"].SYSTEM_ROLE>
-									<input type="submit" class="button" value="保存" />
-									<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysrole/delete')" value="删除" />
-								</#if>
+							<input type="submit" class="button" value="保存" />
+							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysrole/delete')" value="删除" />
 							<#else>
 							<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysrole/ajaxInsert')" value="保存" />
 							</#if>
