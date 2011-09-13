@@ -55,7 +55,7 @@
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
 	                        <td>
-	                        	<input type="hidden" name="roletype" value="0"/>
+	                        	<input type="hidden" name="roletype" value="${result.roletype}" />
 	                        	<input type="hidden" name="creater" value="${result.creater}" />
 	                        	<input type="text" name="remark" value="${result.remark}" />
 	                        </td>

@@ -7,9 +7,9 @@
                     <table>
                         <tr>
                             <td>角色ID:</td>
-                            <td><input type="text" name="filter_EQS_roleid" value="${EQS_roleid}"></td>
+                            <td><input type="text" name="filter_EQ_roleid" value="${EQ_roleid}"></td>
                             <td>角色名称:</td>
-                            <td><input type="text" name="filter_EQS_rolename" value="${EQS_rolename}"></td>
+                            <td><input type="text" name="filter_EQ_rolename" value="${EQ_rolename}"></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>
@@ -33,7 +33,7 @@
 						<#if role.roleid != statics["org.gurms.common.config.GlobalParam"].SYSTEM_ROLE>
 						<tr onclick="checklist(this)">
 							<td>${idx}</td>
-							<td><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
+							<td><a href="${base}/sysrole/grant?roleid=${role.roleid}" >${role.rolename}</a></td>
 							<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
 							<td>${role.startdate}</td>
 							<td>${role.enddate}</td>
@@ -48,7 +48,7 @@
             <div class="page_kz">
             	<#include "common/page.ftl" />
                 <div class="pager">
-                    <input type="button" class="button" value="新增" onclick="forward('${base}/sysrole/detail')"/>
+                    <input type="button" class="button" value="新增" onclick="forward('${base}/sysrole/grant')"/>
                 </div>
             </div>
         </div>

@@ -7,9 +7,9 @@
                     <table>
                         <tr>
                             <td>角色ID:</td>
-                            <td><input type="text" name="filter_EQS_roleid" value="${EQS_roleid}"></td>
+                            <td><input type="text" name="filter_EQ_roleid" value="${EQ_roleid}"></td>
                             <td>角色名称:</td>
-                            <td><input type="text" name="filter_EQS_rolename" value="${EQS_rolename}"></td>
+                            <td><input type="text" name="filter_EQ_rolename" value="${EQ_rolename}"></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>

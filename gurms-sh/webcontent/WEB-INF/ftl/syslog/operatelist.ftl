@@ -7,9 +7,9 @@
                     <table>
                         <tr>
                             <td>用户ID:</td>
-                            <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
+                            <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
                             <td>操作日期:</td>
-                            <td><@c.calendar id="filter_EQS_operatedate" default="${EQS_operatedate}"/></td>
+                            <td><@c.calendar id="filter_EQ_operatedate" default="${EQ_operatedate}"/></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>

@@ -7,9 +7,9 @@
                     <table>
                         <tr>
                             <td>机构ID:</td>
-                            <td><input type="text" name="filter_EQS_orgid" value="${EQS_orgid}"></td>
+                            <td><input type="text" name="filter_EQ_orgid" value="${EQ_orgid}"></td>
                             <td>机构简称:</td>
-                            <td><input type="text" name="filter_EQS_shortname" value="${EQS_shortname}"></td>
+                            <td><input type="text" name="filter_EQ_shortname" value="${EQ_shortname}"></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>

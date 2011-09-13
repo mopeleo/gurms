@@ -7,7 +7,7 @@
                     <table>
                         <tr>
                             <td>字典类别:</td>
-                            <td><@c.select id="filter_EQS_dicttype" options=context_dicttype key="dicttype" value="dictvalue" default="${EQS_dicttype}" nullable=true /></td>
+                            <td><@c.select id="filter_EQ_dicttype" options=context_dicttype key="dicttype" value="dictvalue" default="${EQ_dicttype}" nullable=true /></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>

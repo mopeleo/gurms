@@ -7,9 +7,9 @@
                     <table>
                         <tr>
                             <td>用户ID:</td>
-                            <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
+                            <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
                             <td>用户名:</td>
-                            <td><input type="text" name="filter_EQS_username" value="${EQS_username}"></td>
+                            <td><input type="text" name="filter_EQ_username" value="${EQ_username}"></td>
                             <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                         </tr>
                     </table>
