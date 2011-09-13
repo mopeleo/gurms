@@ -58,7 +58,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public void save(SysRole role) {
+	public PageResult<SysRole> save(SysRole role) {
+		PageResult<SysRole> page = new PageResult<SysRole>();
 		if(role.getSysmenuids() != null){
 			for(String menuid : role.getSysmenuids()){
 				SysMenu menu = sysMenuDao.get(menuid);
@@ -66,6 +67,19 @@ public class SysRoleServiceImpl implements SysRoleService {
 			}
 		}
 		sysRoleDao.save(role);
+		return page;
+	}
+
+	@Override
+	public PageResult<SysRole> insert(SysRole role) {
+		PageResult<SysRole> page = new PageResult<SysRole>();
+		if(sysRoleDao.findUniqueBy("rolename", role.getRolename()) == null){
+			page = save(role);
+		}else{
+			page.setSuccess(false);
+			page.setReturnmsg("角色名[" + role.getRolename() + "]已存在");
+		}
+		return page;
 	}
 
 	@Override

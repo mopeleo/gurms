@@ -58,7 +58,7 @@ public class SysOrgController extends BaseController {
 		try{
 			page = orgService.save(org);
 		}catch(Exception e){
-			page = processException(e);
+			page = processException(e, "保存机构信息出错");
 		}
 		return page;
 	}

@@ -75,7 +75,7 @@ public class SysParamController extends BaseController {
 	
 			}
 		}catch(Exception e){
-			page = processException(e);
+			page = processException(e, "保存参数信息出错");
 		}
 		
 		return page;

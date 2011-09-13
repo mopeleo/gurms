@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysUser;
+import org.gurms.entity.system.SysUserConfig;
 import org.gurms.entity.system.SysUserInfo;
 import org.gurms.service.system.SysRoleService;
 import org.gurms.service.system.SysUserService;
@@ -24,7 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SysUserController extends BaseController {
 
 	public static final String USER_LIST ="/sysuser/list";
-	public static final String USER_SELF ="/sysuser/self";
+	public static final String USER_INFO ="/sysuser/info";
+	public static final String USER_CONFIG ="/sysuser/config";
 
 	@Autowired
 	private SysUserService userService;
@@ -50,7 +52,7 @@ public class SysUserController extends BaseController {
 	}
 	
 	@RequestMapping
-	public void self(HttpServletRequest request, Model model){
+	public void info(HttpServletRequest request, Model model){
 		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
 		SysUserInfo vo = userService.getUserInfo(user.getUserid());
 		model.addAttribute(WebConstants.KEY_RESULT, vo);
@@ -59,7 +61,7 @@ public class SysUserController extends BaseController {
 	@RequestMapping
 	public String userinfo(SysUserInfo userinfo){
 		userService.saveUserInfo(userinfo);
-		return redirect(USER_SELF);
+		return redirect(USER_INFO);
 	}
 	
 	@RequestMapping
@@ -75,7 +77,7 @@ public class SysUserController extends BaseController {
 		try{
 			page = userService.save(user);
 		}catch(Exception e){
-			page = processException(e);
+			page = processException(e, "保存用户信息出错");
 		}
 		return page;
 	}
@@ -87,7 +89,7 @@ public class SysUserController extends BaseController {
 		try{
 			page =  userService.insert(user);
 		}catch(Exception e){
-			page = processException(e);
+			page = processException(e, "新增用户信息出错");
 		}
 		return page;
 	}
@@ -108,8 +110,21 @@ public class SysUserController extends BaseController {
 		try{
 			page = userService.setPassword(user);
 		}catch(Exception e){
-			page = processException(e);
+			page = processException(e, "修改密码出错");
 		}
 		return page;
+	}
+	
+	@RequestMapping
+	public void config(HttpServletRequest request, Model model){
+		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
+		SysUserConfig vo = userService.getUserConfig(user.getUserid());
+		model.addAttribute(WebConstants.KEY_RESULT, vo);
+	}
+	
+	@RequestMapping
+	public String setConfig(SysUserConfig config){
+		userService.saveUserConfig(config);
+		return redirect(USER_CONFIG);
 	}
 }

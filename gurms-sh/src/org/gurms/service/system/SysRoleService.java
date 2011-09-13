@@ -15,7 +15,9 @@ public interface SysRoleService {
 	
 	public List<SysRole> getAll();
 	
-	public void save(SysRole role);
+	public PageResult<SysRole> save(SysRole role);
+	
+	public PageResult<SysRole> insert(SysRole role);
 	
 	public void delete(String id);
 }

@@ -17,7 +17,7 @@
 		})
 	</script>
 
-	<form method="post" id="mainForm" action="${base}/sysrole/save">
+	<form method="post" id="ajaxform" action="${base}/sysrole/ajaxSave">
         <div class="messagelist">
             <div class="title_bg">
                 <span>角色维护</span>
@@ -121,9 +121,11 @@
                     <tr>
                         <td class="tdwidth2"></td>
                         <td>
-							<input type="submit" class="button" value="保存" />
 							<#if result?exists>
-							<input type="button" class="button" onclick="submiturl('mainForm','${base}/sysrole/delete')" value="删除" />
+							<input type="submit" class="button" value="保存" />
+							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysrole/delete')" value="删除" />
+							<#else>
+							<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysrole/ajaxInsert')" value="保存" />
 							</#if>
 							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
 							<input type="reset" class="button" value="重置"/>

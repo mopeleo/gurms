@@ -12,6 +12,7 @@ import org.gurms.common.util.ObjectMapper;
 import org.gurms.dao.hibernate.system.SysLogLoginDao;
 import org.gurms.dao.hibernate.system.SysParamDao;
 import org.gurms.dao.hibernate.system.SysRoleDao;
+import org.gurms.dao.hibernate.system.SysUserConfigDao;
 import org.gurms.dao.hibernate.system.SysUserDao;
 import org.gurms.dao.hibernate.system.SysUserInfoDao;
 import org.gurms.entity.PageRequest;
@@ -21,6 +22,7 @@ import org.gurms.entity.system.SysLogLogin;
 import org.gurms.entity.system.SysParam;
 import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
+import org.gurms.entity.system.SysUserConfig;
 import org.gurms.entity.system.SysUserInfo;
 import org.gurms.service.system.SysUserService;
 import org.slf4j.Logger;
@@ -50,6 +52,9 @@ public class SysUserServiceImpl implements SysUserService{
 	@Autowired
 	private SysUserInfoDao sysUserInfoDao;
 
+	@Autowired
+	private SysUserConfigDao sysUserConfigDao;
+	
 	@Transactional(readOnly = true)
 	public SysUser get(String id){
 		return sysUserDao.get(id);
@@ -250,6 +255,17 @@ public class SysUserServiceImpl implements SysUserService{
 			sysUserInfoDao.save(info);
 		}
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public SysUserConfig getUserConfig(String userid) {
+		return sysUserConfigDao.get(userid);
+	}
+
+	@Override
+	public void saveUserConfig(SysUserConfig config) {
+		sysUserConfigDao.save(config);
+	}
 	
 	public SysUserDao getSysUserDao() {
 		return sysUserDao;
@@ -289,6 +305,14 @@ public class SysUserServiceImpl implements SysUserService{
 
 	public void setSysUserInfoDao(SysUserInfoDao sysUserInfoDao) {
 		this.sysUserInfoDao = sysUserInfoDao;
+	}
+
+	public SysUserConfigDao getSysUserConfigDao() {
+		return sysUserConfigDao;
+	}
+
+	public void setSysUserConfigDao(SysUserConfigDao sysUserConfigDao) {
+		this.sysUserConfigDao = sysUserConfigDao;
 	}
 	
 }

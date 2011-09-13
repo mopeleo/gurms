@@ -24,11 +24,11 @@ public abstract class BaseController {
 		binder.registerCustomEditor(int.class, new IntPropertyBinder());
 	}
 	
-	protected PageResult processException(Exception e){
-		logger.warn(e.getMessage(), e);
+	protected PageResult processException(Exception e, String returnmsg){
+		logger.warn(returnmsg, e);
 		PageResult page = new PageResult();
 		page.setSuccess(false);
-		page.setReturnmsg(e.getMessage());
+		page.setReturnmsg(returnmsg);
 		return page;
 	}
 }

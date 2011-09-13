@@ -5,8 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.gurms.entity.PageResult;
 import org.gurms.entity.PageRequest;
+import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysRole;
 import org.gurms.service.system.SysRoleService;
 import org.gurms.web.ServletUtil;
@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SysRoleController extends BaseController {
@@ -45,6 +46,30 @@ public class SysRoleController extends BaseController {
 	public String save(SysRole role){
 		roleService.save(role);
 		return redirect(ROLE_LIST);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public PageResult ajaxSave(SysRole role){
+		PageResult page = null;
+		try{
+			page = roleService.save(role);
+		}catch(Exception e){
+			page = processException(e, "保存角色信息出错");
+		}
+		return page;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public PageResult ajaxInsert(SysRole role){
+		PageResult page = null;
+		try{
+			page = roleService.insert(role);
+		}catch(Exception e){
+			page = processException(e, "新增角色信息出错");
+		}
+		return page;
 	}
 	
 	@RequestMapping
