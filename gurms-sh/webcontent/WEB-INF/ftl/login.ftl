@@ -58,8 +58,10 @@
 			if($("#dynamicIframe #" + divid + "_div").length == 1){
 				$("#dynamicIframe div").hide();
 				$("#dynamicIframe #" + divid + "_div").show();
-				if($("#dynamicTitle #" + divid + "_li div").eq(0).hasClass("changebodylefton")){
-					$("#dynamicIframe #" + divid + "_div").children().eq(0).attr("src", url);
+				if($("#dynamicTitle #" + divid + "_li:not(:hidden)").length == 1){
+					if($("#dynamicTitle #" + divid + "_li div").eq(0).hasClass("changebodylefton")){
+						$("#dynamicIframe #" + divid + "_div").children().eq(0).attr("src", url);
+					}
 				}
 	
 				$("#dynamicTitle .changebodylefton").removeClass().addClass("changebodyleftout");
