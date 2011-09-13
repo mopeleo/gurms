@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysParam;
 import org.gurms.service.system.SysParamService;
 import org.gurms.web.ServletUtil;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SysParamController extends BaseController {
@@ -49,5 +51,34 @@ public class SysParamController extends BaseController {
 
 		}
 		return redirect(PARAM_LIST);
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public PageResult ajaxSave(HttpServletRequest request){
+		String[] paramids = request.getParameterValues("paramid");
+		String[] paramvalues = request.getParameterValues("paramvalue");
+		PageResult page = null;
+		try{
+			if(paramids != null && paramids.length >0){
+				List<SysParam> paramList = new ArrayList<SysParam>();
+				for(int i = 0; i< paramids.length; i++){
+					paramList.add(new SysParam(paramids[i], paramvalues[i]));
+				}
+				page = sysParamService.save(paramList);
+				
+				//更新缓存
+				Map<String, String> paramMap = (Map<String, String>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_PARAM);
+				for(SysParam param : paramList){
+					paramMap.put(param.getParamid(), param.getParamvalue());
+				}
+	
+			}
+		}catch(Exception e){
+			page = processException(e);
+		}
+		
+		return page;
+
 	}
 }
