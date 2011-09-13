@@ -22,6 +22,7 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
+						<td>序号</td>
 						<td>用户ID</td>
 						<td>用户姓名</td>
 						<td>所属机构</td>
@@ -32,6 +33,7 @@
 					</tr>
 					<#list result.result as user>
 						<tr onclick="checklist(this)">
+							<td>${user_index+1}</td>
 							<td><a href="${base}/sysuser/detail?userid=${user.userid}" >${user.userid}</a></td>
 							<td>${user.username}</td>
 							<td>${(user.sysorg.shortname)!}</td>
@@ -47,7 +49,7 @@
 							<td><@c.dictdesc dicttype="0005" dictcode="${user.userstatus}" /></td>
 						</tr>
 					</#list>
-					<@c.filltable rows=result.result?size cols=7 />
+					<@c.filltable rows=result.result?size cols=8 />
 				</table>
 			</div>
 			

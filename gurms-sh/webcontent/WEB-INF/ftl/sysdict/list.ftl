@@ -20,6 +20,7 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
+						<td>序号</td>
 						<td>字典类别</td>
 						<td>字典代码</td>
 						<td>字典值</td>
@@ -28,6 +29,7 @@
 					</tr>
 					<#list result.result as dict>
 						<tr onclick="checklist(this)">
+							<td>${dict_index+1}</td>
 							<td>${dict.dicttype}</td>
 							<td>${dict.dictcode}</td>
 							<td>${dict.dictvalue}</td>
@@ -35,7 +37,7 @@
 							<td>${dict.remark}</td>
 						</tr>
 					</#list>
-					<@c.filltable rows=result.result?size cols=5 />
+					<@c.filltable rows=result.result?size cols=6 />
 				</table>
 			</div>
 			

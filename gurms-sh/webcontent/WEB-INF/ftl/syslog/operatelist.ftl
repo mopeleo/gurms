@@ -22,6 +22,7 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
+						<td>序号</td>
 						<td>用户ID</td>
 						<td>操作日期</td>
 						<td>操作时间</td>
@@ -31,6 +32,7 @@
 					</tr>
 					<#list result.result as log>
 						<tr onclick="checklist(this)">
+							<td>${log_index+1}</td>
 							<td>${log.userid}</td>
 							<td>${log.operatedate}</td>
 							<td>${log.operatetime}</td>
@@ -39,7 +41,7 @@
 							<td>${log.recordid}</td>
 						</tr>
 					</#list>
-					<@c.filltable rows=result.result?size cols=6 />
+					<@c.filltable rows=result.result?size cols=7 />
 				</table>
 			</div>
 			

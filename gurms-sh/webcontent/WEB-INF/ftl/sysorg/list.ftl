@@ -22,6 +22,7 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
+						<td>序号</td>
 						<td>机构简称</td>
 						<td>机构全称</td>
 						<td>机构联系人</td>
@@ -32,6 +33,7 @@
 					</tr>
 					<#list result.result as org>
 						<tr onclick="checklist(this)">
+							<td>${org_index+1}</td>
 							<td><a href="${base}/sysorg/detail?orgid=${org.orgid}" >${org.shortname}</a></td>
 							<td>${org.fullname}</td>
 							<td>${org.linkman}</td>
@@ -41,7 +43,7 @@
 							<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
 						</tr>
 					</#list>
-					<@c.filltable rows=result.result?size cols=7 />
+					<@c.filltable rows=result.result?size cols=8 />
 				</table>
 			</div>
 			

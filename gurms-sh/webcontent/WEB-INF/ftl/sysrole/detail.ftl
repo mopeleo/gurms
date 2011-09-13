@@ -45,10 +45,6 @@
 	                        <td><@c.dict id="rolestatus" dicttype="0002" default="${result.rolestatus}" nullable=false /></td>
 	                    </tr>
 	                    <tr>
-	                        <td class="tdwidth2">角色类型</td>
-	                        <td><input type="text" name="roletype" value="${result.roletype}" /></td>
-	                    </tr>
-	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>
 	                        <td><@c.calendar id="startdate" default="${result.startdate}" nextdate="enddate"/></td>
 	                    </tr>
@@ -59,6 +55,7 @@
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
 	                        <td>
+	                        	<input type="hidden" name="roletype" value="0"/>
 	                        	<input type="hidden" name="creater" value="${result.creater}" />
 	                        	<input type="text" name="remark" value="${result.remark}" />
 	                        </td>
@@ -91,10 +88,6 @@
 	                        <td><@c.dict id="rolestatus" dicttype="0002" nullable=false /></td>
 	                    </tr>
 	                    <tr>
-	                        <td class="tdwidth2">角色类型</td>
-	                        <td><input type="text" name="roletype" /></td>
-	                    </tr>
-	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>
 	                        <td><@c.calendar id="startdate" nextdate="enddate"/></td>
 	                    </tr>
@@ -106,6 +99,7 @@
 	                        <td class="tdwidth2">备注</td>
 	                        <td>
 	                        	<input type="text" name="remark" />
+	                        	<input type="hidden" name="roletype" value="0"/>
 	                        	<input type="hidden" name="creater" value="${session_user.userid}" />
 	                        </td>
 	                    </tr>

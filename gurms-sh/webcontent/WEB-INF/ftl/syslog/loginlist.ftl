@@ -22,6 +22,7 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
+						<td>序号</td>
 						<td>用户ID</td>
 						<td>登录日期</td>
 						<td>登录时间</td>
@@ -31,6 +32,7 @@
 					</tr>
 					<#list result.result as log>
 						<tr onclick="checklist(this)">
+							<td>${log_index+1}</td>
 							<td>${log.userid}</td>
 							<td>${log.logindate}</td>
 							<td>${log.logintime}</td>
@@ -39,7 +41,7 @@
 							<td><@c.dictdesc dicttype="0001" dictcode="${log.success}"/></td>
 						</tr>
 					</#list>
-					<@c.filltable rows=result.result?size cols=6 />
+					<@c.filltable rows=result.result?size cols=7 />
 				</table>
 			</div>
 			
