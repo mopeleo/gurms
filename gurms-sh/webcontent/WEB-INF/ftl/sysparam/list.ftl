@@ -1,5 +1,5 @@
-<@c.html title="字典信息">
-	<form method="post" id="mainForm" action="${base}/sysparam/save">
+<@c.html title="参数信息">
+	<form method="post" id="ajaxform" action="${base}/sysparam/ajaxSave">
         <div class="messagelist">
             <div class="title_bg">
                 <span>基本信息</span>
