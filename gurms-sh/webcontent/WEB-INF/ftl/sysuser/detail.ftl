@@ -28,10 +28,6 @@
                         <td><input type="text" name="username" value="${result.username}" /></td>
                     </tr>
                     <tr>
-                        <td class="tdwidth2">用户状态</td>
-                        <td><input type="text" name="userstatus" value="${result.userstatus}" /></td>
-                    </tr>
-                    <tr>
                         <td class="tdwidth2">所属部门</td>
                         <td><@c.popuptree id="sysorg.orgid" type="${base}/sysorg/ajaxOrgTree" display="${(result.sysorg.shortname)!!}" actual="${(result.sysorg.orgid)!!}" dynamic=true/></td>
                     </tr>
@@ -51,10 +47,6 @@
                     <tr>
                         <td class="tdwidth2">用户姓名</td>
                         <td><input type="text" name="username" /></td>
-                    </tr>
-                    <tr>
-                        <td class="tdwidth2">用户状态</td>
-                        <td><input type="text" name="userstatus" onclick="getmsval()"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
