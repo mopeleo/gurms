@@ -83,7 +83,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 			page = save(role);
 		}else{
 			page.setSuccess(false);
-			page.setReturnmsg("角色名[" + role.getRolename() + "]已存在");
+			page.setReturnmsg("角色[" + role.getRolename() + "]已存在");
 		}
 		return page;
 	}
@@ -96,6 +96,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Override
 	public List<SysRole> getAll() {
 		return sysRoleDao.getAll();
+	}	
+
+	@Override
+	public void freshRole() {
+		sysRoleDao.freshRole();
 	}	
 
 }

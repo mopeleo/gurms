@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.gurms.entity.PageRequest;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -16,8 +18,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class SysUserConfig implements Serializable {
 
 	private String userid;
-	private int pagesize;
+	private int pagesize = PageRequest.MAX_PAGESIZE;
 	private String fastmenu;
+	
+	private String[] sysmenuids;
 	
 	@Id
 	public String getUserid() {
@@ -37,6 +41,15 @@ public class SysUserConfig implements Serializable {
 	}
 	public void setFastmenu(String fastmenu) {
 		this.fastmenu = fastmenu;
+	}
+	/////扩展属性，非持久层属性
+	@Transient
+	public String[] getSysmenuids() {
+		return sysmenuids;
+	}
+	
+	public void setSysmenuids(String[] sysmenuids) {
+		this.sysmenuids = sysmenuids;
 	}
 	public boolean equals(Object o) {
 		if (o == null || !(o instanceof SysUserConfig)) {

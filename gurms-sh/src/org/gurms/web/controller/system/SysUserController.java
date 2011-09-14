@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
@@ -30,7 +31,6 @@ public class SysUserController extends BaseController {
 
 	public static final String USER_LIST ="/sysuser/list";
 	public static final String USER_INFO ="/sysuser/info";
-	public static final String USER_CONFIG ="/sysuser/config";
 
 	@Autowired
 	private SysUserService userService;
@@ -62,14 +62,20 @@ public class SysUserController extends BaseController {
 	@RequestMapping
 	public void info(HttpServletRequest request, Model model){
 		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
-		SysUserInfo vo = userService.getUserInfo(user.getUserid());
-		model.addAttribute(WebConstants.KEY_RESULT, vo);
+		SysUserInfo info = userService.getUserInfo(user.getUserid());
+		model.addAttribute(WebConstants.KEY_RESULT, info);
 	}
 	
 	@RequestMapping
-	public String userinfo(SysUserInfo userinfo){
-		userService.saveUserInfo(userinfo);
-		return redirect(USER_INFO);
+	@ResponseBody
+	public PageResult userinfo(SysUserInfo userinfo){
+		PageResult page = null;
+		try{
+			userService.saveUserInfo(userinfo);
+		}catch(Exception e){
+			page = processException(e, "保存用户信息出错");
+		}
+		return page;
 	}
 	
 	@RequestMapping
@@ -124,15 +130,27 @@ public class SysUserController extends BaseController {
 	}
 	
 	@RequestMapping
-	public void config(HttpServletRequest request, Model model){
-		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
-		SysUserConfig vo = userService.getUserConfig(user.getUserid());
-		model.addAttribute(WebConstants.KEY_RESULT, vo);
+	public void config(HttpSession session){
+		Object obj = session.getAttribute(WebConstants.S_KEY_USERCONFIG);
+		if(obj == null){
+			SysUser user = (SysUser)session.getAttribute(WebConstants.S_KEY_USER);
+			SysUserConfig config = userService.getUserConfig(user.getUserid());
+			if(config == null){
+				config = new SysUserConfig();
+			}
+			session.setAttribute(WebConstants.S_KEY_USERCONFIG, config);
+		}
 	}
 	
 	@RequestMapping
-	public String setConfig(SysUserConfig config){
-		userService.saveUserConfig(config);
-		return redirect(USER_CONFIG);
+	@ResponseBody
+	public PageResult setConfig(SysUserConfig config){
+		PageResult page = null;
+		try{
+			userService.saveUserConfig(config);
+		}catch(Exception e){
+			page = processException(e, "保存用户设置出错");
+		}
+		return page;
 	}
 }

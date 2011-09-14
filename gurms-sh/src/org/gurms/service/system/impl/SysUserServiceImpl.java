@@ -3,6 +3,7 @@ package org.gurms.service.system.impl;
 import java.text.ParseException;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
@@ -264,6 +265,11 @@ public class SysUserServiceImpl implements SysUserService{
 
 	@Override
 	public void saveUserConfig(SysUserConfig config) {
+		String[] menus = config.getSysmenuids();
+		if(menus != null && menus.length > 0){
+			String fastmenu = StringUtils.join(menus, GlobalParam.STRING_SEPARATOR);
+			config.setFastmenu(fastmenu);
+		}
 		sysUserConfigDao.save(config);
 	}
 	

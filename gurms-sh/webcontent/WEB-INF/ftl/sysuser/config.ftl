@@ -35,7 +35,7 @@
 	                        <td class="tdwidth2">每页条数</td>
 	                        <td>
 		                        <input type="hidden" name="userid" value="${session_user.userid}"/>
-		                        <input type="text" name="pagesize" />
+		                        <input type="text" name="pagesize" value="${session_userconfig.pagesize}" />
 	                        </td>
 	                    </tr>
 	                </table>
@@ -43,7 +43,7 @@
 		        <div class="messagedivnone">
 		        	<table>
 		        	<tr><td>
-					<@c.tree id="sysmenuids" type=1 node=session_menu actual="${(result.fastmenu)??}" checkable=true />
+					<@c.tree id="sysmenuids" type=1 node=session_menu actual="${session_userconfig.fastmenu}" checkable=true />
 		        	</td></tr>
 		        	</table>
 		        </div>

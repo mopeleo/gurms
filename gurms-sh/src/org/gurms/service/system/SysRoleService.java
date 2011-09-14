@@ -22,4 +22,6 @@ public interface SysRoleService {
 	public PageResult<SysRole> insert(SysRole role);
 	
 	public void delete(String id);
+	
+	public void freshRole();
 }

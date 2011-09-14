@@ -3,8 +3,10 @@ package org.gurms.web;
 public class WebConstants {
 	
 	// session中的key
-	public static final String S_KEY_USER = "session_user";	
 	public static final String S_KEY_MENU = "session_menu";	
+	public static final String S_KEY_FASTMENU = "session_fastmenu";	
+	public static final String S_KEY_USER = "session_user";	
+	public static final String S_KEY_USERCONFIG = "session_userconfig";	
 	public static final String S_KEY_VALIDCODE = "session_validcode";
 	
 	//context中的key
