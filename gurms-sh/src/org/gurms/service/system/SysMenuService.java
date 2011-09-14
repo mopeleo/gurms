@@ -13,8 +13,7 @@ public interface SysMenuService {
 	/**
 	 * 获得某个用户的权限树
 	 * @param userid
-	 * @param root  所有菜单的菜单树
 	 * @return
 	 */
-	public SysMenu getUserMenuTree(String userid, SysMenu root);
+	public SysMenu getUserMenuTree(String userid);
 }
