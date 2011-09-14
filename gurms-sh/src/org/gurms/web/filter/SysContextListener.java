@@ -15,6 +15,7 @@ import org.gurms.entity.system.SysMenu;
 import org.gurms.service.system.SysDictService;
 import org.gurms.service.system.SysMenuService;
 import org.gurms.service.system.SysParamService;
+import org.gurms.service.system.SysRoleService;
 import org.gurms.web.WebConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,5 +71,10 @@ public class SysContextListener implements ServletContextListener {
 //		SysOrg org = orgService.getRoot();
 //		context.setAttribute(WebConstants.C_KEY_ORG, org);
 //		logger.info("cache sys_org data success.....");
+		
+		// 更新数据----------------------------------
+		SysRoleService roleService = SpringUtil.getBean("sysRoleServiceImpl");
+		roleService.freshRole();
+		logger.info("fresh sys_role success.....");
 	}
 }
