@@ -47,18 +47,22 @@ public class SysLoginController extends BaseController {
 	@ResponseBody
 	public PageResult<SysUser> ajaxLogin(HttpServletRequest request, SysUser user){
 		PageResult<SysUser> result = null;
-		if(checkValidcode(request)){
-			user.setLoginip(request.getRemoteAddr());
-			result = sysUserService.login(user);
-			if (result.isSuccess()) {
-				SysUser sessionUser = result.getResult().get(0);
-				setUserSession(request, sessionUser);
+		try{
+			if(checkValidcode(request)){
+				user.setLoginip(request.getRemoteAddr());
+				result = sysUserService.login(user);
+				if (result.isSuccess()) {
+					SysUser sessionUser = result.getResult().get(0);
+					setUserSession(request, sessionUser);
+				}
+				result.setResult(null);
+			}else{
+				result = new PageResult<SysUser>();
+				result.setSuccess(false);
+				result.setReturnmsg("验证码错误");
 			}
-			result.setResult(null);
-		}else{
-			result = new PageResult<SysUser>();
-			result.setSuccess(false);
-			result.setReturnmsg("验证码错误");
+		}catch(Exception e){
+			processException(e, "用户登录异常");
 		}
 		
 		return result;
