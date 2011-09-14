@@ -1,11 +1,17 @@
 package org.gurms.web.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysMenu;
 import org.gurms.entity.system.SysUser;
+import org.gurms.entity.system.SysUserConfig;
 import org.gurms.service.system.SysMenuService;
 import org.gurms.service.system.SysUserService;
 import org.gurms.web.ServletUtil;
@@ -91,7 +97,20 @@ public class SysLoginController extends BaseController {
 			root = sysMenuService.getUserMenuTree(user.getUserid());
 		}
 		
-		request.getSession().setAttribute(WebConstants.S_KEY_USER, user);
-		request.getSession().setAttribute(WebConstants.S_KEY_MENU, root);
+		HttpSession session = request.getSession();
+		session.setAttribute(WebConstants.S_KEY_USER, user);
+		session.setAttribute(WebConstants.S_KEY_MENU, root);
+		
+		SysUserConfig config = sysUserService.getUserConfig(user.getUserid());
+		if(config != null){
+			session.setAttribute(WebConstants.S_KEY_USERCONFIG, config);
+			String fast = config.getFastmenu();
+			if(StringUtils.isNotBlank(fast)){
+				String[] ids = StringUtils.split(fast, GlobalParam.STRING_SEPARATOR);
+				List idList = Arrays.asList(ids);
+				List<SysMenu> fastmenu = sysMenuService.get(idList);
+				session.setAttribute(WebConstants.S_KEY_FASTMENU, fastmenu);
+			}
+		}
 	}
 }
