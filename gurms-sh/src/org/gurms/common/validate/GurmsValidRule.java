@@ -157,7 +157,7 @@ public class GurmsValidRule implements Serializable{
 						result = result && (NumberUtils.compare(NumberUtils.toFloat(val), NumberUtils.toFloat(getMinimum())) >= 0);
 					}
 					if(StringUtils.isNotEmpty(getMaximum())){
-						result = result && (NumberUtils.compare(NumberUtils.toFloat(val), NumberUtils.toFloat(getMinimum())) <= 0);
+						result = result && (NumberUtils.compare(NumberUtils.toFloat(val), NumberUtils.toFloat(getMaximum())) <= 0);
 					}
 				}else{
 					result = false;

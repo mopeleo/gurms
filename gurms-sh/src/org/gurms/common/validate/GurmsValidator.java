@@ -16,13 +16,14 @@ public class GurmsValidator {
 		
 		StringBuffer sb = new StringBuffer(2048);
 		for(GurmsValidRule g : rules){
-			g.setValue((String)ReflectionUtil.recGetPropertyValue(o, g.getField()));
+			g.setValue(String.valueOf(ReflectionUtil.recGetPropertyValue(o, g.getField())));
 			if(!g.validField()){
-				if("1".equals(GurmsValidConfig.MSG_TYPE)){
-					sb.append(g.getMsg()).append(",");
-				}else{
-					sb.append(g.getJsonMsg()).append(",");
-				}
+				sb.append(g.getMsg()).append(",");
+//				if("1".equals(GurmsValidConfig.MSG_TYPE)){
+//					sb.append(g.getMsg()).append(",");
+//				}else{
+//					sb.append(g.getJsonMsg()).append(",");
+//				}
 			}
 		}
 		
