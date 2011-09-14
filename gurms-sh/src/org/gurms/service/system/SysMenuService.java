@@ -1,5 +1,7 @@
 package org.gurms.service.system;
 
+import java.util.List;
+
 import org.gurms.entity.system.SysMenu;
 
 public interface SysMenuService {
@@ -16,4 +18,11 @@ public interface SysMenuService {
 	 * @return
 	 */
 	public SysMenu getUserMenuTree(String userid);
+
+	/**
+	 * 获得多个菜单
+	 * @param ids 菜单ID的集合
+	 * @return
+	 */
+	public List<SysMenu> get(List ids);
 }
