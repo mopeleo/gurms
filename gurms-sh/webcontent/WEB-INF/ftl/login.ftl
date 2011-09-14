@@ -163,10 +163,19 @@
             <div class="logo_rb">
             	<ul id="systemcontrol">
                     <#assign leftsize = session_menu.submenus?size>	                                  	  
-            		<#list session_menu.submenus as menu>
-                		<li onclick="leftchange(${menu_index},${leftsize})">
-                			<a id="left_a_${menu_index}" class="<#if menu_index=0>onbg<#else>outbg</#if>" href="#">${menu.menuname}</a>
+                    <#assign leftindex = 0>
+                    <#if session_fastmenu?exists>
+                		<#assign leftsize = leftsize + 1>
+                		<li onclick="leftchange(${leftindex},${leftsize})">
+                			<a id="left_a_${leftindex}" class="onbg" href="#">快捷</a>
                 		</li>
+                		<#assign leftindex = leftindex + 1>
+                    </#if>	                                  	  
+            		<#list session_menu.submenus as menu>
+                		<li onclick="leftchange(${leftindex},${leftsize})">
+                			<a id="left_a_${leftindex}" class="<#if leftindex=0>onbg<#else>outbg</#if>" href="#">${menu.menuname}</a>
+                		</li>
+                		<#assign leftindex = leftindex + 1>
             		</#list>
                 </ul>
             </div>
@@ -201,8 +210,43 @@
                     <div id="left_all">
                         <div id="mainleft">
                         
+                    	<#assign menuindex = 0>
+                        <#if session_fastmenu?exists> 
+	                        <div class="leftblock" id="left_${menuindex}">
+	                            <div class="left">
+	                                <div class="left_top">
+	                                    <ul>
+	                                  	    <li>
+	                                        <div class="leftdaohang_top"></div>
+	                                        <div class="leftdaohang_contect" onclick="middlechange(this)">常用</div>
+	                                        <div class="leftdaohang_bottom"></div>
+	                                        <div class="secondmenu">	
+	                                            <div class="middle middleblock">
+	                                          	    <#list session_fastmenu as leafs>
+	                                                    <#if leafs.menutype="1">	                                              
+			                                                <ul class="menublock" id="menu">
+			                                                    <li><a class="menuout" target="rightiframe" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leafs.menuurl}')">${leafs.menuname}</a></li>
+			                                                </ul>
+	                                                    </#if>
+	                                                </#list>
+	                                            </div>
+	                                        </div>
+	                                  	    </li>
+	                                    </ul>
+	                                </div><!--left_top end -->
+	                                
+	                                <div class="left_botom">
+	                                    <div class="pre_jiantou"><a href="#"><img src="img/shang_sanjiao.gif" width="10" height="6" /></a></div>
+	                                    <div class="next_jiantou"><a href="#"><img src="img/xia_sanjiao.gif" width="10" height="5" /></a></div>
+	                                </div>   
+	                            </div><!--main_body left end -->
+	                            <div class="middle"></div>
+	                        </div><!--left4 end -->
+                			<#assign menuindex = menuindex + 1>
+                        </#if>                     
+
                         <#list session_menu.submenus as menus> 
-	                        <div class="<#if menus_index=0>leftblock<#else>leftnone</#if>" id="left_${menus_index}">
+	                        <div class="<#if menuindex=0>leftblock<#else>leftnone</#if>" id="left_${menuindex}">
 	                            <div class="left">
 	                                <div class="left_top">
 	                                    <ul>
@@ -245,6 +289,7 @@
 	                            </div><!--main_body left end -->
 	                            <div class="middle"></div>
 	                        </div><!--left4 end -->
+                			<#assign menuindex = menuindex + 1>
                         </#list>                     
  
 						</div><!--mainleft end -->
