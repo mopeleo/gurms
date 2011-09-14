@@ -102,15 +102,16 @@ public class SysLoginController extends BaseController {
 		session.setAttribute(WebConstants.S_KEY_MENU, root);
 		
 		SysUserConfig config = sysUserService.getUserConfig(user.getUserid());
-		if(config != null){
-			session.setAttribute(WebConstants.S_KEY_USERCONFIG, config);
-			String fast = config.getFastmenu();
-			if(StringUtils.isNotBlank(fast)){
-				String[] ids = StringUtils.split(fast, GlobalParam.STRING_SEPARATOR);
-				List idList = Arrays.asList(ids);
-				List<SysMenu> fastmenu = sysMenuService.get(idList);
-				session.setAttribute(WebConstants.S_KEY_FASTMENU, fastmenu);
-			}
+		if(config == null){
+			config = new SysUserConfig();
+		}
+		session.setAttribute(WebConstants.S_KEY_USERCONFIG, config);
+		String fast = config.getFastmenu();
+		if(StringUtils.isNotBlank(fast)){
+			String[] ids = StringUtils.split(fast, GlobalParam.STRING_SEPARATOR);
+			List idList = Arrays.asList(ids);
+			List<SysMenu> fastmenu = sysMenuService.get(idList);
+			session.setAttribute(WebConstants.S_KEY_FASTMENU, fastmenu);
 		}
 	}
 }
