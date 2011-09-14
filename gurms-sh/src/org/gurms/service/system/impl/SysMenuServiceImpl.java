@@ -27,6 +27,11 @@ public class SysMenuServiceImpl implements SysMenuService {
 	}
 
 	@Override
+	public List<SysMenu> get(List ids){
+		return sysMenuDao.get(ids);
+	}
+	
+	@Override
 	@Transactional(readOnly = true)
 	public SysMenu getMenuTree(String nodeId) {
 		SysMenu root = sysMenuDao.get(nodeId);
