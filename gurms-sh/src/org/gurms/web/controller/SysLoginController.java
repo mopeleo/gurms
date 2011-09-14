@@ -84,7 +84,7 @@ public class SysLoginController extends BaseController {
 		if(sysUserService.isAdmin(user.getUserid())){
 			root = (SysMenu)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_MENU);
 		}else{
-			root = sysMenuService.getUserMenuTree(user.getUserid(), root);
+			root = sysMenuService.getUserMenuTree(user.getUserid());
 		}
 		
 		request.getSession().setAttribute(WebConstants.S_KEY_USER, user);
