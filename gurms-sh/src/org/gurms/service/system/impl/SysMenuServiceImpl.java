@@ -36,13 +36,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysMenu getUserMenuTree(String userid, SysMenu root) {
-		SysMenu allMenu = null;
-		if(root == null || !GlobalParam.MENU_ROOTID.equals(root.getMenuid())){
-			allMenu = getMenuTree(GlobalParam.MENU_ROOTID);
-		}else{
-			allMenu = root;
-		}
+	public SysMenu getUserMenuTree(String userid) {
+		SysMenu allMenu = getMenuTree(GlobalParam.MENU_ROOTID);
 		List<SysMenu> menus = sysMenuDao.getUserMenus(userid);
 		createMenuTree(allMenu, menus);
 		return allMenu;
