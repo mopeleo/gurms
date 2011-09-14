@@ -2,6 +2,7 @@ package org.gurms.dao.hibernate.system;
 
 import java.io.Serializable;
 
+import org.gurms.common.util.FormatUtil;
 import org.gurms.dao.hibernate.HibernateDao;
 import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SysRoleDao extends HibernateDao<SysRole> {
+
+	private static final String UPDATE_INVALID = "update SysRole set rolestatus ='0' where rolestatus='1' and (startdate > ? or enddate < ?)";
+	private static final String UPDATE_VALID = "update SysRole set rolestatus ='1' where rolestatus='0' and ? between startdate and enddate";
 
 	@Override
 	/**
@@ -22,4 +26,10 @@ public class SysRoleDao extends HibernateDao<SysRole> {
 		}
 		super.delete(id);
 	}
+	
+	public void freshRole(){
+		String currentDate = FormatUtil.getCurrentDate();
+		batchExecute(UPDATE_VALID, currentDate);
+		batchExecute(UPDATE_INVALID, currentDate, currentDate);
+	} 
 }
