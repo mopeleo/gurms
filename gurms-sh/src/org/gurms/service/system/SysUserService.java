@@ -33,9 +33,10 @@ public interface SysUserService{
 	
 	public SysUserInfo getUserInfo(String userid);
 	
-	public void saveUserInfo(SysUserInfo userinfo);
+	public PageResult<SysUser> saveUserInfo(SysUserInfo userinfo);
 	
 	public SysUserConfig getUserConfig(String userid);
 	
-	public void saveUserConfig(SysUserConfig config);
+	@GurmsValid(type=SysUserConfig.class)
+	public PageResult<SysUser> saveUserConfig(SysUserConfig config);
 }

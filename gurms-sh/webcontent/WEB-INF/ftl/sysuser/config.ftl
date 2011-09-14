@@ -1,4 +1,5 @@
 <@c.html title="用户信息">
+	<@c.validscript classname="org.gurms.entity.system.SysUserConfig" formid="ajaxform"/>
 	<script type="text/javascript">	
 		$(document).ready(function(){
 			var idx = 0;

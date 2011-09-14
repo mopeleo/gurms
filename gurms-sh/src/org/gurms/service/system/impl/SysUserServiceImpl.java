@@ -244,7 +244,8 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 
 	@Override
-	public void saveUserInfo(SysUserInfo userinfo) {
+	public PageResult<SysUser> saveUserInfo(SysUserInfo userinfo) {
+		PageResult<SysUser> page = new PageResult<SysUser>();
 		SysUserInfo info = sysUserInfoDao.get(userinfo.getUserid());
 		if(info == null){
 			userinfo.setCreatedate(FormatUtil.getCurrentDate());
@@ -255,6 +256,7 @@ public class SysUserServiceImpl implements SysUserService{
 			info.setCreatedate(createDate);
 			sysUserInfoDao.save(info);
 		}
+		return page;
 	}
 
 	@Override
@@ -264,13 +266,15 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 
 	@Override
-	public void saveUserConfig(SysUserConfig config) {
+	public PageResult<SysUser> saveUserConfig(SysUserConfig config) {
+		PageResult<SysUser> page = new PageResult<SysUser>();
 		String[] menus = config.getSysmenuids();
 		if(menus != null && menus.length > 0){
 			String fastmenu = StringUtils.join(menus, GlobalParam.STRING_SEPARATOR);
 			config.setFastmenu(fastmenu);
 		}
 		sysUserConfigDao.save(config);
+		return page;
 	}
 	
 	public SysUserDao getSysUserDao() {

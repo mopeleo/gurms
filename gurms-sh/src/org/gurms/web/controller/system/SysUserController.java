@@ -1,20 +1,22 @@
 package org.gurms.web.controller.system;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
+import org.gurms.entity.system.SysMenu;
 import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
 import org.gurms.entity.system.SysUserConfig;
 import org.gurms.entity.system.SysUserInfo;
+import org.gurms.service.system.SysMenuService;
 import org.gurms.service.system.SysRoleService;
 import org.gurms.service.system.SysUserService;
 import org.gurms.web.ServletUtil;
@@ -30,13 +32,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SysUserController extends BaseController {
 
 	public static final String USER_LIST ="/sysuser/list";
-	public static final String USER_INFO ="/sysuser/info";
 
 	@Autowired
 	private SysUserService userService;
 	
 	@Autowired
 	private SysRoleService roleService;
+	
+	@Autowired
+	private SysMenuService menuService;
 	
 	@RequestMapping
 	public void list(HttpServletRequest request, PageRequest page, Model model){
@@ -71,7 +75,7 @@ public class SysUserController extends BaseController {
 	public PageResult userinfo(SysUserInfo userinfo){
 		PageResult page = null;
 		try{
-			userService.saveUserInfo(userinfo);
+			page = userService.saveUserInfo(userinfo);
 		}catch(Exception e){
 			page = processException(e, "保存用户信息出错");
 		}
@@ -130,24 +134,24 @@ public class SysUserController extends BaseController {
 	}
 	
 	@RequestMapping
-	public void config(HttpSession session){
-		Object obj = session.getAttribute(WebConstants.S_KEY_USERCONFIG);
-		if(obj == null){
-			SysUser user = (SysUser)session.getAttribute(WebConstants.S_KEY_USER);
-			SysUserConfig config = userService.getUserConfig(user.getUserid());
-			if(config == null){
-				config = new SysUserConfig();
-			}
-			session.setAttribute(WebConstants.S_KEY_USERCONFIG, config);
-		}
-	}
+	public void config(){}
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult setConfig(SysUserConfig config){
+	public PageResult setConfig(HttpServletRequest request, SysUserConfig config){
 		PageResult page = null;
 		try{
-			userService.saveUserConfig(config);
+			page = userService.saveUserConfig(config);
+			
+			//更新SESSION
+			request.getSession().setAttribute(WebConstants.S_KEY_USERCONFIG, config);
+			String fast = config.getFastmenu();
+			if(StringUtils.isNotBlank(fast)){
+				String[] ids = StringUtils.split(fast, GlobalParam.STRING_SEPARATOR);
+				List idList = Arrays.asList(ids);
+				List<SysMenu> fastmenu = menuService.get(idList);
+				request.getSession().setAttribute(WebConstants.S_KEY_FASTMENU, fastmenu);
+			}
 		}catch(Exception e){
 			page = processException(e, "保存用户设置出错");
 		}
