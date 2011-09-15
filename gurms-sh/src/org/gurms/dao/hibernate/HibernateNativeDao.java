@@ -5,8 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import oracle.jdbc.OracleTypes;
+import java.util.Set;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -43,6 +42,10 @@ public class HibernateNativeDao {
 		return sessionFactory.getCurrentSession();
 	}
 
+	public Set<String> getAllEntity(){
+		return sessionFactory.getAllClassMetadata().keySet();
+	}
+	
 	public void spQuery(String spName, List<SPParam> params) {
 		Connection conn = null;
 		CallableStatement cs = null;

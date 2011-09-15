@@ -32,7 +32,7 @@
 		<#list 1..(pagerows-rows) as x>
 			<tr onclick="checklist(this)">
 				<#list 1..cols as y>
-					<td>&nbsp;</td>
+					<td></td>
 				</#list>
 			</tr>
 		</#list>
