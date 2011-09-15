@@ -3,11 +3,17 @@ package org.gurms.dao.hibernate;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.SQLQuery;
+import org.gurms.common.config.GlobalParam;
+import org.gurms.entity.PageResult;
+import org.gurms.entity.SQLParam;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.connection.ConnectionProvider;
@@ -46,21 +52,64 @@ public class HibernateNativeDao {
 		return sessionFactory.getAllClassMetadata().keySet();
 	}
 	
-	public void spQuery(String spName, List<SPParam> params) {
+	public PageResult spExecute(String spName, List<SQLParam> params) {
+		PageResult result = new PageResult();
 		Connection conn = null;
 		CallableStatement cs = null;
 		ResultSet rs = null;
 		try {
 			conn = getConnection();
+			conn.setAutoCommit(false);
 			cs = createCallableStatement(conn, spName, params);
 			cs.execute();
-			rs = (ResultSet) cs.getObject(1);
-			while (rs.next()) {
-				System.out.println(rs.getString(1) + " : " + rs.getString(2));
+			
+			//寻找出参
+			Iterator<SQLParam> it = params.iterator();
+			while(it.hasNext()){
+				SQLParam s = it.next();
+				if(s.getDir() == SQLParam.Direct.IN){
+					it.remove();
+				}
 			}
+			if(params.size() > 0){
+				for(SQLParam p : params){
+					if(p.getType() == SQLParam.Type.INT){
+						if(cs.getInt(p.getIndex()) == GlobalParam.SP_SUCCESS_INT){
+							result.setSuccess(true);
+						}else{
+							result.setSuccess(false);
+						}
+					}else if(p.getType() == SQLParam.Type.CURSOR){
+						rs = (ResultSet) cs.getObject(p.getIndex());
+						while(rs.next()){
+							Map<String, String> row = new HashMap<String, String>();
+							ResultSetMetaData rsmd = rs.getMetaData();
+							int col = rsmd.getColumnCount() + 1;
+							for(int i = 1; i < col; i++){
+								String colName = rsmd.getColumnName(i);
+								row.put(colName.toLowerCase(), rs.getString(colName));
+							}
+							result.addResult(row);
+						}
+					}else{
+						result.setReturnmsg(cs.getString(p.getIndex()));
+					}
+				}
+			}
+			
+			conn.commit();
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				logger.error("数据库回滚操作失败", e1);
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 			logger.error("数据库操作失败", e);
+			
+			result.setSuccess(false);
+			result.setReturnmsg("执行[" + spName + "]出错");
 		} finally {
 			try {
 				if (rs != null) {
@@ -75,15 +124,13 @@ public class HibernateNativeDao {
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 				logger.error("数据库关闭连接失败", ex);
+				
+				result.setSuccess(false);
+				result.setReturnmsg(ex.getMessage());
 			}
 		}
-	}
-
-	public void spUpdate(String procName, Object... args) {
-		Session session = getSession();
-		SQLQuery query = session.createSQLQuery(procName);
-		query.executeUpdate();
-		session.close();
+		
+		return result;
 	}
 
 	private Connection getConnection() throws SQLException {
@@ -93,14 +140,14 @@ public class HibernateNativeDao {
 	}
 
 	private CallableStatement createCallableStatement(Connection conn, String spName, 
-					List<SPParam> params) throws SQLException {
+					List<SQLParam> params) throws SQLException {
 		StringBuffer sp = new StringBuffer();
 		sp.append("{call ");
 		sp.append(spName);
 		sp.append("(");
-		int paramsize = params.size();
-		if (paramsize > 0) {
-			for (int i = 0; i < paramsize - 1; i++) {
+		if (params != null && params.size()>0) {
+			int loop = params.size() - 1;
+			for (int i = 0; i < loop; i++) {
 				sp.append("?,");
 			}
 			sp.append("?");
@@ -108,58 +155,28 @@ public class HibernateNativeDao {
 		sp.append(")}");
 
 		CallableStatement cs = conn.prepareCall(sp.toString());
-		for (SPParam param : params) {
-
+		for (SQLParam param : params) {
+			if(param.getDir() == SQLParam.Direct.IN){
+				setInParam(cs, param);
+			}else{
+				cs.registerOutParameter(param.getIndex(), param.getType().getValue());
+			}
 		}
 
 		return cs;
 	}
-
-	public class SPParam {
-		private int index;
-		private int type;
-		private Object value;
-		private int dir;
-
-		public SPParam() {}
-
-		public SPParam(int index, int type, Object value, int dir) {
-			this.index = index;
-			this.type = type;
-			this.value = value;
-			this.dir = dir;
-		}
-
-		public int getIndex() {
-			return index;
-		}
-
-		public void setIndex(int index) {
-			this.index = index;
-		}
-
-		public int getType() {
-			return type;
-		}
-
-		public void setType(int type) {
-			this.type = type;
-		}
-
-		public Object getValue() {
-			return value;
-		}
-
-		public void setValue(Object value) {
-			this.value = value;
-		}
-
-		public int getDir() {
-			return dir;
-		}
-
-		public void setDir(int dir) {
-			this.dir = dir;
+	
+	private void setInParam(CallableStatement cs, SQLParam param) throws SQLException{
+		switch (param.getType()){
+			case INT:
+				cs.setInt(param.getIndex(),(Integer)param.getValue());
+				break;
+			case FLOAT:
+				cs.setFloat(param.getIndex(),(Float)param.getValue());
+				break;
+			default :
+				cs.setString(param.getIndex(), String.valueOf(param.getValue()));
+				break;
 		}
 	}
 }

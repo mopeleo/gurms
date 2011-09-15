@@ -1,5 +1,7 @@
 package org.gurms.service.system;
 
-public interface CommonService {
+import org.gurms.entity.PageResult;
 
+public interface CommonService {
+	public PageResult query();
 }

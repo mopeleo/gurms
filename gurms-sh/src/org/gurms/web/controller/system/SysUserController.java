@@ -151,6 +151,8 @@ public class SysUserController extends BaseController {
 				List idList = Arrays.asList(ids);
 				List<SysMenu> fastmenu = menuService.get(idList);
 				request.getSession().setAttribute(WebConstants.S_KEY_FASTMENU, fastmenu);
+			}else{
+				request.getSession().removeAttribute(WebConstants.S_KEY_FASTMENU);
 			}
 		}catch(Exception e){
 			page = processException(e, "保存用户设置出错");
