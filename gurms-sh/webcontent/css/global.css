@@ -89,13 +89,6 @@ a:focus{-moz-outline:none; outline:none;}
 /*main_body .right*/
 .rightbodybg{background:url(../img/right_bottombg.gif) repeat-x bottom #fff;}
 .rightstyle{height:458px; overflow:auto; padding:10px;}
-.right_kz{
-	padding:13px 13px 17px 13px;
-	height:410px;
-	overflow:auto;
-	position:absolute;
-	width:1150px;
-	left:-3px;}
 .search fieldset{padding:5px; background-color:#edeef9; margin:0;}
 .search fieldset legend{margin-top:-10px\9; _margin-top:-2px; color:#333399; font-weight:bold;}
 .search fieldset div.search_table{padding-left:20px;}
