@@ -19,7 +19,7 @@ a:focus{-moz-outline:none; outline:none;}
 .logo_rt a:hover{color:#87B4D8;}
 .logo_rt span{padding:0 4px; color:#97d5de;}
 .logo_rb{float:right;  padding-top:11px; padding-top:10px\9;}
-.logo_rb ul li{float:left; width:48px; height:19px; line-height:19px; text-align:center; font-weight:bold; cursor:pointer;}
+.logo_rb ul li{float:left; min-width:48px; height:19px; line-height:19px; text-align:center; font-weight:bold; cursor:pointer;}
 .logo_rb ul li a{display:block;}
 .onbg{background:url(../img/top_menuon.gif) no-repeat; color:#000;}
 .outbg{background:url(../img/top_menuout.gif) no-repeat; color:#999;}
@@ -94,8 +94,8 @@ a:focus{-moz-outline:none; outline:none;}
 .search fieldset div.search_table{padding-left:20px;}
 .button{background:url(../img/button_bg.gif) no-repeat; width:70px; height:23px; border:none; cursor:hand;}
 .contect{background:url(../img/guodu_tu.gif) repeat-x top; padding-top:29px;}
-div.table1{background-color:#fff; max-height:320px; overflow:auto;}
-.table1 table{border-collapse:collapse;}
+div.table1{background-color:#fff; max-height:340px; overflow:auto; }
+.table1 table{border-collapse:collapse; background-color:#fff}
 .table1 table tr td{border:1px solid #b3b4c6; height:20px; text-align:center;}
 .table1 table tr.tr1{background:url(../img/table_topbg.gif) repeat-x; height:20px; color:#fff; font-weight:bold;}
 .tdwidth1{width:4%}
@@ -215,3 +215,10 @@ textarea{width:427px; height:100px; border:1px solid #ccc; overflow:auto;}
 .messageaion{background:url(../img/changelionbg.gif) no-repeat; padding-top:5px; height:18px; color:#333;}
 .messageaiout{background:url(../img/changelioutbg.gif) no-repeat; padding-top:6px; height:17px; color:#aaa;}
 
+.logo_rb ul li div{float:left;}
+.topmenuLefton{background:url(../img/systemmenu_on.gif) no-repeat left; width:4px; height:20px; overflow:hidden;}
+.topmenuRighton{background:url(../img/systemmenu_on.gif) no-repeat right; height:20px; min-width:41px; text-align:center; padding-right:4px;}
+.topmenuLeftout{background:url(../img/systemmenu_out.gif) no-repeat left; width:4px; height:20px; overflow:hidden;}
+.topmenuRightout{background:url(../img/systemmenu_out.gif) no-repeat right; height:20px; min-width:41px; text-align:center; padding-right:4px; color:#999;}
+.topmenuLeftover{background:url(../img/systemmenu_hover.gif) no-repeat left; width:4px; height:20px; overflow:hidden;}
+.topmenuRightover{background:url(../img/systemmenu_hover.gif) no-repeat right; height:20px; min-width:41px; text-align:center; padding-right:4px;}

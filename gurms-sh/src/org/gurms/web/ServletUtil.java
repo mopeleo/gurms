@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Http与Servlet工具类.
  * 
  */
-public class ServletUtil {
+public abstract class ServletUtil {
 
 	//-- Content Type 定义 --//
 	public static final String TEXT_TYPE = "text/plain";

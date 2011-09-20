@@ -12,12 +12,15 @@
 			for(var i = 0; i < leftsize; i++){
 				var id = "left_"+i;
 				var id_a = "left_a_"+i;
+				var id_b = "left_b_"+i;
 				if(i == leftindex){
 					document.getElementById(id).className = "leftblock";
-					document.getElementById(id_a).className = "onbg";
+					document.getElementById(id_a).className = "topmenuLefton";
+					document.getElementById(id_b).className = "topmenuRighton";
 				}else{
 				    document.getElementById(id).className = "leftnone";
-					document.getElementById(id_a).className = "outbg";
+					document.getElementById(id_a).className = "topmenuLeftout";
+					document.getElementById(id_b).className = "topmenuRightout";
 				}
 			}
 		}
@@ -167,13 +170,24 @@
                     <#if session_fastmenu?exists>
                 		<#assign leftsize = leftsize + 1>
                 		<li onclick="leftchange(${leftindex},${leftsize})">
-                			<a id="left_a_${leftindex}" class="onbg" href="#">快捷</a>
+                			<div id="left_a_${leftindex}" class="topmenuLefton"></div>
+                			<div id="left_b_${leftindex}" class="topmenuRighton">快捷</div>
+                			<!-- <a id="left_a_${leftindex}" class="onbg" href="#">快捷</a> -->
                 		</li>
                 		<#assign leftindex = leftindex + 1>
                     </#if>	                                  	  
             		<#list session_menu.submenus as menu>
                 		<li onclick="leftchange(${leftindex},${leftsize})">
+                			<#if leftindex=0>
+	                			<div id="left_a_${leftindex}" class="topmenuLefton"></div>
+	                			<div id="left_b_${leftindex}" class="topmenuRighton">${menu.menuname}</div>
+                			<#else>
+	                			<div id="left_a_${leftindex}" class="topmenuLeftout"></div>
+	                			<div id="left_b_${leftindex}" class="topmenuRightout">${menu.menuname}</div>
+                			</#if>
+                			<!--
                 			<a id="left_a_${leftindex}" class="<#if leftindex=0>onbg<#else>outbg</#if>" href="#">${menu.menuname}</a>
+                			-->
                 		</li>
                 		<#assign leftindex = leftindex + 1>
             		</#list>

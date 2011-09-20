@@ -1,6 +1,6 @@
 package org.gurms.web;
 
-public class WebConstants {
+public abstract class WebConstants {
 	
 	// session中的key
 	public static final String S_KEY_MENU = "session_menu";	
@@ -17,7 +17,7 @@ public class WebConstants {
 	public static final String C_KEY_ORG = "context_org";
 	
 	// request/model 中结果集的KEY
-	public static final String KEY_RESULT= "result";
+	public static final String KEY_RESULT = "result";
 	
 	// 页面中查询条件的前缀
 	public static final String PREFIX_QUERY = "filter_";
@@ -25,5 +25,4 @@ public class WebConstants {
 	// 首页URL
 	public static final String URL_INDEX = "index.jsp";	
 
-	private WebConstants(){}
 }
