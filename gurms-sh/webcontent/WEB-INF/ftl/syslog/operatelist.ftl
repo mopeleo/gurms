@@ -22,13 +22,13 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
-						<td>序号</td>
-						<td>用户ID</td>
-						<td>操作日期</td>
-						<td>操作时间</td>
-						<td>操作类型</td>
-						<td>操作对象</td>
-						<td>操作对象ID</td>
+						<th>序号</th>
+						<th>用户ID</th>
+						<th>操作日期</th>
+						<th>操作时间</th>
+						<th>操作类型</th>
+						<th>操作对象</th>
+						<th>操作对象ID</th>
 					</tr>
 					<#list result.result as log>
 						<tr onclick="checklist(this)">

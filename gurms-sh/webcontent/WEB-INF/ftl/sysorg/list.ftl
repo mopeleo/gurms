@@ -22,14 +22,14 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
-						<td>序号</td>
-						<td>机构简称</td>
-						<td>机构全称</td>
-						<td>机构联系人</td>
-						<td>联系电话</td>
-						<td>联系地址</td>
-						<td>状态</td>
-						<td>上级机构</td>
+						<th>序号</th>
+						<th>机构简称</th>
+						<th>机构全称</th>
+						<th>机构联系人</th>
+						<th>联系电话</th>
+						<th>联系地址</th>
+						<th>状态</th>
+						<th>上级机构</th>
 					</tr>
 					<#list result.result as org>
 						<tr onclick="checklist(this)">

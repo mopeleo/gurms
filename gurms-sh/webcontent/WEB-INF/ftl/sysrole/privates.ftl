@@ -22,11 +22,11 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
-						<td>序号</td>
-						<td>角色名称</td>
-						<td>角色状态</td>
-						<td>生效日期</td>
-						<td>失效日期</td>
+						<th>序号</th>
+						<th>角色名称</th>
+						<th>角色状态</th>
+						<th>生效日期</th>
+						<th>失效日期</th>
 					</tr>
 					<#list result.result as role>
 						<tr onclick="checklist(this)">

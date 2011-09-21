@@ -20,12 +20,12 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
-						<td>序号</td>
-						<td>字典类别</td>
-						<td>字典代码</td>
-						<td>字典值</td>
-						<td>显示顺序</td>
-						<td>说明</td>
+						<th>序号</th>
+						<th>字典类别</th>
+						<th>字典代码</th>
+						<th>字典值</th>
+						<th>显示顺序</th>
+						<th>说明</th>
 					</tr>
 					<#list result.result as dict>
 						<tr onclick="checklist(this)">

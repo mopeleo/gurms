@@ -22,14 +22,14 @@
 	        <div class="table1">
 				<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr class="tr1">
-						<td>序号</td>
-						<td>用户ID</td>
-						<td>用户姓名</td>
-						<td>所属机构</td>
-						<td>用户角色</td>
-						<td>登录日期</td>
-						<td>登录时间</td>
-						<td>用户状态</td>
+						<th>序号</th>
+						<th>用户ID</th>
+						<th>用户姓名</th>
+						<th>所属机构</th>
+						<th>用户角色</th>
+						<th>登录日期</th>
+						<th>登录时间</th>
+						<th>用户状态</th>
 					</tr>
 					<#list result.result as user>
 						<tr onclick="checklist(this)">
