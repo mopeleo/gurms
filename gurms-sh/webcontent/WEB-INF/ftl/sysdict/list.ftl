@@ -18,7 +18,7 @@
 		
 	    <div class="contect">
 	        <div class="table1">
-				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<table cellpadding="0">
 					<tr class="tr1">
 						<th>序号</th>
 						<th>字典类别</th>
