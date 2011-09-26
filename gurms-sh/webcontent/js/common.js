@@ -28,6 +28,57 @@ function checklist(obj){
 	$(obj).addClass("trcoloryellow");
 }
 
+//列表页面一行数据;
+(function(){
+    var _R = window._R = function(){
+        this.init();
+    };
+    
+    _R.prototype = {
+        init: function(){
+            this._length = 0;
+            this._entity = {};
+        },
+        
+        size: function(){
+            return this._length;
+        },
+        
+        contains: function(key){
+            if(this._length>0 && this._entity[key]) return true;
+                return false;
+            },
+            
+        get: function(key){
+            if(this.contains(key)){
+                return this._entity[key]; 
+            }else{
+            	return "";
+            }
+        },
+        
+        put: function(key,value){
+            if(!this.contains(key)){
+                this._length++ ;
+            };
+            this._entity[key] = value;  //设置属性
+        },
+        
+        remove: function(key){
+            if(this.contains(key)){
+                delete this._entity[key];
+                this._length--;
+            }
+        },
+        
+        clear: function(){
+            this._length = 0;
+            this._entity = {};
+        }
+    };
+})();
+
+
 var loadingDialog;
 function _beforeSubmit(formData, jqForm, options){
 	// 显示进度条
