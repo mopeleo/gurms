@@ -30,11 +30,11 @@
 					</tr>
 					<#list result.result as role>
 						<tr onclick="checklist(this)">
-							<td>${role_index+1}</td>
-							<td><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
-							<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
-							<td>${role.startdate}</td>
-							<td>${role.enddate}</td>
+							<td id="index">${role_index+1}</td>
+							<td id="roleid"><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
+							<td id="rolestatus"><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
+							<td id="startdate">${role.startdate}</td>
+							<td id="enddate">${role.enddate}</td>
 						</tr>
 					</#list>
 					<@c.filltable rows=result.result?size cols=5 />
