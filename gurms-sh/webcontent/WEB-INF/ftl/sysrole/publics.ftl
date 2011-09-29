@@ -1,4 +1,13 @@
 <@c.html title="角色列表">
+	<script type="text/javascript">	
+		function testt(){
+			alert(_R.size());
+			alert(_R.get("index"));
+			alert(_R.get("roleid"));
+			alert(_R.get("rolestatus"));
+		}
+	</script>
+
 	<form id="mainForm" name="mainForm" action="${base}/sysrole/list" method="post">
         <div class="search">
             <fieldset>
@@ -45,6 +54,7 @@
             	<#include "common/page.ftl" />
                 <div class="pager">
                     <input type="button" class="button" value="新增" onclick="forward('${base}/sysrole/detail')"/>
+                    <input type="button" class="button" value="详细" onclick="testt()"/>
                 </div>
             </div>
         </div>

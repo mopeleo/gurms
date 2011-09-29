@@ -2,7 +2,7 @@
 	<script src="${base}/js/md5.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$.get('${base}/'+VALID_URL,
+			$.get('${base}/'+_CONSTANT.VALID_URL,
 				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'oldpassword,loginpassword,confirmpassword',filter:'include'},
 				  function(data){
 					$("head").append(data); //alert(data);

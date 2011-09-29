@@ -43,7 +43,7 @@
 <#macro validscript classname formid props="">  
 	<script type="text/javascript">	
 		$(document).ready(function(){
-			$.get('${base}/'+VALID_URL,
+			$.get('${base}/'+_CONSTANT.VALID_URL,
 				  {className:'${classname}',formId:'${formid}',props:'${props}'},
 				  function(data){
 					$("head").append(data); //alert(data);
