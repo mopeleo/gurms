@@ -8,7 +8,7 @@
 		}
 	</script>
 
-	<form id="mainForm" name="mainForm" action="${base}/sysrole/list" method="post">
+	<form id="mainForm" name="mainForm" action="${base}/sysrole/publics" method="post">
         <div class="search">
             <fieldset>
                 <legend>查询条件</legend>
@@ -28,27 +28,19 @@
 
 		
 	    <div class="contect">
-	        <div class="table1">
-				<table cellpadding="0">
-					<tr class="tr1">
-						<th>序号</th>
-						<th>角色名称</th>
-						<th>角色状态</th>
-						<th>生效日期</th>
-						<th>失效日期</th>
+	    	<#assign titles=["角色名称","角色状态","生效日期","失效日期"]>
+	    	<#assign props=["rolename","rolestatus","startdate","enddate"]>
+	    	<@c.listtable titles=titles props=props rows=result.result?size>
+				<#list result.result as role>
+					<tr onclick="clickrow(this)">
+						<td>${role_index+1}</td>
+						<td><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
+						<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
+						<td>${role.startdate}</td>
+						<td>${role.enddate}</td>
 					</tr>
-					<#list result.result as role>
-						<tr onclick="checklist(this)">
-							<td id="index">${role_index+1}</td>
-							<td id="roleid"><a href="${base}/sysrole/detail?roleid=${role.roleid}" >${role.rolename}</a></td>
-							<td id="rolestatus"><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
-							<td id="startdate">${role.startdate}</td>
-							<td id="enddate">${role.enddate}</td>
-						</tr>
-					</#list>
-					<@c.filltable rows=result.result?size cols=5 />
-				</table>
-			</div>
+				</#list>
+	    	</@c.listtable>
 			
             <div class="page_kz">
             	<#include "common/page.ftl" />

@@ -32,7 +32,7 @@
 						<th>用户状态</th>
 					</tr>
 					<#list result.result as user>
-						<tr onclick="checklist(this)">
+						<tr onclick="clickrow(this)">
 							<td>${user_index+1}</td>
 							<td><a href="${base}/sysuser/detail?userid=${user.userid}" >${user.userid}</a></td>
 							<td>${user.username}</td>

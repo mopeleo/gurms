@@ -29,7 +29,7 @@
 						<th>失效日期</th>
 					</tr>
 					<#list result.result as role>
-						<tr onclick="checklist(this)">
+						<tr onclick="clickrow(this)">
 							<td>${role_index+1}</td>
 							<td><a href="${base}/sysrole/grant?roleid=${role.roleid}" >${role.rolename}</a></td>
 							<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>

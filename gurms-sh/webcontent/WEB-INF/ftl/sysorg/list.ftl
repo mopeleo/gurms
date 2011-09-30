@@ -32,7 +32,7 @@
 						<th>上级机构</th>
 					</tr>
 					<#list result.result as org>
-						<tr onclick="checklist(this)">
+						<tr onclick="clickrow(this)">
 							<td>${org_index+1}</td>
 							<td><a href="${base}/sysorg/detail?orgid=${org.orgid}" >${org.shortname}</a></td>
 							<td>${org.fullname}</td>

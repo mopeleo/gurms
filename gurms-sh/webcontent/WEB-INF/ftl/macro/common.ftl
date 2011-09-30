@@ -23,6 +23,49 @@
 </#macro> 
 
 
+<#macro listtable titles props rows=0>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var outdiv = false;
+			$("#chooselist").mouseout(function(){
+				outdiv = true;
+			});
+			$("#chooselist").mouseover(function(){
+				outdiv = false;
+			});
+			$("#chooselist").blur(function(){
+				if(outdiv)
+					$(this).removeClass().addClass("displayNone");
+			});
+		});
+		
+		function showlist(){
+			$('#chooselist').removeClass().addClass('checktitle_box').focus();
+		}
+	</script>
+	  
+    <div id="chooselist" class="displayNone">
+    	<ul>
+    		<#list titles as title >
+            	<li><input type="checkbox" onclick="changecol('${props[title_index]}')" checked="true"/>${title}</li>
+            </#list>
+        </ul>
+    </div>
+    <div class="table1">	        
+		<table cellpadding="0">
+			<tr class="tr1">
+				<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist()" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
+	    		<#list titles as title >
+	            	<th id="${props[title_index]}">${title}</th>
+	            </#list>
+			</tr>
+        	<#nested/>
+			<@c.filltable rows=rows cols=titles?size+1 />
+		</table>
+	</div>
+</#macro> 
+
+
 <#macro filltable rows cols>
 	<#assign pagerows=statics["org.gurms.common.config.GlobalConfig"].MIN_PAGESIZE>
 	<#if result.pageSize?exists>
@@ -30,7 +73,7 @@
 	</#if>
 	<#if rows lt pagerows>
 		<#list 1..(pagerows-rows) as x>
-			<tr onclick="checklist(this)">
+			<tr onclick="clickrow(this)">
 				<#list 1..cols as y>
 					<td></td>
 				</#list>
@@ -133,7 +176,7 @@
 <#macro recorg orgnode><li><span id="${orgnode.orgid}" class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span><#if orgnode.suborgs?size != 0><ul><#list orgnode.suborgs as org><@c.recorg org /></#list></ul></#if></li></#macro> 
 
 
-<#macro recmenu menunode><li><span id="${menunode.menuid}" class="<#if menunode.menutype='0'>folder<#else>file</#if>">${menunode.menuname}</span><#if menunode.menutype ='0'><ul><#list menunode.submenus as menu><@c.recmenu menu/></#list></ul></#if></li></#macro> 
+<#macro recmenu menunode><li><span id="${menunode.menuid}" class="<#if menunode.submenus?size != 0>folder<#else>file</#if>">${menunode.menuname}</span><#if menunode.submenus?size != 0><ul><#list menunode.submenus as menu><@c.recmenu menu/></#list></ul></#if></li></#macro> 
 
 
 <#-- 树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->

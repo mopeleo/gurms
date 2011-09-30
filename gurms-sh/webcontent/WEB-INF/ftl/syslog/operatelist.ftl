@@ -31,7 +31,7 @@
 						<th>操作对象ID</th>
 					</tr>
 					<#list result.result as log>
-						<tr onclick="checklist(this)">
+						<tr onclick="clickrow(this)">
 							<td>${log_index+1}</td>
 							<td>${log.userid}</td>
 							<td>${log.operatedate}</td>

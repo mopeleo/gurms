@@ -1,4 +1,7 @@
-var VALID_URL = "validscript";
+//所有JS常量在这里添加
+var _CONSTANT = {
+	VALID_URL : "validscript"
+};
 
 $(document).ready(function(){
 	$("#ajaxform").ajaxForm({
@@ -23,31 +26,23 @@ $(document).ready(function(){
 	});
 });
 
-function checklist(obj){
-	$(".trcoloryellow").removeClass();
-	$(obj).addClass("trcoloryellow");
-}
-
 //列表页面一行数据;
 (function(){
-    var _R = window._R = function(){
-        this.init();
+    var _row = function(){
+        this._length = 0;
+        this._entity = {};
     };
     
-    _R.prototype = {
-        init: function(){
-            this._length = 0;
-            this._entity = {};
-        },
-        
+    _row.prototype = {
         size: function(){
             return this._length;
         },
         
         contains: function(key){
-            if(this._length>0 && this._entity[key]) return true;
-                return false;
-            },
+            if(this._length>0 && this._entity[key]) 
+            	return true;
+            return false;
+        },
             
         get: function(key){
             if(this.contains(key)){
@@ -76,8 +71,35 @@ function checklist(obj){
             this._entity = {};
         }
     };
+    
+    window._R = new _row();
 })();
 
+
+function clickrow(obj){
+	$(".trcoloryellow").removeClass();
+	$(obj).addClass("trcoloryellow");
+	
+	_R.clear();
+	var th = $(obj).parent().find("th");
+	$(obj).children().each(function(){
+		var td = $(this);
+		_R.put(th.get(td.index()).id, td.text());
+	});
+	
+//	for(var p in _R._entity){
+//		alert(p + " : " + _R.get(p));
+//	}
+}
+
+function changecol(colid){
+	var col = $("#" + colid).index("th");
+	var ctx = $("#" + colid).closest("table");
+	$("tr", ctx).each(function(){
+		var td = $(this).children().get(col);
+		$(td).toggle();
+	});
+}
 
 var loadingDialog;
 function _beforeSubmit(formData, jqForm, options){
