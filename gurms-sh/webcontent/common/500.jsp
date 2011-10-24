@@ -13,10 +13,9 @@
 		totalIFrameSize();
 	</script>
 </head>
-<body>
+<body class="rightbodybg">
 
-	<div id="right_web" class="right_web">
-        <div class="right_kz">
+	<div class="rightstyle">
         	<div class="warnning">
            	  <div class="warnning_bg">
                	  <div class="warntitle">错误信息提示</div>
@@ -38,7 +37,6 @@
                   <div class="warnok"><input type="button" onclick="history.back();" class="button" value="返　回" /></div>
                 </div> 
             </div>
-        </div><!--right_kz end -->
     </div>
 
 </body>
