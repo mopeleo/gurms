@@ -28,7 +28,7 @@ public class SysMenu implements Serializable {
 	private String menuid;
 	private String menuname;
 	private String menuurl;
-	private String menustatus;
+	private String hasparam;
 	private String menutype;
 	private String remark;
 	private int    menuorder;
@@ -99,12 +99,12 @@ public class SysMenu implements Serializable {
 		this.menuurl = menuurl;
 	}
 
-	public String getMenustatus() {
-		return menustatus;
+	public String getHasparam() {
+		return hasparam;
 	}
 
-	public void setMenustatus(String menustatus) {
-		this.menustatus = menustatus;
+	public void setHasparam(String hasparam) {
+		this.hasparam = hasparam;
 	}
 
 	public String getMenutype() {
