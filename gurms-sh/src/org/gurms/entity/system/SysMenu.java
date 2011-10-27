@@ -28,9 +28,11 @@ public class SysMenu implements Serializable {
 	private String menuid;
 	private String menuname;
 	private String menuurl;
-	private String hasparam;
 	private String menutype;
 	private String remark;
+	private String ajaxmode;
+	private String checked;
+	private String confirmed;
 	private int    menuorder;
 
 	private SysMenu parentmenu;
@@ -99,12 +101,28 @@ public class SysMenu implements Serializable {
 		this.menuurl = menuurl;
 	}
 
-	public String getHasparam() {
-		return hasparam;
+	public String getAjaxmode() {
+		return ajaxmode;
 	}
 
-	public void setHasparam(String hasparam) {
-		this.hasparam = hasparam;
+	public void setAjaxmode(String ajaxmode) {
+		this.ajaxmode = ajaxmode;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
+	public String getConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(String confirmed) {
+		this.confirmed = confirmed;
 	}
 
 	public String getMenutype() {
