@@ -84,7 +84,13 @@ function clickrow(obj){
 	var th = $(obj).parent().find("th");
 	$(obj).children().each(function(){
 		var td = $(this);
-		_R.put(th.get(td.index()).id, td.text());
+		if(td.is("td")){
+			_R.put(th.get(td.index()).id, td.text());
+		}
+	});
+	
+	$(obj).find("input:hidden").each(function(){
+		_R.put($(this).attr("id"), $(this).val());
 	});
 	
 //	for(var p in _R._entity){
@@ -99,6 +105,7 @@ function changecol(colid){
 		var td = $(this).children().get(col);
 		$(td).toggle();
 	});
+	$('#chooselist').focus();
 }
 
 var loadingDialog;
@@ -152,6 +159,64 @@ function ajaxsubmiturl(formid, urlstring){
 function forward(urlstring){
 	window.location.href=urlstring;
 }
+
+function confirmDialog(func, params){
+	var txt;
+	if(params.optname){
+		txt = "确定" + params.optname + "数据?";
+	}else{
+		txt = "确定执行此操作?";
+	}
+	new Dialog(txt, {confirmMode:true,confirmFunc:func, confirmParam:params}).show();
+}
+
+function buttonforward(params){
+	if(params.keys && params.keys.length > 0){
+		if(_R.size() == 0){
+			new Dialog("请选中要" + params.optname + "的数据!").show();
+			return false;
+		}
+		var urlstring = params.urlstring + "?1=1";
+		var keys = params.keys.split(",");
+		for(var i = 0; i < keys.length; i++){
+			var val = _R.get(keys[i]);
+			if(val){
+				urlstring += '&' + keys[i] + '=' + val;
+			}
+		}
+	}
+//	alert(urlstring);
+	if(params.isajax == '1'){
+		$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
+	}else{
+		forward(urlstring);
+	}
+}
+
+/*
+function buttonforward(urlstring, optname, isajax, confirmed, params){
+	if(params && params.length > 0){
+		if(_R.size() == 0){
+			new Dialog("请选中要" + optname + "的数据!").show();
+			return false;
+		}
+		urlstring += "?1=1";
+		var keys = params.split(",");
+		for(var i = 0; i < keys.length; i++){
+			var val = _R.get(keys[i]);
+			if(val){
+				urlstring += '&' + keys[i] + '=' + val;
+			}
+		}
+	}
+//	alert(urlstring);
+	if(isajax == '1'){
+		$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
+	}else{
+		forward(urlstring);
+	}
+}
+*/
 
 function jumpPage(pageNo) {
 	if(pageNo){

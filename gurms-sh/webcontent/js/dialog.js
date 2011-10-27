@@ -26,6 +26,10 @@ function Dialog(content, options)
         fixed:true,         // 是否跟随页面滚动。
         removeContent:false, //关闭窗口是否删除内容
         confirmButton:true,  //是否添加确定按钮
+        fresh:false, //点击确定按钮是否刷新页面
+        confirmMode:false, //是否确认对话框
+        confirmFunc:null, //确认函数
+        confirmParam:{}, //确认函数的入参
         time:0,             // 自动关闭时间，为0表示不会自动关闭。 
         id:false            // 对话框的id，若为false，则由系统自动产生一个唯一id。 
     };
@@ -41,8 +45,12 @@ function Dialog(content, options)
     var barHtml = !options.showTitle ? '' :
         '<div class="bar"><span class="title">' + options.title + '</span><a class="close">' + options.closeText + '</a></div>';
     var buttomHtml = '';
-    if(options.confirmButton == true){
-    	buttomHtml = '<div style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_dialog_button"type="button" class="button" value="确定"></div>';
+    if(options.confirmMode == true){
+    	buttomHtml = '<div style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_confirm_button" type="button" class="button" value="确定">  <input id="_cancel_button" type="button" class="button" value="取消"></div>';
+    }else{
+        if(options.confirmButton == true){
+        	buttomHtml = '<div style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_dialog_button" type="button" class="button" value="确定"></div>';
+        }
     }
     var dialog = $('<div id="' + options.id + '" class="dialog">' + barHtml 
     	+ '<div class="content"></div>' + buttomHtml + '</div>').hide();
@@ -133,7 +141,13 @@ function Dialog(content, options)
         }else{
             dialog.find('.close').bind('click', this.hide);
         }
-        dialog.find('#_dialog_button').bind('click', this.hide);
+        if(options.confirmButton){
+            dialog.find('#_dialog_button').bind('click', this.hide);
+        }
+        if(options.confirmMode){
+            dialog.find('#_confirm_button').bind('click', this.confirm);
+            dialog.find('#_cancel_button').bind('click', this.hide);
+        }
         dialog.bind('mousedown', function(){  dialog.css('z-index', ++Dialog.__zindex); });
 
         // 自动关闭 
@@ -242,12 +256,42 @@ function Dialog(content, options)
         dialog.fadeOut('slow',function(){
             if(undefined != options.afterHide){   options.afterHide(); }
         });
-        if(options.modal)
-        {   $('#' + overlayId).fadeOut('slow');   }
+        if(options.modal){
+        	$('#' + overlayId).fadeOut('slow');
+        }
 
         isShow = false;
+        
+        //隐藏时是否刷新页面
+        if(options.fresh){
+            window.location.reload();
+        }
     }
 
+    this.confirm = function(){
+        if(!isShow){ return; }
+
+        if(undefined != options.beforeHide && !options.beforeHide())
+        {   return;  }
+
+        dialog.fadeOut('slow',function(){
+            if(undefined != options.afterHide){   options.afterHide(); }
+        });
+        if(options.modal){
+        	$('#' + overlayId).fadeOut('slow');
+        }
+
+        isShow = false;
+        
+    	if(typeof(options.confirmFunc) != 'undefined' && options.confirmFunc instanceof Function){
+    		options.confirmFunc(options.confirmParam);
+    	}
+        //隐藏时是否刷新页面
+        if(options.fresh){
+            window.location.reload();
+        }
+    }
+    
     /**
      * 关闭对话框 
      *
@@ -266,8 +310,12 @@ function Dialog(content, options)
         if(options.modal)
         {   $('#'+overlayId).fadeOut('slow', function(){$(this).remove();}); }
         clearTimeout(timeId);
+        
+        //隐藏时是否刷新页面
+        if(options.fresh){
+            window.location.reload();
+        }
     }
-
     
 
     init.call(this);

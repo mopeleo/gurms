@@ -15,6 +15,18 @@
 </#macro> 
 
 
+<#macro searchdiv>  
+    <div class="search">
+        <fieldset>
+            <legend>查询条件</legend>
+            <div class="search_table">
+	            <#nested/>
+            </div>
+        </fieldset>
+    </div><!--search end -->
+</#macro> 
+
+
 <#macro ajaxform action>  
 	<form method="post" id="ajaxform" action="${action}">
 		<input type="hidden" name="operator" id="operator" value="${session_user.userid}">
@@ -23,6 +35,25 @@
 </#macro> 
 
 
+<#macro buttons params="">  
+    <div class="pager">
+    	<#list button as menu>
+    		<#if menu.checked = "1">
+<#--   <input type="button" class="button" value="${menu.menuname}" onclick="buttonforward('${base}/${menu.menuurl}','${menu.menuname}','${menu.ajaxmode}','${menu.confirmed}','${params}')"/> -->
+				<#if menu.confirmed = "1">
+		        <input type="button" class="button" value="${menu.menuname}" onclick="confirmDialog(buttonforward, {urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
+		        <#else>
+				<input type="button" class="button" value="${menu.menuname}" onclick="buttonforward({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
+		        </#if>
+        	<#else>
+        <input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
+        	</#if>
+        </#list>
+    </div>
+</#macro> 
+
+
+<#-- 列表表单  titles:表单中的标题,props:表单中每个单元格的属性ID,rows:表单有多少行-->
 <#macro listtable titles props rows=0>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -34,8 +65,9 @@
 				outdiv = false;
 			});
 			$("#chooselist").blur(function(){
-				if(outdiv)
+				if(outdiv){
 					$(this).removeClass().addClass("displayNone");
+				}
 			});
 		});
 		
@@ -66,6 +98,7 @@
 </#macro> 
 
 
+<#-- 填充表单  rows:表单有多少行,cols:表单有多少列-->
 <#macro filltable rows cols>
 	<#assign pagerows=statics["org.gurms.common.config.GlobalConfig"].MIN_PAGESIZE>
 	<#if result.pageSize?exists>
@@ -83,6 +116,7 @@
 </#macro>
 
 
+<#-- 效验JS代码 classname:要效验的实体对象类名,formid:对象处于的表单ID,props:要效验的属性-->
 <#macro validscript classname formid props="">  
 	<script type="text/javascript">	
 		$(document).ready(function(){
