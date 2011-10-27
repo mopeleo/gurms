@@ -124,12 +124,11 @@
 							<#if result?exists>
 								<#if result.roleid != statics["org.gurms.common.config.GlobalParam"].SYSTEM_ROLE>
 									<input type="submit" class="button" value="保存" />
-									<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysrole/delete')" value="删除" />
 								</#if>
 							<#else>
-							<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysrole/ajaxInsert')" value="保存" />
+								<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysrole/ajaxInsert')" value="保存" />
 							</#if>
-							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
+							<input type="button" class="button" onclick="forward('${base}/sysrole/publics')" value="返回" />
 							<input type="reset" class="button" value="重置"/>
 						</td>
 					</tr>

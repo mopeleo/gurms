@@ -122,12 +122,11 @@
                         <td class="tdwidth2"></td>
                         <td>
 							<#if result?exists>
-							<input type="submit" class="button" value="保存" />
-							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysrole/delete')" value="删除" />
+								<input type="submit" class="button" value="保存" />
 							<#else>
-							<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysrole/ajaxInsert')" value="保存" />
+								<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysrole/ajaxInsert')" value="保存" />
 							</#if>
-							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
+							<input type="button" class="button" onclick="forward('${base}/sysrole/privates')" value="返回" />
 							<input type="reset" class="button" value="重置"/>
 						</td>
 					</tr>

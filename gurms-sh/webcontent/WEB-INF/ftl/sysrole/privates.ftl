@@ -1,51 +1,35 @@
 <@c.html title="角色列表">
-	<form id="mainForm" name="mainForm" action="${base}/sysrole/list" method="post">
-        <div class="search">
-            <fieldset>
-                <legend>查询条件</legend>
-                <div class="search_table">
-                    <table>
-                        <tr>
-                            <td>角色ID:</td>
-                            <td><input type="text" name="filter_EQ_roleid" value="${EQ_roleid}"></td>
-                            <td>角色名称:</td>
-                            <td><input type="text" name="filter_EQ_rolename" value="${EQ_rolename}"></td>
-                            <td><input type="button" onclick="search()" class="button" value="查询" /></td>
-                        </tr>
-                    </table>
-                </div>
-            </fieldset>
-        </div><!--search end -->
+	<form id="mainForm" name="mainForm" action="${base}/sysrole/privates" method="post">
+		<@c.searchdiv>
+            <table>
+                <tr>
+                    <td>角色名称:</td>
+                    <td><input type="text" name="filter_EQ_rolename" value="${EQ_rolename}"></td>
+                    <td><input type="button" onclick="search()" class="button" value="查询"></td>
+                </tr>
+            </table>
+		</@c.searchdiv>
 
 		
 	    <div class="contect">
-	        <div class="table1">
-				<table cellpadding="0">
-					<tr class="tr1">
-						<th>序号</th>
-						<th>角色名称</th>
-						<th>角色状态</th>
-						<th>生效日期</th>
-						<th>失效日期</th>
+	    	<#assign titles=["角色名称","角色状态","生效日期","失效日期"]>
+	    	<#assign props=["rolename","rolestatus","startdate","enddate"]>
+	    	<@c.listtable titles=titles props=props rows=result.result?size>
+				<#list result.result as role>
+					<tr onclick="clickrow(this)">
+						<td>${role_index+1}</td>
+						<td>${role.rolename}</td>
+						<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
+						<td>${role.startdate}</td>
+						<td>${role.enddate}</td>
+						<input type="hidden" id="roleid" value="${role.roleid}" />
 					</tr>
-					<#list result.result as role>
-						<tr onclick="clickrow(this)">
-							<td>${role_index+1}</td>
-							<td><a href="${base}/sysrole/grant?roleid=${role.roleid}" >${role.rolename}</a></td>
-							<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
-							<td>${role.startdate}</td>
-							<td>${role.enddate}</td>
-						</tr>
-					</#list>
-					<@c.filltable rows=result.result?size cols=5 />
-				</table>
-			</div>
+				</#list>
+	    	</@c.listtable>
 			
             <div class="page_kz">
             	<#include "common/page.ftl" />
-                <div class="pager">
-                    <input type="button" class="button" value="新增" onclick="forward('${base}/sysrole/grant')"/>
-                </div>
+            	<@c.buttons params="roleid" />
             </div>
         </div>
 			
