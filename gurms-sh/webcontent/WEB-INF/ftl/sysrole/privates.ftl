@@ -27,10 +27,7 @@
 				</#list>
 	    	</@c.listtable>
 			
-            <div class="page_kz">
-            	<#include "common/page.ftl" />
-            	<@c.buttons params="roleid" />
-            </div>
+        	<@c.buttons params="roleid" />
         </div>
 			
 	</form>

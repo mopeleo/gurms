@@ -37,11 +37,8 @@
 	    	</@c.listtable>
 
 			
-            <div class="page_kz">
-            	<#include "common/page.ftl" />
-            	<@c.buttons params="userid" />
-                <!-- <input type="button" class="button" value="密码重置" onclick="forward('${base}/sysuser/detail')"/> -->
-            </div>
+        	<@c.buttons params="userid" />
+            <!-- <input type="button" class="button" value="密码重置" onclick="forward('${base}/sysuser/detail')"/> -->
         </div>
 			
 	</form>

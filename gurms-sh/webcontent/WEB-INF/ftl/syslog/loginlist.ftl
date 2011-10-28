@@ -31,10 +31,7 @@
 				</#list>
 	    	</@c.listtable>
 	 
-            <div class="page_kz">
-            	<#include "common/page.ftl" />
-             	<@c.buttons/>
-            </div>
+            <@c.buttons/>
         </div>
 			
 	</form>

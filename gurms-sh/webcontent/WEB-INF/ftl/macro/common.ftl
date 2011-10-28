@@ -36,20 +36,25 @@
 
 
 <#macro buttons params="">  
-    <div class="pager">
-    	<#list button as menu>
-    		<#if menu.checked = "1">
-<#--   <input type="button" class="button" value="${menu.menuname}" onclick="buttonforward('${base}/${menu.menuurl}','${menu.menuname}','${menu.ajaxmode}','${menu.confirmed}','${params}')"/> -->
-				<#if menu.confirmed = "1">
-		        <input type="button" class="button" value="${menu.menuname}" onclick="confirmDialog(buttonforward, {urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
-		        <#else>
-				<input type="button" class="button" value="${menu.menuname}" onclick="buttonforward({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
-		        </#if>
-        	<#else>
-        		<input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
-        	</#if>
-        </#list>
+    <div class="page_kz">
+    	<#include "common/page.ftl" />
+    	
+	    <div class="pager">
+	    	<#list button as menu>
+	    		<#if menu.checked = "1">
+	<#--   <input type="button" class="button" value="${menu.menuname}" onclick="buttonforward('${base}/${menu.menuurl}','${menu.menuname}','${menu.ajaxmode}','${menu.confirmed}','${params}')"/> -->
+					<#if menu.confirmed = "1">
+			        <input type="button" class="button" value="${menu.menuname}" onclick="confirmDialog(buttonforward, {urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
+			        <#else>
+					<input type="button" class="button" value="${menu.menuname}" onclick="buttonforward({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
+			        </#if>
+	        	<#else>
+	        		<input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
+	        	</#if>
+	        </#list>
+	    </div>
     </div>
+    
 </#macro> 
 
 

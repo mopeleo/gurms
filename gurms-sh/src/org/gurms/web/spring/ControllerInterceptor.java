@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.exception.GurmsException;
 import org.gurms.common.util.CommonUtil;
@@ -45,17 +46,33 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 		// TODO 菜单、请求的权限
 		SysMenu root = (SysMenu)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_MENU);
 		//请求的url首先必须在配置的权限管理返回之内
-		if(hasPrivilege(requestUrl, root)){
+		SysMenu currentMenu = getMenuFromURL(requestUrl, root);
+		if(currentMenu != null){
 			SysMenu privilege = (SysMenu)request.getSession().getAttribute(WebConstants.S_KEY_MENU);
 			//再判断用户是否有权限
-			if(!hasPrivilege(requestUrl, privilege)){
-				throw new GurmsException("您没有此权限");
-			}
-			
-			//如果是菜单，要把菜单ID传到页面，生成页面按钮权限
-			SysMenu currentMenu = getMenuFromURL(requestUrl, privilege);
+			SysMenu currUserMenu = getMenuFromURL(requestUrl, privilege);
+			//URL类型 是菜单
 			if(GlobalParam.DICT_MENUTYPE_MENU.equals(currentMenu.getMenutype())){
-				request.setAttribute("button", currentMenu.getSubmenus());
+				if(currUserMenu == null){
+					throw new GurmsException("您没有此权限");
+				}
+				
+				//如果是菜单，要把菜单ID传到页面，生成页面按钮权限
+				//权限控制到按钮
+				if("2".equals(GlobalConfig.PRIVILEGE_LEVEL)){
+					request.setAttribute("button", currUserMenu.getSubmenus());
+				}else{
+					request.setAttribute("button", currentMenu.getSubmenus());
+				}
+				
+			//URL类型 是按钮
+			}else if(GlobalParam.DICT_MENUTYPE_BUTTON.equals(currentMenu.getMenutype())){
+				//权限控制到按钮
+				if("2".equals(GlobalConfig.PRIVILEGE_LEVEL)){
+					if(currUserMenu == null){
+						throw new GurmsException("您没有此权限");
+					}
+				}
 			}
 		}			
 		return true;

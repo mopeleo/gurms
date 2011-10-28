@@ -30,10 +30,7 @@
 				</#list>
 	    	</@c.listtable>
 
-            <div class="page_kz">
-            	<#include "common/page.ftl" />
-             	<@c.buttons params="orgid" />
-            </div>
+            <@c.buttons params="orgid" />
         </div>
 			
 	</form>

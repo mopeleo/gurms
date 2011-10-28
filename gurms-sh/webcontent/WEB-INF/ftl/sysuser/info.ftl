@@ -1,16 +1,7 @@
 <@c.html title="用户信息">
-	<script type="text/javascript">	
-		$(document).ready(function(){
-			$.get('${base}/'+_CONSTANT.VALID_URL,
-				  {className:'org.gurms.entity.system.SysUser',formId:'ajaxform',props:'userid,username'},
-				  function(data){
-					$("head").append(data); //alert(data);
-				  }
-			);
-		})
-	</script>
+	<@c.validscript classname="org.gurms.entity.system.SysUser" formid="ajaxform" props="userid,username"/>
 	
-	<form method="post" id="mainform" action="${base}/sysuser/userinfo">
+	<form method="post" id="ajaxform" action="${base}/sysuser/userinfo">
         <div class="messagelist">
             <div class="title_bg">
                 <span>基本信息</span>
