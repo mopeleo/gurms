@@ -24,7 +24,6 @@ public interface SysRoleService {
 	@GurmsValid(type=SysRole.class, props={"rolename","roletype","creator"})
 	public PageResult<SysRole> insert(SysRole role);
 	
-	@GurmsValid(type=SysRole.class, props={"roleid"})
 	public void delete(String id);
 	
 	public void freshRole();
