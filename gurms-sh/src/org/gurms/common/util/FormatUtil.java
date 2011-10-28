@@ -58,4 +58,16 @@ public abstract class FormatUtil {
 		return sdf.parse(datestring);
 	}
 	
+	public static boolean dateBetween(String date, String startdate, String enddate){
+		int d = Integer.parseInt(date);
+		int startint = 0;
+		int endint = 0;
+		try{
+			startint = Integer.parseInt(startdate);
+			endint = Integer.parseInt(enddate);
+		}catch(Exception e){
+			return false;
+		}
+		return d >= startint && d < endint;
+	}
 }

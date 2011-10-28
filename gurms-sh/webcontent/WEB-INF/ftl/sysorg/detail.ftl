@@ -112,11 +112,7 @@
                     </tr>
                 </table>
 
-                <script type="text/javascript">
-                	function afterReturn(result, status){
-						new Dialog(result['returnmsg'],{fresh:true,forwardurl:'${base}/sysorg/list'}).show();
-                	}                
-                </script>
+                <@c.afterreturn forward="${base}/sysorg/list" />
             </#if>
             </div>                   
             <div class="messagetable messageOK">

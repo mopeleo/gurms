@@ -1,4 +1,6 @@
 <@c.html title="角色信息">
+	<@c.validscript classname="org.gurms.entity.system.SysRole" formid="ajaxform" props="rolename" />
+	
 	<script type="text/javascript">	
 		$(document).ready(function(){
 			var idx = 0;
@@ -41,10 +43,6 @@
 	                        </td>
 	                    </tr>
 	                    <tr>
-	                        <td class="tdwidth2">角色状态</td>
-	                        <td><@c.dict id="rolestatus" dicttype="0002" default="${result.rolestatus}" nullable=false /></td>
-	                    </tr>
-	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>
 	                        <td><@c.calendar id="startdate" default="${result.startdate}" nextdate="enddate"/></td>
 	                    </tr>
@@ -56,7 +54,7 @@
 	                        <td class="tdwidth2">备注</td>
 	                        <td>
 	                        	<input type="hidden" name="roletype" value="${result.roletype}" />
-	                        	<input type="hidden" name="creater" value="${result.creater}" />
+	                        	<input type="hidden" name="creator" value="${result.creator}" />
 	                        	<input type="text" name="remark" value="${result.remark}" />
 	                        </td>
 	                    </tr>
@@ -84,10 +82,6 @@
 	                        <td><input type="text" name="rolename" /></td>
 	                    </tr>
 	                    <tr>
-	                        <td class="tdwidth2">角色状态</td>
-	                        <td><@c.dict id="rolestatus" dicttype="0002" nullable=false /></td>
-	                    </tr>
-	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>
 	                        <td><@c.calendar id="startdate" nextdate="enddate"/></td>
 	                    </tr>
@@ -100,7 +94,7 @@
 	                        <td>
 	                        	<input type="text" name="remark" />
 	                        	<input type="hidden" name="roletype" value="1"/>
-	                        	<input type="hidden" name="creater" value="${session_user.userid}" />
+	                        	<input type="hidden" name="creator" value="${session_user.userid}" />
 	                        </td>
 	                    </tr>
 	                </table>
@@ -112,6 +106,8 @@
 		        	</td></tr>
 		        	</table>
 		        </div>
+
+                <@c.afterreturn forward="${base}/sysrole/privates" />
 			</#if>
 		        </div>
 		    </div>

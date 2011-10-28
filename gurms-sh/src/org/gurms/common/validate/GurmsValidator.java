@@ -16,7 +16,10 @@ public class GurmsValidator {
 		
 		StringBuffer sb = new StringBuffer(2048);
 		for(GurmsValidRule g : rules){
-			g.setValue(String.valueOf(ReflectionUtil.recGetPropertyValue(o, g.getField())));
+			Object valueObj = ReflectionUtil.recGetPropertyValue(o, g.getField());
+			if(valueObj != null){
+				g.setValue(String.valueOf(valueObj));
+			}
 			if(!g.validField()){
 				sb.append(g.getMsg()).append(",");
 //				if("1".equals(GurmsValidConfig.MSG_TYPE)){

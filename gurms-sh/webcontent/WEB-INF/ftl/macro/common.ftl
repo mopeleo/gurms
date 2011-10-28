@@ -136,6 +136,21 @@
 </#macro> 
 
 
+<#-- ajax调用执行后调用的代码 forwardurl:执行成功后跳转的页面-->
+<#macro afterreturn forward>  
+    <script type="text/javascript">
+    	function afterReturn(result, status){
+    		var flag = result['success'];
+    		if(typeof(flag) == 'boolean' && flag){
+				new Dialog(result['returnmsg'],{fresh:true,forwardurl:'${forward}'}).show();
+    		}else{
+				new Dialog(result['returnmsg']).show();
+    		}
+    	}                
+    </script>
+</#macro> 
+
+
 <#macro select id options key value default="" nullable=false> 
 	<#assign keySource = "$"+"{option.${key}}"> 
 	<#assign keyTemplate = keySource?interpret>

@@ -3,6 +3,9 @@ package org.gurms.service.system.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
+import org.gurms.common.util.FormatUtil;
 import org.gurms.dao.hibernate.system.SysMenuDao;
 import org.gurms.dao.hibernate.system.SysRoleDao;
 import org.gurms.entity.PageRequest;
@@ -66,6 +69,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Override
 	public PageResult<SysRole> save(SysRole role) {
 		PageResult<SysRole> page = new PageResult<SysRole>();
+		if(StringUtils.isBlank(role.getRolestatus())){
+			String today = FormatUtil.getCurrentDate();
+			if(FormatUtil.dateBetween(today, role.getStartdate(), role.getEnddate())){
+				role.setRolestatus(GlobalParam.DICT_VALID_YES);
+			}else{
+				role.setRolestatus(GlobalParam.DICT_VALID_NO);
+			}
+		}
 		if(role.getSysmenuids() != null){
 			for(String menuid : role.getSysmenuids()){
 				SysMenu menu = sysMenuDao.get(menuid);

@@ -59,11 +59,7 @@
                     </tr>
                 </table>
                 
-                <script type="text/javascript">
-                	function afterReturn(result, status){
-						new Dialog(result['returnmsg'],{fresh:true,forwardurl:'${base}/sysuser/list'}).show();
-                	}                
-                </script>
+                <@c.afterreturn forward="${base}/sysuser/list" />
 	        </#if>            
             </div>
                              

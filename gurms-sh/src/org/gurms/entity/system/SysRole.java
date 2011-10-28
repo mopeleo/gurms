@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class SysRole implements Serializable {
 	private String roleid;
 	private String remark;
-	private String creater;
+	private String creator;
 	private String enddate;
 	private String roletype;
 	private String rolename;
@@ -118,11 +118,11 @@ public class SysRole implements Serializable {
 	}
 
 	@Column(updatable=false)
-	public String getCreater() {
-		return creater;
+	public String getCreator() {
+		return creator;
 	}
-	public void setCreater(String creater) {
-		this.creater = creater;
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 	public void addUser(SysUser user){
