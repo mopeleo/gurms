@@ -68,7 +68,7 @@
 		        <div class="messagedivnone">
 		        	<table>
 		        	<tr><td>
-					<@c.tree id="sysmenuids" type=1 node=context_menu actual=listmenus checkable=true/>
+					<@c.tree id="sysmenuids" type=1 node=context_menu actual=listmenus checkable=true readonly=true/>
 		        	</td></tr>
 		        	</table>
 		        </div>

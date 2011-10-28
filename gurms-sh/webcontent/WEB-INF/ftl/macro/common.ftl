@@ -215,11 +215,12 @@
 <#macro recorg orgnode><li><span id="${orgnode.orgid}" class="<#if orgnode.suborgs?size != 0>folder<#else>file</#if>">${orgnode.shortname}</span><#if orgnode.suborgs?size != 0><ul><#list orgnode.suborgs as org><@c.recorg org /></#list></ul></#if></li></#macro> 
 
 
-<#macro recmenu menunode><li><span id="${menunode.menuid}" class="<#if menunode.submenus?size != 0>folder<#else>file</#if>">${menunode.menuname}</span><#if menunode.submenus?size != 0><ul><#list menunode.submenus as menu><@c.recmenu menu/></#list></ul></#if></li></#macro> 
+<#-- <#macro recmenu menunode><li><span id="${menunode.menuid}" class="<#if menunode.submenus?size != 0>folder<#else>file</#if>">${menunode.menuname}</span><#if menunode.submenus?size != 0><ul><#list menunode.submenus as menu><@c.recmenu menu/></#list></ul></#if></li></#macro> --> 
+<#macro recmenu menunode><#assign level=statics["org.gurms.common.config.GlobalConfig"].PRIVILEGE_LEVEL><#assign folder = true><#if menunode.menutype == "2" || menunode.submenus?size == 0 ||(menunode.menutype == "1" && menunode.submenus?size > 0 && level == "1")><#assign folder = false></#if><li><span id="${menunode.menuid}" class="<#if folder>folder<#else>file</#if>">${menunode.menuname}</span><#if folder><ul><#list menunode.submenus as menu><@c.recmenu menu/></#list></ul></#if></li></#macro> 
 
 
 <#-- 树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->
-<#macro tree id type node="" display="" actual="" endnode="" checkable=false dynamic=false>
+<#macro tree id type node="" display="" actual="" endnode="" checkable=false readonly=false dynamic=false>
 	<#assign disid="dis_"+id>
 	<script type="text/javascript">
 	 	$(document).ready(function(){
@@ -227,6 +228,7 @@
 		 		<#if checkable>
 			 		checkboxid:'${id}',
 				 	checkvalue: '${actual}',
+				 	readonly: ${readonly?string("true","false")},
 		 		<#else>
 			 		clickext:function(obj){
 			 			document.getElementById("${disid}").value=$(obj).text();
@@ -261,7 +263,7 @@
 
 
 <#-- 弹出树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->
-<#macro popuptree id type node="" display="" actual="" endnode="" checkable=false dynamic=false>
+<#macro popuptree id type node="" display="" actual="" endnode="" checkable=false readonly=false dynamic=false>
 	<#assign disid="dis_"+id>
 	<script type="text/javascript">
 		var _dialog;    
@@ -275,6 +277,7 @@
 			 		<#if checkable>
 				 		checkboxid:'${id}',
 					 	checkvalue: '${actual}',
+				 		readonly: ${readonly?string("true","false")},
 			 		<#else>
 				 		clickext:function(obj){
 				 			document.getElementById("${disid}").value=$(obj).text();

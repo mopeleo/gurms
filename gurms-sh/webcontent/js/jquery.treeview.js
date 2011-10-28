@@ -278,6 +278,9 @@
 					});
 				}
 				$(":checkbox", allSpan).click($.fn.checkboxClick);
+				if( settings.readonly ){
+					$(":checkbox", allSpan).attr("disabled","disabled");
+				}
 			}
 
 			branches.applyClasses(settings, toggler);

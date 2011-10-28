@@ -41,6 +41,9 @@ function load(settings, root, child, container) {
 			}
 		}
 		$(":checkbox", current).click($.fn.checkboxClick);
+		if( settings.readonly ){
+			$(":checkbox", current).attr("disabled","disabled");
+		}
 		// add end huangyh 20110816
 		
 
