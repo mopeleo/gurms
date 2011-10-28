@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
 import org.gurms.common.exception.GurmsException;
 import org.gurms.common.util.CommonUtil;
 import org.gurms.entity.system.SysMenu;
@@ -31,7 +32,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 		String requestUrl = request.getServletPath();
 		String[] ignoreSuffix = null;
 		if(!StringUtils.isBlank(ignoreSession)){
-			ignoreSuffix = ignoreSession.split(",");
+			ignoreSuffix = ignoreSession.split(GlobalParam.STRING_SEPARATOR);
 		}
 		//不在过滤后缀列表中的要效验session和检查菜单权限
 		if(!CommonUtil.existSuffix(requestUrl,ignoreSuffix)){
@@ -49,6 +50,12 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 			//再判断用户是否有权限
 			if(!hasPrivilege(requestUrl, privilege)){
 				throw new GurmsException("您没有此权限");
+			}
+			
+			//如果是菜单，要把菜单ID传到页面，生成页面按钮权限
+			SysMenu currentMenu = getMenuFromURL(requestUrl, privilege);
+			if(GlobalParam.DICT_MENUTYPE_MENU.equals(currentMenu.getMenutype())){
+				request.setAttribute("button", currentMenu.getSubmenus());
 			}
 		}			
 		return true;
@@ -71,15 +78,35 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
-		if("0".equals(menus.getMenutype())){
+		if(url.endsWith(menus.getMenuurl())){
+			return true;
+		}
+		
+		if(menus.getSubmenus().size() > 0){
 			for(SysMenu m : menus.getSubmenus()){
 				if(hasPrivilege(url, m)){
 					return true;
 				}
 			}
-		}else{
-			return url.endsWith(menus.getMenuurl());
 		}
+
 		return false;
+	}
+	
+	private SysMenu getMenuFromURL(String url, SysMenu menus){
+		if(menus == null || url.endsWith(menus.getMenuurl())){
+			return menus;
+		}
+		
+		if(menus.getSubmenus().size() > 0){
+			for(SysMenu m : menus.getSubmenus()){
+				SysMenu t = getMenuFromURL(url, m);
+				if(t != null){
+					return t;
+				}
+			}
+		}
+		
+		return null;
 	}
 }

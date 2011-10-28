@@ -1,64 +1,46 @@
 <@c.html title="用户列表">
 	<form id="mainForm" name="mainForm" action="${base}/sysuser/list" method="post">
-        <div class="search">
-            <fieldset>
-                <legend>查询条件</legend>
-                <div class="search_table">
-                    <table>
-                        <tr>
-                            <td>用户ID:</td>
-                            <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
-                            <td>用户名:</td>
-                            <td><input type="text" name="filter_EQ_username" value="${EQ_username}"></td>
-                            <td><input type="button" onclick="search()" class="button" value="查询" /></td>
-                        </tr>
-                    </table>
-                </div>
-            </fieldset>
-        </div><!--search end -->
-
+		<@c.searchdiv>
+            <table>
+                <tr>
+                    <td>用户ID:</td>
+                    <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
+                    <td>用户姓名:</td>
+                    <td><input type="text" name="filter_EQ_username" value="${EQ_username}"></td>
+                    <td><input type="button" onclick="search()" class="button" value="查询" /></td>
+                </tr>
+            </table>
+		</@c.searchdiv>
 		
 	    <div class="contect">
-	        <div class="table1">
-				<table cellpadding="0">
-					<tr class="tr1">
-						<th>序号</th>
-						<th>用户ID</th>
-						<th>用户姓名</th>
-						<th>所属机构</th>
-						<th>用户角色</th>
-						<th>登录日期</th>
-						<th>登录时间</th>
-						<th>用户状态</th>
+	    	<#assign titles=["用户ID","用户姓名","所属机构","用户角色","登录日期","登录时间","用户状态"]>
+	    	<#assign props=["userid","username","sysorg","userrole","logindate","logintime","userstatus"]>
+	    	<@c.listtable titles=titles props=props rows=result.result?size>
+				<#list result.result as user>
+					<tr onclick="clickrow(this)">
+						<td>${user_index+1}</td>
+						<td>${user.userid}</a></td>
+						<td>${user.username}</td>
+						<td>${(user.sysorg.shortname)!}</td>
+						<td>
+							<#if user.sysroles??>
+                        		<#list user.sysroles as role>
+                        			${role.rolename},
+                        		</#list>
+							</#if>
+						</td>
+						<td>${user.logindate}</td>
+						<td>${user.logintime}</td>
+						<td><@c.dictdesc dicttype="0005" dictcode="${user.userstatus}" /></td>
 					</tr>
-					<#list result.result as user>
-						<tr onclick="clickrow(this)">
-							<td>${user_index+1}</td>
-							<td><a href="${base}/sysuser/detail?userid=${user.userid}" >${user.userid}</a></td>
-							<td>${user.username}</td>
-							<td>${(user.sysorg.shortname)!}</td>
-							<td>
-								<#if user.sysroles??>
-	                        		<#list user.sysroles as role>
-	                        			${role.rolename},
-	                        		</#list>
-								</#if>
-							</td>
-							<td>${user.logindate}</td>
-							<td>${user.logintime}</td>
-							<td><@c.dictdesc dicttype="0005" dictcode="${user.userstatus}" /></td>
-						</tr>
-					</#list>
-					<@c.filltable rows=result.result?size cols=8 />
-				</table>
-			</div>
+				</#list>
+	    	</@c.listtable>
+
 			
             <div class="page_kz">
             	<#include "common/page.ftl" />
-                <div class="pager">
-                    <input type="button" class="button" value="新增" onclick="forward('${base}/sysuser/detail')"/>
-                    <!-- <input type="button" class="button" value="密码重置" onclick="forward('${base}/sysuser/detail')"/> -->
-                </div>
+            	<@c.buttons params="userid" />
+                <!-- <input type="button" class="button" value="密码重置" onclick="forward('${base}/sysuser/detail')"/> -->
             </div>
         </div>
 			

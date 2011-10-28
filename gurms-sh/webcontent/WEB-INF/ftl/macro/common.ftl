@@ -46,7 +46,7 @@
 				<input type="button" class="button" value="${menu.menuname}" onclick="buttonforward({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
 		        </#if>
         	<#else>
-        <input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
+        		<input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
         	</#if>
         </#list>
     </div>

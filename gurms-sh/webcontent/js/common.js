@@ -156,11 +156,13 @@ function ajaxsubmiturl(formid, urlstring){
 	return false;
 }
 
-function forward(urlstring){
-	window.location.href=urlstring;
-}
-
 function confirmDialog(func, params){
+	if(params.keys && params.keys.length > 0){
+		if(_R.size() == 0){
+			new Dialog("请选中要" + params.optname + "的数据!").show();
+			return false;
+		}
+	}
 	var txt;
 	if(params.optname){
 		txt = "确定" + params.optname + "数据?";
@@ -168,6 +170,10 @@ function confirmDialog(func, params){
 		txt = "确定执行此操作?";
 	}
 	new Dialog(txt, {confirmMode:true,confirmFunc:func, confirmParam:params}).show();
+}
+
+function forward(urlstring){
+	window.location.href=urlstring;
 }
 
 function buttonforward(params){

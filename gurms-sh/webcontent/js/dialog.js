@@ -27,6 +27,7 @@ function Dialog(content, options)
         removeContent:false, //关闭窗口是否删除内容
         confirmButton:true,  //是否添加确定按钮
         fresh:false, //点击确定按钮是否刷新页面
+        forwardurl:'', //刷新跳转的页面
         confirmMode:false, //是否确认对话框
         confirmFunc:null, //确认函数
         confirmParam:{}, //确认函数的入参
@@ -77,6 +78,17 @@ function Dialog(content, options)
         }
     }
 
+    //隐藏时是否刷新页面
+    var forward = function(){
+        if(options.fresh){
+        	if(options.forwardurl && options.forwardurl.length > 1){
+                window.location.href = options.forwardurl;
+        	}else{
+                window.location.reload();
+        	}
+        }
+    }
+    
     /**
      * 初始化位置及一些事件函数。
      *
@@ -261,11 +273,7 @@ function Dialog(content, options)
         }
 
         isShow = false;
-        
-        //隐藏时是否刷新页面
-        if(options.fresh){
-            window.location.reload();
-        }
+        forward();
     }
 
     this.confirm = function(){
@@ -286,10 +294,8 @@ function Dialog(content, options)
     	if(typeof(options.confirmFunc) != 'undefined' && options.confirmFunc instanceof Function){
     		options.confirmFunc(options.confirmParam);
     	}
-        //隐藏时是否刷新页面
-        if(options.fresh){
-            window.location.reload();
-        }
+    	
+        forward();
     }
     
     /**
@@ -311,10 +317,7 @@ function Dialog(content, options)
         {   $('#'+overlayId).fadeOut('slow', function(){$(this).remove();}); }
         clearTimeout(timeId);
         
-        //隐藏时是否刷新页面
-        if(options.fresh){
-            window.location.reload();
-        }
+        forward();
     }
     
 

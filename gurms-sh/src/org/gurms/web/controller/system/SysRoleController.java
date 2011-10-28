@@ -50,15 +50,17 @@ public class SysRoleController extends BaseController {
 	}
 	
 	@RequestMapping
-	public void detail(String roleid, Model model){
-		if(StringUtils.isNotBlank(roleid)){
-			SysRole role = roleService.get(roleid);
-			model.addAttribute(WebConstants.KEY_RESULT, role);
-		}
+	public void publicDetail(String roleid, Model model){
+		info(roleid, model);
 	}
 	
 	@RequestMapping
-	public void grant(String roleid, Model model){
+	public void privateDetail(String roleid, Model model){
+		info(roleid, model);
+	}
+	
+	@RequestMapping
+	public void info(String roleid, Model model){
 		if(StringUtils.isNotBlank(roleid)){
 			SysRole role = roleService.get(roleid);
 			model.addAttribute(WebConstants.KEY_RESULT, role);
@@ -89,6 +91,19 @@ public class SysRoleController extends BaseController {
 		PageResult page = null;
 		try{
 			page = roleService.insert(role);
+		}catch(Exception e){
+			page = processException(e, "新增角色信息出错");
+		}
+		return page;
+	}
+	
+	@RequestMapping
+	@ResponseBody
+	public PageResult ajaxDelete(String roleid){
+		PageResult page = null;
+		try{
+			roleService.delete(roleid);
+			page = new PageResult();
 		}catch(Exception e){
 			page = processException(e, "新增角色信息出错");
 		}

@@ -40,5 +40,10 @@ public class GlobalParam {
 	public static final String DICT_ROLETYPE_PUBLIC = "0";
 	public static final String DICT_ROLETYPE_PRIVATE = "1";
 	
+	public static final String DICT_MENUTYPE = "0007";
+	public static final String DICT_MENUTYPE_FLODER = "0";
+	public static final String DICT_MENUTYPE_MENU = "1";
+	public static final String DICT_MENUTYPE_BUTTON = "2";
+	
 	private GlobalParam(){}
 }

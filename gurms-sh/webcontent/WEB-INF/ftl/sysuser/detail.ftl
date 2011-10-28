@@ -8,6 +8,7 @@
 				  }
 			);
 		})
+		
 	</script>
 	
 	<form method="post" id="ajaxform" action="${base}/sysuser/ajaxSave">
@@ -57,6 +58,12 @@
                         <td><@c.multiselect id="sysroleids" left=allroles /></td>
                     </tr>
                 </table>
+                
+                <script type="text/javascript">
+                	function afterReturn(result, status){
+						new Dialog(result['returnmsg'],{fresh:true,forwardurl:'${base}/sysuser/list'}).show();
+                	}                
+                </script>
 	        </#if>            
             </div>
                              
@@ -67,11 +74,10 @@
                         <td>
 							<#if result?exists>
 							<input type="submit" class="button" value="保存" />
-							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysuser/delete')" value="删除" />
 							<#else>
 							<input type="button" class="button" onclick="ajaxsubmiturl('ajaxform','${base}/sysuser/ajaxInsert')" value="保存" />
 							</#if>
-							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
+							<input type="button" class="button" onclick="forward('${base}/sysuser/list')" value="返回" />
 							<input type="reset" class="button" value="重置"/>
 						</td>
 					</tr>

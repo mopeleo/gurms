@@ -1,45 +1,30 @@
 <@c.html title="字典列表">
 	<form id="mainForm" name="mainForm" action="${base}/sysdict/list" method="post">
-        <div class="search">
-            <fieldset>
-                <legend>查询条件</legend>
-                <div class="search_table">
-                    <table>
-                        <tr>
-                            <td>字典类别:</td>
-                            <td><@c.select id="filter_EQ_dicttype" options=context_dicttype key="dicttype" value="dictvalue" default="${EQ_dicttype}" nullable=true /></td>
-                            <td><input type="button" onclick="search()" class="button" value="查询" /></td>
-                        </tr>
-                    </table>
-                </div>
-            </fieldset>
-        </div><!--search end -->
-
+		<@c.searchdiv>
+            <table>
+                <tr>
+                    <td>字典类别:</td>
+                    <td><@c.select id="filter_EQ_dicttype" options=context_dicttype key="dicttype" value="dictvalue" default="${EQ_dicttype}" nullable=true /></td>
+                    <td><input type="button" onclick="search()" class="button" value="查询" /></td>
+                </tr>
+            </table>
+		</@c.searchdiv>
 		
 	    <div class="contect">
-	        <div class="table1">
-				<table cellpadding="0">
-					<tr class="tr1">
-						<th>序号</th>
-						<th>字典类别</th>
-						<th>字典代码</th>
-						<th>字典值</th>
-						<th>显示顺序</th>
-						<th>说明</th>
+	    	<#assign titles=["字典类别","字典代码","字典值","显示顺序","说明"]>
+	    	<#assign props=["dicttype","dictcode","dictvalue","dictorder","remark"]>
+	    	<@c.listtable titles=titles props=props rows=result.result?size>
+				<#list result.result as org>
+					<tr onclick="clickrow(this)">
+						<td>${dict_index+1}</td>
+						<td>${dict.dicttype}</td>
+						<td>${dict.dictcode}</td>
+						<td>${dict.dictvalue}</td>
+						<td>${dict.dictorder}</td>
+						<td>${dict.remark}</td>
 					</tr>
-					<#list result.result as dict>
-						<tr onclick="clickrow(this)">
-							<td>${dict_index+1}</td>
-							<td>${dict.dicttype}</td>
-							<td>${dict.dictcode}</td>
-							<td>${dict.dictvalue}</td>
-							<td>${dict.dictorder}</td>
-							<td>${dict.remark}</td>
-						</tr>
-					</#list>
-					<@c.filltable rows=result.result?size cols=6 />
-				</table>
-			</div>
+				</#list>
+	    	</@c.listtable>
 			
             <div class="page_kz">
             	<#include "common/page.ftl" />

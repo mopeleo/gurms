@@ -98,7 +98,7 @@ public class SysUserServiceImpl implements SysUserService{
 			sysUserDao.save(user);
 			
 			SysUserInfo userinfo = new SysUserInfo();
-			userinfo.setUserid(userinfo.getUserid());
+			userinfo.setUserid(user.getUserid());
 			userinfo.setCreatedate(FormatUtil.getCurrentDate());
 			sysUserInfoDao.save(userinfo);
 		}

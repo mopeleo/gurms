@@ -111,6 +111,12 @@
                         <td><input type="text" name="remark" /></td>
                     </tr>
                 </table>
+
+                <script type="text/javascript">
+                	function afterReturn(result, status){
+						new Dialog(result['returnmsg'],{fresh:true,forwardurl:'${base}/sysorg/list'}).show();
+                	}                
+                </script>
             </#if>
             </div>                   
             <div class="messagetable messageOK">
@@ -119,10 +125,7 @@
                         <td class="tdwidth2"></td>
                         <td>
 							<input type="submit" class="button" value="保存" />
-							<#if result?exists>
-							<input type="button" class="button" onclick="submiturl('ajaxform','${base}/sysorg/delete')" value="删除" />
-							</#if>
-							<input type="button" class="button" onclick="history.go(-1)" value="返回" />
+							<input type="button" class="button" onclick="forward('${base}/sysorg/list')" value="返回" />
 							<input type="reset" class="button" value="重置"/>
 						</td>
 					</tr>
