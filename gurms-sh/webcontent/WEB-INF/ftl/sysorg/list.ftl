@@ -12,8 +12,8 @@
 
 		
 	    <div class="contect">
-	    	<#assign titles=["机构简称","机构全称","机构联系人","联系电话","联系地址","状态","上级机构"]>
-	    	<#assign props=["shortname","fullname","linkman","linktel","address","orgstatus","parentorg"]>
+	    	<#assign titles=["机构简称","机构全称","机构联系人","联系电话","联系地址","机构类型","上级机构"]>
+	    	<#assign props=["shortname","fullname","linkman","linktel","address","orgtype","parentorg"]>
 	    	<@c.listtable titles=titles props=props rows=result.result?size>
 				<#list result.result as org>
 					<tr onclick="clickrow(this)">
@@ -23,7 +23,7 @@
 						<td>${org.linkman}</td>
 						<td>${org.linktel}</td>
 						<td>${org.address}</td>
-						<td><@c.dictdesc dicttype="0002" dictcode="${org.orgstatus}"/></td>
+						<td><@c.dictdesc dicttype="0002" dictcode="${org.orgtype}"/></td>
 						<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
 						<input type="hidden" id="orgid" value="${org.orgid}" />
 					</tr>

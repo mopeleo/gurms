@@ -51,6 +51,10 @@
 	                        <td><@c.calendar id="enddate" default="${result.enddate}" predate="startdate"/></td>
 	                    </tr>
 	                    <tr>
+	                        <td class="tdwidth2">启用标志</td>
+	                        <td><@c.dict id="enable" default="${result.enable}" dicttype="0008"/></td>
+	                    </tr>
+	                    <tr>
 	                        <td class="tdwidth2">备注</td>
 	                        <td>
 	                        	<input type="hidden" name="roletype" value="${result.roletype}" />
@@ -88,6 +92,10 @@
 	                    <tr>
 	                        <td class="tdwidth2">失效日期</td>
 	                        <td><@c.calendar id="enddate" predate="startdate"/></td>
+	                    </tr>
+	                    <tr>
+	                        <td class="tdwidth2">启用标志</td>
+	                        <td><@c.dict id="enable" dicttype="0008"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>

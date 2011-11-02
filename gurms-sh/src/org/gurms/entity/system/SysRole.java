@@ -33,6 +33,7 @@ public class SysRole implements Serializable {
 	private String rolename;
 	private String startdate;
 	private String rolestatus;
+	private String enable;
 	
 	private List<SysMenu> sysmenus = new ArrayList<SysMenu>();
 	private List<SysUser> sysusers = new ArrayList<SysUser>();
@@ -97,6 +98,12 @@ public class SysRole implements Serializable {
 	}
 	public void setRoletype(String roletype) {
 		this.roletype = roletype;
+	}
+	public String getEnable() {
+		return enable;
+	}
+	public void setEnable(String enable) {
+		this.enable = enable;
 	}
 	public String getStartdate() {
 		return startdate;

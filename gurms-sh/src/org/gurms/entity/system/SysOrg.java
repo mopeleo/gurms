@@ -33,7 +33,7 @@ public class SysOrg extends Logable {
 	private String address;
 	private String postcode;
 	private String email;
-	private String orgstatus;
+	private String orgtype;
 	private String remark;
 	private int    orgorder;
 
@@ -97,12 +97,12 @@ public class SysOrg extends Logable {
 		this.orgorder = orgorder;
 	}
 
-	public String getOrgstatus() {
-		return orgstatus;
+	public String getOrgtype() {
+		return orgtype;
 	}
 
-	public void setOrgstatus(String orgstatus) {
-		this.orgstatus = orgstatus;
+	public void setOrgtype(String orgtype) {
+		this.orgtype = orgtype;
 	}
 
 	public String getShortname() {

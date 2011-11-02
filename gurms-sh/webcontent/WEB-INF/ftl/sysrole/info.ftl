@@ -50,6 +50,10 @@
 	                        <td>${result.enddate}</td>
 	                    </tr>
 	                    <tr>
+	                        <td class="tdwidth2">启用标志:</td>
+	                        <td><@c.dictdesc dicttype="0008" dictcode="${result.enable}"/></td>
+	                    </tr>
+	                    <tr>
 	                        <td class="tdwidth2">备注:</td>
 	                        <td>${result.remark}
 	                        	<input type="hidden" name="roletype" value="${result.roletype}" />

@@ -45,5 +45,9 @@ public class GlobalParam {
 	public static final String DICT_MENUTYPE_MENU = "1";
 	public static final String DICT_MENUTYPE_BUTTON = "2";
 	
+	public static final String DICT_ENABLEFLAG = "0008";
+	public static final String DICT_ENABLEFLAG_STOP = "0";
+	public static final String DICT_ENABLEFLAG_ENABLE = "1";
+	
 	private GlobalParam(){}
 }

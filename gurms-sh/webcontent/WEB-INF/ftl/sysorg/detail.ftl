@@ -46,9 +46,9 @@
 		                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" display="${(result.parentorg.shortname)!!}" actual="${(result.parentorg.orgid)!!}" endnode="${(result.orgid)!!}" dynamic=true /></td>
                     </tr>
                     <tr>
-                        <td class="tdwidth2">机构状态</td>
+                        <td class="tdwidth2">机构类型</td>
                         <td>
-        					<@c.dict id="orgstatus" default="${result.orgstatus}" dicttype="0002"/>
+        					<@c.dict id="orgtype" default="${result.orgtype}" dicttype="0002"/>
                         </td>
                     </tr>
                     <tr>
@@ -99,8 +99,8 @@
 		                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" dynamic=true /></td>
                     </tr>
                     <tr>
-                        <td class="tdwidth2">机构状态</td>
-						<td><@c.dict id="orgstatus" dicttype="0002"/></td>
+                        <td class="tdwidth2">机构类型</td>
+						<td><@c.dict id="orgtype" dicttype="0002"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">排序号</td>

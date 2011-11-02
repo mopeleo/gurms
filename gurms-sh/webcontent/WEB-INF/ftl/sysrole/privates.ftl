@@ -12,8 +12,8 @@
 
 		
 	    <div class="contect">
-	    	<#assign titles=["角色名称","角色状态","生效日期","失效日期"]>
-	    	<#assign props=["rolename","rolestatus","startdate","enddate"]>
+	    	<#assign titles=["角色名称","角色状态","生效日期","失效日期","启用标志"]>
+	    	<#assign props=["rolename","rolestatus","startdate","enddate","enable"]>
 	    	<@c.listtable titles=titles props=props rows=result.result?size>
 				<#list result.result as role>
 					<tr onclick="clickrow(this)">
@@ -22,6 +22,7 @@
 						<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
 						<td>${role.startdate}</td>
 						<td>${role.enddate}</td>
+						<td><@c.dictdesc dicttype="0008" dictcode="${role.enable}" /></td>
 						<input type="hidden" id="roleid" value="${role.roleid}" />
 					</tr>
 				</#list>
