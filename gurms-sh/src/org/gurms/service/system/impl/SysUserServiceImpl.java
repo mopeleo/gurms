@@ -149,6 +149,7 @@ public class SysUserServiceImpl implements SysUserService{
 			result.setSuccess(false);			
 		}else{
 			u.setLoginpassword(user.getLoginpassword());
+			u.setUptpwdate(FormatUtil.getCurrentDate());
 			sysUserDao.save(u);
 		}
 		return result;		

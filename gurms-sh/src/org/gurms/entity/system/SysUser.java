@@ -34,6 +34,7 @@ public class SysUser implements Serializable {
 	private String onlineflag;
 	private String userstatus;
 	private String loginpassword;
+	private String uptpwdate;
 	
 	private int logincount;
 	private int errorcount;
@@ -145,6 +146,14 @@ public class SysUser implements Serializable {
 
 	public void setLogindate(String logindate) {
 		this.logindate = logindate;
+	}
+
+	public String getUptpwdate() {
+		return uptpwdate;
+	}
+
+	public void setUptpwdate(String uptpwdate) {
+		this.uptpwdate = uptpwdate;
 	}
 
 	public void addRole(SysRole role){

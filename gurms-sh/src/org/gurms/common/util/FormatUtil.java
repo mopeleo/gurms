@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 public abstract class FormatUtil {
 
 	private static final String symbol = "\r\n\t";
@@ -62,12 +64,26 @@ public abstract class FormatUtil {
 		int d = Integer.parseInt(date);
 		int startint = 0;
 		int endint = 0;
-		try{
-			startint = Integer.parseInt(startdate);
-			endint = Integer.parseInt(enddate);
-		}catch(Exception e){
-			return false;
+		
+		if(StringUtils.isBlank(startdate)){
+			startint = 0;
+		}else{
+			try{
+				startint = Integer.parseInt(startdate);
+			}catch(Exception e){
+				return false;
+			}
 		}
+		if(StringUtils.isBlank(enddate)){
+			endint = 99999999;
+		}else{
+			try{
+				endint = Integer.parseInt(enddate);
+			}catch(Exception e){
+				return false;
+			}
+		}
+		
 		return d >= startint && d < endint;
 	}
 }
