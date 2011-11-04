@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class SysUserConfig implements Serializable {
 
 	private String userid;
-	private int pagesize = PageRequest.MAX_PAGESIZE;
+	private int pagesize = PageRequest.MIN_PAGESIZE;
 	private String fastmenu;
 	
 	private String[] sysmenuids;
