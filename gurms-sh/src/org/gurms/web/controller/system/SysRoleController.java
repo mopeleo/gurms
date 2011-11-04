@@ -62,7 +62,7 @@ public class SysRoleController extends BaseController {
 	@RequestMapping
 	public void info(String roleid, Model model){
 		if(StringUtils.isNotBlank(roleid)){
-			SysRole role = roleService.get(roleid);
+			SysRole role = roleService.get(Integer.parseInt(roleid));
 			model.addAttribute(WebConstants.KEY_RESULT, role);
 		}
 	}
@@ -102,7 +102,7 @@ public class SysRoleController extends BaseController {
 	public PageResult ajaxDelete(String roleid){
 		PageResult page = null;
 		try{
-			roleService.delete(roleid);
+			roleService.delete(Integer.parseInt(roleid));
 			page = new PageResult();
 		}catch(Exception e){
 			page = processException(e, "新增角色信息出错");
@@ -112,7 +112,7 @@ public class SysRoleController extends BaseController {
 	
 	@RequestMapping
 	public String delete(String roleid){
-		roleService.delete(roleid);
+		roleService.delete(Integer.parseInt(roleid));
 		return redirect(ROLE_PULBIC);
 	}
 }

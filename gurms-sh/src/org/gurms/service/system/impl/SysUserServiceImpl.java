@@ -3,7 +3,6 @@ package org.gurms.service.system.impl;
 import java.text.ParseException;
 import java.util.Map;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
@@ -66,7 +65,7 @@ public class SysUserServiceImpl implements SysUserService{
 		if(StringUtils.isNotBlank(user.getSysroleids())){
 			String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 			for(String roleid : roleids){
-				SysRole role = sysRoleDao.get(roleid);
+				SysRole role = sysRoleDao.get(Integer.parseInt(roleid));
 				user.getSysroles().add(role);
 			}
 		}
@@ -88,7 +87,7 @@ public class SysUserServiceImpl implements SysUserService{
 			if(StringUtils.isNotBlank(user.getSysroleids())){
 				String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 				for(String roleid : roleids){
-					SysRole role = sysRoleDao.get(roleid);
+					SysRole role = sysRoleDao.get(Integer.parseInt(roleid));
 					user.getSysroles().add(role);
 				}
 			}
@@ -131,7 +130,7 @@ public class SysUserServiceImpl implements SysUserService{
 		SysUser user = sysUserDao.get(userid);
 		boolean isAdmin = false;
 		for(SysRole role : user.getSysroles()){
-			if(GlobalParam.SYSTEM_ROLE.equals(role.getRoleid())){
+			if(GlobalParam.SYSTEM_ROLE == role.getRoleid()){
 				isAdmin = true;
 				break;
 			}

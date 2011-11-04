@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,7 +16,6 @@ import javax.persistence.Table;
 import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="sys_org")
@@ -43,8 +41,6 @@ public class SysOrg extends Logable {
 	private List<SysOrg>  suborgs  = new ArrayList<SysOrg>();
 	
 	@Id
-	@GeneratedValue(generator = "uuid")    
-	@GenericGenerator(name = "uuid", strategy = "uuid") 
 	public String getOrgid() {
 		return orgid;
 	}

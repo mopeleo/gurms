@@ -15,16 +15,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysSerialno implements Serializable {
 
-	private int notype;
+	private String serialtype;
 	private int prevalue;
 
 	@Id
-	public int getNotype() {
-		return notype;
+	public String getSerialtype() {
+		return serialtype;
 	}
 
-	public void setNotype(int notype) {
-		this.notype = notype;
+	public void setSerialtype(String serialtype) {
+		this.serialtype = serialtype;
 	}
 
 	public int getPrevalue() {
@@ -39,19 +39,19 @@ public class SysSerialno implements Serializable {
 		if (o == null || !(o instanceof SysSerialno)) {
 			return false;
 		} else {
-			SysSerialno no = (SysSerialno) o;
-			if (no.getNotype() == 0) {
+			SysSerialno serial = (SysSerialno) o;
+			if (serial.getSerialtype() == null) {
 				return false;
 			} else {
-				return no.getNotype() == notype;
+				return serial.getSerialtype().equals(serialtype);
 			}
 		}
 	}
 
 	public int hashCode() {
-		if (notype == 0)
+		if (serialtype == null)
 			return super.hashCode();
-		return String.valueOf(notype).hashCode();
+		return serialtype.hashCode();
 	}
 
 }

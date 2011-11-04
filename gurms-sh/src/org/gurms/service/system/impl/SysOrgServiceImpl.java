@@ -5,10 +5,12 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.dao.hibernate.system.SysOrgDao;
+import org.gurms.dao.hibernate.system.SysSerialnoDao;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysOrg;
+import org.gurms.entity.system.SysSerialno;
 import org.gurms.service.system.SysOrgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +27,23 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@Autowired
 	private SysOrgDao sysOrgDao;
 	
+	@Autowired
+	private SysSerialnoDao serialnoDao;
+	
 	public SysOrgDao getSysOrgDao() {
 		return sysOrgDao;
 	}
 
 	public void setSysOrgDao(SysOrgDao sysOrgDao) {
 		this.sysOrgDao = sysOrgDao;
+	}
+
+	public SysSerialnoDao getSerialnoDao() {
+		return serialnoDao;
+	}
+
+	public void setSerialnoDao(SysSerialnoDao serialnoDao) {
+		this.serialnoDao = serialnoDao;
 	}
 
 	@Override
@@ -49,6 +62,12 @@ public class SysOrgServiceImpl implements SysOrgService {
 	public PageResult<SysOrg> save(SysOrg org) {
 		PageResult<SysOrg> result = new PageResult<SysOrg>();
 		SysOrg parent = org.getParentorg();
+		if(StringUtils.isBlank(org.getOrgid())){
+			SysSerialno serial = serialnoDao.get(GlobalParam.SERIAL_SYS_ORG);
+			int nextvalue = serial.getPrevalue() + 1;
+			serial.setPrevalue(nextvalue);
+			org.setOrgid(String.valueOf(nextvalue));
+		}
 		if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){
 			if(parent.getOrgid().equals(org.getOrgid())){
 				result.setSuccess(false);
@@ -94,5 +113,4 @@ public class SysOrgServiceImpl implements SysOrgService {
 			initOrgs(org);
 		}
 	}
-
 }

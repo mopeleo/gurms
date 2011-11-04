@@ -8,12 +8,16 @@ public class GlobalParam {
 	//---------------------系统参数------------------------
 	//系统字符串分隔符
 	public static final String STRING_SEPARATOR = ",";
-	public static final String SYSTEM_ROLE = "system";
+	public static final int SYSTEM_ROLE = 0;
 	public static final String MENU_ROOTID = "root";
 	public static final String ORG_ROOTID  = "root";
 	//存储过程执行成功的返回码，其他都为异常
 	public static final int    SP_SUCCESS_INT = 1;
 	public static final String SP_SUCCESS_STR = "0000";
+	
+	//自动增长序列号 类型
+	public static final String SERIAL_SYS_ORG = "sys_org";
+	public static final String SERIAL_SYS_ROLE = "sys_role";
 	
 	//数据库参数
 	public static final String PARAM_ERRORCOUNT = "0003";

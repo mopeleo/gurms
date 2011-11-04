@@ -62,7 +62,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysRole get(String id) {
+	public SysRole get(int id) {
 		return sysRoleDao.get(id);
 	}
 
@@ -100,7 +100,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(int id) {
 		sysRoleDao.delete(id);
 	}
 
