@@ -14,7 +14,7 @@
 	    	<#assign titles=["字典类别","字典代码","字典值","显示顺序","说明"]>
 	    	<#assign props=["dicttype","dictcode","dictvalue","dictorder","remark"]>
 	    	<@c.listtable titles=titles props=props rows=result.result?size>
-				<#list result.result as org>
+				<#list result.result as dict>
 					<tr onclick="clickrow(this)">
 						<td>${dict_index+1}</td>
 						<td>${dict.dicttype}</td>
