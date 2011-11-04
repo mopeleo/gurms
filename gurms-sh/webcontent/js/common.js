@@ -76,22 +76,25 @@ $(document).ready(function(){
 })();
 
 
-function clickrow(obj){
+function clickrow(row){
 	$(".trcoloryellow").removeClass();
-	$(obj).addClass("trcoloryellow");
+	$(row).addClass("trcoloryellow");
 	
 	_R.clear();
-	var th = $(obj).parent().find("th");
-	$(obj).children().each(function(){
-		var td = $(this);
-		if(td.is("td")){
-			_R.put(th.get(td.index()).id, td.text());
-		}
-	});
-	
-	$(obj).find("input:hidden").each(function(){
-		_R.put($(this).attr("id"), $(this).val());
-	});
+	var idx = $(row).children().eq(0).text();
+	if(idx && idx != ''){
+		var th = $(row).parent().find("th");
+		$(row).children().each(function(){
+			var td = $(this);
+			if(td.is("td")){
+				_R.put(th.get(td.index()).id, td.text());
+			}
+		});
+		
+		$(row).find("input:hidden").each(function(){
+			_R.put($(this).attr("id"), $(this).val());
+		});
+	}
 	
 //	for(var p in _R._entity){
 //		alert(p + " : " + _R.get(p));

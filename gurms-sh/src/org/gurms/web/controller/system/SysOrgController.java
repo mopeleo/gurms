@@ -64,9 +64,15 @@ public class SysOrgController extends BaseController {
 	}
 	
 	@RequestMapping
-	public String delete(String orgid){
-		orgService.delete(orgid);
-		return redirect(ORG_LIST);
+	@ResponseBody
+	public PageResult ajaxDelete(String orgid){
+		PageResult page = null;
+		try{
+			page = orgService.delete(orgid);
+		}catch(Exception e){
+			page = processException(e, "删除机构信息出错");
+		}
+		return page;
 	}
 
 	@RequestMapping
