@@ -29,7 +29,6 @@ public class SysMenu implements Serializable {
 	private String menuname;
 	private String menuurl;
 	private String menutype;
-	private String remark;
 	private String ajaxmode;
 	private String checked;
 	private String confirmed;
@@ -139,14 +138,6 @@ public class SysMenu implements Serializable {
 
 	public void setMenuorder(int menuorder) {
 		this.menuorder = menuorder;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
 	}
 
 	public boolean equals(Object o) {
