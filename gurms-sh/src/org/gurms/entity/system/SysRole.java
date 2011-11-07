@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
+import org.gurms.common.config.GlobalParam;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
@@ -47,7 +48,7 @@ public class SysRole implements Serializable {
 		name = "custom_id",
 		table = "sys_serialno",
 		pkColumnName = "serialtype",
-		pkColumnValue = "sys_role",
+		pkColumnValue = GlobalParam.SERIAL_SYS_ROLE,
 		valueColumnName = "prevalue",
 		initialValue = 1,
 		allocationSize = 1
