@@ -2,7 +2,7 @@
 <project name="main" default="all" basedir=".">
 	<property name="gurmsweb" value="${basedir}/webcontent" />
 	<property name="gurmsclass" value="${gurmsweb}/WEB-INF/classes" />
-	<property name="newproject" value="D:/ktws/src/fxq2" />
+	<property name="newproject" value="D:/kcrm/src/kcrm" />
 	<property name="newprojectweb" value="${newproject}/webcontent" />
 
 	<target name="init">
@@ -16,7 +16,7 @@
 			excludes="*.xml,*.properties" />
 	</target>
 
-	<target name="newproject" depends="init,jar">
+	<target name="newproject" depends="init">
 		<copy todir="${newproject}" overwrite="true">
 			<fileset dir="${basedir}">
 				<include name=".settings/" />
@@ -32,6 +32,7 @@
 				<exclude name="WEB-INF/classes/org/" />
 			</fileset>
 		</copy>
+		<ant target="jar" />
 	</target>
 
 	<target name="update" depends="jar">
