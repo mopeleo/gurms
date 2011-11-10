@@ -12,11 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
-import org.gurms.common.config.GlobalParam;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
@@ -27,7 +26,7 @@ import org.hibernate.annotations.FetchMode;
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysRole implements Serializable {
-	private int roleid;
+	private long roleid;
 	private String remark;
 	private String creator;
 	private String enddate;
@@ -44,21 +43,24 @@ public class SysRole implements Serializable {
 	private String[] sysmenuids;
 
 	@Id
-	@TableGenerator(
-		name = "custom_id",
-		table = "sys_serialno",
-		pkColumnName = "serialtype",
-		pkColumnValue = GlobalParam.SERIAL_SYS_ROLE,
-		valueColumnName = "prevalue",
-		initialValue = 1,
-		allocationSize = 1
-	)
-	@GeneratedValue(strategy=GenerationType.TABLE, generator="custom_id")
-	public int getRoleid() {
+//	@TableGenerator(
+//		name = "custom_id",
+//		table = "sys_serialno",
+//		pkColumnName = "serialtype",
+//		pkColumnValue = GlobalParam.SERIAL_SYS_ROLE,
+//		valueColumnName = "prevalue",
+//		initialValue = 1,
+//		allocationSize = 1
+//	)
+//	@GeneratedValue(strategy=GenerationType.TABLE, generator="custom_id")
+
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sys_seq")   
+	@SequenceGenerator(name="sys_seq", sequenceName="sys_seq", allocationSize=1) 
+	public long getRoleid() {
 		return roleid;
 	}
 
-	public void setRoleid(int roleid) {
+	public void setRoleid(long roleid) {
 		this.roleid = roleid;
 	}
 

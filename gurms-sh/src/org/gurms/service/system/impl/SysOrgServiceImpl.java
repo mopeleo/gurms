@@ -10,7 +10,6 @@ import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysOrg;
-import org.gurms.entity.system.SysSerialno;
 import org.gurms.service.system.SysOrgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,9 +62,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 		PageResult<SysOrg> result = new PageResult<SysOrg>();
 		SysOrg parent = org.getParentorg();
 		if(StringUtils.isBlank(org.getOrgid())){
-			SysSerialno serial = serialnoDao.get(GlobalParam.SERIAL_SYS_ORG);
-			int nextvalue = serial.getPrevalue() + 1;
-			serial.setPrevalue(nextvalue);
+			long nextvalue = serialnoDao.next(GlobalParam.SERIAL_SYS_ORG);
 			org.setOrgid(String.valueOf(nextvalue));
 		}
 		if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){

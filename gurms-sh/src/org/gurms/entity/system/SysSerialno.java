@@ -16,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class SysSerialno implements Serializable {
 
 	private String serialtype;
-	private int prevalue;
+	private long prevalue;
 
 	@Id
 	public String getSerialtype() {
@@ -27,11 +27,11 @@ public class SysSerialno implements Serializable {
 		this.serialtype = serialtype;
 	}
 
-	public int getPrevalue() {
+	public long getPrevalue() {
 		return prevalue;
 	}
 
-	public void setPrevalue(int prevalue) {
+	public void setPrevalue(long prevalue) {
 		this.prevalue = prevalue;
 	}
 
