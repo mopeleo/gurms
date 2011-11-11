@@ -47,10 +47,10 @@ function Dialog(content, options)
         '<div class="bar"><span class="title">' + options.title + '</span><a class="close">' + options.closeText + '</a></div>';
     var buttomHtml = '';
     if(options.confirmMode == true){
-    	buttomHtml = '<div style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_confirm_button" type="button" class="button" value="确定">  <input id="_cancel_button" type="button" class="button" value="取消"></div>';
+    	buttomHtml = '<div id="_buttom" style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_confirm_button" type="button" class="button" value="确定">  <input id="_cancel_button" type="button" class="button" value="取消"></div>';
     }else{
         if(options.confirmButton == true){
-        	buttomHtml = '<div style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_dialog_button" type="button" class="button" value="确定"></div>';
+        	buttomHtml = '<div id="_buttom" style="background:#eceffb; text-align:center; padding:5px 0; border-top:1px solid #a2b0ee;"><input id="_dialog_button" type="button" class="button" value="确定"></div>';
         }
     }
     var dialog = $('<div id="' + options.id + '" class="dialog">' + barHtml 
@@ -69,8 +69,8 @@ function Dialog(content, options)
     var resetPos = function()
     {
         var left = ($(window).width() - dialog.width()) / 2;
-//        var top = ($(window).height() - dialog.height()) / 2;
-        var top = '100px';
+        var top = ($(window).height() - dialog.height()) / 2;
+//        var top = '100px';
         if(!isIe6 && options.fixed){   
         	dialog.css({top:top,left:left});   
         }else{   
@@ -179,8 +179,8 @@ function Dialog(content, options)
         if('object' == typeof(c))
         {
         	var complexProp = {
-        		width : 500,
-        		height: 200
+//        		height: 200,
+        		width : 500
         	};
             var _options = $.extend(complexProp, c);
         	dialog.css("width", _options.width);
@@ -203,8 +203,11 @@ function Dialog(content, options)
                 });
                 break;
             case 'iframe':
-                div.append($('<iframe src="' + c.value + '" />'));
-        	    dialog.css("width",600);
+                div.append($('<iframe frameborder="0" src="' + c.value + '" />'));
+                div.css("height",402);
+        	    dialog.css("width",800);
+        	    dialog.css("height",450);
+        	    dialog.find("#_buttom").hide();
                 break;
             case 'text':
             default:
