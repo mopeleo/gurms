@@ -25,8 +25,6 @@ import org.gurms.entity.system.SysUser;
 import org.gurms.entity.system.SysUserConfig;
 import org.gurms.entity.system.SysUserInfo;
 import org.gurms.service.system.SysUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +32,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class SysUserServiceImpl implements SysUserService{
-
-	private Logger logger = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
 	@Autowired
 	private SysUserDao sysUserDao;
@@ -198,7 +194,6 @@ public class SysUserServiceImpl implements SysUserService{
 					try {
 						dif = System.currentTimeMillis() - FormatUtil.getDate(FormatUtil.pattern_fulltime, logtime).getTime();
 					} catch (ParseException e) {
-						logger.warn("密码错误时间格式错误", e);
 						result.setReturnmsg(e.getMessage());
 						result.setSuccess(false);
 						return result;

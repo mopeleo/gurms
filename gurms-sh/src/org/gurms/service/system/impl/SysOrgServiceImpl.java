@@ -11,8 +11,6 @@ import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysOrg;
 import org.gurms.service.system.SysOrgService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class SysOrgServiceImpl implements SysOrgService {
-
-	private Logger logger = LoggerFactory.getLogger(SysOrgServiceImpl.class);
 
 	@Autowired
 	private SysOrgDao sysOrgDao;

@@ -14,8 +14,6 @@ import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysMenu;
 import org.gurms.entity.system.SysRole;
 import org.gurms.service.system.SysRoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class SysRoleServiceImpl implements SysRoleService {
-
-	private Logger logger = LoggerFactory.getLogger(SysRoleServiceImpl.class);
 
 	@Autowired
 	private SysRoleDao sysRoleDao;	
