@@ -3,7 +3,7 @@ package org.gurms.common.config;
 /**
  *  系统默认参数和数据库中的字典、参数
  */
-public class GlobalParam {
+public abstract class GlobalParam {
 
 	//---------------------系统参数------------------------
 	//系统字符串分隔符
@@ -53,5 +53,4 @@ public class GlobalParam {
 	public static final String DICT_ENABLEFLAG_STOP = "0";
 	public static final String DICT_ENABLEFLAG_ENABLE = "1";
 	
-	private GlobalParam(){}
 }
