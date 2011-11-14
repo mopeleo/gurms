@@ -23,7 +23,6 @@ public class SysSerialnoImpl implements SysSerialnoService {
 	}
 
 	@Override
-	@Transactional
 	public long next(String type) {
 		return serialnoDao.next(type);
 	}
