@@ -236,13 +236,13 @@ function jumpPage(pageNo) {
 }
 
 function search() {
-	if($("#order")){
+	if($("#order").length > 0){
 		$("#order").val("");
 	}
-	if($("#orderBy")){
+	if($("#orderBy").length > 0){
 		$("#orderBy").val("");
 	}
-	if($("#pageNo")){
+	if($("#pageNo").length > 0){
 		$("#pageNo").val("1");
 	}
 
