@@ -10,11 +10,24 @@
 		<mkdir dir="${newproject}" />
 	</target>
 
-	<target name="jar">
+	<target name="updatejar">
 		<jar basedir="${gurmsclass}" 
 			destfile="${newprojectweb}/WEB-INF/lib/gurms.jar"
 			excludes="*.xml,*.properties" />
 	</target>
+
+	<target name="updateweb">
+		<copy todir="${newprojectweb}" overwrite="true">
+			<fileset dir="${gurmsweb}">
+				<include name="css/" />
+				<include name="img/" />
+				<include name="js/" />
+				<include name="WEB-INF/ftl/" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="update" depends="updatejar,updateweb" />
 
 	<target name="newproject" depends="init">
 		<copy todir="${newproject}" overwrite="true">
@@ -32,16 +45,7 @@
 				<exclude name="WEB-INF/classes/org/" />
 			</fileset>
 		</copy>
-		<ant target="jar" />
-	</target>
-
-	<target name="update" depends="jar">
-		<copy todir="${newprojectweb}" overwrite="true">
-			<fileset dir="${gurmsweb}">
-				<include name="js/" />
-				<include name="WEB-INF/ftl/" />
-			</fileset>
-		</copy>
+		<ant target="updatejar" />
 	</target>
 
 	<target name="all" depends="update" />

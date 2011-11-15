@@ -90,16 +90,19 @@
 	            </#list>
 	        </ul>
 	    </div>
-		<table cellpadding="0">
-			<tr class="tr1">
-				<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist()" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
-	    		<#list titles as title >
-	            	<th id="${props[title_index]}">${title}</th>
-	            </#list>
-			</tr>
-        	<#nested/>
-			<@c.filltable rows=rows cols=titles?size+1 />
-		</table>
+	    
+    	<div class="zoomdiv">
+			<table cellpadding="0">
+				<tr class="tr1">
+					<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist()" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
+		    		<#list titles as title >
+		            	<th id="${props[title_index]}">${title}</th>
+		            </#list>
+				</tr>
+	        	<#nested/>
+				<@c.filltable rows=rows cols=titles?size+1 />
+			</table>
+		</div>
 	</div>
 </#macro> 
 
