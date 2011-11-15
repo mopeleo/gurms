@@ -199,6 +199,7 @@ function buttonforward(params){
 		$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
 	}else{
 		forward(urlstring);
+//		new Dialog({type:'iframe',value:urlstring}).show();
 	}
 }
 
@@ -231,15 +232,22 @@ function jumpPage(pageNo) {
 	if(pageNo){
 		$("#pageNo").val(pageNo);
 	}
-	$("#pageNo").parents("form:first").submit();
+	$("form").eq(0).submit();
 }
 
 function search() {
-	$("#order").val("");
-	$("#orderBy").val("");
-	$("#pageNo").val("1");
+	if($("#order")){
+		$("#order").val("");
+	}
+	if($("#orderBy")){
+		$("#orderBy").val("");
+	}
+	if($("#pageNo")){
+		$("#pageNo").val("1");
+	}
 
-	$("#pageNo").parents("form:first").submit();
+	$("form").eq(0).submit();
+//	$("#pageNo").parents("form:first").submit();
 }
 
 /** 计算 整个页面的大小 */

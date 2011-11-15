@@ -93,7 +93,7 @@ a:focus{-moz-outline:none; outline:none;}
 .search fieldset legend{margin-top:-10px\9; _margin-top:-2px; color:#333399; font-weight:bold;}
 .search fieldset div.search_table{padding-left:20px;}
 .button{background:url(../img/button_bg.gif) no-repeat; width:70px; height:23px; border:none; cursor:hand;}
-.contect{background:url(../img/guodu_tu.gif) repeat-x top; padding-top:29px; position:relative;}
+.contect{position:relative;}
 div.table1{background-color:#fff; overflow:auto; max-height:350px; position:relative;}
 .table1 table{border-collapse:collapse;width:100%;border:0;}
 .table1 table tr td{border:1px solid #b3b4c6; height:20px; text-align:center; white-space:nowrap;}
@@ -225,7 +225,7 @@ textarea{width:427px; height:100px; border:1px solid #ccc; overflow:auto;}
 .topmenuRightover{background:url(../img/systemmenu_hover.gif) no-repeat right; height:20px; min-width:41px; text-align:center; padding-right:4px;}
 
 .checktitle{width:7px; height:12px; padding-left:4px; display:inline-block; cursor:pointer;}
-.checktitle_box{border:1px solid #595993; min-width:100px; min-height:60px; position:absolute;  background-color:#FFF; left:30px; z-index:1000; top:49px;}
+.checktitle_box{border:1px solid #595993; min-width:100px; min-height:60px; position:absolute;  background-color:#FFF; left:30px; z-index:1000; top:20px;}
 .checktitle_box ul li{clear:both; margin:3px 0;}
 .checktitle_box ul li input{padding:4px; float:left; border:none; width:auto;}
 .checktitle_box span{float:left; display:block; padding-top:5px;}

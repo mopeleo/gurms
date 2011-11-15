@@ -41,9 +41,9 @@
     	
 	    <div class="pager">
 	    	<#list button as menu>
-	    		<#if menu.checked = "1">
+	    		<#if menu.checked == "1">
 	<#--   <input type="button" class="button" value="${menu.menuname}" onclick="buttonforward('${base}/${menu.menuurl}','${menu.menuname}','${menu.ajaxmode}','${menu.confirmed}','${params}')"/> -->
-					<#if menu.confirmed = "1">
+					<#if menu.confirmed == "1">
 			        <input type="button" class="button" value="${menu.menuname}" onclick="confirmDialog(buttonforward, {urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
 			        <#else>
 					<input type="button" class="button" value="${menu.menuname}" onclick="buttonforward({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
@@ -52,6 +52,7 @@
 	        		<input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
 	        	</#if>
 	        </#list>
+	        <#nested/>
 	    </div>
     </div>
     
@@ -81,14 +82,14 @@
 		}
 	</script>
 	  
-    <div id="chooselist" class="displayNone">
-    	<ul>
-    		<#list titles as title >
-            	<li><input type="checkbox" onclick="changecol('${props[title_index]}')" checked="true"/>${title}</li>
-            </#list>
-        </ul>
-    </div>
     <div class="table1">	        
+	    <div id="chooselist" class="displayNone">
+	    	<ul>
+	    		<#list titles as title >
+	            	<li><input type="checkbox" onclick="changecol('${props[title_index]}')" checked="true"/>${title}</li>
+	            </#list>
+	        </ul>
+	    </div>
 		<table cellpadding="0">
 			<tr class="tr1">
 				<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist()" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
@@ -156,7 +157,7 @@
 	<#assign keyTemplate = keySource?interpret>
 	<#assign valueSource = "$"+"{option.${value}}"> 
 	<#assign valueTemplate = valueSource?interpret>
-	<#assign judgeSource = "<#if option.${key}=default>selected=selected</#if>"> 
+	<#assign judgeSource = "<#if option.${key}==default>selected=selected</#if>"> 
 	<#assign judgeTemplate = judgeSource?interpret>
 	<select class="selectstyle" name="${id}" id="${id}">
 		<#if nullable>
@@ -171,7 +172,7 @@
 
 <#macro dictdesc dicttype dictcode>  
 	<#list context_dict[dicttype] as dict>
-		<#if dict.dictcode=dictcode>${dict.dictvalue}</#if>
+		<#if dict.dictcode==dictcode>${dict.dictvalue}</#if>
 	</#list>
 </#macro> 
 
@@ -182,7 +183,7 @@
 			<option value="">-请选择-</option>
 		</#if>
 		<#list context_dict[dicttype] as dict>
-			<option value="${dict.dictcode}" <#if dict.dictcode=default>selected="selected"</#if>>${dict.dictcode} - ${dict.dictvalue}</option>
+			<option value="${dict.dictcode}" <#if dict.dictcode==default>selected="selected"</#if>>${dict.dictcode} - ${dict.dictvalue}</option>
 		</#list>
 	</select>
 </#macro> 
@@ -266,9 +267,9 @@
 	
 	<ul id="__tree" class="filetree">
 		<#if !dynamic>
-			<#if type=1>
+			<#if type==1>
 				<@c.recmenu node/>
-			<#elseif type=2>
+			<#elseif type==2>
 				<@c.recorg node />
 			</#if>
 		</#if>
@@ -285,7 +286,7 @@
 	    function createTree(){
 	    	if(_dialog && _dialog != null){
 	    	}else{
-	    		var treestring = '<ul id="__tree" class="filetree"><#if type=1><@c.recmenu node/><#elseif type=2><@c.recorg node /></#if></ul>';
+	    		var treestring = '<ul id="__tree" class="filetree"><#if type==1><@c.recmenu node/><#elseif type==2><@c.recorg node /></#if></ul>';
 	    		
 				_dialog = new Dialog(treestring);					
 			 	$("#__tree").treeview({
