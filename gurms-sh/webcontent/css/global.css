@@ -231,3 +231,5 @@ textarea{width:427px; height:100px; border:1px solid #ccc; overflow:auto;}
 .checktitle_box ul li input{padding:4px; float:left; border:none; width:auto;}
 .checktitle_box span{float:left; display:block; padding-top:5px;}
 
+span.deleted{background:url(../img/check_small_ico.gif) no-repeat left; width:17px; height:20px; display:inline-block; cursor:pointer;}
+span.query{background:url(../img/check_small_ico.gif) no-repeat -17px 0; width:18px; height:20px; display:inline-block; cursor:pointer;}
