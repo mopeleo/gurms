@@ -372,6 +372,14 @@ public class HibernateDao<T> extends SimpleHibernateDao<T> {
 		case NOTNULL:
 			criterion = Restrictions.isNotNull(propertyName);
 			break;
+		case IN:
+			String values = propertyValue.toString();
+			if(values.indexOf(',') > 0){
+				criterion = Restrictions.in(propertyName, values.split(","));
+			}else{
+				criterion = Restrictions.eq(propertyName, propertyValue);
+			}
+			break;
 		}
 		return criterion;
 	}

@@ -18,7 +18,7 @@ public class PropertyFilter {
 
 	/** 属性比较类型. */
 	public enum MatchType {
-		EQ, LIKE, LT, GT, LE, GE, NE, NULL, NOTNULL;
+		EQ, LIKE, LT, GT, LE, GE, NE, IN, NULL, NOTNULL;
 	}
 
 	private MatchType matchType = null;
