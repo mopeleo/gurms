@@ -23,7 +23,7 @@
 						<td>${org.linkman}</td>
 						<td>${org.linktel}</td>
 						<td>${org.address}</td>
-						<td><@c.dictdesc dicttype="0002" dictcode="${org.orgtype}"/></td>
+						<td><@c.dictdesc dicttype="0009" dictcode="${org.orgtype}"/></td>
 						<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
 						<input type="hidden" id="orgid" value="${org.orgid}" />
 					</tr>

@@ -111,6 +111,13 @@ function changecol(colid){
 	$('#chooselist').focus();
 }
 
+function cleardata(objid){
+	$("#" + objid).val("");
+	if($("#dis_" + objid).length > 0){
+		$("#dis_" + objid).val("");
+	}
+}
+
 var loadingDialog;
 function _beforeSubmit(formData, jqForm, options){
 	// 显示进度条

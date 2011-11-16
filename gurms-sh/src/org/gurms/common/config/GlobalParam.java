@@ -53,4 +53,9 @@ public abstract class GlobalParam {
 	public static final String DICT_ENABLEFLAG_STOP = "0";
 	public static final String DICT_ENABLEFLAG_ENABLE = "1";
 	
+	public static final String DICT_ORGYPE = "0009";
+	public static final String DICT_ORGYPE_ROOT = "0";
+	public static final String DICT_ORGYPE_BRANCH = "1";
+	public static final String DICT_ORGYPE_DEPARTMENT = "2";
+	
 }
