@@ -39,6 +39,7 @@
    	  <div class="rightDivborder">
    	  <div class="borderdiv">
 		<@c.validscript classname="org.gurms.entity.system.SysOrg" formid="ajaxform"/>
+        <@c.afterreturn forward="${base}/sysorg/list" />
 		<@c.ajaxform action="${base}/sysorg/ajaxSave">
 	        <div class="messagelist">
 	            <div class="title_bg">
@@ -101,8 +102,6 @@
 	                </table>
 	
 	            </div>                   
-                
-                <@c.afterreturn forward="${base}/sysorg/list" />
                 
 	            <div class="messagetable messageOK">
 	                <table>
