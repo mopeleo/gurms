@@ -88,7 +88,7 @@ a:focus{-moz-outline:none; outline:none;}
 
 /*main_body .right*/
 .rightbodybg{background:url(../img/right_bottombg.gif) repeat-x bottom #fff;}
-.rightstyle{height:458px; overflow:auto; padding:10px;}
+.rightstyle{height:520px; overflow:auto; padding:10px;}
 .search fieldset{padding:5px; background-color:#edeef9; margin:0;}
 .search fieldset legend{margin-top:-10px\9; _margin-top:-2px; color:#333399; font-weight:bold;}
 .search fieldset div.search_table{padding-left:20px;}
@@ -233,3 +233,11 @@ textarea{width:427px; height:100px; border:1px solid #ccc; overflow:auto;}
 
 span.deleted{background:url(../img/check_small_ico.gif) no-repeat left; width:17px; height:20px; display:inline-block; cursor:pointer;}
 span.query{background:url(../img/check_small_ico.gif) no-repeat -17px 0; width:18px; height:20px; display:inline-block; cursor:pointer;}
+
+.messageLeft{background-color:#fbfbfb;float:left; width:30%; height:98%; overflow:auto; border-top:1px solid #91a0e2;}
+.messageRight{background-color:#fff;height:98%; width:69%; float:left; border-left:none; overflow:auto;  border-top:1px solid #91a0e2;}
+.bottomButton{height:7%; clear:both; width:99%; border-top:1px solid #91a0e2; border-bottom:1px solid #91a0e2;}
+.leftDivborder{border-left:1px solid #91a0e2; border-right:1px solid #ccc; height:100%;}
+.rightDivborder{border-right:1px solid #91a0e2; height:100%; overflow:auto;}
+
+.borderdiv{padding:4px;}

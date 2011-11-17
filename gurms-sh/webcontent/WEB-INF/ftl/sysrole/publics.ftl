@@ -27,7 +27,7 @@
 				</#list>
 	    	</@c.listtable>
 			
-        	<@c.buttons params="roleid" />
+        	<@c.bottomdiv params="roleid" />
         </div>
 			
 	</form>

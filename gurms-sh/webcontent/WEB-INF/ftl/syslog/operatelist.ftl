@@ -31,7 +31,7 @@
 				</#list>
 	    	</@c.listtable>
 
-            <@c.buttons/>
+            <@c.bottomdiv/>
         </div>
 			
 	</form>

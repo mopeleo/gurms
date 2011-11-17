@@ -27,35 +27,32 @@
 </#macro> 
 
 
+<#macro bottomdiv params="">
+    <div class="page_kz">
+    	<#include "common/page.ftl" />
+    	
+	    <div class="pager">
+			<@c.buttons params=params>
+			    <#nested/>			
+			</@c.buttons>
+	    </div>
+    </div>
+</#macro>
+
+
+<#macro buttons params="">  
+	<#list button as menu>
+		<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog(buttonforward,<#else>buttonforward(</#if>{urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
+    </#list>
+    <#nested/>    
+</#macro> 
+
+
 <#macro ajaxform action>  
 	<form method="post" id="ajaxform" action="${action}">
 		<input type="hidden" name="operator" id="operator" value="${session_user.userid}">
         <#nested/>
     </form>
-</#macro> 
-
-
-<#macro buttons params="">  
-    <div class="page_kz">
-    	<#include "common/page.ftl" />
-    	
-	    <div class="pager">
-	    	<#list button as menu>
-	    		<#if menu.checked == "1">
-	<#--   <input type="button" class="button" value="${menu.menuname}" onclick="buttonforward('${base}/${menu.menuurl}','${menu.menuname}','${menu.ajaxmode}','${menu.confirmed}','${params}')"/> -->
-					<#if menu.confirmed == "1">
-			        <input type="button" class="button" value="${menu.menuname}" onclick="confirmDialog(buttonforward, {urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
-			        <#else>
-					<input type="button" class="button" value="${menu.menuname}" onclick="buttonforward({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',keys:'${params}'})"/>
-			        </#if>
-	        	<#else>
-	        		<input type="button" class="button" value="${menu.menuname}" onclick="forward('${base}/${menu.menuurl}')"/>
-	        	</#if>
-	        </#list>
-	        <#nested/>
-	    </div>
-    </div>
-    
 </#macro> 
 
 
@@ -155,6 +152,14 @@
 </#macro> 
 
 
+<#macro queryinput id value="">
+	<input type="text" id="dis_${id}" name="dis_${id}" value="${value}" readonly="readonly">
+	<span class="deleted" onclick="cleardata(${id})"></span><span class="query"></span>
+	<input type="hidden" id="${id}" name="${id}" value="${value}">
+	<#nested/>
+</#macro>
+
+
 <#macro select id options key value default="" nullable=false> 
 	<#assign keySource = "$"+"{option.${key}}"> 
 	<#assign keyTemplate = keySource?interpret>
@@ -239,21 +244,27 @@
 
 
 <#-- 树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->
-<#macro tree id type node="" display="" actual="" endnode="" checkable=false readonly=false dynamic=false>
+<#macro tree id type node="" display="" actual="" endnode="" checkable=false readonly=false dynamic=false clickfunc="" input=false>
 	<#assign disid="dis_"+id>
 	<script type="text/javascript">
 	 	$(document).ready(function(){
-		 	$("#__tree").treeview({
+	 		var treeobj = document.getElementById("__tree_${id}");
+		 	$(treeobj).treeview({
 		 		<#if checkable>
 			 		checkboxid:'${id}',
 				 	checkvalue: '${actual}',
 				 	readonly: ${readonly?string("true","false")},
-		 		<#else>
-			 		clickext:function(obj){
-			 			document.getElementById("${disid}").value=$(obj).text();
-			 			document.getElementById("${id}").value=obj.id;
-		 			},
 	 			</#if>
+	 			<#if clickfunc == "">
+			 		<#if input>
+				 		clickext:function(obj){
+				 			document.getElementById("${disid}").value=$(obj).text();
+				 			document.getElementById("${id}").value=obj.id;
+			 			},
+		 			</#if>
+		 		<#else>
+			 		clickext:${clickfunc},
+		 		</#if>
 	 			<#if dynamic>
 		 			url:'${type}',
 		 			data:{root:'${node}'<#if endnode != "">,endnode:'${endnode}'</#if>},
@@ -263,12 +274,12 @@
 		});
 	</script>
 	
-	<#if !checkable>
-		<input type="text" onclick="createTree()" id="${disid}" name="${disid}" value="${display}" readonly="readonly"/>
+	<#if input>
+		<input type="text" id="${disid}" name="${disid}" value="${display}" readonly="readonly"/>
 		<input type="hidden" id="${id}" name="${id}" value="${actual}" />
 	</#if>
 	
-	<ul id="__tree" class="filetree">
+	<ul id="__tree_${id}" class="filetree">
 		<#if !dynamic>
 			<#if type==1>
 				<@c.recmenu node/>
@@ -282,27 +293,33 @@
 
 
 <#-- 弹出树  id:表单中input的ID,node:动态树为根节点对象,静态树为要查询的节点ID,type:动态树为请求url,静态树为根节点对象类型,actual:隐藏的真实的值,display:页面显示的值,dynamic:是否动态树,checkable:是否有checkbox-->
-<#macro popuptree id type node="" display="" actual="" endnode="" checkable=false readonly=false dynamic=false>
+<#macro popuptree id type node="" display="" actual="" endnode="" checkable=false readonly=false dynamic=false clickfunc="" input=false>
 	<#assign disid="dis_"+id>
 	<script type="text/javascript">
 		var _dialog;    
 	    function createTree(){
 	    	if(_dialog && _dialog != null){
 	    	}else{
-	    		var treestring = '<ul id="__tree" class="filetree"><#if type==1><@c.recmenu node/><#elseif type==2><@c.recorg node /></#if></ul>';
+	    		var treestring = '<ul id="__tree_${id}" class="filetree"><#if type==1><@c.recmenu node/><#elseif type==2><@c.recorg node /></#if></ul>';
 	    		
 				_dialog = new Dialog(treestring);					
-			 	$("#__tree").treeview({
+	 			var treeobj = document.getElementById("__tree_${id}");
+			 	$(treeobj).treeview({
 			 		<#if checkable>
 				 		checkboxid:'${id}',
 					 	checkvalue: '${actual}',
 				 		readonly: ${readonly?string("true","false")},
-			 		<#else>
-				 		clickext:function(obj){
-				 			document.getElementById("${disid}").value=$(obj).text();
-				 			document.getElementById("${id}").value=obj.id;
-			 			},
 		 			</#if>
+		 			<#if clickfunc == "">
+				 		<#if input>
+					 		clickext:function(obj){
+					 			document.getElementById("${disid}").value=$(obj).text();
+					 			document.getElementById("${id}").value=obj.id;
+				 			},
+			 			</#if>
+			 		<#else>
+				 		clickext:${clickfunc},
+			 		</#if>
 		 			<#if dynamic>
 			 			url:'${type}',
 		 				data:{root:'${node}'<#if endnode != "">,endnode:'${endnode}'</#if>},
@@ -314,7 +331,7 @@
 	    }	    
 	</script>
 	
-	<#if !checkable>
+	<#if input>
 		<input type="text" onclick="createTree()" id="${disid}" name="${disid}" value="${display}" readonly="readonly"/>
 		<input type="hidden" id="${id}" name="${id}" value="${actual}" />
 	</#if>

@@ -167,7 +167,7 @@ function ajaxsubmiturl(formid, urlstring){
 }
 
 function confirmDialog(func, params){
-	if(params.keys && params.keys.length > 0){
+	if(params.ischeck == '1'){
 		if(_R.size() == 0){
 			new Dialog("请选中要" + params.optname + "的数据!").show();
 			return false;
@@ -187,27 +187,40 @@ function forward(urlstring){
 }
 
 function buttonforward(params){
-	if(params.keys && params.keys.length > 0){
+	var urlstring = params.urlstring;
+	if(params.ischeck == '1'){
 		if(_R.size() == 0){
 			new Dialog("请选中要" + params.optname + "的数据!").show();
 			return false;
 		}
-		var urlstring = params.urlstring + "?1=1";
-		var keys = params.keys.split(",");
-		for(var i = 0; i < keys.length; i++){
-			var val = _R.get(keys[i]);
-			if(val){
-				urlstring += '&' + keys[i] + '=' + val;
+		if(params.keys && params.keys.length > 0){
+			urlstring += "?1=1";
+			var keys = params.keys.split(",");
+			for(var i = 0; i < keys.length; i++){
+				var val = _R.get(keys[i]);
+				if(val){
+					urlstring += '&' + keys[i] + '=' + val;
+				}
 			}
 		}
-	}
-//	alert(urlstring);
-	if(params.isajax == '1'){
-		$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
+//		alert(urlstring);
+		if(params.isajax == '1'){
+			$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
+		}else{
+			forward(urlstring);
+		}
 	}else{
-		forward(urlstring);
-//		new Dialog({type:'iframe',value:urlstring}).show();
+		if(params.isajax == '1'){
+			var formid = params.formid;
+			if(!formid){
+				formid = $("form").get(0).id;
+			}
+			ajaxsubmiturl(formid, urlstring);
+		}else{
+			forward(urlstring);
+		}
 	}
+//	new Dialog({type:'iframe',value:urlstring}).show();
 }
 
 /*

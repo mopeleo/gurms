@@ -1,5 +1,6 @@
 package org.gurms.service.system.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -56,17 +57,31 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@Override
 	public PageResult<SysOrg> save(SysOrg org) {
 		PageResult<SysOrg> result = new PageResult<SysOrg>();
-		SysOrg parent = org.getParentorg();
 		if(StringUtils.isBlank(org.getOrgid())){
 			long nextvalue = serialnoDao.next(GlobalParam.SERIAL_SYS_ORG);
 			org.setOrgid(String.valueOf(nextvalue));
+		}else{
+			if(org.getOrgid().equals(GlobalParam.ORG_ROOTID)){
+				org.setParentorg(null);
+			}
 		}
+		SysOrg parent = org.getParentorg();
 		if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){
 			if(parent.getOrgid().equals(org.getOrgid())){
 				result.setSuccess(false);
 				result.setReturnmsg("上级机构不能是自己");
 			}else{
 				parent = sysOrgDao.get(parent.getOrgid());
+				//同一父节点下不能同名
+				List<SysOrg> sons = parent.getSuborgs();
+				for(SysOrg son : sons){
+					if(!son.getOrgid().equals(org.getOrgid()) 
+							&& son.getShortname().equals(org.getShortname())){
+						result.setSuccess(false);
+						result.setReturnmsg(org.getShortname() + "己存在");
+						return result;
+					}
+				}
 				parent.addOrg(org);
 				sysOrgDao.save(parent);
 			}

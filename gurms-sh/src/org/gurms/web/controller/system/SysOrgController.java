@@ -53,6 +53,25 @@ public class SysOrgController extends BaseController {
 	
 	@RequestMapping
 	@ResponseBody
+	public PageResult<SysOrg> ajaxGet(String orgid){
+		PageResult<SysOrg> page = new PageResult<SysOrg>();
+		if(StringUtils.isNotBlank(orgid)){
+			SysOrg org = orgService.get(orgid);
+			org.setSuborgs(null);
+			if(org.getParentorg() != null){
+				org.getParentorg().setSuborgs(null);
+				org.getParentorg().setParentorg(null);
+			}
+			page.addResult(org);
+		}else{
+			page.setSuccess(false);
+			page.setReturnmsg("机构ID不能为空");
+		}
+		return page;
+	}
+	
+	@RequestMapping
+	@ResponseBody
 	public PageResult ajaxSave(SysOrg org){
 		PageResult page = null;
 		try{

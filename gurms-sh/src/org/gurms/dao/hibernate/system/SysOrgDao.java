@@ -19,6 +19,10 @@ public class SysOrgDao extends HibernateDao<SysOrg> {
 		for(SysUser user : org.getSysusers()){
 			user.setSysorg(null);
 		}
+		
+		//手动删除父子关系
+		SysOrg parent = org.getParentorg();
+		parent.getSuborgs().remove(org);
 		super.delete(id);
 	}
 }

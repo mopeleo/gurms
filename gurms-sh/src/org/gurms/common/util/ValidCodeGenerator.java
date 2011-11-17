@@ -10,20 +10,13 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class ValidCodeGenerator {
-	private static char[] CODES = new char[52];
-	static {
-		int y = 0;
-		for (int i = 'A'; i <= 'Z'; i++) {
-			CODES[y++] = (char) i;
-		}
-		for (int i = 'a'; i <= 'z'; i++) {
-			CODES[y++] = (char) i;
-		}
-	}
+public abstract class ValidCodeGenerator {
+	//大写I与小写L区别不出来，导致输入错误，屏蔽掉
+	private final static char[] CODES = {'A','B','C','D','E','F','G','H',
+			'J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X',
+			'Y','Z','a','b','c','d','e','f','g','h','j','k','m','n','o',
+			'p','q','r','s','t','u','v','w','x','y','z'};
 
-	private ValidCodeGenerator(){}
-	
 	public static void generate(OutputStream stream, String code, int width,
 			int height) throws IOException {
 

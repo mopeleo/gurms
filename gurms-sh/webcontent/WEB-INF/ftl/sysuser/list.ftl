@@ -37,7 +37,7 @@
 	    	</@c.listtable>
 
 			
-        	<@c.buttons params="userid" />
+        	<@c.bottomdiv params="userid" />
             <!-- <input type="button" class="button" value="密码重置" onclick="forward('${base}/sysuser/detail')"/> -->
         </div>
 			
