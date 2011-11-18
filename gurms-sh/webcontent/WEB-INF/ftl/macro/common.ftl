@@ -40,10 +40,41 @@
 </#macro>
 
 
-<#macro buttons params="">  
-	<#list button as menu>
-		<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog(buttonforward,<#else>buttonforward(</#if>{urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
-    </#list>
+<#macro buttons params="">
+	<#if frameid?exists>
+		<script type="text/javascript">
+			function addObj(frameid){
+				if(_R.size() == 0){
+					new Dialog("请选中要添加的数据!").show();
+					return false;
+				}
+				var parentctx = $(window.parent.document);
+				var setobjid = $("#set_" + frameid, parentctx).val();
+				var getprops = $("#get_" + frameid, parentctx).val();
+
+				var sets = setobjid.split(",");
+				var gets = getprops.split(",");
+				
+				for(var i = 0; i < sets.length; i++){
+					var setval = $("#" + sets[i], parentctx).val();
+					var getval = _R.get(gets[i]);
+					if(setval == ''){
+						setval = getval;
+					}else if(setval.indexOf(getval) == -1){
+						setval = setval + "," + getval;
+					}
+					
+					$("#" + sets[i], parentctx).val(setval);
+				}
+			}
+		</script>
+		<input name="frameid" type="hidden" value="${frameid}">
+		<input type="button" class="button" value="添加" onclick="addObj('${frameid}')">
+	<#else>
+		<#list button as menu>
+			<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog(buttonforward,<#else>buttonforward(</#if>{urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
+	    </#list>
+	</#if>  
     <#nested/>    
 </#macro> 
 
@@ -152,12 +183,67 @@
 </#macro> 
 
 
-<#macro queryinput id value="">
+<#macro queryinput id queryfunc value="" >
 	<input type="text" id="dis_${id}" name="dis_${id}" value="${value}" readonly="readonly">
-	<span class="deleted" onclick="cleardata(${id})"></span><span class="query"></span>
+	<span class="deleted" onclick="cleardata('${id}')"></span><span class="query" onclick="${queryfunc}"></span>
 	<input type="hidden" id="${id}" name="${id}" value="${value}">
 	<#nested/>
 </#macro>
+
+
+<#macro selectdiv id dicttype value="" default="" multi=false> 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var outdiv = false;
+			$("#ul_${id}").mouseout(function(){
+				outdiv = true;
+			});
+			$("#ul_${id}").mouseover(function(){
+				outdiv = false;
+			});
+			$("#ul_${id}").blur(function(){
+				if(outdiv){
+					$(this).removeClass().addClass("displayNone");
+				}
+			});
+		});
+		
+		function multiselect(obj){
+//			$(obj).closest("li").text();
+			$(obj).closest("div").focus();
+		}
+		
+		function singleselect(obj){
+//			$(obj).closest("li").text();
+			$(obj).closest("div").removeClass().addClass("displayNone");
+		}
+	</script>
+
+	<div class="select_div" id="selectDivId">
+	 	<input type="text" class="select_input" id="dis_${id}" name="dis_${id}" readonly="readonly"/>
+	 	<input type="hidden" id="${id}" name="${id}" value="${value}" />
+	 	<span class="xiala_tu" onclick="showselectdiv(this)"></span>
+	  	<div id="ul_${id}" class="displayNone">
+		  	<ul>
+				<#if multi>
+					<#list context_dict[dicttype] as dict>
+						<li onclick="multiselect(this)">
+							<input type="checkbox" value="${dict.dictcode}">
+							${dict.dictcode} - ${dict.dictvalue}
+						</li>
+					</#list>
+				<#else>
+					<#list context_dict[dicttype] as dict>
+						<li onclick="singleselect(this)">
+							<input type="hidden" value="${dict.dictcode}">
+							${dict.dictcode} - ${dict.dictvalue}
+						</li>
+					</#list>
+				</#if>
+		    </ul>
+	    </div>
+	</div>                    
+</#macro> 
 
 
 <#macro select id options key value default="" nullable=false> 

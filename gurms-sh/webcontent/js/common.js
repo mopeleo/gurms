@@ -111,6 +111,11 @@ function changecol(colid){
 	$('#chooselist').focus();
 }
 
+function showselectdiv(obj){
+	var selectdiv = $(obj).parent("div").find(".displayNone");
+	selectdiv.removeClass().addClass("select_contects").focus();
+}
+
 function cleardata(objid){
 	$("#" + objid).val("");
 	if($("#dis_" + objid).length > 0){

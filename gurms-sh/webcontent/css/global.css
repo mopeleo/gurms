@@ -241,3 +241,14 @@ span.query{background:url(../img/check_small_ico.gif) no-repeat -17px 0; width:1
 .rightDivborder{border-right:1px solid #91a0e2; height:100%; overflow:auto;}
 
 .borderdiv{padding:4px;}
+
+/*select_div*/
+.select_div{position:relative; z-index:999;text-align:left}
+.select_div input.select_input{float:left; height:17px;}
+.select_div span{float:left;}
+.xiala_tu{background:url(../img/xiala_ico.gif) no-repeat -20px 0; height:20px; width:20px; display:inline-block; cursor:pointer;}
+.xiala_tu1{background:url(../img/xiala_ico.gif) no-repeat 0 0; height:20px; width:20px; display:inline-block; cursor:pointer;}
+.xiala_tu2{background:url(../img/xiala_downico.gif) no-repeat; height:20px; width:20px; display:inline-block; cursor:pointer;}
+.select_contects{min-width:179px; max-height:150px; padding-bottom:6px;clear:both; position:absolute; top:20px; left:0px; z-index:1000; border:1px solid #ccc; background-color:#fff;overflow:auto;}
+.select_contects ul li{line-height:14px; padding:2px; height:14px;}
+.select_contects ul li input{padding:5px; margin:0px; width:auto; border:none; height:auto;}

@@ -74,6 +74,12 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 					}
 				}
 			}
+			
+			//把查询列表改为弹出选择框
+			String select = request.getParameter("frameid");
+			if(StringUtils.isNotBlank(select)){
+				request.setAttribute("frameid", select);
+			}
 		}			
 		return true;
 	}

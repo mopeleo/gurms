@@ -203,7 +203,11 @@ function Dialog(content, options)
                 });
                 break;
             case 'iframe':
-                div.append($('<iframe frameborder="0" src="' + c.value + '" />'));
+            	var fid = "_iframeid";
+            	if(c.iframeid){
+            		fid = c.iframeid;
+            	}
+                div.append($('<iframe id="' + fid + '" frameborder="0" src="' + c.value + '" />'));
                 div.css("height",402);
         	    dialog.css("width",800);
         	    dialog.css("height",450);
