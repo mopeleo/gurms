@@ -88,30 +88,27 @@
 
 
 <#-- 列表表单  titles:表单中的标题,props:表单中每个单元格的属性ID,rows:表单有多少行-->
-<#macro listtable titles props rows=0>
+<#macro listtable titles props id="chooselist" rows=0>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var outdiv = false;
-			$("#chooselist").mouseout(function(){
+			$("#${id}").mouseout(function(){
 				outdiv = true;
 			});
-			$("#chooselist").mouseover(function(){
+			$("#${id}").mouseover(function(){
 				outdiv = false;
 			});
-			$("#chooselist").blur(function(){
+			$("#${id}").blur(function(){
 				if(outdiv){
 					$(this).removeClass().addClass("displayNone");
 				}
 			});
 		});
 		
-		function showlist(){
-			$('#chooselist').removeClass().addClass('checktitle_box').focus();
-		}
 	</script>
 	  
     <div class="table1">	        
-	    <div id="chooselist" class="displayNone">
+	    <div id="${id}" class="displayNone">
 	    	<ul>
 	    		<#list titles as title >
 	            	<li><input type="checkbox" onclick="changecol('${props[title_index]}')" checked="true"/>${title}</li>
@@ -122,7 +119,7 @@
     	<div class="zoomdiv">
 			<table cellpadding="0">
 				<tr class="tr1">
-					<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist()" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
+					<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist('${id}')" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
 		    		<#list titles as title >
 		            	<th id="${props[title_index]}">${title}</th>
 		            </#list>
@@ -191,7 +188,7 @@
 </#macro>
 
 
-<#macro selectdiv id dicttype value="" multi=false> 
+<#macro selectdiv id dicttype default="" multi=false> 
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var outdiv = false;
@@ -206,6 +203,21 @@
 					$(this).removeClass().addClass("displayNone");
 				}
 			});
+			<#if multi>
+				var alldisval = "";
+				$("#ul_${id}").find("input:checked").each(function(){
+					alldisval += $(this).closest("li").text() + ",";
+				});
+				
+				if(alldisval != ""){
+					alldisval = alldisval.substring(0, alldisval.length-1);
+				}
+				document.getElementById("dis_${id}").value = alldisval;
+			<#else>
+				var val = $("#${id}").val();
+				var alldisval = $("#ul_${id}").find("input[value='" + val + "']").closest("li").text();
+				document.getElementById("dis_${id}").value = alldisval;
+			</#if>
 			
 		});
 		
@@ -213,14 +225,14 @@
 
 	<div class="select_div" id="selectDivId">
 	 	<input type="text" class="select_input" id="dis_${id}" name="dis_${id}" readonly="readonly"/>
-	 	<input type="hidden" id="${id}" name="${id}" value="${value}" />
+	 	<input type="hidden" id="${id}" name="${id}" value="${default}" />
 	 	<span class="xiala_tu" onclick="showselectdiv(this)"></span>
 	  	<div id="ul_${id}" class="displayNone">
 		  	<ul>
 				<#if multi>
 					<#list context_dict[dicttype] as dict>
 						<li>
-							<input type="checkbox" onclick="multiselect(this)" value="${dict.dictcode}" <#if value?contains(dict.dictcode)>checked</#if> >${dict.dictcode} - ${dict.dictvalue}
+							<input type="checkbox" onclick="multiselect(this)" value="${dict.dictcode}" <#if default?contains(dict.dictcode)>checked</#if> >${dict.dictcode} - ${dict.dictvalue}
 						</li>
 					</#list>
 				<#else>

@@ -116,6 +116,10 @@ function showselectdiv(obj){
 	selectdiv.removeClass().addClass("select_contects").focus();
 }
 
+function showlist(listdivid){
+	$('#'+listdivid).removeClass().addClass('checktitle_box').focus();
+}
+
 function cleardata(objid){
 	$("#" + objid).val("");
 	if($("#dis_" + objid).length > 0){
