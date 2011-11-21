@@ -191,7 +191,7 @@
 </#macro>
 
 
-<#macro selectdiv id dicttype value="" default="" multi=false> 
+<#macro selectdiv id dicttype value="" multi=false> 
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var outdiv = false;
@@ -206,17 +206,9 @@
 					$(this).removeClass().addClass("displayNone");
 				}
 			});
+			
 		});
 		
-		function multiselect(obj){
-//			$(obj).closest("li").text();
-			$(obj).closest("div").focus();
-		}
-		
-		function singleselect(obj){
-//			$(obj).closest("li").text();
-			$(obj).closest("div").removeClass().addClass("displayNone");
-		}
 	</script>
 
 	<div class="select_div" id="selectDivId">
@@ -227,16 +219,14 @@
 		  	<ul>
 				<#if multi>
 					<#list context_dict[dicttype] as dict>
-						<li onclick="multiselect(this)">
-							<input type="checkbox" value="${dict.dictcode}">
-							${dict.dictcode} - ${dict.dictvalue}
+						<li>
+							<input type="checkbox" onclick="multiselect(this)" value="${dict.dictcode}" <#if value?contains(dict.dictcode)>checked</#if> >${dict.dictcode} - ${dict.dictvalue}
 						</li>
 					</#list>
 				<#else>
 					<#list context_dict[dicttype] as dict>
 						<li onclick="singleselect(this)">
-							<input type="hidden" value="${dict.dictcode}">
-							${dict.dictcode} - ${dict.dictvalue}
+							<input type="hidden" value="${dict.dictcode}">${dict.dictcode} - ${dict.dictvalue}
 						</li>
 					</#list>
 				</#if>

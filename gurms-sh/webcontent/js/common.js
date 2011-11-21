@@ -275,6 +275,38 @@ function search() {
 //	$("#pageNo").parents("form:first").submit();
 }
 
+function multiselect(obj){
+	var divid = $(obj).closest("div").get(0).id;
+	var splitflag = divid.indexOf("_");
+	var inputid = divid.substring(splitflag+1);
+
+	var allcheckval = "";
+	var alldisval = "";
+	$(obj).closest("div").find("input:checked").each(function(){
+		allcheckval += $(this).val() + ",";
+		alldisval += $(this).closest("li").text() + ",";
+	});
+	
+	if(allcheckval != ""){
+		allcheckval = allcheckval.substring(0, allcheckval.length-1);
+		alldisval = alldisval.substring(0, alldisval.length-1);
+	}
+
+	document.getElementById("dis_"+inputid).value = alldisval;
+	document.getElementById(inputid).value = allcheckval;
+	$(obj).closest("div").focus();
+}
+
+function singleselect(obj){
+	var divid = $(obj).closest("div").get(0).id;
+	var splitflag = divid.indexOf("_");
+	var inputid = divid.substring(splitflag+1);
+
+	document.getElementById("dis_"+inputid).value = $(obj).closest("li").text();
+	document.getElementById(inputid).value = $(obj).find("input").val();
+	$(obj).closest("div").removeClass().addClass("displayNone");
+}
+
 /** 计算 整个页面的大小 */
 function totalPageSize(){
 	var height = document.documentElement.clientHeight;
