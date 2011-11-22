@@ -211,8 +211,8 @@
 				
 				if(alldisval != ""){
 					alldisval = alldisval.substring(0, alldisval.length-1);
+					document.getElementById("dis_${id}").value = alldisval;
 				}
-				document.getElementById("dis_${id}").value = alldisval;
 			<#else>
 				var val = $("#${id}").val();
 				var alldisval = $("#ul_${id}").find("input[value='" + val + "']").closest("li").text();

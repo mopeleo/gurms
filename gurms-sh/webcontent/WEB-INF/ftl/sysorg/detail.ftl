@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">上级机构</td>
-		                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" display="${(result.parentorg.shortname)!!}" actual="${(result.parentorg.orgid)!!}" endnode="${(result.orgid)!!}" dynamic=true /></td>
+		                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" display="${(result.parentorg.shortname)!!}" actual="${(result.parentorg.orgid)!!}" endnode="${(result.orgid)!!}" dynamic=true input=true/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构类型</td>
@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">上级机构</td>
-		                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" dynamic=true /></td>
+		                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" dynamic=true input=true /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构类型</td>

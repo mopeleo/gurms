@@ -15,10 +15,8 @@
    			var parentli = $(obj).closest("ul").parent("li");
    			if(parentli.length > 0){
    				var parentspan = parentli.find("span").get(0);
-	 			document.getElementById("dis_parentorg.orgid").value=$(parentspan).text();
-	 			document.getElementById("parentorg.orgid").value=parentspan.id;
+	 			document.getElementById("parentorg.orgid").value=$(parentspan).text();
    			}else{
-	 			document.getElementById("dis_parentorg.orgid").value='-';
 	 			document.getElementById("parentorg.orgid").value='-';
    			}
  			
@@ -38,9 +36,8 @@
    <div class="messageRight">
    	  <div class="rightDivborder">
    	  <div class="borderdiv">
-		<@c.validscript classname="org.gurms.entity.system.SysOrg" formid="ajaxform"/>
         <@c.afterreturn forward="${base}/sysorg/list" />
-		<@c.ajaxform action="${base}/sysorg/ajaxSave">
+		<@c.ajaxform action="${base}/sysorg/detail">
 	        <div class="messagelist">
 	            <div class="title_bg">
 	                <span>基本信息</span>
@@ -52,52 +49,52 @@
 	                        <td class="tdwidth2">机构简称</td>
 	                        <td>
 	                        	<input type="hidden" id="orgid" name="orgid" />
-	                        	<input type="text" id="shortname" name="shortname" />
+	                        	<input type="text" id="shortname" name="shortname" readonly="readonly"/>
 	                        </td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">机构全称</td>
-	                        <td><input type="text" name="fullname" id="fullname" /></td>
+	                        <td><input type="text" name="fullname" id="fullname" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">机构负责人</td>
-	                        <td><input type="text" name="linkman" id="linkman"/></td>
+	                        <td><input type="text" name="linkman" id="linkman" readonly="readonly"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">联系电话</td>
-	                        <td><input type="text" name="linktel" id="linktel" /></td>
+	                        <td><input type="text" name="linktel" id="linktel" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">传真号码</td>
-	                        <td><input type="text" name="faxno" id="faxno" /></td>
+	                        <td><input type="text" name="faxno" id="faxno" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">通信地址</td>
-	                        <td><input type="text" name="address" id="address" /></td>
+	                        <td><input type="text" name="address" id="address" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">邮政编码</td>
-	                        <td><input type="text" name="postcode" id="postcode" /></td>
+	                        <td><input type="text" name="postcode" id="postcode" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">电子邮件</td>
-	                        <td><input type="text" name="email" id="email" /></td>
+	                        <td><input type="text" name="email" id="email" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">上级机构</td>
-			                <td><@c.popuptree id="parentorg.orgid" type="${base}/sysorg/ajaxOrgTree" dynamic=true input=true/></td>
+			                <td><input type="text" name="parentorg.orgid" id="parentorg.orgid" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">机构类型</td>
-							<td><@c.dict id="orgtype" dicttype="0009" nullable=true/></td>
+							<td><input id="orgtype" name="orgtype" type="text" readonly="readonly"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">排序号</td>
-	                        <td><input type="text" name="orgorder" id="orgorder" /></td>
+	                        <td><input type="text" name="orgorder" id="orgorder" readonly="readonly" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
-	                        <td><input type="text" name="remark" id="remark" /></td>
+	                        <td><input type="text" name="remark" id="remark" readonly="readonly" /></td>
 	                    </tr>
 	                </table>
 	

@@ -57,6 +57,8 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@Override
 	public PageResult<SysOrg> save(SysOrg org) {
 		PageResult<SysOrg> result = new PageResult<SysOrg>();
+		
+		SysOrg oldParent = null;
 		if(StringUtils.isBlank(org.getOrgid())){
 			long nextvalue = serialnoDao.next(GlobalParam.SERIAL_SYS_ORG);
 			org.setOrgid(String.valueOf(nextvalue));
@@ -64,6 +66,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 			if(org.getOrgid().equals(GlobalParam.ORG_ROOTID)){
 				org.setParentorg(null);
 			}
+			oldParent = sysOrgDao.get(org.getOrgid()).getParentorg();
 		}
 		SysOrg parent = org.getParentorg();
 		if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){
@@ -82,8 +85,17 @@ public class SysOrgServiceImpl implements SysOrgService {
 						return result;
 					}
 				}
+				
+				//如果更换了父节点
+				if(oldParent!= null && !parent.equals(oldParent)){
+					oldParent.getSuborgs().remove(org);
+				}
+				//若包含，则更新子节点
+				if(sons.contains(org)){
+					sons.remove(org);
+				}
 				parent.addOrg(org);
-				sysOrgDao.save(parent);
+				sysOrgDao.merge(parent);
 			}
 		}else{
 			sysOrgDao.save(org);
