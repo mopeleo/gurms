@@ -1,0 +1,18 @@
+package ${package}.service<#if model?exists>.${model}</#if>;
+
+import java.util.Map;
+
+import org.gurms.entity.PageRequest;
+import org.gurms.entity.PageResult;
+import ${package}.entity<#if model?exists>.${model}</#if>.${entity};
+
+public interface ${entity}Service{
+
+	public PageResult<${entity}> query(Map<String, Object> request, PageRequest page);
+	
+	public ${entity} get(String id);
+	
+	public PageResult<${entity}> save(${entity} obj);
+
+	public PageResult<${entity}> delete(String id);
+}
