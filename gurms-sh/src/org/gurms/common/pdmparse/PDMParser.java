@@ -28,8 +28,7 @@ public class PDMParser {
     private static final String NODE_ROOT = "//Model";
     private static final String NODE_TABLE = NODE_ROOT + "/o:RootObject/c:Children/o:Model/c:Tables/o:Table";
     
-    private static String filepath = "D:\\kcrm\\doc\\02.设计\\2.3数据库设计";
-	private static String filename = "gurms-test.pdm";
+	private PDMParser(){}
 	
 	public static Model parse(File pdm){
 		Model model = new Model();
@@ -129,6 +128,9 @@ public class PDMParser {
 	}
 	
 	public static void main(String[] args) {
+	    String filepath = "D:\\kcrm\\doc\\02.设计\\2.3数据库设计";
+		String filename = "gurms-test.pdm";
+		
 		File input = new File(filepath + File.separator + filename);
 		List<Table> tables = parse(input).getTables();
 		for(int i = 0; i < tables.size(); i++){
