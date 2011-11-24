@@ -92,7 +92,7 @@ public class SysRoleController extends BaseController {
 		try{
 			page = roleService.insert(role);
 		}catch(Exception e){
-			page = processException(e, "新增角色信息出错");
+			page = processException(e, "新增角色出错");
 		}
 		return page;
 	}
@@ -105,7 +105,7 @@ public class SysRoleController extends BaseController {
 			roleService.delete(Long.parseLong(roleid));
 			page = new PageResult();
 		}catch(Exception e){
-			page = processException(e, "新增角色信息出错");
+			page = processException(e, "删除角色出错");
 		}
 		return page;
 	}

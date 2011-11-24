@@ -84,6 +84,8 @@ public class GurmsPojectGenerator {
 			params.put("entity", entity);
 			
 			daoGenerate(params);
+			serviceGenerate(params);
+			controllerGenerate(params);
 		}
 	}
 	
