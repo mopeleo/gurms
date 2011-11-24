@@ -8,7 +8,7 @@ import javax.crypto.Cipher;
 
 import org.gurms.common.exception.GurmsException;
 
-public abstract class EncryptUtil {
+public class EncryptUtil {
 
 	private final static String DESKEY = "gurms"; // 默认密钥
 	private final static String MD5 = "MD5";
@@ -16,6 +16,8 @@ public abstract class EncryptUtil {
 	private final static char hexDigits[] = { '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
+	private EncryptUtil(){}
+	
 	private static Key getDesKey(){
 //		Security.addProvider(new com.sun.crypto.provider.SunJCE());
 		byte[] byteKey = DESKEY.getBytes();

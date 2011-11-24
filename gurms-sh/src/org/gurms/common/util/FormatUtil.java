@@ -9,13 +9,15 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
-public abstract class FormatUtil {
+public class FormatUtil {
 
 	private static final String symbol = "\r\n\t";
 	public static final String pattern_time = "HHmmss";
 	public static final String pattern_date = "yyyyMMdd";
 	public static final String pattern_fulltime = "yyyyMMddHHmmss";
 
+	private FormatUtil(){}
+	
 	public static String bean2string(Object obj){
 		StringBuffer sb = new StringBuffer();
 		Class c = obj.getClass();

@@ -1,7 +1,9 @@
 package org.gurms.common.util;
 
-public abstract class CommonUtil {
+public class CommonUtil {
 
+	private CommonUtil(){}
+	
 	/**
 	 * 判断key是否存在于array数组中
 	 * @param key

@@ -27,6 +27,8 @@ public class ReflectionUtil {
 
 	public static final String CGLIB_CLASS_SEPARATOR = "$$";
 
+	private ReflectionUtil(){}
+	
 	/**
 	 * 调用Getter方法.
 	 */

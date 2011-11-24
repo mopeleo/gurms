@@ -17,6 +17,8 @@ import org.dozer.DozerBeanMapper;
  * 
  */
 public class ObjectMapper {
+	
+	private ObjectMapper(){}
 
 	/**
 	 * 持有Dozer单例, 避免重复创建DozerMapper消耗资源.

@@ -6,8 +6,10 @@ package org.gurms.common.util;
  * @create Jun 28, 2008
 
  */
-public abstract class NumberUtil {
+public class NumberUtil {
 
+	private NumberUtil(){}
+	
 	public static int[] number2binaryArray(int number){
 		String binaryString= Integer.toBinaryString(number);
 		int    oneCount    = Integer.bitCount(number);
