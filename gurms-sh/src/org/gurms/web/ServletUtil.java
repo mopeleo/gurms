@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Http与Servlet工具类.
  * 
  */
-public abstract class ServletUtil {
+public class ServletUtil {
 
 	//-- Content Type 定义 --//
 	public static final String TEXT_TYPE = "text/plain";
@@ -31,6 +31,8 @@ public abstract class ServletUtil {
 	//-- 常用数值定义 --//
 	public static final long ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
 
+	private ServletUtil(){}
+	
 	public static ServletContext getContext(HttpServletRequest request){
 		return request.getSession().getServletContext();
 	}
