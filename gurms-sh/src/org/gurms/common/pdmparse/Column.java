@@ -9,6 +9,7 @@ public class Column {
 	private String comment;
 	private String datatype;
 	private String length;
+	private String precision;
 	private String mandatory;
 	public String getId() {
 		return id;
@@ -45,6 +46,12 @@ public class Column {
 	}
 	public void setLength(String length) {
 		this.length = length;
+	}
+	public String getPrecision() {
+		return precision;
+	}
+	public void setPrecision(String precision) {
+		this.precision = precision;
 	}
 	public String getMandatory() {
 		return mandatory;

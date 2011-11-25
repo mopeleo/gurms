@@ -9,13 +9,14 @@ import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
+import org.gurms.common.config.GlobalParam;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 public class CodeGenerator {
 
-	public static final String ENCODING = "utf-8";
 	public static final String CLASS_PATH = CodeGenerator.class.getClassLoader().getResource("").getPath();
 
 	/** 
@@ -39,10 +40,10 @@ public class CodeGenerator {
 			Configuration cfg = new Configuration();
 			cfg.setDirectoryForTemplateLoading(templateDir);
 			cfg.setLocale(Locale.CHINA);
-			cfg.setDefaultEncoding(ENCODING);
+			cfg.setDefaultEncoding(GlobalParam.ENCODING_UTF8);
 			
 			Template t = cfg.getTemplate(tmpFile);
-			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile),ENCODING));
+			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile),GlobalParam.ENCODING_UTF8));
 			t.process(params, out);
 		}catch(IOException e){
 			e.printStackTrace();

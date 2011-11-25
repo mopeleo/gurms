@@ -90,10 +90,16 @@ public class GurmsPojectGenerator {
 			
 			String outFile = getOutFile(params, PACKAGE_DAO, FILETYPE_DAO);
 			daoGenerate(params, outFile);
+			
 			outFile = getOutFile(params, PACKAGE_SERVICE, FILETYPE_SERVICE);
 			serviceGenerate(params, outFile);
+			
 			outFile = getOutFile(params, PACKAGE_CONTROLLER, FILETYPE_CONTROLLER);
 			controllerGenerate(params, outFile);
+			
+			outFile = getOutFile(params, PACKAGE_ENTITY, FILETYPE_ENTITY);
+			params.put("table", table);
+			entityGenerate(params, outFile);
 		}
 	}
 	

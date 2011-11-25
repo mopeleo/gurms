@@ -7,6 +7,7 @@ public class GlobalParam {
 
 	//---------------------系统参数------------------------
 	//系统字符串分隔符
+	public static final String ENCODING_UTF8 = "utf-8";
 	public static final String STRING_SEPARATOR = ",";
 	public static final int SYSTEM_ROLE = 0;
 	public static final String MENU_ROOTID = "root";

@@ -19,6 +19,7 @@ public class PDMParser {
     private static final String ELEMENT_COMMENT = "Comment";
     private static final String ELEMENT_DATATYPE = "DataType";
     private static final String ELEMENT_LENGTH = "Length";
+    private static final String ELEMENT_PRECISION = "Precision";
     private static final String ELEMENT_MANDATORY = "Mandatory";
     private static final String ELEMENT_COLUMNS = "Columns";
     private static final String ELEMENT_KEY = "Key";
@@ -104,6 +105,13 @@ public class PDMParser {
 
 					Element elementLength = elementColumn.element(ELEMENT_LENGTH);
 					column.setLength(elementLength.getTextTrim());
+
+					Element elementPrecision = elementColumn.element(ELEMENT_PRECISION);
+					if(elementPrecision == null){
+						column.setPrecision("");
+					}else{
+						column.setPrecision(elementPrecision.getTextTrim());
+					}
 
 					Element elementMandatory = elementColumn.element(ELEMENT_MANDATORY);
 					if(elementMandatory == null){
