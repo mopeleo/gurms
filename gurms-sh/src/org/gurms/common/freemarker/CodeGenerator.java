@@ -42,7 +42,7 @@ public class CodeGenerator {
 			cfg.setDefaultEncoding(ENCODING);
 			
 			Template t = cfg.getTemplate(tmpFile);
-			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));
+			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile),ENCODING));
 			t.process(params, out);
 		}catch(IOException e){
 			e.printStackTrace();

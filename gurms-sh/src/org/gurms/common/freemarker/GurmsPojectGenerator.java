@@ -15,7 +15,7 @@ public class GurmsPojectGenerator {
 	public static final String TABLE_SEPATATOR = "_";
 	public static final String OUTPUT_DIR = "d:\\";
 
-	public static final String PACKAGE_PREFIX = GlobalConfig.getConfig("package_prefix");
+	public static final String PROJECT_PREFIX = GlobalConfig.getConfig("project_prefix");
 	public static final String TEMPLATE_DIR = GlobalConfig.getConfig("template_dir");
 
 	public static final String TEMPLATE_DAO = GlobalConfig.getConfig("template_dao");
@@ -28,28 +28,33 @@ public class GurmsPojectGenerator {
 	public static final String FILETYPE_SERVICE = "Service.java";
 	public static final String FILETYPE_CONTROLLER = "Controller.java";
 
-	public static void entityGenerate(Map params){
-		String outFile = getOutFile(params) + FILETYPE_ENTITY;
-		CodeGenerator.generate(TEMPLATE_DIR, TEMPLATE_DAO, params, outFile);
+	public static final String PACKAGE_DAO = "dao.hibernate";
+	public static final String PACKAGE_ENTITY = "entity";
+	public static final String PACKAGE_SERVICE = "service";
+	public static final String PACKAGE_CONTROLLER = "web.controller";
+
+	public static void generate(Map params, String templateFile, String outFile){
+		CodeGenerator.generate(TEMPLATE_DIR, templateFile, params, outFile);
+	}
+	
+	public static void entityGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_ENTITY, outFile);
 	}	
 	
-	public static void daoGenerate(Map params){
-		String outFile = getOutFile(params) + FILETYPE_DAO;
-		CodeGenerator.generate(TEMPLATE_DIR, TEMPLATE_DAO, params, outFile);
+	public static void daoGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_DAO, outFile);
 	}	
 	
-	public static void serviceGenerate(Map params){
-		String outFile = getOutFile(params) + FILETYPE_SERVICE;
-		CodeGenerator.generate(TEMPLATE_DIR, TEMPLATE_DAO, params, outFile);
+	public static void serviceGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_SERVICE, outFile);
 	}	
 	
-	public static void controllerGenerate(Map params){
-		String outFile = getOutFile(params) + FILETYPE_CONTROLLER;
-		CodeGenerator.generate(TEMPLATE_DIR, TEMPLATE_DAO, params, outFile);
+	public static void controllerGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_CONTROLLER, outFile);
 	}	
 	
-	private static String getOutFile(Map params){
-		String outFileName = OUTPUT_DIR + PACKAGE_PREFIX.replace('.', File.separatorChar);
+	private static String getOutFile(Map params, String pkgName, String fileSuffix){
+		String outFileName = OUTPUT_DIR + (PROJECT_PREFIX + "." + pkgName).replace('.', File.separatorChar);
 		Object model = params.get("model");
 		if(model != null){
 			outFileName += File.separator + model.toString() ;
@@ -59,7 +64,7 @@ public class GurmsPojectGenerator {
 		if(!file.exists()){
 			file.mkdirs();
 		}
-		outFileName += File.separator + params.get("entity").toString();
+		outFileName += File.separator + params.get("entity").toString() + fileSuffix;
 
 		return outFileName;
 	}
@@ -67,7 +72,7 @@ public class GurmsPojectGenerator {
 	public static void projectGenerate(String pdmFile){
 		Model model = PDMParser.parse(new File(pdmFile));
 		Map params = new HashMap();
-		params.put("package", PACKAGE_PREFIX);
+		params.put("project", PROJECT_PREFIX);
 		List<Table> tables = model.getTables();
 		for(Table table : tables){
 			String tableCode = table.getCode();
@@ -83,9 +88,12 @@ public class GurmsPojectGenerator {
 			}
 			params.put("entity", entity);
 			
-			daoGenerate(params);
-			serviceGenerate(params);
-			controllerGenerate(params);
+			String outFile = getOutFile(params, PACKAGE_DAO, FILETYPE_DAO);
+			daoGenerate(params, outFile);
+			outFile = getOutFile(params, PACKAGE_SERVICE, FILETYPE_SERVICE);
+			serviceGenerate(params, outFile);
+			outFile = getOutFile(params, PACKAGE_CONTROLLER, FILETYPE_CONTROLLER);
+			controllerGenerate(params, outFile);
 		}
 	}
 	
