@@ -1,10 +1,10 @@
-package ${package}.service<#if model?exists>.${model}</#if>;
+package ${project}.service<#if model?exists>.${model}</#if>;
 
 import java.util.Map;
 
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
-import ${package}.entity<#if model?exists>.${model}</#if>.${entity};
+import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
 
 public interface ${entity}Service{
 

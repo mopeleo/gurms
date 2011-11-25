@@ -1,12 +1,12 @@
-package ${package}.web.controller<#if model?exists>.${model}</#if>;
+package ${project}.web.controller<#if model?exists>.${model}</#if>;
 
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ${package}.service<#if model?exists>.${model}</#if>.${entity}Service;
-import ${package}.entity<#if model?exists>.${model}</#if>.${entity};
+import ${project}.service<#if model?exists>.${model}</#if>.${entity}Service;
+import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.web.controller.BaseController;
