@@ -88,6 +88,7 @@ public class GurmsPojectGenerator {
 			}
 			params.put("entity", entity);
 			
+			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码开始----------");
 			String outFile = getOutFile(params, PACKAGE_DAO, FILETYPE_DAO);
 			daoGenerate(params, outFile);
 			
@@ -100,6 +101,7 @@ public class GurmsPojectGenerator {
 			outFile = getOutFile(params, PACKAGE_ENTITY, FILETYPE_ENTITY);
 			params.put("table", table);
 			entityGenerate(params, outFile);
+			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码结束----------");
 		}
 	}
 	
