@@ -1,4 +1,4 @@
-package ${project}.service<#if model?exists>.${model}</#if>.impl;
+package ${project}.service.impl<#if model?exists>.${model}</#if>;
 
 import java.util.Map;
 

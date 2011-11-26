@@ -2,9 +2,14 @@
 <project name="main" default="all" basedir=".">
 	<property name="gurmsweb" value="${basedir}/webcontent" />
 	<property name="gurmsclass" value="${gurmsweb}/WEB-INF/classes" />
-	<property name="newproject" value="D:/kcrm/src/kcrm" />
+	<property name="newproject" value="D:/test" />
 	<property name="newprojectweb" value="${newproject}/webcontent" />
 
+	<!--generate file params-->
+	<property name="pdm" value="d:/kcrm/doc/02.设计/2.3数据库设计/gurms-test.pdm" />
+	<property name="pkg" value="org.gurms" />	
+	<property name="outpath" value="${newproject}/src/" />	
+	
 	<path id="gurmslib">  
 	    <!--<pathelement path="${gurmsclass}" /> --> 
 	    <fileset dir="${gurmsweb}/WEB-INF/lib">  
@@ -38,10 +43,13 @@
 
 	<target name="generatecode">
 		<echo>generate java code begin......</echo>
+		<mkdir dir="${outpath}" />
 		<java classname="org.gurms.common.freemarker.GurmsProjectGenerator" fork="true">
 			<classpath path="${gurmsclass}" />
 			<classpath refid="gurmslib" />
-			<arg value="${action}"/>
+			<arg value="${pdm}"/>
+			<arg value="${pkg}"/>
+			<arg value="${outpath}"/>
 		</java>
 		<echo>generate java code end......</echo>
 	</target>
@@ -65,6 +73,9 @@
 			</fileset>
 		</copy>
 		<ant target="updatejar" />
+		
+		<delete dir="${outpath}" />
+		<ant target="generatecode" />
 	</target>
 
 	<target name="all" depends="update" />
