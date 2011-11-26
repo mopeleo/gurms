@@ -1,4 +1,4 @@
-package org.gurms.service.system.impl;
+package org.gurms.service.impl.system;
 
 import java.text.ParseException;
 import java.util.Map;

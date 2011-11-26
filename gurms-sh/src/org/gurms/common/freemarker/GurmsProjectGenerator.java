@@ -15,22 +15,25 @@ public class GurmsProjectGenerator {
 	public static final String TABLE_SEPATATOR = "_";
 	public static final String OUTPUT_DIR = "d:\\";
 
-	public static final String PROJECT_PREFIX = GlobalConfig.getConfig("project_prefix");
+//	public static final String PROJECT_PREFIX = GlobalConfig.getConfig("project_prefix");
 	public static final String TEMPLATE_DIR = GlobalConfig.getConfig("template_dir");
 
 	public static final String TEMPLATE_DAO = GlobalConfig.getConfig("template_dao");
 	public static final String TEMPLATE_ENTITY = GlobalConfig.getConfig("template_entity");
 	public static final String TEMPLATE_SERVICE = GlobalConfig.getConfig("template_service");
+	public static final String TEMPLATE_SERVICEIMPL = GlobalConfig.getConfig("template_serviceimpl");
 	public static final String TEMPLATE_CONTROLLER = GlobalConfig.getConfig("template_controller");
 	
 	public static final String FILETYPE_DAO = "Dao.java";
 	public static final String FILETYPE_ENTITY = ".java";
 	public static final String FILETYPE_SERVICE = "Service.java";
+	public static final String FILETYPE_SERVICEIMPL = "ServiceImpl.java";
 	public static final String FILETYPE_CONTROLLER = "Controller.java";
 
 	public static final String PACKAGE_DAO = "dao.hibernate";
 	public static final String PACKAGE_ENTITY = "entity";
 	public static final String PACKAGE_SERVICE = "service";
+	public static final String PACKAGE_SERVICEIMPL = "service.impl";
 	public static final String PACKAGE_CONTROLLER = "web.controller";
 
 	public static void generate(Map params, String templateFile, String outFile){
@@ -53,8 +56,8 @@ public class GurmsProjectGenerator {
 		generate(params, TEMPLATE_CONTROLLER, outFile);
 	}	
 	
-	private static String getOutFile(Map params, String pkgName, String fileSuffix){
-		String outFileName = OUTPUT_DIR + (PROJECT_PREFIX + "." + pkgName).replace('.', File.separatorChar);
+	private static String getOutFile(Map params, String projectPrefix, String pkgName, String fileSuffix){
+		String outFileName = OUTPUT_DIR + (projectPrefix + "." + pkgName).replace('.', File.separatorChar);
 		Object model = params.get("model");
 		if(model != null){
 			outFileName += File.separator + model.toString() ;
@@ -69,10 +72,10 @@ public class GurmsProjectGenerator {
 		return outFileName;
 	}
 	
-	public static void projectGenerate(String pdmFile){
+	public static void projectGenerate(String pdmFile, String projectPrefix){
 		Model model = PDMParser.parse(new File(pdmFile));
 		Map params = new HashMap();
-		params.put("project", PROJECT_PREFIX);
+		params.put("project", projectPrefix);
 		List<Table> tables = model.getTables();
 		for(Table table : tables){
 			String tableCode = table.getCode();
@@ -89,16 +92,19 @@ public class GurmsProjectGenerator {
 			params.put("entity", entity);
 			
 			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码开始----------");
-			String outFile = getOutFile(params, PACKAGE_DAO, FILETYPE_DAO);
+			String outFile = getOutFile(params, projectPrefix, PACKAGE_DAO, FILETYPE_DAO);
 			daoGenerate(params, outFile);
 			
-			outFile = getOutFile(params, PACKAGE_SERVICE, FILETYPE_SERVICE);
+			outFile = getOutFile(params, projectPrefix, PACKAGE_SERVICE, FILETYPE_SERVICE);
 			serviceGenerate(params, outFile);
 			
-			outFile = getOutFile(params, PACKAGE_CONTROLLER, FILETYPE_CONTROLLER);
+			outFile = getOutFile(params, projectPrefix, PACKAGE_SERVICEIMPL, FILETYPE_SERVICEIMPL);
+			serviceGenerate(params, outFile);
+			
+			outFile = getOutFile(params, projectPrefix, PACKAGE_CONTROLLER, FILETYPE_CONTROLLER);
 			controllerGenerate(params, outFile);
 			
-			outFile = getOutFile(params, PACKAGE_ENTITY, FILETYPE_ENTITY);
+			outFile = getOutFile(params, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITY);
 			params.put("table", table);
 			entityGenerate(params, outFile);
 			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码结束----------");
@@ -122,6 +128,6 @@ public class GurmsProjectGenerator {
 //		daoGenerate(m,"d:\\test.java");
 		
 	    String filepath = "D:\\kcrm\\doc\\02.设计\\2.3数据库设计\\gurms-test.pdm";
-		projectGenerate(filepath);
+		projectGenerate(filepath, "org.gurms");
 	}
 }

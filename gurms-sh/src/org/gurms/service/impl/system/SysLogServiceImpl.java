@@ -1,4 +1,4 @@
-package org.gurms.service.system.impl;
+package org.gurms.service.impl.system;
 
 import java.util.Map;
 

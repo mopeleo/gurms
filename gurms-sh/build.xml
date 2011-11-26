@@ -5,6 +5,13 @@
 	<property name="newproject" value="D:/kcrm/src/kcrm" />
 	<property name="newprojectweb" value="${newproject}/webcontent" />
 
+	<path id="gurmslib">  
+	    <!--<pathelement path="${gurmsclass}" /> --> 
+	    <fileset dir="${gurmsweb}/WEB-INF/lib">  
+	        <include name="**/*.jar" />  
+	    </fileset>  
+	</path>
+
 	<target name="init">
 		<delete dir="${newproject}" />
 		<mkdir dir="${newproject}" />
@@ -29,6 +36,16 @@
 
 	<target name="update" depends="updatejar,updateweb" />
 
+	<target name="generatecode">
+		<echo>generate java code begin......</echo>
+		<java classname="org.gurms.common.freemarker.GurmsProjectGenerator" fork="true">
+			<classpath path="${gurmsclass}" />
+			<classpath refid="gurmslib" />
+			<arg value="${action}"/>
+		</java>
+		<echo>generate java code end......</echo>
+	</target>
+
 	<target name="newproject" depends="init">
 		<copy todir="${newproject}" overwrite="true">
 			<fileset dir="${basedir}">
@@ -37,12 +54,14 @@
 				<include name=".classpath" />
 				<include name=".project" />
 				<exclude name="src/org/" />
+				<exclude name="src/template/" />
 			</fileset>
 		</copy>
 		<copy todir="${newprojectweb}" overwrite="true">
 			<fileset dir="${gurmsweb}">
 				<include name="**/*" />
 				<exclude name="WEB-INF/classes/org/" />
+				<exclude name="WEB-INF/classes/template/" />
 			</fileset>
 		</copy>
 		<ant target="updatejar" />
