@@ -10,7 +10,7 @@ import org.gurms.common.pdmparse.Model;
 import org.gurms.common.pdmparse.PDMParser;
 import org.gurms.common.pdmparse.Table;
 
-public class GurmsPojectGenerator {
+public class GurmsProjectGenerator {
 
 	public static final String TABLE_SEPATATOR = "_";
 	public static final String OUTPUT_DIR = "d:\\";
