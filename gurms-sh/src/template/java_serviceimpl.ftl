@@ -2,8 +2,10 @@ package ${project}.service.impl<#if model?exists>.${model}</#if>;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
+import org.gurms.entity.PropertyFilter;
 import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
 import ${project}.service<#if model?exists>.${model}</#if>.${entity}Service;
 import ${project}.dao.hibernate<#if model?exists>.${model}</#if>.${entity}Dao;
@@ -41,11 +43,20 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 	
 	@Override
 	public PageResult<${entity}> save(${entity} entity){
+		PageResult<${entity}> result = new PageResult<${entity}>();
 		${dao}.save(entity);
+		return result;
 	}
 
 	@Override
 	public PageResult<${entity}> delete(String id){
-		${dao}.delete(id);
+		PageResult<${entity}> result = new PageResult<${entity}>();
+		if(StringUtils.isBlank(id)){
+			result.setSuccess(false);
+			result.setReturnmsg("ID不能为空");
+		}else{
+			${dao}.delete(id);
+		}
+		return result;
 	}
 }

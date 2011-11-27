@@ -1,4 +1,4 @@
-package ${project}.dao.hiberante<#if model?exists>.${model}</#if>;
+package ${project}.dao.hibernate<#if model?exists>.${model}</#if>;
 
 import org.gurms.dao.hibernate.HibernateDao;
 import ${project}.entity<#if model?exists>.${model}</#if>.${entity};

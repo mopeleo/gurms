@@ -5,10 +5,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ${project}.service<#if model?exists>.${model}</#if>.${entity}Service;
-import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
+import org.apache.commons.lang.StringUtils;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
+import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
+import ${project}.service<#if model?exists>.${model}</#if>.${entity}Service;
+import org.gurms.web.ServletUtil;
+import org.gurms.web.WebConstants;
 import org.gurms.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

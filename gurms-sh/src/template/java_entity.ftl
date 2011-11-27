@@ -15,6 +15,9 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 <#assign entityid="">
+<#assign id_is_string=true>
+<#if table.keys[0].datatype?contains("CHAR")><#else><#assign id_is_string=false></#if>
+
 <#macro type datatype precision><#if datatype?contains("CHAR")>String<#elseif datatype=="INT">int<#elseif precision?exists>double<#else>long</#if></#macro>
 @Entity
 @Table(name = "${table.code}")
@@ -45,17 +48,25 @@ public class ${entity} implements Serializable {
 			return false;
 		}else{
 			${entity} entity = (${entity})o;
+		<#if id_is_string>
 			if(entity.get${entityid?cap_first}() == null){
 				return false;
 			}else{
 				return entity.get${entityid?cap_first}().equals(${entityid});
 			}
+		<#else>
+			return entity.get${entityid?cap_first}()==${entityid};
+		</#if>
 		}
 	}
 
 	public int hashCode() {
+	<#if id_is_string>
 		if(${entityid} == null)
 			return super.hashCode();
 		return ${entityid}.hashCode();
+	<#else>
+		return String.valueOf(${entityid}).hashCode();
+	</#if>
 	}
 }

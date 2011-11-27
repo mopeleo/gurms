@@ -8,10 +8,14 @@
 	<!--generate file params-->
 	<property name="pdm" value="d:/kcrm/doc/02.设计/2.3数据库设计/gurms-test.pdm" />
 	<property name="pkg" value="org.gurms" />	
-	<property name="outpath" value="${newproject}/src/" />	
+	<property name="javaoutpath" value="${newproject}/src/" />	
+	<property name="weboutpath" value="${newprojectweb}/WEB-INF/ftl/" />	
 	
 	<path id="gurmslib">  
-	    <!--<pathelement path="${gurmsclass}" /> --> 
+	    <pathelement path="${gurmsclass}" /> 
+	    <fileset dir="${gurmsweb}/WEB-INF/other">
+	        <include name="**/*.jar" />  
+	    </fileset>
 	    <fileset dir="${gurmsweb}/WEB-INF/lib">  
 	        <include name="**/*.jar" />  
 	    </fileset>  
@@ -25,7 +29,7 @@
 	<target name="updatejar">
 		<jar basedir="${gurmsclass}" 
 			destfile="${newprojectweb}/WEB-INF/lib/gurms.jar"
-			excludes="*.xml,*.properties" />
+			excludes="*.xml,*.properties,template/" />
 	</target>
 
 	<target name="updateweb">
@@ -49,11 +53,15 @@
 			<classpath refid="gurmslib" />
 			<arg value="${pdm}"/>
 			<arg value="${pkg}"/>
-			<arg value="${outpath}"/>
+			<arg value="${javaoutpath}"/>
+			<arg value="${weboutpath}"/>
 		</java>
-		<echo>generate java code end......</echo>
+		<echo>generate java code end......</echo>		
+	    <javac encoding="utf-8" target="1.6" debug="true" srcdir="${javaoutpath}" destdir="${newprojectweb}/WEB-INF/classes" includeantruntime="on">
+	   		<classpath refid="gurmslib" /> 
+	    </javac>
 	</target>
-
+	
 	<target name="newproject" depends="init">
 		<copy todir="${newproject}" overwrite="true">
 			<fileset dir="${basedir}">
@@ -73,8 +81,6 @@
 			</fileset>
 		</copy>
 		<ant target="updatejar" />
-		
-		<delete dir="${outpath}" />
 		<ant target="generatecode" />
 	</target>
 
