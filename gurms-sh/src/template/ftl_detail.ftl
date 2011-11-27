@@ -10,7 +10,6 @@
 			<${'#'}if result?exists>
                 <table>
 					<#list table.columns as column>
-					<td>${'$'}{obj.${column.code}}</td>
                     <tr>
                         <td class="tdwidth2">${column.comment}</td>
                         <td><input type="text" name="${column.code}" value="${'$'}{result.${column.code}}" /></td>
@@ -20,7 +19,6 @@
 			<${'#'}else>
                 <table>
 					<#list table.columns as column>
-					<td>${'$'}{obj.${column.code}}</td>
                     <tr>
                         <td class="tdwidth2">${column.comment}</td>
                         <td><input type="text" name="${column.code}" /></td>
