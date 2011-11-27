@@ -1,9 +1,33 @@
-package ${project}.dao.hiberante<#if model?exists>.${model}</#if>;
-
-import org.gurms.dao.hibernate.HibernateDao;
-import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
-import org.springframework.stereotype.Repository;
-
-@Repository
-public class ${entity}Dao extends HibernateDao<${entity}>{
-}
+<${'@'}c.html title="列表信息">
+	<form id="mainForm" name="mainForm" action="${'$'}{base}/${entity?lower_case}/list" method="post">
+		<${'@'}c.searchdiv>
+            <table>
+                <tr>
+					<#list table.keys as key>
+                    <td>${key.comment}:</td>
+                    <td><input type="text" name="filter_EQ_${key.code}" value="${'$'}{EQ_${key.code}}"></td>
+					</#list>
+                    <td><input type="button" onclick="search()" class="button" value="查询" /></td>
+                </tr>
+            </table>
+		</${'@'}c.searchdiv>
+		
+	    <div class="contect">
+	    	<${'#'}assign titles=[<#list table.columns as column>"${column.comment}"<#if (column_index+1)!=table.columns?size>,</#if></#list>]>
+	    	<${'#'}assign props=[<#list table.columns as column>"${column.code}"<#if (column_index+1)!=table.columns?size>,</#if></#list>]>
+	 	    <${'@'}c.listtable titles=titles props=props rows=result.result?size>
+				<${'#'}list result.result as obj>
+					<tr onclick="clickrow(this)">
+						<td>${'$'}{obj_index+1}</td>
+						<#list table.columns as column>
+						<td>${'$'}{obj.${column.code}}</td>
+						</#list>
+					</tr>
+				</${'#'}list>
+	    	</${'@'}c.listtable>
+	 
+            <${'@'}c.bottomdiv/>
+        </div>
+			
+	</form>
+</${'@'}c.html>
