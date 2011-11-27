@@ -21,12 +21,16 @@ public class GurmsProjectGenerator {
 	public static final String TEMPLATE_SERVICE = GlobalConfig.getConfig("template_service");
 	public static final String TEMPLATE_SERVICEIMPL = GlobalConfig.getConfig("template_serviceimpl");
 	public static final String TEMPLATE_CONTROLLER = GlobalConfig.getConfig("template_controller");
+	public static final String TEMPLATE_LIST = GlobalConfig.getConfig("template_list");
+	public static final String TEMPLATE_DETAIL = GlobalConfig.getConfig("template_detail");
 	
 	public static final String FILETYPE_DAO = "Dao.java";
 	public static final String FILETYPE_ENTITY = ".java";
 	public static final String FILETYPE_SERVICE = "Service.java";
 	public static final String FILETYPE_SERVICEIMPL = "ServiceImpl.java";
 	public static final String FILETYPE_CONTROLLER = "Controller.java";
+	public static final String FILETYPE_LISTFTL = "list.ftl";
+	public static final String FILETYPE_DETAILFTL = "detail.ftl";
 
 	public static final String PACKAGE_DAO = "dao.hibernate";
 	public static final String PACKAGE_ENTITY = "entity";
@@ -58,8 +62,16 @@ public class GurmsProjectGenerator {
 		generate(params, TEMPLATE_CONTROLLER, outFile);
 	}	
 	
-	private static String getOutFile(Map params, String outdir, String projectPrefix, String pkgName, String fileSuffix){
-		String outFileName = outdir + (projectPrefix + "." + pkgName).replace('.', File.separatorChar);
+	public static void listGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_LIST, outFile);
+	}	
+	
+	public static void detailGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_DETAIL, outFile);
+	}	
+	
+	private static String getJavaOutFile(Map params, String outDir, String projectPrefix, String pkgName, String fileSuffix){
+		String outFileName = outDir + (projectPrefix + "." + pkgName).replace('.', File.separatorChar);
 		Object model = params.get("model");
 		if(model != null){
 			outFileName += File.separator + model.toString() ;
@@ -74,7 +86,19 @@ public class GurmsProjectGenerator {
 		return outFileName;
 	}
 	
-	public static void projectGenerate(String pdmFile, String projectPrefix, String outDir){
+	private static String getWebOutFile(Map params, String outDir, String fileSuffix){
+		String outFileName = outDir + params.get("entity").toString().toLowerCase();
+		
+		File file = new File(outFileName);
+		if(!file.exists()){
+			file.mkdirs();
+		}
+		outFileName += File.separator + fileSuffix;
+
+		return outFileName;
+	}
+	
+	public static void projectGenerate(String pdmFile, String projectPrefix, String javaOutDir, String webOutDir){
 		Model model = PDMParser.parse(new File(pdmFile));
 		Map params = new HashMap();
 		params.put("project", projectPrefix);
@@ -94,21 +118,28 @@ public class GurmsProjectGenerator {
 			params.put("entity", entity);
 			
 			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码开始----------");
-			String outFile = getOutFile(params, outDir, projectPrefix, PACKAGE_DAO, FILETYPE_DAO);
+			String outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_DAO, FILETYPE_DAO);
 			daoGenerate(params, outFile);
 			
-			outFile = getOutFile(params, outDir, projectPrefix, PACKAGE_SERVICE, FILETYPE_SERVICE);
+			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_SERVICE, FILETYPE_SERVICE);
 			serviceGenerate(params, outFile);
 			
-			outFile = getOutFile(params, outDir, projectPrefix, PACKAGE_SERVICEIMPL, FILETYPE_SERVICEIMPL);
+			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_SERVICEIMPL, FILETYPE_SERVICEIMPL);
 			serviceImplGenerate(params, outFile);
 			
-			outFile = getOutFile(params, outDir, projectPrefix, PACKAGE_CONTROLLER, FILETYPE_CONTROLLER);
+			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_CONTROLLER, FILETYPE_CONTROLLER);
 			controllerGenerate(params, outFile);
 			
-			outFile = getOutFile(params, outDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITY);
+			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITY);
 			params.put("table", table);
 			entityGenerate(params, outFile);
+
+			outFile = getWebOutFile(params, webOutDir, FILETYPE_LISTFTL);
+			listGenerate(params, outFile);
+
+			outFile = getWebOutFile(params, webOutDir, FILETYPE_DETAILFTL);
+			detailGenerate(params, outFile);
+
 			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码结束----------");
 		}
 	}
@@ -127,11 +158,14 @@ public class GurmsProjectGenerator {
 		
 //	    String filepath = "D:\\kcrm\\doc\\02.设计\\2.3数据库设计\\gurms-test.pdm";
 	    String pdm = args[0];
-	    System.out.println(pdm);
+	    System.out.println("pdm : " + pdm);
 	    String pkgprefix = args[1];
-	    System.out.println(pkgprefix);
-	    String outpath = args[2];
-		projectGenerate(pdm, pkgprefix, outpath);
+	    System.out.println("package prefix : " + pkgprefix);
+	    String javaoutpath = args[2];
+	    System.out.println("java outpath : " + pkgprefix);
+	    String weboutpath = args[3];
+	    System.out.println("web outpath : " + pkgprefix);
+		projectGenerate(pdm, pkgprefix, javaoutpath, weboutpath);
 	    
 	}
 }
