@@ -1,5 +1,7 @@
 package org.gurms.common.util;
 
+import java.util.regex.Pattern;
+
 /**
  * @author mopeleo
 
@@ -24,6 +26,11 @@ public class NumberUtil {
 			start ++;
 		}
 		return binaryArray;
+	}
+	
+	public static boolean isNumber(String str) {
+		Pattern pattern = Pattern.compile("[0-9]*");
+		return pattern.matcher(str).matches();
 	}
 	
 	public static void main(String[] args) {
