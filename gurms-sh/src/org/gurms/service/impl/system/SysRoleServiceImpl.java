@@ -1,11 +1,12 @@
 package org.gurms.service.impl.system;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
-import org.gurms.common.util.FormatUtil;
+import org.gurms.common.util.DateUtil;
 import org.gurms.dao.hibernate.system.SysMenuDao;
 import org.gurms.dao.hibernate.system.SysRoleDao;
 import org.gurms.entity.PageRequest;
@@ -66,11 +67,18 @@ public class SysRoleServiceImpl implements SysRoleService {
 	public PageResult<SysRole> save(SysRole role) {
 		PageResult<SysRole> page = new PageResult<SysRole>();
 		if(StringUtils.isBlank(role.getRolestatus())){
-			String today = FormatUtil.getCurrentDate();
-			if(FormatUtil.dateBetween(today, role.getStartdate(), role.getEnddate())){
-				role.setRolestatus(GlobalParam.DICT_VALID_YES);
-			}else{
-				role.setRolestatus(GlobalParam.DICT_VALID_NO);
+			String today = DateUtil.getCurrentDate();
+			try {
+				if(DateUtil.dateBetween(today, role.getStartdate(), role.getEnddate())){
+					role.setRolestatus(GlobalParam.DICT_VALID_YES);
+				}else{
+					role.setRolestatus(GlobalParam.DICT_VALID_NO);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+				page.setSuccess(false);
+				page.setReturnmsg(e.getMessage());
+				return page;
 			}
 		}
 		if(role.getSysmenuids() != null){

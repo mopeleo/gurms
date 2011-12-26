@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.EncryptUtil;
-import org.gurms.common.util.FormatUtil;
+import org.gurms.common.util.DateUtil;
 import org.gurms.common.util.ObjectMapper;
 import org.gurms.dao.hibernate.system.SysLogLoginDao;
 import org.gurms.dao.hibernate.system.SysParamDao;
@@ -94,7 +94,7 @@ public class SysUserServiceImpl implements SysUserService{
 			
 			SysUserInfo userinfo = new SysUserInfo();
 			userinfo.setUserid(user.getUserid());
-			userinfo.setCreatedate(FormatUtil.getCurrentDate());
+			userinfo.setCreatedate(DateUtil.getCurrentDate());
 			sysUserInfoDao.save(userinfo);
 		}
 		return result;
@@ -144,7 +144,7 @@ public class SysUserServiceImpl implements SysUserService{
 			result.setSuccess(false);			
 		}else{
 			u.setLoginpassword(user.getLoginpassword());
-			u.setUptpwdate(FormatUtil.getCurrentDate());
+			u.setUptpwdate(DateUtil.getCurrentDate());
 			sysUserDao.save(u);
 		}
 		return result;		
@@ -164,8 +164,8 @@ public class SysUserServiceImpl implements SysUserService{
 		}else{
 			SysParam errorcount = sysParamDao.get(GlobalParam.PARAM_ERRORCOUNT);
 			SysParam locktime = sysParamDao.get(GlobalParam.PARAM_LOCKTIME);
-			String currentDate = FormatUtil.getCurrentDate();
-			String currentTime = FormatUtil.getCurrentTime();
+			String currentDate = DateUtil.getCurrentDate();
+			String currentTime = DateUtil.getCurrentTime();
 			
 			//用户被锁定
 			if (GlobalParam.DICT_USERSTSTUS_PWLOCK.equals(user.getUserstatus())) {
@@ -192,7 +192,7 @@ public class SysUserServiceImpl implements SysUserService{
 					String logtime = u.getLogindate() + u.getLogintime();
 					long dif = 0;
 					try {
-						dif = System.currentTimeMillis() - FormatUtil.getDate(FormatUtil.pattern_fulltime, logtime).getTime();
+						dif = System.currentTimeMillis() - DateUtil.parseDate(DateUtil.pattern_fulltime, logtime).getTime();
 					} catch (ParseException e) {
 						result.setReturnmsg(e.getMessage());
 						result.setSuccess(false);
@@ -243,7 +243,7 @@ public class SysUserServiceImpl implements SysUserService{
 		PageResult<SysUser> page = new PageResult<SysUser>();
 		SysUserInfo info = sysUserInfoDao.get(userinfo.getUserid());
 		if(info == null){
-			userinfo.setCreatedate(FormatUtil.getCurrentDate());
+			userinfo.setCreatedate(DateUtil.getCurrentDate());
 			sysUserInfoDao.save(userinfo);
 		}else{
 			String createDate = info.getCreatedate();
