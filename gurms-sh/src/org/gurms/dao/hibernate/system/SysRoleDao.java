@@ -2,7 +2,7 @@ package org.gurms.dao.hibernate.system;
 
 import java.io.Serializable;
 
-import org.gurms.common.util.FormatUtil;
+import org.gurms.common.util.DateUtil;
 import org.gurms.dao.hibernate.HibernateDao;
 import org.gurms.entity.system.SysRole;
 import org.gurms.entity.system.SysUser;
@@ -28,7 +28,7 @@ public class SysRoleDao extends HibernateDao<SysRole> {
 	}
 	
 	public void freshRole(){
-		String currentDate = FormatUtil.getCurrentDate();
+		String currentDate = DateUtil.getCurrentDate();
 		batchExecute(UPDATE_VALID, currentDate);
 		batchExecute(UPDATE_INVALID, currentDate, currentDate);
 	} 
