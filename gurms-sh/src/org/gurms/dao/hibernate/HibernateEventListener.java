@@ -3,7 +3,7 @@ package org.gurms.dao.hibernate;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
-import org.gurms.common.util.FormatUtil;
+import org.gurms.common.util.DateUtil;
 import org.gurms.entity.Logable;
 import org.gurms.entity.system.SysLogOperate;
 import org.hibernate.Session;
@@ -42,8 +42,8 @@ public class HibernateEventListener implements PostInsertEventListener,
 			String operator = ((Logable)entity).getOperator();
 			if(StringUtils.isNotBlank(operator)){
 				SysLogOperate log = new SysLogOperate();
-				log.setOperatedate(FormatUtil.getCurrentDate());
-				log.setOperatetime(FormatUtil.getCurrentTime());
+				log.setOperatedate(DateUtil.getCurrentDate());
+				log.setOperatetime(DateUtil.getCurrentTime());
 				log.setOperatetype(operatetype);
 				log.setUserid(operator);
 				log.setRecordid(id);			
