@@ -82,7 +82,7 @@ public class DateUtil {
 	}
 	
 	public static void main(String[] args) {
-		String s = "190011";
+		String s = "2008214";
 		System.out.println(isDate(s));
 	}
 }

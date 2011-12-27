@@ -1,9 +1,7 @@
 package org.gurms.common.util;
 
-import java.text.ParseException;
 import java.util.Hashtable;
 
-import org.apache.commons.lang.StringUtils;
 import org.gurms.common.exception.GurmsException;
 
 public class IDCardUtil {
@@ -22,8 +20,8 @@ public class IDCardUtil {
 	 * （3）通过模得到对应的校验码 Y: 0 1 2 3 4 5 6 7 8 9 10 校验码: 1 0 X 9 8 7 6 5 4 3 2 
 	 */
 
-	public static int[] Wi = { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 };
-	public static String[] ValCodeArr = { "1", "0", "x", "9", "8", "7", "6", "5", "4", "3", "2" };
+	public static int[] Wi = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+	public static String[] ValCodeArr = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
 	
 	public static boolean validateIDCard(String idcard) {
 		//效验身份证长度
@@ -55,10 +53,7 @@ public class IDCardUtil {
 			if ((DateUtil.getCurrentYear() - Integer.parseInt(year)) > 150|| (System.currentTimeMillis() - DateUtil.parseDate(birth).getTime()) < 0) {
 				return false;
 			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return false;
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -141,5 +136,10 @@ public class IDCardUtil {
 		hashtable.put("91", "国外");
 		
 		return hashtable;
+	}
+	
+	public static void main(String[] args) {
+		String idcard = "421003197906020535";
+		System.out.println(validateIDCard(idcard));
 	}
 }
