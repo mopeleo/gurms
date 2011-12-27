@@ -671,6 +671,79 @@ var Validate = {
     	return true;
     },
     
+    Chinese: function(value, paramsObj){
+    	var paramsObj = paramsObj || {};
+    	var message = paramsObj.failureMessage || "Must be a valid chinese string!";
+    	Validate.Format(value, { failureMessage: message, pattern: /^[\u4e00-\u9fa5]+$/i });
+    	return true;
+    },
+    
+    Idcard: function(value, paramsObj){
+    	var paramsObj = paramsObj || {};
+    	var message = paramsObj.failureMessage || "Must be a valid idcard!";
+    	var vcity={ 11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",
+                21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",
+                33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",
+                42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",
+                51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",
+                63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"
+               };
+    	var regex_date = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?"              //year1 闰年
+			+ "((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|"      //month+day 大
+			+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|"               //month+day 小
+			+ "(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|"                               //month+day 二月
+			+ "(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?"                //year2 平年
+			+ "((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|"      //month+day 大
+			+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|"               //month+day 小
+			+ "(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))$";                        //month+day 二月
+
+        if(value == null || (value.length!=15 && value.length!=18)){
+        	Validate.fail(message);
+        	return true;
+        }
+        
+		var idcard17 = "";
+		if (value.length == 18) {
+			idcard17 = value.substr(0, 17);
+		} else if (value.length == 15) {
+			idcard17 = value.substr(0, 6) + "19" + value.substr(6, 9);
+		}
+		var re_number = /^[0-9]*$/;
+		if(!re_number.test(idcard17)){
+        	Validate.fail(message);
+        	return true;
+		}
+		
+		var birth = idcard17.substr(6, 8);
+		var re_birth = new RegExp(regex_date);
+		if(!re_birth.test(birth)){
+        	Validate.fail(message);
+        	return true;
+		}
+		
+		var province = idcard17.substr(0,2);
+	    if(vcity[province] == undefined){
+        	Validate.fail(message);
+        	return true;
+	    }
+
+		if (value.length == 18) {
+			var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2); 
+	        var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'); 
+	        var cardTemp = 0; 
+	        for(var i = 0; i < 17; i ++){ 
+	            cardTemp += idcard17.substr(i, 1) * arrInt[i]; 
+	        }
+	        var valnum = arrCh[cardTemp % 11]; 
+			if(valnum != value.substr(17, 1)){
+	        	Validate.fail(message);
+	        	return true;
+			}
+		}
+
+    	return true;
+    },
+    
     /**
      *	validates the length of the value
      *	
