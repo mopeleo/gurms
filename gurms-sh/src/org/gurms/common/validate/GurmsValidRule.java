@@ -7,6 +7,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.gurms.common.exception.GurmsException;
+import org.gurms.common.util.IDCardUtil;
 
 
 public class GurmsValidRule implements Serializable{
@@ -28,7 +29,7 @@ public class GurmsValidRule implements Serializable{
 	private String script;     //客户端效验JS
 	
 	private enum Rule {
-		Presence,Numericality,Format,Email,Length,
+		Presence,Numericality,Format,Email,Chinese,Idcard,Length,
 		Inclusion,Exclusion,Confirmation,Acceptance;
 	}
 
@@ -169,6 +170,11 @@ public class GurmsValidRule implements Serializable{
 			case Email:
 				pattern = Pattern.compile("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+",Pattern.CASE_INSENSITIVE);
 				return pattern.matcher(val).matches();
+			case Chinese:
+				pattern = Pattern.compile("[\\u4e00-\\u9fa5]+");
+				return pattern.matcher(val).matches();
+			case Idcard:
+				return IDCardUtil.validateIDCard(val);
 			case Length:
 				if(StringUtils.isNotEmpty(val)){
 					if(StringUtils.isNotEmpty(getIs())){
@@ -250,6 +256,10 @@ public class GurmsValidRule implements Serializable{
 				return ".add(Validate.Format,{pattern:" + gvr.getPattern() + ",failureMessage:'" + gvr.getMsg() + "'});";
 			case Email:
 				return ".add(Validate.Email,{failureMessage:'" + gvr.getMsg() + "'});";
+			case Chinese:
+				return ".add(Validate.Chinese,{failureMessage:'" + gvr.getMsg() + "'});";
+			case Idcard:
+				return ".add(Validate.Idcard,{failureMessage:'" + gvr.getMsg() + "'});";
 			case Length:
 				StringBuffer len = new StringBuffer();
 				len.append(".add(Validate.Length,{");
