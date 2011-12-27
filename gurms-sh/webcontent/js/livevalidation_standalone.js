@@ -34,12 +34,22 @@ LiveValidation.VERSION = '1.3 standalone';
 
 /** element types constants ****/
 
-LiveValidation.TEXTAREA 		= 1;
-LiveValidation.TEXT 			    = 2;
-LiveValidation.PASSWORD 		= 3;
-LiveValidation.CHECKBOX 		= 4;
-LiveValidation.SELECT = 5;
-LiveValidation.FILE = 6;
+LiveValidation.TEXTAREA = 1;
+LiveValidation.TEXT     = 2;
+LiveValidation.PASSWORD = 3;
+LiveValidation.CHECKBOX = 4;
+LiveValidation.SELECT   = 5;
+LiveValidation.FILE     = 6;
+
+//global
+LiveValidation.REGEX_DATE = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?"              //year1 闰年
+	+ "((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|"      //month+day 大
+	+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|"               //month+day 小
+	+ "(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|"                               //month+day 二月
+	+ "(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?"                //year2 平年
+	+ "((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|"      //month+day 大
+	+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|"               //month+day 小
+	+ "(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))$";                        //month+day 二月
 
 /****** Static methods *******/
 
@@ -671,6 +681,16 @@ var Validate = {
     	return true;
     },
     
+    Date: function(value, paramsObj){
+    	var paramsObj = paramsObj || {};
+    	var message = paramsObj.failureMessage || "Must be a valid date!";
+		var re_birth = new RegExp(LiveValidation.REGEX_DATE);
+		if(!re_birth.test(value)){
+        	Validate.fail(message);
+		}
+    	return true;
+    },
+    
     Chinese: function(value, paramsObj){
     	var paramsObj = paramsObj || {};
     	var message = paramsObj.failureMessage || "Must be a valid chinese string!";
@@ -688,14 +708,6 @@ var Validate = {
                 51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",
                 63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"
                };
-    	var regex_date = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?"              //year1 闰年
-			+ "((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|"      //month+day 大
-			+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|"               //month+day 小
-			+ "(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|"                               //month+day 二月
-			+ "(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?"                //year2 平年
-			+ "((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|"      //month+day 大
-			+ "(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|"               //month+day 小
-			+ "(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))$";                        //month+day 二月
 
         if(value == null || (value.length!=15 && value.length!=18)){
         	Validate.fail(message);
@@ -715,7 +727,7 @@ var Validate = {
 		}
 		
 		var birth = idcard17.substr(6, 8);
-		var re_birth = new RegExp(regex_date);
+		var re_birth = new RegExp(LiveValidation.REGEX_DATE);
 		if(!re_birth.test(birth)){
         	Validate.fail(message);
         	return true;
