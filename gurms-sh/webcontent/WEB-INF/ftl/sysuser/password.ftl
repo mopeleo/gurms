@@ -1,5 +1,5 @@
 <@c.html title="用户信息">
-	<script src="${base}/js/md5.js" type="text/javascript"></script>
+	<script src="${base}/resources/js/md5.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$.get('${base}/'+_CONSTANT.VALID_URL,
