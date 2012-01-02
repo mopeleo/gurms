@@ -30,11 +30,6 @@ public class SysLoginController extends BaseController {
 	@Autowired
 	private SysMenuService sysMenuService;
 	
-	@RequestMapping(value="/login")
-	public String login(){
-		return "login";
-	}
-	
 	@RequestMapping(value="/userlogin")
 	public String userLogin(HttpServletRequest request, SysUser user){
 		user.setLoginip(request.getRemoteAddr());
@@ -49,7 +44,7 @@ public class SysLoginController extends BaseController {
 		return redirect(WebConstants.URL_INDEX);
 	}		
 
-	@RequestMapping(value="/ajaxlogin")
+	@RequestMapping
 	@ResponseBody
 	public PageResult<SysUser> ajaxLogin(HttpServletRequest request, SysUser user){
 		PageResult<SysUser> result = null;
@@ -74,14 +69,11 @@ public class SysLoginController extends BaseController {
 		return result;
 	}		
 
-	@RequestMapping(value="/logout")
+	@RequestMapping
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return redirect(WebConstants.URL_INDEX);
 	}	
-	
-	@RequestMapping(value="/welcome")
-	public void welcome(){}
 	
 	private boolean checkValidcode(HttpServletRequest request){
 		String validcode = (String)request.getSession().getAttribute(WebConstants.S_KEY_VALIDCODE);

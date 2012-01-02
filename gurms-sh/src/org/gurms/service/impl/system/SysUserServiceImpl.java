@@ -61,7 +61,7 @@ public class SysUserServiceImpl implements SysUserService{
 		if(StringUtils.isNotBlank(user.getSysroleids())){
 			String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 			for(String roleid : roleids){
-				SysRole role = sysRoleDao.get(Integer.parseInt(roleid));
+				SysRole role = sysRoleDao.get(Long.parseLong(roleid));
 				user.getSysroles().add(role);
 			}
 		}

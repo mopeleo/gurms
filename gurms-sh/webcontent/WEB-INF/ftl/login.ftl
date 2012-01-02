@@ -157,8 +157,8 @@
         	<div class="logo_rt">
             	<a href="${base}/">首页</a><span>|</span>
             	<a href="#">桌面快捷</a><span>|</span>
-            	<a onclick="openwindow(this,'1003009','密码修改','sysuser/password')" target="rightiframe">修改密码</a><span>|</span>
-            	<a href="logout">注销</a><span>|</span>
+            	<a onclick="openwindow(this,'1003009','密码修改','${base}/sysuser/password')" target="rightiframe">修改密码</a><span>|</span>
+            	<a href="${base}/syslogin/logout">注销</a><span>|</span>
             	<a href="#" onclick="window.close();">退出</a>
             </div>
             
@@ -239,7 +239,7 @@
 	                                          	    <#list session_fastmenu as leafs>
 	                                                    <#if leafs.menutype="1">	                                              
 			                                                <ul class="menublock" id="menu">
-			                                                    <li><a class="menuout" target="rightiframe" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leafs.menuurl}')">${leafs.menuname}</a></li>
+			                                                    <li><a class="menuout" target="rightiframe" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${base}/${leafs.menuurl}')">${leafs.menuname}</a></li>
 			                                                </ul>
 	                                                    </#if>
 	                                                </#list>
@@ -250,8 +250,8 @@
 	                                </div><!--left_top end -->
 	                                
 	                                <div class="left_botom">
-	                                    <div class="pre_jiantou"><a href="#"><img src="img/shang_sanjiao.gif" width="10" height="6" /></a></div>
-	                                    <div class="next_jiantou"><a href="#"><img src="img/xia_sanjiao.gif" width="10" height="5" /></a></div>
+	                                    <div class="pre_jiantou"><a href="#"><img src="${base}/resources/img/shang_sanjiao.gif" width="10" height="6" /></a></div>
+	                                    <div class="next_jiantou"><a href="#"><img src="${base}/resources/img/xia_sanjiao.gif" width="10" height="5" /></a></div>
 	                                </div>   
 	                            </div><!--main_body left end -->
 	                            <div class="middle"></div>
@@ -297,8 +297,8 @@
 	                                </div><!--left_top end -->
 	                                
 	                                <div class="left_botom">
-	                                    <div class="pre_jiantou"><a href="#"><img src="img/shang_sanjiao.gif" width="10" height="6" /></a></div>
-	                                    <div class="next_jiantou"><a href="#"><img src="img/xia_sanjiao.gif" width="10" height="5" /></a></div>
+	                                    <div class="pre_jiantou"><a href="#"><img src="${base}/resources/img/shang_sanjiao.gif" width="10" height="6" /></a></div>
+	                                    <div class="next_jiantou"><a href="#"><img src="${base}/resources/img/xia_sanjiao.gif" width="10" height="5" /></a></div>
 	                                </div>   
 	                            </div><!--main_body left end -->
 	                            <div class="middle"></div>

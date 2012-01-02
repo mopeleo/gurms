@@ -39,7 +39,7 @@
 	                        <td class="tdwidth2">角色名称</td>
 	                        <td>
 		                        <input type="hidden" name="roleid" value="${result.roleid}" />
-		                        <input type="text" name="rolename" value="${result.rolename}" />
+		                        <input type="text" name="rolename" id="rolename" value="${result.rolename}" />
 	                        </td>
 	                    </tr>
 	                    <tr>
@@ -83,7 +83,7 @@
 	                <table>
 	                    <tr>
 	                        <td class="tdwidth2">角色名称</td>
-	                        <td><input type="text" name="rolename" /></td>
+	                        <td><input type="text" name="rolename" id="rolename" /></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">生效日期</td>

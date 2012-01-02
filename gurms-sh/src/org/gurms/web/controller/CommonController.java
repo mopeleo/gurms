@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CommonController extends BaseController {
 
 	// 生成验证码
-	@RequestMapping("/validcode")
-	public void genValidateCodeImg(HttpSession session, HttpServletResponse response) {
+	@RequestMapping
+	public void validcode(HttpSession session, HttpServletResponse response) {
 		try {
 			response.setContentType(ServletUtil.IMG_TYPE);
 			String code = ValidCodeGenerator.generate(response.getOutputStream());
@@ -32,8 +32,8 @@ public class CommonController extends BaseController {
 	}
 	
 	// 生成前段效验的JS代码
-	@RequestMapping("/validscript")
-	public void getValidScript(HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping
+	public void validscript(HttpServletRequest request, HttpServletResponse response){
 		response.setContentType(ServletUtil.TEXT_TYPE);
 //		String js = "<script>function test(){alert("+className+");}test();</script>";
 		String className = request.getParameter("className");

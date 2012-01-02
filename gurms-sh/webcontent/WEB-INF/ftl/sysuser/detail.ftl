@@ -22,11 +22,11 @@
                 <table>
                     <tr>
                         <td class="tdwidth2">用户ID</td>
-                        <td><input type="text" name="userid" value="${result.userid}" readonly="true" /></td>
+                        <td><input type="text" name="userid" id="userid" value="${result.userid}" readonly="true" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户姓名</td>
-                        <td><input type="text" name="username" value="${result.username}" /></td>
+                        <td><input type="text" name="username" id="username" value="${result.username}" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>
@@ -38,16 +38,15 @@
                         </td>
                     </tr>
                 </table>
-                <input type="hidden" name="loginpassword" value="${result.loginpassword}"/>
 			<#else>
                 <table>
                     <tr>
                         <td class="tdwidth2">用户ID</td>
-                        <td><input type="text" name="userid" /></td>
+                        <td><input type="text" name="userid" id="userid"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">用户姓名</td>
-                        <td><input type="text" name="username" /></td>
+                        <td><input type="text" name="username" id="username"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所属部门</td>

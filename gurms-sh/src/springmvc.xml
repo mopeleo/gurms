@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
+	<!-- COC配置  -->
 	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
 		<property name="interceptors">
 			<bean class="org.gurms.web.spring.ControllerInterceptor">
@@ -14,24 +16,26 @@
 		</property>
 	</bean>
 
-	<!-- 自动搜索@Controller标注的类 -->
+	<!-- 使用annocation创建Controller的bean -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    	<property name="messageConverters">
+    		<list>
+    			<ref bean="mappingJacksonHttpMessageConverter"/>
+    		</list>
+    	</property>
+    </bean>
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />   
+   	
+   	<!-- 自动搜索@Controller标注的类 -->
 	<context:component-scan base-package="org.gurms.web.controller" />
 
-	<!-- 通过这个标签来处理静态资源,不被DispatcherServlet处理 -->
-	<mvc:default-servlet-handler />
-
-	<!-- 支持spring mvc的注解类型 -->
-	<mvc:annotation-driven />
-
+	<!-- 将指定URL 的匹配模式来访问静态文件 -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/*" />
-			<bean class="org.gurms.web.spring.ControllerInterceptor">
-				<property name="ignoreSession" value="validscript,validcode,login" />
-			</bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
+	<!-- 将指定路径的请求直接转到对应的view上，而不需要特定的controller来处理请求 -->
+	<mvc:view-controller path="/welcome" view-name="welcome"/>
+	<mvc:view-controller path="/login" view-name="login"/>
+	
 	
 	<!--使用freemarker的resolver-->
 	<bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">

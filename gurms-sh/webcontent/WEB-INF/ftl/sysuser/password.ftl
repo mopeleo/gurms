@@ -44,16 +44,16 @@
                         <td class="tdwidth2">原密码</td>
                         <td>
 	                        <input type="hidden" name="userid" value="${session_user.userid}"/>
-	                        <input type="password" name="oldpassword" />
+	                        <input type="password" name="oldpassword" id="oldpassword" />
                         </td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">新密码</td>
-                        <td><input type="password" name="loginpassword" /></td>
+                        <td><input type="password" name="loginpassword" id="loginpassword" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">确认密码</td>
-                        <td><input type="password" name="confirmpassword" /></td>
+                        <td><input type="password" name="confirmpassword" id="confirmpassword" /></td>
                     </tr>
                 </table>
             </div><!--2 end -->                    
