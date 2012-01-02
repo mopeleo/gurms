@@ -119,7 +119,7 @@
     	<div class="zoomdiv">
 			<table cellpadding="0">
 				<tr class="tr1">
-					<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist('${id}')" src="${base}/img/checktitle.png" onmouseover="this.src='${base}/img/checktitle1.png'" onmouseout="this.src='${base}/img/checktitle.png'" /></span></th>
+					<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist('${id}')" src="${base}/resources/img/checktitle.png" onmouseover="this.src='${base}/resources/img/checktitle1.png'" onmouseout="this.src='${base}/resources/img/checktitle.png'" /></span></th>
 		    		<#list titles as title >
 		            	<th id="${props[title_index]}">${title}</th>
 		            </#list>
@@ -287,7 +287,7 @@
 
 <#-- 多重选择控制 left 左边面板的结果集，right 右边面板的结果集-->
 <#macro multiselect id left right=[]>  
-	<script src="${base}/js/jquery.multiselect2side.js" type="text/javascript"></script>
+	<script src="${base}/resources/js/jquery.multiselect2side.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#${id}').multiselect2side({
@@ -308,7 +308,7 @@
 
 
 <#macro calendar id default="" predate="" nextdate="">
-	<input id="${id}" name="${id}" type="text" value="${default}" readonly="true">&nbsp;<img id="_img${id}" src="${base}/img/icon_time.gif"/>
+	<input id="${id}" name="${id}" type="text" value="${default}" readonly="true">&nbsp;<img id="_img${id}" src="${base}/resources/img/icon_time.gif"/>
 	<script type="text/javascript">
 		$(function(){ 
 		    $('#_img${id}').calendar({

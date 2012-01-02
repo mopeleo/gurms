@@ -7,8 +7,8 @@
 <head>
 	<title>500 - 系统内部错误</title>
 	<%@ include file="/common/meta.jsp" %>
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/global.css"/>
-	<script src="js/common.js" type="text/javascript"></script>
+	<link href="${ctx}/resource/css/global.css" type="text/css" rel="stylesheet"/>
+	<script src="${ctx}/resource/js/common.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		totalIFrameSize();
 	</script>

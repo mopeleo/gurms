@@ -152,7 +152,7 @@
 
 <div id="main">
 	<div id="head">
-    	<div class="logo"><img src="img/logo.jpg" width="462" height="50" /></div>
+    	<div class="logo"><img src="${base}/resources/img/logo.jpg" width="462" height="50" /></div>
         <div class="logo_r">
         	<div class="logo_rt">
             	<a href="${base}/">首页</a><span>|</span>
@@ -277,7 +277,7 @@
 			                                                    <p onclick="folderChange()"><span>${leafs.menuname}</span></p>
 			                                                    <ul class="menuliblock">
 			                                               	        <#list leafs.submenus as leaf>
-			                                                            <li><a class="menuliout" target="rightiframe" onclick="openwindow(this,'${leaf.menuid}','${leaf.menuname}','${leaf.menuurl}')">${leaf.menuname}</a></li>
+			                                                            <li><a class="menuliout" target="rightiframe" onclick="openwindow(this,'${leaf.menuid}','${leaf.menuname}','${base}/${leaf.menuurl}')">${leaf.menuname}</a></li>
 			                                               	        </#list>
 			                                                    </ul>
 			                                                </div>
@@ -285,7 +285,7 @@
 	                                                     
 	                                                    <#if leafs.menutype="1">	                                              
 			                                                <ul class="menublock" id="menu">
-			                                                    <li><a class="menuout" target="rightiframe" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${leafs.menuurl}')">${leafs.menuname}</a></li>
+			                                                    <li><a class="menuout" target="rightiframe" onclick="openwindow(this,'${leafs.menuid}','${leafs.menuname}','${base}/${leafs.menuurl}')">${leafs.menuname}</a></li>
 			                                                </ul>
 	                                                    </#if>
 	                                                </#list>
@@ -311,7 +311,7 @@
         		</td>
         		<td id="dynamicIframe">
                     <div class="right_all" id="index_div">
-                        <iframe class="iframestyle" src="welcome" name="rightiframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        <iframe class="iframestyle" src="${base}/welcome" name="rightiframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                     </div>
             	</td>
             </tr>
@@ -327,9 +327,8 @@
         </div>
         <div class="help">
         	<div>
-        	    <span>
-        	        <a href="#"><img src="img/helpBall.gif" width="15" /></a></span><span><a href="#"><img src="img/helpBall_arrow.gif" onmousemove="this.src='img/helpBall_arrow2.gif'" onmouseout="this.src='img/helpBall_arrow.gif'" width="9" /></a>
-        	    </span>
+        	    <span><a href="#"><img src="${base}/resources/img/helpBall.gif" width="15" /></a></span>
+        	    <span><a href="#"><img src="${base}/resources/img/helpBall_arrow.gif" onmousemove="this.src='${base}/resources/img/helpBall_arrow2.gif'" onmouseout="this.src='${base}/resources/img/helpBall_arrow.gif'" width="9" /></a></span>
         	</div>
         </div>
     </div><!--foot end -->

@@ -1,6 +1,6 @@
 //所有JS常量在这里添加
 var _CONSTANT = {
-	VALID_URL : "validscript"
+	VALID_URL : "common/validscript"
 };
 
 $(document).ready(function(){
