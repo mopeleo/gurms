@@ -64,7 +64,7 @@
                 <table>
                     <tr>
                         <td class="tdwidth2">机构简称</td>
-                        <td><input type="text" name="shortname" /></td>
+                        <td><input type="text" name="shortname" id="shortname" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构全称</td>
