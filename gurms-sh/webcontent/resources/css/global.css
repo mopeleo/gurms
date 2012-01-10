@@ -95,7 +95,7 @@ a:focus{-moz-outline:none; outline:none;}
 .button{background:url(../img/button_bg.gif) no-repeat; width:70px; height:23px; border:none; cursor:hand;}
 .contect{position:relative;}
 .contect .zoomdiv{zoom:1;}
-div.table1{background-color:#fff; overflow:auto; max-height:350px; position:relative; border-bottom:1px solid #ccc;}
+div.table1{background-color:#fff; overflow:auto; max-height:350px; position:relative; border-bottom:1px solid #ccc;border-left:1px solid #ccc;}
 .table1 table{border-collapse:collapse;width:100%;border:0;}
 .table1 table tr td{border:1px solid #b3b4c6; height:20px; text-align:center; white-space:nowrap;}
 .table1 table tr th{font-size:12px; text-align:center; background:url(../img/table_topbg.gif) repeat-x #93a4c2; height:20px; color:#fff; font-weight:bold; white-space:nowrap; padding-left:3px; padding-right:3px; border-right:1px solid #b3b4c6; text-overflow:ellipsis;}
