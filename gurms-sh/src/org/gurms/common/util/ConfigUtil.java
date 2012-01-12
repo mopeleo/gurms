@@ -3,6 +3,7 @@ package org.gurms.common.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
@@ -28,11 +29,22 @@ public class ConfigUtil {
 	}
 
 	private void load() {
+		InputStream is = null;
 		try {
-			props.load(new FileInputStream(configFile));
+			is = new FileInputStream(configFile);
+			props.clear();
+			props.load(is);
 			fileLastModified = configFile.lastModified();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
