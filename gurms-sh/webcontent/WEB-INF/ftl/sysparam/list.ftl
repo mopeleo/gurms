@@ -11,19 +11,22 @@
                     <tr>
                     	<#list row as param>
 	                        <td class="longtd">${param.paramext.paramtitle}：</td>
-	                    	<#if param.paramext.distype = "1">
-	                    		<td>
+	                        <td>
+	                    	<#if param.paramext.disptype = "1">
 	                        	<input type="hidden" name="paramid" value="${param.paramid}" />
-	                        	<input type="text" name="paramvalue" value="${param.paramvalue}" />
-	                        	</td>
-	                    	<#elseif param.paramext.distype = "2">
-	                    		<td>
+	                        	<#if param.paramext.paramlength &lt; 1 || param.paramext.paramlength &gt; 32>
+	                        		<input type="text" name="paramvalue" value="${param.paramvalue}" maxlength="32"/>
+	                        	<#else>
+	                        		<input type="text" name="paramvalue" value="${param.paramvalue}" maxlength="${param.paramext.paramlength}"/>
+	                        	</#if>
+	                    	<#elseif param.paramext.disptype = "2">
 	                        	<input type="hidden" name="paramid" value="${param.paramid}" />
 	                        	<@c.dict id="paramvalue" dicttype="${param.paramext.dicttype}" default="${param.paramvalue}"/>
-	                        	</td>
 	                    	<#else>
-	                        	<td style="text-align:left">${param.paramvalue}</td>
+	                        	${param.paramvalue}
 	                    	</#if>
+	                    	<#if param.paramext.tail?exists>${param.paramext.paramtail}</#if>
+	                    	</td>
 	                    </#list>
                     </tr>
 		        </#list>
