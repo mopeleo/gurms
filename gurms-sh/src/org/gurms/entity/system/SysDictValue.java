@@ -12,25 +12,24 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @IdClass(SysDictPK.class)
-@Table(name = "sys_dict")
+@Table(name = "sys_dict_value")
 @org.hibernate.annotations.Entity(dynamicInsert=true,dynamicUpdate=true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class SysDict implements Serializable {
+public class SysDictValue implements Serializable {
 	
 	private String dicttype;
 	private String dictcode;
 	private String dictvalue;
 	private int dictorder;
-	private String remark;
 
-	public SysDict(){}
+	public SysDictValue(){}
 	
-	public SysDict(SysDictPK pk){
+	public SysDictValue(SysDictPK pk){
 		this.dicttype = pk.getDicttype();
 		this.dictcode = pk.getDictcode();
 	}
 	
-	public SysDict(String dicttype, String dictcode){
+	public SysDictValue(String dicttype, String dictcode){
 		this.dicttype = dicttype;
 		this.dictcode = dictcode;
 	}
@@ -61,14 +60,6 @@ public class SysDict implements Serializable {
 		this.dictvalue = dictvalue;
 	}
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
 	public int getDictorder() {
 		return dictorder;
 	}
@@ -78,10 +69,10 @@ public class SysDict implements Serializable {
 	}
 	
 	public boolean equals(Object o) {
-		if (o == null || !(o instanceof SysDict)) {
+		if (o == null || !(o instanceof SysDictValue)) {
 			return false;
 		} else {
-			SysDict pk = (SysDict) o;
+			SysDictValue pk = (SysDictValue) o;
 			if (pk.dicttype == null || pk.dictcode == null) {
 				return false;
 			} else {
