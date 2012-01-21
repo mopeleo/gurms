@@ -68,12 +68,12 @@ public class ObjectMapper {
 	}
 
 	/**
-	 * 基于Apache BeanUtils转换字符串到相应类型.
+	 * String->Object.
 	 * 
 	 * @param value 待转换的字符串.
 	 * @param toType 转换目标类型.
 	 */
-	public static Object convertToObject(String value, Class<?> toType) {
+	public static Object fromString(String value, Class<?> toType) {
 		return ConvertUtils.convert(value, toType);
 	}
 
