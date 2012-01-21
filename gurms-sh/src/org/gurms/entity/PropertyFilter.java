@@ -1,6 +1,7 @@
 package org.gurms.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,21 @@ public class PropertyFilter {
 		EQ, LIKE, LT, GT, LE, GE, NE, IN, NULL, NOTNULL;
 	}
 
+	/** 属性数据类型. */
+	public enum PropertyType {
+		S(String.class), I(Integer.class), L(Long.class), N(Double.class), D(Date.class), B(Boolean.class);
+
+		private Class<?> clazz;
+
+		private PropertyType(Class<?> clazz) {
+			this.clazz = clazz;
+		}
+
+		public Class<?> getValue() {
+			return clazz;
+		}
+	}
+
 	private MatchType matchType = null;
 	private Object matchValue = null;
 
@@ -32,25 +48,32 @@ public class PropertyFilter {
 
 	/**
 	 * @param filterName 比较属性字符串,含待比较的比较类型、属性值类型及属性列表. 
-	 *                   eg. LIKE_NAME_OR_LOGIN_NAME
+	 *                   eg. LIKES_NAME_OR_LOGIN_NAME
 	 * @param value 待比较的值.
 	 */
 	public PropertyFilter(final String filterName, final String value) {
-
-		String matchTypeCode = StringUtils.substringBefore(filterName, "_");
+		String firstPart = StringUtils.substringBefore(filterName, "_");
+		String matchTypeCode = StringUtils.substring(firstPart, 0, firstPart.length() - 1);
+		String propertyTypeCode = StringUtils.substring(firstPart, firstPart.length() - 1, firstPart.length());
 		try {
 			matchType = Enum.valueOf(MatchType.class, matchTypeCode);
 		} catch (RuntimeException e) {
-			throw new IllegalArgumentException("filter名称" + filterName + "没有按规则编写,无法得到属性比较类型.", e);
+			throw new IllegalArgumentException("匹配类型" + matchType + "没有按规则编写,无法得到属性比较类型.", e);
+		}
+
+		try {
+			propertyClass = Enum.valueOf(PropertyType.class, propertyTypeCode).getValue();
+		} catch (RuntimeException e) {
+			throw new IllegalArgumentException("数据类型" + propertyClass + "没有按规则编写,无法得到属性值类型.", e);
 		}
 
 		String propertyNameStr = StringUtils.substringAfter(filterName, "_");
 		if(StringUtils.isBlank(propertyNameStr)){
-			throw new IllegalArgumentException("filter名称" + filterName + "没有按规则编写,无法得到属性值类型.");
+			throw new IllegalArgumentException("过滤名称" + propertyNameStr + "没有按规则编写,无法得到属性值类型.");
 		}
 		propertyNames = StringUtils.splitByWholeSeparator(propertyNameStr, PropertyFilter.OR_SEPARATOR);
 
-		this.matchValue = ObjectMapper.convertToObject(value, propertyClass);
+		this.matchValue = ObjectMapper.fromString(value, propertyClass);
 	}
 
 	/**
@@ -58,8 +81,8 @@ public class PropertyFilter {
 	 * PropertyFilter命名规则为Filter属性前缀_比较类型属性类型_属性名.
 	 * 
 	 * eg.
-	 * filter_EQ_name
-	 * filter_LIKE_name_OR_email
+	 * filter_EQS_name
+	 * filter_LIKES_name_OR_email
 	 */
 	public static List<PropertyFilter> buildFromRequestMap(final Map<String, Object> request) {
 		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
