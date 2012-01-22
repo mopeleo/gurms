@@ -44,14 +44,14 @@ public class SysParamServiceImpl implements SysParamService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysParam getParam(String id) {
+	public SysParam getParam(int id) {
 		return paramDao.get(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Map<String, String> getParamMap() {
-		Map<String, String> paramMap = new HashMap<String, String>();
+	public Map<Integer, String> getParamMap() {
+		Map<Integer, String> paramMap = new HashMap<Integer, String>();
 		List<SysParam> list = paramDao.getAll();
 		if(list != null){
 			for(SysParam param : list){

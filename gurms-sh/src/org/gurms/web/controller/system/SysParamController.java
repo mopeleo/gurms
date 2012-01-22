@@ -39,12 +39,12 @@ public class SysParamController extends BaseController {
 		if(paramids != null && paramids.length >0){
 			List<SysParam> paramList = new ArrayList<SysParam>();
 			for(int i = 0; i< paramids.length; i++){
-				paramList.add(new SysParam(paramids[i], paramvalues[i]));
+				paramList.add(new SysParam(Integer.parseInt(paramids[i]), paramvalues[i]));
 			}
 			sysParamService.save(paramList);
 			
 			//更新缓存
-			Map<String, String> paramMap = (Map<String, String>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_PARAM);
+			Map<Integer, String> paramMap = (Map<Integer, String>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_PARAM);
 			for(SysParam param : paramList){
 				paramMap.put(param.getParamid(), param.getParamvalue());
 			}
@@ -63,12 +63,12 @@ public class SysParamController extends BaseController {
 			if(paramids != null && paramids.length >0){
 				List<SysParam> paramList = new ArrayList<SysParam>();
 				for(int i = 0; i< paramids.length; i++){
-					paramList.add(new SysParam(paramids[i], paramvalues[i]));
+					paramList.add(new SysParam(Integer.parseInt(paramids[i]), paramvalues[i]));
 				}
 				page = sysParamService.save(paramList);
 				
 				//更新缓存
-				Map<String, String> paramMap = (Map<String, String>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_PARAM);
+				Map<Integer, String> paramMap = (Map<Integer, String>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_PARAM);
 				for(SysParam param : paramList){
 					paramMap.put(param.getParamid(), param.getParamvalue());
 				}

@@ -10,7 +10,8 @@ import javax.servlet.ServletContextListener;
 import org.gurms.common.config.GlobalMessage;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.SpringUtil;
-import org.gurms.entity.system.SysDict;
+import org.gurms.entity.system.SysDictIndex;
+import org.gurms.entity.system.SysDictValue;
 import org.gurms.entity.system.SysMenu;
 import org.gurms.service.system.SysDictService;
 import org.gurms.service.system.SysMenuService;
@@ -50,15 +51,15 @@ public class SysContextListener implements ServletContextListener {
 		
 		// 缓存数据----------------------------------
 		SysDictService dictService = SpringUtil.getBean("sysDictServiceImpl");
-		Map<String, List<SysDict>> dictMap = dictService.getDictMap();
-		context.setAttribute(WebConstants.C_KEY_DICT, dictMap);
-		
-		List<SysDict> dictType = dictService.getDictType();
+		List<SysDictIndex> dictType = dictService.getDictIndex();
 		context.setAttribute(WebConstants.C_KEY_DICTTYPE, dictType);
+
+		Map<String, List<SysDictValue>> dictMap = dictService.getDictMap();
+		context.setAttribute(WebConstants.C_KEY_DICT, dictMap);
 		logger.info("cache sys_dict data success......");
 		
 		SysParamService paramService = SpringUtil.getBean("sysParamServiceImpl");
-		Map<String, String> paramMap = paramService.getParamMap();
+		Map<Integer, String> paramMap = paramService.getParamMap();
 		context.setAttribute(WebConstants.C_KEY_PARAM, paramMap);
 		logger.info("cache sys_param data success......");
 		

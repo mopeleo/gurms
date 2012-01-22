@@ -21,7 +21,7 @@
 	                        	</#if>
 	                    	<#elseif param.paramext.disptype = "2">
 	                        	<input type="hidden" name="paramid" value="${param.paramid}" />
-	                        	<@c.dict id="paramvalue" dicttype="${param.paramext.dicttype}" default="${param.paramvalue}"/>
+	                        	<@c.dict id="paramvalue" dicttype="${param.paramext.dictcode}" default="${param.paramvalue}"/>
 	                    	<#else>
 	                        	${param.paramvalue}
 	                    	</#if>

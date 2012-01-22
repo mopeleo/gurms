@@ -2,11 +2,16 @@ package org.gurms.entity.system;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,47 +22,61 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysDictValue implements Serializable {
 	
-	private String dicttype;
-	private String dictcode;
-	private String dictvalue;
+	private int dictcode;
+	private String dictitem;
+	private String itemname;
 	private int dictorder;
+	
+	private SysDictIndex dictindex;
 
 	public SysDictValue(){}
 	
 	public SysDictValue(SysDictPK pk){
-		this.dicttype = pk.getDicttype();
+		this.dictitem = pk.getDictitem();
 		this.dictcode = pk.getDictcode();
 	}
 	
-	public SysDictValue(String dicttype, String dictcode){
-		this.dicttype = dicttype;
+	public SysDictValue(int dictcode, String dictitem){
+		this.dictitem = dictitem;
 		this.dictcode = dictcode;
 	}
 	
 	@Id
-	public String getDicttype() {
-		return dicttype;
-	}
-
-	public void setDicttype(String dicttype) {
-		this.dicttype = dicttype;
-	}
-
-	@Id
-	public String getDictcode() {
+	@Column(insertable=false, updatable=false)
+	public int getDictcode() {
 		return dictcode;
 	}
 
-	public void setDictcode(String dictcode) {
+	public void setDictcode(int dictcode) {
 		this.dictcode = dictcode;
 	}
 
-	public String getDictvalue() {
-		return dictvalue;
+	@Id
+	public String getDictitem() {
+		return dictitem;
 	}
 
-	public void setDictvalue(String dictvalue) {
-		this.dictvalue = dictvalue;
+	public void setDictitem(String dictitem) {
+		this.dictitem = dictitem;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "dictcode")
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	public SysDictIndex getDictindex() {
+		return dictindex;
+	}
+
+	public void setDictindex(SysDictIndex dictindex) {
+		this.dictindex = dictindex;
+	}
+
+	public String getItemname() {
+		return itemname;
+	}
+
+	public void setItemname(String itemname) {
+		this.itemname = itemname;
 	}
 
 	public int getDictorder() {
@@ -69,23 +88,16 @@ public class SysDictValue implements Serializable {
 	}
 	
 	public boolean equals(Object o) {
-		if (o == null || !(o instanceof SysDictValue)) {
+		if (o == null || !(o instanceof SysDictPK)) {
 			return false;
 		} else {
-			SysDictValue pk = (SysDictValue) o;
-			if (pk.dicttype == null || pk.dictcode == null) {
-				return false;
-			} else {
-				return pk.dicttype.equals(dicttype)
-						&& pk.dictcode.equals(dictcode);
-			}
+			SysDictPK pk = (SysDictPK) o;
+			return new EqualsBuilder().append(pk.getDictitem(), dictitem)
+					.append(pk.getDictcode(), dictcode).isEquals();
 		}
 	}
 
 	public int hashCode() {
-		if (dicttype == null || dictcode == null)
-			return super.hashCode();
-		return dicttype.hashCode() + dictcode.hashCode();
+		return new HashCodeBuilder().append(dictitem).append(dictcode).hashCode();
 	}
-
 }

@@ -2,6 +2,7 @@ package org.gurms.entity.system;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -14,27 +15,26 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "sys_param")
-@org.hibernate.annotations.Entity(dynamicInsert=true,dynamicUpdate=true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysParam implements Serializable{
 
-	private String paramid;
+	private int paramid;
 	private String paramvalue;
 	private SysParamExt paramext;
 
 	public SysParam(){};
 	
-	public SysParam(String id, String value){
+	public SysParam(int id, String value){
 		this.paramid = id;
 		this.paramvalue = value;
 	}
 	
 	@Id
-	public String getParamid() {
+	public int getParamid() {
 		return paramid;
 	}
 
-	public void setParamid(String paramid) {
+	public void setParamid(int paramid) {
 		this.paramid = paramid;
 	}
 
@@ -46,7 +46,7 @@ public class SysParam implements Serializable{
 		this.paramvalue = paramvalue;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	public SysParamExt getParamext() {
 		return paramext;
@@ -61,18 +61,12 @@ public class SysParam implements Serializable{
 			return false;
 		}else{
 			SysParam param = (SysParam)o;
-			if(param.getParamid() == null){
-				return false;
-			}else{
-				return param.getParamid().equals(paramid);
-			}
+			return param.getParamid() == paramid;
 		}
 	}
 	
 	public int hashCode(){
-		if(paramid == null)
-			return super.hashCode();
-		return paramid.hashCode();
+		return paramid;
 	}
 
 }

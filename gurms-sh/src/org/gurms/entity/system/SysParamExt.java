@@ -2,34 +2,59 @@ package org.gurms.entity.system;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "sys_param_ext")
-@org.hibernate.annotations.Entity(mutable = false)
+@org.hibernate.annotations.Entity(dynamicInsert=true,dynamicUpdate=true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysParamExt implements Serializable{
 
-	private String paramid;
+	private int paramid;
 	private String paramtitle;
-	private String distype;
-	private String dicttype;
+	private String paramtail;
+	private String paramgroup;
+	private String disptype;
 	private String valuelist;
-	private String paramorder;
-	private String remark;
+	private int paramorder;
+	private int dictcode;
+	private int paramlength;
+	
+	private SysParam sysparam;
 
 	@Id
-	public String getParamid() {
+	@GeneratedValue(generator="fk")  
+    @GenericGenerator(name="fk", strategy="foreign", 
+    		parameters = {@Parameter(name = "property", value = "sysparam")}  
+    )
+	public int getParamid() {
 		return paramid;
 	}
 
-	public void setParamid(String paramid) {
+	public void setParamid(int paramid) {
 		this.paramid = paramid;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	public SysParam getSysparam() {
+		return sysparam;
+	}
+
+	public void setSysparam(SysParam sysparam) {
+		this.sysparam = sysparam;
 	}
 
 	public String getParamtitle() {
@@ -40,20 +65,44 @@ public class SysParamExt implements Serializable{
 		this.paramtitle = paramtitle;
 	}
 
-	public String getDistype() {
-		return distype;
+	public String getParamtail() {
+		return paramtail;
 	}
 
-	public void setDistype(String distype) {
-		this.distype = distype;
+	public void setParamtail(String paramtail) {
+		this.paramtail = paramtail;
 	}
 
-	public String getDicttype() {
-		return dicttype;
+	public String getParamgroup() {
+		return paramgroup;
 	}
 
-	public void setDicttype(String dicttype) {
-		this.dicttype = dicttype;
+	public void setParamgroup(String paramgroup) {
+		this.paramgroup = paramgroup;
+	}
+
+	public int getParamlength() {
+		return paramlength;
+	}
+
+	public void setParamlength(int paramlength) {
+		this.paramlength = paramlength;
+	}
+
+	public String getDisptype() {
+		return disptype;
+	}
+
+	public void setDisptype(String disptype) {
+		this.disptype = disptype;
+	}
+
+	public int getDictcode() {
+		return dictcode;
+	}
+
+	public void setDictcode(int dictcode) {
+		this.dictcode = dictcode;
 	}
 
 	public String getValuelist() {
@@ -64,20 +113,12 @@ public class SysParamExt implements Serializable{
 		this.valuelist = valuelist;
 	}
 
-	public String getParamorder() {
+	public int getParamorder() {
 		return paramorder;
 	}
 
-	public void setParamorder(String paramorder) {
+	public void setParamorder(int paramorder) {
 		this.paramorder = paramorder;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
 	}
 
 	public boolean equals(Object o){
@@ -85,17 +126,11 @@ public class SysParamExt implements Serializable{
 			return false;
 		}else{
 			SysParamExt param = (SysParamExt)o;
-			if(param.getParamid() == null){
-				return false;
-			}else{
-				return param.getParamid().equals(paramid);
-			}
+			return param.getParamid() == paramid;
 		}
 	}
 	
 	public int hashCode(){
-		if(paramid == null)
-			return super.hashCode();
-		return paramid.hashCode();
+		return paramid;
 	}
 }

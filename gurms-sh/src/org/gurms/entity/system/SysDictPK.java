@@ -4,36 +4,40 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 public class SysDictPK implements Serializable {
-	private String dicttype;
-	private String dictcode;
+	private int dictcode;
+	private String dictitem;
 
 	public SysDictPK(){}
 	
-	public SysDictPK(String dicttype, String dictcode){
-		this.dicttype = dicttype;
+	public SysDictPK(int dictcode, String dictitem){
+		this.dictitem = dictitem;
 		this.dictcode = dictcode;
 	}
 	
-	public String getDicttype() {
-		return dicttype;
-	}
 
-	public void setDicttype(String dicttype) {
-		this.dicttype = dicttype;
-	}
-
-	public String getDictcode() {
+	public int getDictcode() {
 		return dictcode;
 	}
 
-	public void setDictcode(String dictcode) {
+	public void setDictcode(int dictcode) {
 		this.dictcode = dictcode;
+	}
+
+	public String getDictitem() {
+		return dictitem;
+	}
+
+	public void setDictitem(String dictitem) {
+		this.dictitem = dictitem;
 	}
 
 	@Transient
 	public boolean isNull(){
-		return dicttype == null || dictcode == null;
+		return dictcode == 0 || dictitem == null;
 	}
 	
 	public boolean equals(Object o) {
@@ -41,23 +45,17 @@ public class SysDictPK implements Serializable {
 			return false;
 		} else {
 			SysDictPK pk = (SysDictPK) o;
-			if (pk.dicttype == null || pk.dictcode == null) {
-				return false;
-			} else {
-				return pk.dicttype.equals(dicttype)
-						&& pk.dictcode.equals(dictcode);
-			}
+			return new EqualsBuilder().append(pk.getDictitem(), dictitem)
+					.append(pk.getDictcode(), dictcode).isEquals();
 		}
 	}
 
 	public int hashCode() {
-		if (dicttype == null || dictcode == null)
-			return super.hashCode();
-		return dicttype.hashCode() + dictcode.hashCode();
+		return new HashCodeBuilder().append(dictitem).append(dictcode).hashCode();
 	}
 
 	@Override
 	public String toString(){
-		return "dicttype: " + dicttype + ", dictcode: " + dictcode;
+		return "dictitem: " + dictitem + ", dictcode: " + dictcode;
 	}
 }

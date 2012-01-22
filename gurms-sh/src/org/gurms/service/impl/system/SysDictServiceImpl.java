@@ -6,12 +6,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.gurms.dao.hibernate.system.SysDictDao;
+import org.gurms.dao.hibernate.system.SysDictIndexDao;
+import org.gurms.dao.hibernate.system.SysDictValueDao;
 import org.gurms.entity.PageRequest;
-import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.PageResult;
-import org.gurms.entity.system.SysDict;
+import org.gurms.entity.PropertyFilter;
+import org.gurms.entity.system.SysDictIndex;
 import org.gurms.entity.system.SysDictPK;
+import org.gurms.entity.system.SysDictValue;
 import org.gurms.service.system.SysDictService;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,62 +24,73 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SysDictServiceImpl implements SysDictService {
 
-	private static final String GROUP_CODE = "-";
 	@Autowired
-	private SysDictDao sysDictDao;
+	private SysDictValueDao sysDictValueDao;
+	
+	@Autowired
+	private SysDictIndexDao sysDictIndexDao;
 
-	public SysDictDao getSysDictDao() {
-		return sysDictDao;
+
+	public SysDictValueDao getSysDictValueDao() {
+		return sysDictValueDao;
 	}
 
-	public void setSysDictDao(SysDictDao sysDictDao) {
-		this.sysDictDao = sysDictDao;
+	public void setSysDictValueDao(SysDictValueDao sysDictValueDao) {
+		this.sysDictValueDao = sysDictValueDao;
+	}
+
+	public SysDictIndexDao getSysDictIndexDao() {
+		return sysDictIndexDao;
+	}
+
+	public void setSysDictIndexDao(SysDictIndexDao sysDictIndexDao) {
+		this.sysDictIndexDao = sysDictIndexDao;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public PageResult<SysDict> query(Map<String, Object> request, PageRequest page) {
-		return sysDictDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
+	public PageResult<SysDictValue> query(Map<String, Object> request, PageRequest page) {
+		return sysDictValueDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysDict get(SysDictPK id) {
-		return sysDictDao.get(id);
+	public SysDictValue get(SysDictPK id) {
+		return sysDictValueDao.get(id);
 	}
 
 	@Override
-	public PageResult<SysDict> save(SysDict dict) {
-		PageResult<SysDict> result = new PageResult<SysDict>();
-		sysDictDao.save(dict);
+	public PageResult<SysDictValue> save(SysDictValue dict) {
+		PageResult<SysDictValue> result = new PageResult<SysDictValue>();
+		sysDictValueDao.save(dict);
 		result.addResult(dict);
 		return result;
 	}
 
 	@Override
-	public PageResult<SysDict> delete(SysDictPK id) {
-		PageResult<SysDict> result = new PageResult<SysDict>();
-		sysDictDao.delete(id);
+	public PageResult<SysDictValue> delete(SysDictPK id) {
+		PageResult<SysDictValue> result = new PageResult<SysDictValue>();
+		sysDictValueDao.delete(id);
 		return result;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Map<String, List<SysDict>> getDictMap() {
-		Map<String, List<SysDict>> map = new HashMap<String, List<SysDict>>();
-		List<SysDict> list = sysDictDao.find(Restrictions.ne("dictcode", GROUP_CODE));
+	public Map<String, List<SysDictValue>> getDictMap() {
+		Map<String, List<SysDictValue>> map = new HashMap<String, List<SysDictValue>>();
+		List<SysDictValue> list = sysDictValueDao.getAll();
 		if(list != null){
-			Iterator<SysDict> it = list.iterator();
+			Iterator<SysDictValue> it = list.iterator();
 			while(it.hasNext()){
-				SysDict dict = it.next();
-				List<SysDict> dicttypeList = map.get(dict.getDicttype());
-				if(dicttypeList == null){
-					dicttypeList = new ArrayList<SysDict>();
-					dicttypeList.add(dict);
-					map.put(dict.getDicttype(), dicttypeList);
+				SysDictValue dict = it.next();
+				List<SysDictValue> dictvalueList = map.get(String.valueOf(dict.getDictcode()));
+				if(dictvalueList == null){
+					dictvalueList = new ArrayList<SysDictValue>();
+					dictvalueList.add(dict);
+					map.put(String.valueOf(dict.getDictcode()), dictvalueList);
 				}else{
-					if(!dicttypeList.contains(dict)){
-						dicttypeList.add(dict);
+					if(!dictvalueList.contains(dict)){
+						dictvalueList.add(dict);
 					}
 				}
 				
@@ -87,10 +100,10 @@ public class SysDictServiceImpl implements SysDictService {
 		return map;
 	}
 
-	@Override
+//	@Override
 	@Transactional(readOnly = true)
-	public List<SysDict> getDictType() {
-		return sysDictDao.findBy("dictcode", GROUP_CODE);
+	public List<SysDictIndex> getDictIndex() {
+		return sysDictIndexDao.getAll();
 	}
 
 }

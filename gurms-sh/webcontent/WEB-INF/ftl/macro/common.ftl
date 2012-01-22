@@ -268,7 +268,7 @@
 
 <#macro dictdesc dicttype dictcode>  
 	<#list context_dict[dicttype] as dict>
-		<#if dict.dictcode==dictcode>${dict.dictvalue}</#if>
+		<#if dict.dictitem==dictitem>${dict.itemname}</#if>
 	</#list>
 </#macro> 
 
@@ -279,7 +279,7 @@
 			<option value="">-请选择-</option>
 		</#if>
 		<#list context_dict[dicttype] as dict>
-			<option value="${dict.dictcode}" <#if dict.dictcode==default>selected="selected"</#if>>${dict.dictcode} - ${dict.dictvalue}</option>
+			<option value="${dict.dictitem}" <#if dict.dictitem==default>selected="selected"</#if>>${dict.dictitem} - ${dict.itemname}</option>
 		</#list>
 	</select>
 </#macro> 

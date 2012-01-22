@@ -21,40 +21,40 @@ public class GlobalParam {
 	public static final String SERIAL_SYS_ROLE = "sys_role";
 	
 	//数据库参数
-	public static final String PARAM_ERRORCOUNT = "0003";
-	public static final String PARAM_LOCKTIME = "0004";
+	public static final int PARAM_ERRORCOUNT = 3;
+	public static final int PARAM_LOCKTIME = 4;
 	
 	//数据库字典
-	public static final String DICT_YESORNO = "0001";
+	public static final int DICT_YESORNO = 1;
 	public static final String DICT_YESORNO_YES = "1";
 	public static final String DICT_YESORNO_NO  = "0";
 
-	public static final String DICT_VALID = "0002";
+	public static final int DICT_VALID = 2;
 	public static final String DICT_VALID_YES = "1";
 	public static final String DICT_VALID_NO  = "0";
 
-	public static final String DICT_ONLINEFLAG = "0003";
+	public static final int DICT_ONLINEFLAG = 3;
 	public static final String DICT_ONLINEFLAG_YES = "1";
 	public static final String DICT_ONLINEFLAG_NO  = "0";
 
-	public static final String DICT_USERSTATUS = "0005";
+	public static final int DICT_USERSTATUS = 5;
 	public static final String DICT_USERSTATUS_NORMAL = "1";
 	public static final String DICT_USERSTSTUS_PWLOCK = "2";
 	
-	public static final String DICT_ROLETYPE = "0006";
+	public static final int DICT_ROLETYPE = 6;
 	public static final String DICT_ROLETYPE_PUBLIC = "0";
 	public static final String DICT_ROLETYPE_PRIVATE = "1";
 	
-	public static final String DICT_MENUTYPE = "0007";
+	public static final int DICT_MENUTYPE = 7;
 	public static final String DICT_MENUTYPE_FLODER = "0";
 	public static final String DICT_MENUTYPE_MENU = "1";
 	public static final String DICT_MENUTYPE_BUTTON = "2";
 	
-	public static final String DICT_ENABLEFLAG = "0008";
+	public static final int DICT_ENABLEFLAG = 8;
 	public static final String DICT_ENABLEFLAG_STOP = "0";
 	public static final String DICT_ENABLEFLAG_ENABLE = "1";
 	
-	public static final String DICT_ORGYPE = "0009";
+	public static final int DICT_ORGYPE = 9;
 	public static final String DICT_ORGYPE_ROOT = "0";
 	public static final String DICT_ORGYPE_BRANCH = "1";
 	public static final String DICT_ORGYPE_DEPARTMENT = "2";

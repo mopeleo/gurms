@@ -12,7 +12,7 @@ public interface SysParamService {
 	
 	public List<SysParam> getParamList();
 	
-	public SysParam getParam(String id);
+	public SysParam getParam(int id);
 	
-	public Map<String, String> getParamMap();
+	public Map<Integer, String> getParamMap();
 }
