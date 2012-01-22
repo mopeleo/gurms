@@ -1,0 +1,32 @@
+create sequence SYS_SEQ
+minvalue 1
+maxvalue 9999999999
+start with 1
+increment by 1
+cache 20;
+
+prompt Loading SYS_ORG...
+truncate table sys_org;
+insert into SYS_ORG (ORGID, SHORTNAME, FULLNAME, LINKMAN, LINKTEL, PARENTORGID, ORGTYPE, ORGORDER, REMARK, FAXNO, ADDRESS, EMAIL, POSTCODE)
+values ('root', '金证科技', '金证科技股份有限公司', '李结义', '13589898989', null, '1', 0, '---', null, null, null, null);
+
+prompt Loading SYS_ROLE...
+truncate table sys_role;
+insert into SYS_ROLE (ROLEID, ROLENAME, ROLESTATUS, ROLETYPE, STARTDATE, ENDDATE, ENABLE, CREATOR, REMARK)
+values (0, '系统管理员', '1', '0', '00000000', '99999999', '1', '-', '系统管理员，全部权限');
+
+prompt Loading SYS_USER...
+truncate table sys_user;
+insert into SYS_USER (USERID, USERNAME, ORGID, LOGINPASSWORD, ONLINEFLAG, USERSTATUS, LOGINCOUNT, ERRORCOUNT)
+values ('system', 'system', null, '202cb962ac59075b964b07152d234b70', '1', '1', 0, 0);
+
+prompt Loading SYS_USER_ROLE...
+truncate table SYS_USER_ROLE;
+insert into SYS_USER_ROLE (ROLEID, USERID) values (0, 'system');
+
+prompt Loading SYS_SERIALNO...
+truncate table SYS_SERIALNO;
+insert into SYS_SERIALNO (SERIALTYPE, PREVALUE) values ('sys_role', 1);
+insert into SYS_SERIALNO (SERIALTYPE, PREVALUE) values ('sys_org', 1);
+
+commit;

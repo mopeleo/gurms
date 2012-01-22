@@ -1,0 +1,16 @@
+spool .\LOG.log
+set echo off
+prompt 批量提交后台初始化脚本开始................
+prompt 日志记录在.\LOG.log
+
+--脚本变动
+prompt Creating Table
+prompt =============================
+@@createtables.sql
+@@.\init_script\init_dict.ora
+@@.\init_script\init_menu.ora
+@@.\init_script\init_other.ora
+@@.\init_script\init_param.ora
+prompt
+
+exit

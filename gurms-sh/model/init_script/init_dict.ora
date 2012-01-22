@@ -1,0 +1,42 @@
+prompt Loading sys_dict...
+truncate table sys_dict;
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (1, '是或否', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (1, '0', '否', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (1, '1', '是', 1);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (2, '是否有效', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (2, '0', '无效', 5);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (2, '1', '有效', 3);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (3, '在线状态', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (3, '1', '在线', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (3, '2', '离线', 1);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (4, '性别', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (4, '0', '女', 7);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (4, '1', '男', 1);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (5, '用户状态', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '0', '无效', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '1', '正常', 1);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '2', '密码锁定', 2);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (6, '角色类别', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (6, '0', '公共', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (6, '1', '私有', 1);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (7, '菜单类别', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (7, '0', '文件夹', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (7, '1', '菜单', 1);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (7, '2', '按钮', 1);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (8, '启用标志', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (8, '1', '启用', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (8, '0', '停用', 1);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (9, '机构类型', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (9, '0', '总部', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (9, '1', '分支/网点', 1);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (9, '2', '部门', 2);
+
+commit;
