@@ -39,7 +39,7 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">角色状态:</td>
-	                        <td><@c.dictdesc dicttype="0002" dictcode="${result.rolestatus}"/></td>
+	                        <td><@c.dictdesc dictcode="2" dictitem="${result.rolestatus}"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">生效日期:</td>
@@ -51,7 +51,7 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">启用标志:</td>
-	                        <td><@c.dictdesc dicttype="0008" dictcode="${result.enable}"/></td>
+	                        <td><@c.dictdesc dictcode="8" dictitem="${result.enable}"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注:</td>

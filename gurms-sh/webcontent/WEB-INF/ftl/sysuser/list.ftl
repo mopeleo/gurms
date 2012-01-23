@@ -4,9 +4,9 @@
             <table>
                 <tr>
                     <td>用户ID:</td>
-                    <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
+                    <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
                     <td>用户姓名:</td>
-                    <td><input type="text" name="filter_EQ_username" value="${EQ_username}"></td>
+                    <td><input type="text" name="filter_LIKES_username" value="${LIKES_username}"></td>
                     <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                 </tr>
             </table>
@@ -31,7 +31,7 @@
 						</td>
 						<td>${user.logindate}</td>
 						<td>${user.logintime}</td>
-						<td><@c.dictdesc dicttype="0005" dictcode="${user.userstatus}" /></td>
+						<td><@c.dictdesc dictcode="5" dictitem="${user.userstatus}" /></td>
 					</tr>
 				</#list>
 	    	</@c.listtable>

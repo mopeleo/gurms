@@ -53,7 +53,7 @@ public class SysUserController extends BaseController {
 	@RequestMapping
 	public void detail(String userid, Model model){
 		Map<String, Object> roleMap = new HashMap<String, Object>();
-		roleMap.put("EQ_roletype", GlobalParam.DICT_ROLETYPE_PUBLIC);
+		roleMap.put("EQS_roletype", GlobalParam.DICT_ROLETYPE_PUBLIC);
 		List<SysRole> publics = roleService.query(roleMap);		
 		model.addAttribute("allroles", publics);
 		

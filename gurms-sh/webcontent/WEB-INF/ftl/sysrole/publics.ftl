@@ -4,7 +4,7 @@
             <table>
                 <tr>
                     <td>角色名称:</td>
-                    <td><input type="text" name="filter_EQ_rolename" value="${EQ_rolename}"></td>
+                    <td><input type="text" name="filter_LIKES_rolename" value="${LIKES_rolename}"></td>
                     <td><input type="button" onclick="search()" class="button" value="查询"></td>
                 </tr>
             </table>
@@ -18,10 +18,10 @@
 					<tr onclick="clickrow(this)">
 						<td>${role_index+1}</td>
 						<td>${role.rolename}</td>
-						<td><@c.dictdesc dicttype="0002" dictcode="${role.rolestatus}" /></td>
+						<td><@c.dictdesc dictcode="2" dictitem="${role.rolestatus}" /></td>
 						<td>${role.startdate}</td>
 						<td>${role.enddate}</td>
-						<td><@c.dictdesc dicttype="0008" dictcode="${role.enable}" /></td>
+						<td><@c.dictdesc dictcode="8" dictitem="${role.enable}" /></td>
 						<input type="hidden" id="roleid" value="${role.roleid}" />
 					</tr>
 				</#list>

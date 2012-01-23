@@ -32,7 +32,7 @@ public class SysRoleController extends BaseController {
 	@RequestMapping
 	public void publics(HttpServletRequest request, PageRequest page, Model model){
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
-		requestMap.put("EQ_roletype", GlobalParam.DICT_ROLETYPE_PUBLIC);
+		requestMap.put("EQS_roletype", GlobalParam.DICT_ROLETYPE_PUBLIC);
 		PageResult<SysRole> result = roleService.query(requestMap, page);
 		model.addAttribute(WebConstants.KEY_RESULT, result);
 		model.addAllAttributes(requestMap);
@@ -42,8 +42,8 @@ public class SysRoleController extends BaseController {
 	public void privates(HttpServletRequest request, PageRequest page, Model model){
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
 		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
-		requestMap.put("EQ_roletype", GlobalParam.DICT_ROLETYPE_PRIVATE);
-		requestMap.put("EQ_creator", user.getUserid());
+		requestMap.put("EQS_roletype", GlobalParam.DICT_ROLETYPE_PRIVATE);
+		requestMap.put("EQS_creator", user.getUserid());
 		PageResult<SysRole> result = roleService.query(requestMap, page);
 		model.addAttribute(WebConstants.KEY_RESULT, result);
 		model.addAllAttributes(requestMap);

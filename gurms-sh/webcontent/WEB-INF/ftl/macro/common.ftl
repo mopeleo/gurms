@@ -266,19 +266,19 @@
 </#macro> 
 
 
-<#macro dictdesc dicttype dictcode>  
-	<#list context_dict[dicttype] as dict>
+<#macro dictdesc dictcode dictitem>  
+	<#list context_dict[dictcode] as dict>
 		<#if dict.dictitem==dictitem>${dict.itemname}</#if>
 	</#list>
 </#macro> 
 
 
-<#macro dict id dicttype default="" nullable=false>  
+<#macro dict id dictcode default="" nullable=false>  
 	<select class="selectstyle" name="${id}" id="${id}">
 		<#if nullable>
 			<option value="">-请选择-</option>
 		</#if>
-		<#list context_dict[dicttype] as dict>
+		<#list context_dict[dictcode] as dict>
 			<option value="${dict.dictitem}" <#if dict.dictitem==default>selected="selected"</#if>>${dict.dictitem} - ${dict.itemname}</option>
 		</#list>
 	</select>

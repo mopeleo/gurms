@@ -52,7 +52,7 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">启用标志</td>
-	                        <td><@c.dict id="enable" default="${result.enable}" dicttype="0008"/></td>
+	                        <td><@c.dict id="enable" default="${result.enable}" dictcode="8"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
@@ -95,7 +95,7 @@
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">启用标志</td>
-	                        <td><@c.dict id="enable" dicttype="0008"/></td>
+	                        <td><@c.dict id="enable" dictcode="8"/></td>
 	                    </tr>
 	                    <tr>
 	                        <td class="tdwidth2">备注</td>
