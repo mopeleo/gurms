@@ -4,11 +4,11 @@
             <table>
                 <tr>
                     <td>用户ID:</td>
-                    <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
+                    <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
                     <td>登录起始日期:</td>
-                    <td><@c.calendar id="filter_GE_logindate" default="${GE_logindate}" nextdate="filter_LT_logindate"/></td>
+                    <td><@c.calendar id="filter_GES_logindate" default="${GES_logindate}" nextdate="filter_LTS_logindate"/></td>
                     <td>登录截止日期:</td>
-                    <td><@c.calendar id="filter_LT_logindate" default="${LT_logindate}" predate="filter_GE_logindate"/></td>
+                    <td><@c.calendar id="filter_LTS_logindate" default="${LTS_logindate}" predate="filter_GES_logindate"/></td>
                     <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                 </tr>
             </table>
@@ -26,7 +26,7 @@
 						<td>${log.logintime}</td>
 						<td>${log.loginpassword}</td>
 						<td>${log.loginip}</td>
-						<td><@c.dictdesc dicttype="0001" dictcode="${log.success}"/></td>
+						<td><@c.dictdesc dictcode="1" dictitem="${log.success}"/></td>
 					</tr>
 				</#list>
 	    	</@c.listtable>

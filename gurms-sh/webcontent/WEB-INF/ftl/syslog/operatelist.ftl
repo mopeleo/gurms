@@ -4,11 +4,11 @@
             <table>
                 <tr>
                     <td>用户ID:</td>
-                    <td><input type="text" name="filter_EQ_userid" value="${EQ_userid}"></td>
+                    <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
                     <td>操作起始日期:</td>
-                    <td><@c.calendar id="filter_GE_operatedate" default="${GE_operatedate}" nextdate="filter_LT_operatedate"/></td>
+                    <td><@c.calendar id="filter_GES_operatedate" default="${GES_operatedate}" nextdate="filter_LTS_operatedate"/></td>
                     <td>操作截止日期:</td>
-                    <td><@c.calendar id="filter_LT_operatedate" default="${LT_operatedate}" predate="filter_GE_operatedate"/></td>
+                    <td><@c.calendar id="filter_LTS_operatedate" default="${LTS_operatedate}" predate="filter_GES_operatedate"/></td>
                     <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                 </tr>
             </table>

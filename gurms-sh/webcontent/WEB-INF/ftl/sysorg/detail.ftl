@@ -48,7 +48,7 @@
                     <tr>
                         <td class="tdwidth2">机构类型</td>
                         <td>
-        					<@c.dict id="orgtype" default="${result.orgtype}" dicttype="0009"/>
+        					<@c.dict id="orgtype" default="${result.orgtype}" dictcode="9"/>
                         </td>
                     </tr>
                     <tr>
@@ -100,7 +100,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">机构类型</td>
-						<td><@c.dict id="orgtype" dicttype="0009"/></td>
+						<td><@c.dict id="orgtype" dictcode="9"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">排序号</td>
