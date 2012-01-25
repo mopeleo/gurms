@@ -1,14 +1,13 @@
 package org.gurms.web.controller.system;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
-import org.gurms.entity.system.SysDictValue;
 import org.gurms.entity.system.SysDictPK;
+import org.gurms.entity.system.SysDictValue;
 import org.gurms.service.system.SysDictService;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
@@ -29,7 +28,7 @@ public class SysDictController extends BaseController{
 	@RequestMapping
 	public void list(HttpServletRequest request, PageRequest page, Model model){
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
-		PageResult<SysDictValue> result = dictService.query(requestMap, page);
+		PageResult<SysDictValue> result = dictService.queryDict(requestMap, page);
 		model.addAttribute(WebConstants.KEY_RESULT, result);
 		model.addAllAttributes(requestMap);
 	}
@@ -37,7 +36,7 @@ public class SysDictController extends BaseController{
 	@RequestMapping
 	public void detail(SysDictPK pk, Model model){
 		if(pk != null && !pk.isNull()){
-			SysDictValue dict = dictService.get(pk);
+			SysDictValue dict = dictService.getDict(pk);
 			model.addAttribute(WebConstants.KEY_RESULT, dict);
 		}
 	}

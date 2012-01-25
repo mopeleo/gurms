@@ -12,22 +12,20 @@ import org.gurms.entity.system.SysDictValue;
 
 public interface SysDictService {
 
-	public PageResult<SysDictValue> query(Map<String, Object> request, PageRequest page);
+	public PageResult<SysDictValue> queryDict(Map<String, Object> request, PageRequest page);
 	
-	public SysDictValue get(SysDictPK id);
+	public SysDictValue getDict(SysDictPK id);
 	
-//	public List<SysDictValue> getList(int dictitem);
+	public List<SysDictValue> getDict(int dictcode);
 	
 	public Map<String,List<SysDictValue>> getDictMap();
 
 	@GurmsValid(type=SysDictValue.class)
-	public PageResult<SysDictValue> save(SysDictValue dict);
+	public PageResult<SysDictValue> saveDict(SysDictValue dict);
 	
-	public PageResult<SysDictValue> delete(SysDictPK id);
+//	public PageResult<SysDictValue> deleteDict(SysDictPK id);
 	
-//	public SysDictIndex getDictIndex(int dictitem);
-//
+	public SysDictIndex getDictIndex(int dictcode);
+
 	public List<SysDictIndex> getDictIndex();
-//	
-//	public List<SysDictIndex> getDictIndex(String dicttype);
 }

@@ -15,7 +15,6 @@ import org.gurms.entity.system.SysDictIndex;
 import org.gurms.entity.system.SysDictPK;
 import org.gurms.entity.system.SysDictValue;
 import org.gurms.service.system.SysDictService;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,26 +48,31 @@ public class SysDictServiceImpl implements SysDictService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public PageResult<SysDictValue> query(Map<String, Object> request, PageRequest page) {
+	public PageResult<SysDictValue> queryDict(Map<String, Object> request, PageRequest page) {
 		return sysDictValueDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysDictValue get(SysDictPK id) {
+	public SysDictValue getDict(SysDictPK id) {
 		return sysDictValueDao.get(id);
 	}
 
 	@Override
-	public PageResult<SysDictValue> save(SysDictValue dict) {
+	@Transactional(readOnly = true)
+	public List<SysDictValue> getDict(int dictcode) {
+		return sysDictValueDao.findBy("dictcode", dictcode);
+	}
+
+	@Override
+	public PageResult<SysDictValue> saveDict(SysDictValue dict) {
 		PageResult<SysDictValue> result = new PageResult<SysDictValue>();
 		sysDictValueDao.save(dict);
 		result.addResult(dict);
 		return result;
 	}
 
-	@Override
-	public PageResult<SysDictValue> delete(SysDictPK id) {
+	public PageResult<SysDictValue> deleteDict(SysDictPK id) {
 		PageResult<SysDictValue> result = new PageResult<SysDictValue>();
 		sysDictValueDao.delete(id);
 		return result;
@@ -100,7 +104,13 @@ public class SysDictServiceImpl implements SysDictService {
 		return map;
 	}
 
-//	@Override
+	@Override
+	@Transactional(readOnly = true)
+	public SysDictIndex getDictIndex(int dictcode) {
+		return sysDictIndexDao.get(dictcode);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public List<SysDictIndex> getDictIndex() {
 		return sysDictIndexDao.getAll();
