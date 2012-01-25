@@ -81,6 +81,8 @@ public class SysDictServiceImpl implements SysDictService {
 	@Override
 	@Transactional(readOnly = true)
 	public Map<String, List<SysDictValue>> getDictMap() {
+		List<SysDictValue> dicts = sysDictValueDao.getDictByType("1");
+		
 		Map<String, List<SysDictValue>> map = new HashMap<String, List<SysDictValue>>();
 		List<SysDictValue> list = sysDictValueDao.getAll();
 		if(list != null){
