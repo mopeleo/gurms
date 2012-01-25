@@ -43,8 +43,8 @@
 	<cache name="org.gurms.entity.system.SysUser.sysroles" maxElementsInMemory="10000" 
 		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
 
-	<!-- org.gurms.entity.system.SysDict -->
-	<cache name="org.gurms.entity.system.SysDict" maxElementsInMemory="10000" 
+	<!-- org.gurms.entity.system.SysDictValue -->
+	<cache name="org.gurms.entity.system.SysDictValue" maxElementsInMemory="10000" 
 		memoryStoreEvictionPolicy="LRU" eternal="true" diskPersistent="false" overflowToDisk="true" maxElementsOnDisk="1000000" />
 
 </ehcache>
