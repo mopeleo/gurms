@@ -5,7 +5,7 @@
                 <tr>
 					<#list table.keys as key>
                     <td>${key.comment}:</td>
-                    <td><input type="text" name="filter_EQ_${key.code}" value="${'$'}{EQ_${key.code}}"></td>
+                    <td><input type="text" name="filter_EQS_${key.code}" value="${'$'}{EQS_${key.code}}"></td>
 					</#list>
                     <td><input type="button" onclick="search()" class="button" value="查询" /></td>
                 </tr>
