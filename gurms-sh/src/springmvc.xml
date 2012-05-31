@@ -36,7 +36,6 @@
 	<mvc:view-controller path="/welcome" view-name="welcome"/>
 	<mvc:view-controller path="/login" view-name="login"/>
 	
-	
 	<!--使用freemarker的resolver-->
 	<bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
@@ -60,8 +59,13 @@
 	<bean id="freemarkerConfig" class="org.gurms.web.spring.FreeMarkerConfigurerExt">
 		<property name="templateLoaderPath" value="/WEB-INF/ftl/"/> 
 		<property name="freemarkerSettings" ref="freemarkerConfiguration"/>
-	</bean>
+	</bean>	
 	
+	<!-- 指定扩展的配置文件 springmvc-ext.properties-->
+	<bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">  
+	    <property name="order" value="2" />  
+	    <property name="basename" value="springmvc-ext" />  
+	</bean>
 	
 	<!-- 使用JSP 的resolver-->
 	<!-- 
