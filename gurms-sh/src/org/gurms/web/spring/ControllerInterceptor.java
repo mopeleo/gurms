@@ -59,7 +59,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 				
 				//如果是菜单，要把菜单ID传到页面，生成页面按钮权限
 				//权限控制到按钮
-				if("2".equals(GlobalConfig.PRIVILEGE_LEVEL)){
+				if(GlobalConfig.PRIVILEGE_LEVEL_BUTTON.equals(GlobalConfig.PRIVILEGE_LEVEL)){
 					request.setAttribute("button", currUserMenu.getSubmenus());
 				}else{
 					request.setAttribute("button", currentMenu.getSubmenus());
@@ -68,7 +68,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 			//URL类型 是按钮
 			}else if(GlobalParam.DICT_MENUTYPE_BUTTON.equals(currentMenu.getMenutype())){
 				//权限控制到按钮
-				if("2".equals(GlobalConfig.PRIVILEGE_LEVEL)){
+				if(GlobalConfig.PRIVILEGE_LEVEL_BUTTON.equals(GlobalConfig.PRIVILEGE_LEVEL)){
 					if(currUserMenu == null){
 						throw new GurmsException("您没有此权限");
 					}
