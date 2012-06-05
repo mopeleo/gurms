@@ -65,4 +65,22 @@ public class SysLogLogin implements Serializable {
 	public void setSuccess(String success) {
 		this.success = success;
 	}	
+	public boolean equals(Object o) {
+		if (o == null || !(o instanceof SysLogLogin)) {
+			return false;
+		} else {
+			SysLogLogin login = (SysLogLogin) o;
+			if (login.getLogid() == null) {
+				return false;
+			} else {
+				return login.getLogid().equals(logid);
+			}
+		}
+	}
+
+	public int hashCode() {
+		if (logid == null)
+			return super.hashCode();
+		return logid.hashCode();
+	}
 }

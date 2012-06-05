@@ -65,4 +65,22 @@ public class SysLogOperate implements Serializable{
 	public void setRecordid(String recordid) {
 		this.recordid = recordid;
 	}
+	public boolean equals(Object o) {
+		if (o == null || !(o instanceof SysLogOperate)) {
+			return false;
+		} else {
+			SysLogOperate operate = (SysLogOperate) o;
+			if (operate.getLogid() == null) {
+				return false;
+			} else {
+				return operate.getLogid().equals(logid);
+			}
+		}
+	}
+
+	public int hashCode() {
+		if (logid == null)
+			return super.hashCode();
+		return logid.hashCode();
+	}
 }
