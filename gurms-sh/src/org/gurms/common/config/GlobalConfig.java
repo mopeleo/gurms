@@ -15,6 +15,13 @@ public final class GlobalConfig {
 
     public static final String INIT_PASSWORD = getConfig("init_password");
     public static final String PRIVILEGE_LEVEL = getConfig("privilege_level");
+    public static final String PRIVILEGE_LEVEL_MENU = "1";
+    public static final String PRIVILEGE_LEVEL_BUTTON = "2";
+    
+    public static final String FILE_DIR = getConfig("file_dir");
+    public static final String FILE_DIR_MODE = getConfig("file_dir_mode");
+    public static final String FILE_DIR_MODE_RELATIVE = "1";  //相对路径
+    public static final String FILE_DIR_MODE_ABSOLUTE = "2";  //绝对路径
     
     private GlobalConfig() {}
 
