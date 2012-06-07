@@ -12,5 +12,5 @@ public interface SysAccessoryService {
 
 	public PageResult<SysAccessory> save(SysAccessory role);
 	
-	public void delete(long id);
+	public void delete(String id);
 }
