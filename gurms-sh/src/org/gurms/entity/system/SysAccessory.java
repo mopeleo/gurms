@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="sys_log_login")
+@Table(name="sys_accessory")
 public class SysAccessory implements Serializable {
 
 	public String accessoryid;
