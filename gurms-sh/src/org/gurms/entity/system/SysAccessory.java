@@ -19,6 +19,8 @@ public class SysAccessory implements Serializable {
 	public String savepath;
 	public String userid;
 	public String uploaddate;
+	public String accessorytype;
+	public String status;
 	public int downtimes;
 	@Id
 	@GeneratedValue(generator = "uuid")    
@@ -66,6 +68,18 @@ public class SysAccessory implements Serializable {
 		this.downtimes = downtimes;
 	}	
 	
+	public String getAccessorytype() {
+		return accessorytype;
+	}
+	public void setAccessorytype(String accessorytype) {
+		this.accessorytype = accessorytype;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public boolean equals(Object o) {
 		if (o == null || !(o instanceof SysAccessory)) {
 			return false;
