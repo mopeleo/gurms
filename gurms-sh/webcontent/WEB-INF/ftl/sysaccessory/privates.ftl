@@ -7,7 +7,7 @@
                     <td><input type="text" name="filter_LIKES_accessoryname" value="${LIKES_accessoryname}"></td>
                     <td><input type="button" onclick="search()" class="button" value="查询"></td>
                     <td><input type="file" name="filename" class="longinput"></td>
-                    <td><input type="button" onclick="submiturl('mainForm','${base}/fileupload/upload')" class="button" value="上传"></td>
+                    <td><input type="button" onclick="submiturl('mainForm','${base}/sysaccessory/upload')" class="button" value="上传"></td>
                 </tr>
             </table>
 		</@c.searchdiv>

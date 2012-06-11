@@ -17,13 +17,12 @@
 				<#list result.result as accessory>
 					<tr onclick="clickrow(this)">
 						<td>${accessory_index+1}</td>
-						<td>${accessory.accessoryname}</td>
+						<td><a href="${base}/sysaccessory/download?accessoryid=${accessory.accessoryid}">${accessory.accessoryname}</a></td>
 						<td>${accessory.userid}</td>
 						<td>${accessory.uploaddate}</td>
 						<td>${accessory.accessorysize}</td>
 						<td><@c.dictdesc dictcode="8" dictitem="${accessory.accessorysize}" /></td>
 						<td>${accessory.downtimes}</td>
-						<input type="hidden" id="accessoryid" value="${accessory.accessoryid}" />
 					</tr>
 				</#list>
 	    	</@c.listtable>
