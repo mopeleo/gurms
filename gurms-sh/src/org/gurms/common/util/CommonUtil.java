@@ -109,7 +109,7 @@ public class CommonUtil {
 	
 	public static String getFileSuffix(String fileName){
 		if(fileName != null){
-			int index = fileName.lastIndexOf(".");
+			int index = fileName.lastIndexOf(".") + 1;
 			if(index > 0){
 				return fileName.substring(index);
 			}
