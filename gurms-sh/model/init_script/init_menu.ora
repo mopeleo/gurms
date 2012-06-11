@@ -78,7 +78,7 @@ values ('1005001', '¸½¼þÎ¬»¤', 'sysaccessory/privates', '0', '0', '0', '1005', '
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1005001001', 'ÐÞ¸Ä', 'sysaccessory/update', '1', '0', '0', '1005001', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005001002', 'É¾³ý', 'sysaccessory/delete', '1', '1', '1', '1005001', '2', 2);
+values ('1005001002', 'É¾³ý', 'sysaccessory/ajaxDelete', '1', '1', '1', '1005001', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1005002', '¸½¼þÏÂÔØ', 'sysaccessory/publics', '0', '0', '0', '1005', '1', 1);
 
