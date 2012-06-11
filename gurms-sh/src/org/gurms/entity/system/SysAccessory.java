@@ -3,11 +3,8 @@ package org.gurms.entity.system;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="sys_accessory")
@@ -16,15 +13,14 @@ public class SysAccessory implements Serializable {
 	public String accessoryid;
 	public String accessoryname;
 	public String accessorysize;
+	public String accessorytype;
 	public String savepath;
 	public String userid;
 	public String uploaddate;
-	public String accessorytype;
 	public String status;
 	public int downtimes;
+
 	@Id
-	@GeneratedValue(generator = "uuid")    
-	@GenericGenerator(name = "uuid", strategy = "uuid") 
 	public String getAccessoryid() {
 		return accessoryid;
 	}

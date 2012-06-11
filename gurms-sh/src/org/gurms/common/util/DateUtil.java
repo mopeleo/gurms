@@ -81,8 +81,13 @@ public class DateUtil {
 		return pattern.matcher(strDate).matches();
 	}
 	
+	public static String getTimeStamp(){
+		return String.valueOf(System.currentTimeMillis());
+	}
+	
 	public static void main(String[] args) {
 		String s = "2008214";
 		System.out.println(isDate(s));
+		System.out.println(getTimeStamp());
 	}
 }

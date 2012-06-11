@@ -72,6 +72,17 @@ insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, P
 values ('1002003', '系统参数', 'sysparam/list', '0', '0', '0', '1002', '1', 2);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1005', '上传下载', '#', '0', '0', '0', '1', '0', 3);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1005001', '附件维护', 'sysaccessory/privates', '0', '0', '0', '1005', '1', 0);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1005001001', '修改', 'sysaccessory/update', '1', '0', '0', '1005001', '2', 1);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1005001002', '删除', 'sysaccessory/delete', '1', '1', '1', '1005001', '2', 2);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1005002', '附件下载', 'sysaccessory/publics', '0', '0', '0', '1005', '1', 1);
+
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1004', '日志', '#', '0', '0', '0', '1', '0', 3);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1004001', '登录日志', 'syslog/loginlist', '0', '0', '0', '1004', '1', 0);
