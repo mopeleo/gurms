@@ -1,5 +1,8 @@
 package org.gurms.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.gurms.common.config.GlobalConfig;
 import org.gurms.entity.PageResult;
 import org.gurms.web.spring.IntPropertyBinder;
 import org.slf4j.Logger;
@@ -30,5 +33,15 @@ public abstract class BaseController {
 		page.setSuccess(false);
 		page.setReturnmsg(returnmsg);
 		return page;
+	}
+	
+	protected String getPath(HttpServletRequest request){
+		String path = GlobalConfig.FILE_DIR;
+		if(GlobalConfig.FILE_DIR_MODE_RELATIVE.equals(GlobalConfig.FILE_DIR_MODE)){
+			// 获取路径
+			String ctxPath = request.getSession().getServletContext().getRealPath("/");
+			path = ctxPath + path;
+		}
+		return path;
 	}
 }
