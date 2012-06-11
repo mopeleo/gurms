@@ -117,7 +117,7 @@
 	    </div>
 	    
     	<div class="zoomdiv">
-			<table cellpadding="0">
+			<table id="listtable" cellpadding="0">
 				<tr class="tr1">
 					<th class="tdwidth1" id="_index">序号<span class="checktitle"><img onclick="showlist('${id}')" src="${base}/resources/img/checktitle.png" onmouseover="this.src='${base}/resources/img/checktitle1.png'" onmouseout="this.src='${base}/resources/img/checktitle.png'" /></span></th>
 		    		<#list titles as title >
