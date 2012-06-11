@@ -107,12 +107,23 @@ public class CommonUtil {
 		return existSuffix(key, suffix, true);
 	}
 	
+	public static String getFileSuffix(String fileName){
+		if(fileName != null){
+			int index = fileName.lastIndexOf(".");
+			if(index > 0){
+				return fileName.substring(index);
+			}
+		}
+		return "";
+	}
+	
 	public static void main(String[] args) {
 		String[] test = {".jpg",".js"};
 		String lowerkey = "jpg";
-		String upperkey = "a.JPG";
+		String upperkey = "a.a.JPG";
 		
 		System.out.println(existSuffix(upperkey, test));
 		System.out.println(existSuffix(upperkey, test, false));
+		System.out.println(getFileSuffix(upperkey));
 	}
 }
