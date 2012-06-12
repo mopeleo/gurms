@@ -52,7 +52,6 @@ public class SysAccessoryController extends BaseController {
 	 */
 	@RequestMapping
 	public String upload(HttpServletRequest request,HttpServletResponse response){
-
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		CommonsMultipartFile file = (CommonsMultipartFile) multiRequest.getFile("filename");
 
@@ -169,17 +168,14 @@ public class SysAccessoryController extends BaseController {
 	
 	@RequestMapping
 	public void download(HttpServletRequest request, HttpServletResponse response, String accessoryid) {
-
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
 
 		SysAccessory accessory = accessoryService.get(accessoryid);		
 		String ctxPath = accessory.getSavepath();
+		ServletUtil.setFileDownloadHeader(response, accessory.getAccessoryname());
 
 		try {
-			response.setHeader("Content-disposition", "attachment; filename=" 
-					+ new String(accessory.getAccessoryname().getBytes("gb2312"), "ISO8859-1"));
-
 			bis = new BufferedInputStream(new FileInputStream(ctxPath));
 			bos = new BufferedOutputStream(response.getOutputStream());
 			byte[] buff = new byte[2048];
