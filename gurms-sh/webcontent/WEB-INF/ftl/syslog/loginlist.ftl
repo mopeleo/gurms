@@ -9,7 +9,12 @@
                     <td><@c.calendar id="filter_GES_logindate" default="${GES_logindate}" nextdate="filter_LTS_logindate"/></td>
                     <td>登录截止日期:</td>
                     <td><@c.calendar id="filter_LTS_logindate" default="${LTS_logindate}" predate="filter_GES_logindate"/></td>
-                    <td><input type="button" onclick="search()" class="button" value="查询" /></td>
+                    <td>
+                    	<input type="button" onclick="search()" class="button" value="查询" />
+                    	<input type="button" onclick="buttonforward({urlstring:'${base}/syslog/pdf'})" class="button" value="PDF" />
+                    	<input type="button" onclick="buttonforward({urlstring:'${base}/syslog/excel'})" class="button" value="EXCEL" />
+                    	<input type="button" onclick="saveAsExcel('listtable')" class="button" value="导出" />
+                    </td>
                 </tr>
             </table>
 		</@c.searchdiv>
