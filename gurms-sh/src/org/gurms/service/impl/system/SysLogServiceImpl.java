@@ -1,5 +1,6 @@
 package org.gurms.service.impl.system;
 
+import java.util.List;
 import java.util.Map;
 
 import org.gurms.dao.hibernate.system.SysLogLoginDao;
@@ -51,4 +52,15 @@ public class SysLogServiceImpl implements SysLogService{
 		return sysLogOperateDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<SysLogLogin> queryLogin(Map<String, Object> request) {
+		return sysLogLoginDao.find(PropertyFilter.buildFromRequestMap(request));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<SysLogOperate> queryOperate(Map<String, Object> request) {
+		return sysLogOperateDao.find(PropertyFilter.buildFromRequestMap(request));
+	}
 }
