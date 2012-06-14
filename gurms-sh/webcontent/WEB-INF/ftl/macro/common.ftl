@@ -266,11 +266,7 @@
 </#macro> 
 
 
-<#macro dictdesc dictcode dictitem>  
-	<#list context_dict[dictcode] as dict>
-		<#if dict.dictitem==dictitem>${dict.itemname}</#if>
-	</#list>
-</#macro> 
+<#macro dictdesc dictcode dictitem><#list context_dict[dictcode] as dict><#if dict.dictitem==dictitem>${dict.itemname}<#break></#if></#list></#macro> 
 
 
 <#macro dict id dictcode default="" nullable=false>  
