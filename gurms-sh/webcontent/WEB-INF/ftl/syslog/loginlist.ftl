@@ -11,8 +11,8 @@
                     <td><@c.calendar id="filter_LTS_logindate" default="${LTS_logindate}" predate="filter_GES_logindate"/></td>
                     <td>
                     	<input type="button" onclick="search()" class="button" value="查询" />
-                    	<input type="button" onclick="buttonforward({urlstring:'${base}/syslog/pdf'})" class="button" value="PDF" />
-                    	<input type="button" onclick="buttonforward({urlstring:'${base}/syslog/excel'})" class="button" value="EXCEL" />
+                    	<input type="button" onclick="submiturl('mainForm','${base}/syslog/pdf')" class="button" value="PDF" />
+                    	<input type="button" onclick="submiturl('mainForm','${base}/syslog/excel')" class="button" value="EXCEL" />
                     	<input type="button" onclick="saveAsExcel('listtable')" class="button" value="导出" />
                     </td>
                 </tr>
@@ -20,7 +20,7 @@
 		</@c.searchdiv>
 		
 	    <div class="contect">
-	    	<#assign titles=["用户ID","登录日期","登录时间","登录密码","登录IP","是否成功"]>
+	    	<#assign titles=bundle("5000").split(",")>
 	    	<#assign props=["userid","logindate","logintime","loginpassword","loginip","success"]>
 	 	    <@c.listtable titles=titles props=props rows=result.result?size>
 				<#list result.result as log>

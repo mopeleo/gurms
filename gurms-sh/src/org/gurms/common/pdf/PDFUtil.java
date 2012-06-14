@@ -10,7 +10,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public abstract class PDFUtil {
-	public void createDocument(OutputStream os){
+	public void createPdf(OutputStream os){
 		Document document = new Document(PageSize.A4);
 		try {
 			PdfWriter.getInstance(document, os);
