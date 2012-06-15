@@ -3,13 +3,17 @@ package org.gurms.common.excel;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.Iterator;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.gurms.common.exception.GurmsException;
 
 public abstract class ExcelUtil {
@@ -89,7 +93,73 @@ public abstract class ExcelUtil {
 
 		return value;
 	}
+	
+	public static Cell setCellValue(Sheet sheet, int row, int col, Object value){
+		Cell cell = getCell(sheet, row, col);
+		if(value == null){
+			cell.setCellValue("");
+			return cell;
+		}
+		Class clz = value.getClass();
+		if (clz == int.class || clz == Integer.class) {
+			cell.setCellValue((Integer)value);;
+		} else if (clz == long.class || clz == Long.class) {
+			cell.setCellValue((Long)value);;
+		} else if (clz == float.class || clz == Float.class) {
+			cell.setCellValue((Float)value);;
+		} else if (clz == double.class || clz == Double.class) {
+			cell.setCellValue((Double)value);;
+		} else if (clz == boolean.class || clz == Boolean.class) {
+			cell.setCellValue((Boolean)value);;
+		} else if (clz == BigDecimal.class || clz == BigDecimal.class) {
+			cell.setCellValue(((BigDecimal)value).doubleValue());;
+		} else if (clz == String.class || clz == String.class) {
+			String cellStr = (String)value;
+			if(cellStr.length() >= 32766){
+				cellStr = cellStr.substring(0, 32765);
+			}
+			cell.setCellValue(new HSSFRichTextString(cellStr));;
+		} else {
+			cell.setCellValue(new HSSFRichTextString(value.toString()));;
+		}
+		
+		return cell;
+	}
 
+	public static void deleteRow(Sheet sheet, int row){
+		sheet.shiftRows(row, sheet.getLastRowNum(), -1);
+	}
+	
+	/**
+	 * 拷贝行粘帖到指定位置。
+	 * @param sheet
+	 * @param sourceRow 源行号
+	 * @param targetRow 目标行号
+	 * @return targetrow 目标行对象
+	 */
+	public Row copyAndInsertRow(Sheet sheet, int sourceRow, int targetRow){
+		sheet.shiftRows(targetRow, sheet.getLastRowNum(), 1);
+		
+		Row srcRow = sheet.getRow(sourceRow);
+		Row newRow = sheet.getRow(targetRow);
+		newRow.setHeight(srcRow.getHeight());
+		
+		int j = 0;
+		for (Iterator<Cell> it = srcRow.cellIterator(); it.hasNext();) {
+			Cell cell = it.next();
+			Cell newCell = newRow.createCell(j++);
+			newCell.setCellStyle(cell.getCellStyle());
+		}
+		
+		for(int i = 0; i < sheet.getNumMergedRegions(); i++){
+			CellRangeAddress region = sheet.getMergedRegion(i);
+			if(region.getFirstRow() == srcRow.getRowNum() && region.getLastRow() == region.getFirstRow()){
+				sheet.addMergedRegion(new CellRangeAddress(targetRow, region.getFirstColumn(), targetRow, region.getLastColumn()));
+			}
+		}
+		return newRow;
+	}
+	
 	//cellString 单元格坐标字符串，例如：A12，AB3等，col+row
 	public static ExcelPoint parseCellPoint(String cellPoint) {
 		char[] chars = cellPoint.toCharArray();
