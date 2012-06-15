@@ -7,9 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.gurms.common.config.GlobalMessage;
 import org.gurms.common.config.GlobalParam;
+import org.gurms.common.excel.ExcelCreate;
 import org.gurms.common.excel.ExcelUtil;
 import org.gurms.common.pdf.PDFUtil;
 import org.gurms.entity.PageRequest;
@@ -108,27 +109,27 @@ public class SysLogController extends BaseController {
 		ServletUtil.setFileDownloadHeader(response, "SysLogLogin.xls");
 		
 		try {
-			new ExcelUtil(){
-				public void buildContent(HSSFSheet sheet){
+			new ExcelCreate(){
+				public void buildContent(Sheet sheet){
 					String title = GlobalMessage.getMessage("5000");
 					String[] titles = title.split(GlobalParam.STRING_SEPARATOR);
 					
 					//title
-					getCell(sheet, 0, 0).setCellValue("序号");
+					ExcelUtil.getCell(sheet, 0, 0).setCellValue("序号");
 					for(int i = 0; i < titles.length; i++){
-						getCell(sheet, 0, i + 1).setCellValue(titles[i]);
+						ExcelUtil.getCell(sheet, 0, i + 1).setCellValue(titles[i]);
 					}
 					//content
 					for(int i = 0; i < result.size(); i++){
 						SysLogLogin log = result.get(i);
 						int row = i + 1;
-						getCell(sheet, row, 0).setCellValue(row);
-						getCell(sheet, row, 1).setCellValue(log.getUserid());
-						getCell(sheet, row, 2).setCellValue(log.getLogindate());
-						getCell(sheet, row, 3).setCellValue(log.getLogintime());
-						getCell(sheet, row, 4).setCellValue(log.getLoginpassword());
-						getCell(sheet, row, 5).setCellValue(log.getLoginip());
-						getCell(sheet, row, 6).setCellValue(log.getSuccess());
+						ExcelUtil.getCell(sheet, row, 0).setCellValue(row);
+						ExcelUtil.getCell(sheet, row, 1).setCellValue(log.getUserid());
+						ExcelUtil.getCell(sheet, row, 2).setCellValue(log.getLogindate());
+						ExcelUtil.getCell(sheet, row, 3).setCellValue(log.getLogintime());
+						ExcelUtil.getCell(sheet, row, 4).setCellValue(log.getLoginpassword());
+						ExcelUtil.getCell(sheet, row, 5).setCellValue(log.getLoginip());
+						ExcelUtil.getCell(sheet, row, 6).setCellValue(log.getSuccess());
 					}
 				}}.createExcel(response.getOutputStream());
 		} catch (IOException e) {
