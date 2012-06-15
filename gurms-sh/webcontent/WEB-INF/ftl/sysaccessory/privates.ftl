@@ -6,8 +6,6 @@
                     <td>附件名称:</td>
                     <td><input type="text" name="filter_LIKES_accessoryname" value="${LIKES_accessoryname}"></td>
                     <td><input type="button" onclick="search()" class="button" value="查询"></td>
-                    <td><input type="file" name="filename" class="longinput"></td>
-                    <td><input type="button" onclick="submiturl('mainForm','${base}/sysaccessory/upload')" class="button" value="上传"></td>
                 </tr>
             </table>
 		</@c.searchdiv>
@@ -30,18 +28,20 @@
 				</#list>
 	    	</@c.listtable>
 			
-        	<@c.bottomdiv params="accessoryid" />
+        	<@c.bottomdiv params="accessoryid">
+        	  <input type="button" class="button" value="上传" onclick="new Dialog({type:'id',value:'new_accessory'},{confirmButton:false}).show()"/>
+        	</@c.bottomdiv>
         </div>
 			
 	</form>
 
 <p style="display:none"><textarea id="new_accessory" rows="0" cols="0">
-	<form action="${base}/sysaccessory/upload" method="post" enctype="multipart/form-data">
+	<form action="${base}/sysaccessory/multiUpload" method="post" enctype="multipart/form-data">
         <div class="messagetable">
             <table>
                 <tr>
                     <td class="tdwidth2">类型</td>
-                    <td class="dialogtd"><@c.select id="dictcode" options=context_dicttype key="dictcode" value="dictname" nullable=true /></td>
+                    <td class="dialogtd"><@c.dict id="status" dictcode="6"/></td>
                 </tr>
                 <tr>
                     <td class="tdwidth2">附件</td>

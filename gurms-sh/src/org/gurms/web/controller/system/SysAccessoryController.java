@@ -108,6 +108,7 @@ public class SysAccessoryController extends BaseController {
 	public String upload(HttpServletRequest request, HttpServletResponse response) {
 		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 		MultipartFile file = multiRequest.getFile("filename");
+		String status = request.getParameter("status");
 
 		// 获取路径
 		String ctxPath = getPath(request);
@@ -126,7 +127,7 @@ public class SysAccessoryController extends BaseController {
 			accessory.setAccessorysize(file.getSize() / 1024 + "KB");
 			accessory.setAccessorytype("1");
 			accessory.setSavepath(fullPath);
-			accessory.setStatus(GlobalParam.DICT_ROLETYPE_PUBLIC);
+			accessory.setStatus(status);
 			accessory.setUploaddate(DateUtil.getCurrentDate());
 			SysUser user = (SysUser) request.getSession().getAttribute(WebConstants.S_KEY_USER);
 			accessory.setUserid(user.getUserid());
@@ -140,9 +141,10 @@ public class SysAccessoryController extends BaseController {
 
 	// 多文件上传
 	@RequestMapping
-	public void multiUpload(HttpServletRequest request, HttpServletResponse response) {
+	public String multiUpload(HttpServletRequest request, HttpServletResponse response) {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		String status = request.getParameter("status");
 		String ctxPath = getPath(request);
 
 		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -162,7 +164,7 @@ public class SysAccessoryController extends BaseController {
 				accessory.setAccessorysize(file.getSize() / 1024 + "KB");
 				accessory.setAccessorytype("1");
 				accessory.setSavepath(fullPath);
-				accessory.setStatus(GlobalParam.DICT_ROLETYPE_PUBLIC);
+				accessory.setStatus(status);
 				accessory.setUploaddate(DateUtil.getCurrentDate());
 				SysUser user = (SysUser) request.getSession().getAttribute(WebConstants.S_KEY_USER);
 				accessory.setUserid(user.getUserid());
@@ -171,6 +173,7 @@ public class SysAccessoryController extends BaseController {
 				e.printStackTrace();
 			}
 		}
+		return redirect(ACCESSORY_PRIVATE);
 	}
 
 	@RequestMapping
