@@ -101,14 +101,12 @@ public abstract class ExcelUtil {
 		}
 		int row = Integer.parseInt(cellPoint.substring(i));
 		String colString = cellPoint.substring(0, i);
-		int col = colString2Number(colString);
 		
 		ExcelPoint point = new ExcelPoint();
-		point.setColString(colString);
 		point.setDisplayRow(row);
 		point.setRealRow(row - 1);
-		point.setDisplayCol(col);
-		point.setRealCol(col - 1);
+		point.setDisplayCol(colString);
+		point.setRealCol(colString2Number(colString) - 1);
 		return point;
 	}
 

@@ -2,11 +2,10 @@ package org.gurms.common.excel;
 
 public class ExcelPoint {
 
-	private int displayRow;
 	private int realRow;
-	private int displayCol;
+	private int displayRow;
 	private int realCol;
-	private String colString;
+	private String displayCol;
 
 	public int getDisplayRow() {
 		return displayRow;
@@ -24,14 +23,6 @@ public class ExcelPoint {
 		this.realRow = realRow;
 	}
 
-	public int getDisplayCol() {
-		return displayCol;
-	}
-
-	public void setDisplayCol(int displayCol) {
-		this.displayCol = displayCol;
-	}
-
 	public int getRealCol() {
 		return realCol;
 	}
@@ -40,11 +31,11 @@ public class ExcelPoint {
 		this.realCol = realCol;
 	}
 
-	public String getColString() {
-		return colString;
+	public String getDisplayCol() {
+		return displayCol;
 	}
 
-	public void setColString(String colString) {
-		this.colString = colString;
+	public void setDisplayCol(String displayCol) {
+		this.displayCol = displayCol;
 	}
 }
