@@ -10,7 +10,7 @@ public interface SysAccessoryService {
 	
 	public PageResult<SysAccessory> query(Map<String, Object> request, PageRequest page);
 
-	public PageResult<SysAccessory> save(SysAccessory role);
+	public PageResult<SysAccessory> save(SysAccessory accessory);
 	
 	public void delete(String id);
 	
