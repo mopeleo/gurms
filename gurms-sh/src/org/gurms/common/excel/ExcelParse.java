@@ -1,45 +1,20 @@
 package org.gurms.common.excel;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.gurms.common.exception.GurmsException;
 import org.gurms.common.util.ReflectionUtil;
 import org.gurms.entity.system.SysLogLogin;
 
 public class ExcelParse {
-
-	public Workbook getExcelWorkbook(String filePath) throws IOException {
-		InputStream is = new FileInputStream(filePath);
-		return getExcelWorkbook(is);
-	}
-
-	public Workbook getExcelWorkbook(InputStream is) throws IOException {
-		return new HSSFWorkbook(is);
-	}
-	
-	public Sheet getSheet(Workbook workbook, int sheetIndex){
-		// 获取sheet页数
-		int sheetNum = workbook.getNumberOfSheets();
-		if (sheetIndex > sheetNum) {
-			throw new GurmsException("错误的Sheet序号");
-		}
-
-		// 获取sheet
-		return workbook.getSheetAt(sheetIndex);
-	}
 
 	public List<Map<String, Object>> parseSheet(Sheet sheet){
 		return parseSheet(sheet, 0, 0);
@@ -74,8 +49,8 @@ public class ExcelParse {
 							continue;
 						}
 						
-						String cellKey = colNumber2String(colIndex) + (rowIndex + 1);
-						Object cellValue = getCellValue(cell);
+						String cellKey = ExcelUtil.colNumber2String(colIndex) + (rowIndex + 1);
+						Object cellValue = ExcelUtil.getCellValue(cell);
 						cellMap.put(cellKey, cellValue);
 					}
 					sheetData.add(cellMap);
@@ -125,7 +100,7 @@ public class ExcelParse {
 							}
 							
 							String cellKey = props[colIndex - startCol];
-							Object cellValue = getCellValue(cell);
+							Object cellValue = ExcelUtil.getCellValue(cell);
 							ReflectionUtil.setFieldValue(bean, cellKey, cellValue);
 						}
 						sheetData.add(bean);
@@ -139,78 +114,10 @@ public class ExcelParse {
 		return sheetData;
 	}
 
-	public Object getCellValue(Cell cell) {
-		Object value = null;
-		switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_NUMERIC: // 数字
-				if (HSSFDateUtil.isCellDateFormatted(cell)) {
-					// 如果是date类型则 ，获取该cell的date值
-					value = HSSFDateUtil.getJavaDate(cell.getNumericCellValue()).toString();
-				} else { // 纯数字
-					value = String.valueOf(cell.getNumericCellValue());
-				}
-				break;
-			case Cell.CELL_TYPE_STRING: // 字符串
-				value = cell.getStringCellValue();
-				break;
-			case Cell.CELL_TYPE_BOOLEAN: // Boolean
-				value = Boolean.toString(cell.getBooleanCellValue());
-				break;
-			case Cell.CELL_TYPE_FORMULA: // 公式
-				value = cell.getCellFormula();
-				break;
-			case Cell.CELL_TYPE_BLANK: // 空值
-				value = "";
-				break;
-			case Cell.CELL_TYPE_ERROR: // 故障
-				value = Byte.toString(cell.getErrorCellValue());
-				break;
-			default:
-				value = "未知类型 ";
-				break;
-		}
-
-		return value;
-	}
-
-	public static String[] splitCellString(String cellString) {
-		char[] chars = cellString.toCharArray();
-		int i = 0;
-		for (; i < chars.length; i++) {
-			if (Character.isDigit(chars[i])) {
-				break;
-			}
-		}
-		
-		return new String[]{cellString.substring(i), cellString.substring(0, i)};
-	}
-
-	public static int colString2Number(String colString) {
-		char[] chars = colString.toLowerCase().toCharArray();
-		int cellNum = 0;
-		int j = 0;
-		for (int i = chars.length - 1; i >= 0; i--) {
-			cellNum += (chars[i] - 'a' + 1) * Math.pow(26, j);
-			j++;
-		}
-
-		return cellNum;
-	}
-
-	public static String colNumber2String(int colNum) {
-		String colName = "";
-		do {
-			char c = (char) (colNum % 26 + 'A');
-			colName = c + colName;
-			colNum = colNum / 26 - 1;
-		} while (colNum >= 0);
-		return colName;
-	}
-
 	public static void main(String[] args) throws IOException {
 		ExcelParse parse = new ExcelParse();
-		Workbook book = parse.getExcelWorkbook("d:/020014403038429J20113Z000.xls");
-		Sheet sheet = parse.getSheet(book, 0);
+		Workbook book = ExcelUtil.getWorkbook("d:/020014403038429J20113Z000.xls");
+		Sheet sheet = ExcelUtil.getSheet(book, 0);
 		List<Map<String, Object>> list = parse.parseSheet(sheet);
 		for(int i = 0; i < list.size(); i++){
 			Map<String, Object> map = list.get(i);
@@ -221,9 +128,9 @@ public class ExcelParse {
 			}
 		}
 		
-		Workbook book2 = parse.getExcelWorkbook("d:/SysLogLogin.xls");
+		Workbook book2 = ExcelUtil.getWorkbook("d:/SysLogLogin.xls");
 		String[] props = {"userid","logindate","logintime","loginpassword","loginip","success"};
-		Sheet sheet2 = parse.getSheet(book2, 0);
+		Sheet sheet2 = ExcelUtil.getSheet(book2, 0);
 		List<SysLogLogin> list2 = parse.parseSheet(sheet2,0,1, SysLogLogin.class, props);
 		for(int i = 0; i < list2.size(); i++){
 			SysLogLogin log = list2.get(i);
