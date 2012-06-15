@@ -51,6 +51,11 @@ public abstract class ExcelUtil {
 		return cell;
 	}
 	
+	public static Cell getCell(Sheet sheet, String colRow){
+		ExcelPoint point = parseCellPoint(colRow);
+		return getCell(sheet, point.getRealRow(), point.getRealCol());
+	}
+	
 	public static Object getCellValue(Cell cell) {
 		Object value = null;
 		switch (cell.getCellType()) {
@@ -85,16 +90,26 @@ public abstract class ExcelUtil {
 		return value;
 	}
 
-	public static String[] splitCellString(String cellString) {
-		char[] chars = cellString.toCharArray();
+	//cellString 单元格坐标字符串，例如：A12，AB3等，col+row
+	public static ExcelPoint parseCellPoint(String cellPoint) {
+		char[] chars = cellPoint.toCharArray();
 		int i = 0;
 		for (; i < chars.length; i++) {
 			if (Character.isDigit(chars[i])) {
 				break;
 			}
 		}
+		int row = Integer.parseInt(cellPoint.substring(i));
+		String colString = cellPoint.substring(0, i);
+		int col = colString2Number(colString);
 		
-		return new String[]{cellString.substring(i), cellString.substring(0, i)};
+		ExcelPoint point = new ExcelPoint();
+		point.setColString(colString);
+		point.setDisplayRow(row);
+		point.setRealRow(row - 1);
+		point.setDisplayCol(col);
+		point.setRealCol(col - 1);
+		return point;
 	}
 
 	public static int colString2Number(String colString) {
@@ -117,5 +132,9 @@ public abstract class ExcelUtil {
 			colNum = colNum / 26 - 1;
 		} while (colNum >= 0);
 		return colName;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(colString2Number("A"));
 	}
 }
