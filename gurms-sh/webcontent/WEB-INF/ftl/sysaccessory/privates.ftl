@@ -1,5 +1,5 @@
 <@c.html title="附件列表">
-	<form id="mainForm" name="mainForm" action="${base}/sysaccessory/privates" method="post" enctype="multipart/form-data">
+	<form id="mainForm" name="mainForm" action="${base}/sysaccessory/privates" method="post">
 		<@c.searchdiv>
             <table>
                 <tr>
@@ -34,4 +34,33 @@
         </div>
 			
 	</form>
+
+<p style="display:none"><textarea id="new_accessory" rows="0" cols="0">
+	<form action="${base}/sysaccessory/upload" method="post" enctype="multipart/form-data">
+        <div class="messagetable">
+            <table>
+                <tr>
+                    <td class="tdwidth2">类型</td>
+                    <td class="dialogtd"><@c.select id="dictcode" options=context_dicttype key="dictcode" value="dictname" nullable=true /></td>
+                </tr>
+                <tr>
+                    <td class="tdwidth2">附件</td>
+                    <td><input type="file" name="filename" class="longinput"></td>
+                </tr>
+            </table>
+        </div>                    
+        <div class="messagetable messageOK">
+            <table>
+                <tr>
+                    <td class="tdwidth2"></td>
+                    <td>
+						<input type="submit" class="button" value="保存" />
+						<input type="reset" class="button" value="重置"/>
+					</td>
+				</tr>
+			</table>
+        </div>
+	</form>
+</textarea></p>
+	
 </@c.html>
