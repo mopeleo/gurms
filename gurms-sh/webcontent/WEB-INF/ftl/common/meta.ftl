@@ -11,7 +11,7 @@
 <link href="${base}/resources/css/treeview/jquery.treeview.css" type="text/css" rel="stylesheet"/>
 <link href="${base}/resources/css/lhgcalendar/lhgcalendar.css" type="text/css" rel="stylesheet"/>
 
-<script src="${base}/resources/js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="${base}/resources/js/jquery.min.js" type="text/javascript"></script>
 <script src="${base}/resources/js/jquery.treeview.js" type="text/javascript"></script>
 <script src="${base}/resources/js/jquery.treeview.edit.js" type="text/javascript"></script>
 <script src="${base}/resources/js/jquery.treeview.async.js" type="text/javascript"></script>
