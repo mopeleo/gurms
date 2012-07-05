@@ -33,7 +33,7 @@
 	</context:component-scan>
 
 	<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="gurmsDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<!-- Connection Info -->
 		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
 		<property name="url" value="${hibernate.connection.url}" />
@@ -50,6 +50,40 @@
 		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
 		<property name="minEvictableIdleTimeMillis" value="3600000" />
 	</bean>
+
+	<!-- activiti数据源 -->
+	<bean id="activitiDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${activiti.connection.driver_class}" />
+		<property name="url" value="${activiti.connection.url}" />
+		<property name="username" value="${activiti.connection.username}" />
+		<property name="password" value="${activiti.connection.password}" />
+
+		<!-- Connection Pooling DBCP -->
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="80" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="1000" />
+		<property name="poolPreparedStatements" value="true" />
+		<property name="defaultAutoCommit" value="false" />
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="3600000" />
+	</bean>
+
+	<!-- 多数据源 -->
+	<bean id="dataSource" class="org.gurms.dao.datasource.DynamicDataSource">
+	    <!-- 通过key-value的形式来关联数据源 -->
+	    <property name="targetDataSources">
+	        <map key-type="java.lang.String">
+	            <entry key="gurms" value-ref="gurmsDataSource"></entry>
+	            <entry key="activiti" value-ref="activitiDataSource"></entry>
+	        </map>
+	    </property>
+	    <property name="defaultTargetDataSource" ref="gurmsDataSource"/>
+	</bean>
+
+	<!-- 数据源配置,使用应用服务器的数据库连接池 -->
+	<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" />-->
 
 	<!-- Hibernate配置 -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -107,5 +141,5 @@
 
 	<!-- 使用annotation定义事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-
+	
 </beans>
