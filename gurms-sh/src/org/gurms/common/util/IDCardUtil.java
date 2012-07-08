@@ -59,7 +59,7 @@ public class IDCardUtil {
 		}
 		
 		//身份证地区编码错误
-		Hashtable<?, ?> h = getAreaCode();
+		Hashtable<?, ?> h = getIDCardAreaCode();
 		if (h.get(Ai.substring(0, 2)) == null) {
 			return false;
 		}
@@ -88,16 +88,16 @@ public class IDCardUtil {
 		return idcard17;
 	}
 	
-	private static String getLastCharAtIdCard(String idcard17){
-		int totalmulAiWi = 0;
-		for (int i = 0; i < 17; i++) {
-			totalmulAiWi += Integer.parseInt(String.valueOf(idcard17.charAt(i)))* Wi[i];
+	public static String getIDCardArea(String idcard){
+		if(!validateIDCard(idcard)){
+			throw new GurmsException("错误的身份证号码");
 		}
-		int modValue = totalmulAiWi % 11;
-		return ValCodeArr[modValue];
+		
+		String areaCode = idcard.substring(0, 2);
+		return getIDCardAreaCode().get(areaCode);		
 	}
 	
-	private static Hashtable<String, String> getAreaCode() {
+	public static Hashtable<String, String> getIDCardAreaCode() {
 		Hashtable<String, String> hashtable = new Hashtable<String, String>();
 		hashtable.put("11", "北京");
 		hashtable.put("12", "天津");
@@ -137,9 +137,32 @@ public class IDCardUtil {
 		
 		return hashtable;
 	}
+
+	public static String getIDCardBirthday(String idcard){
+		if(!validateIDCard(idcard)){
+			throw new GurmsException("错误的身份证号码");
+		}
+		
+		if(idcard.length() == 15){
+			idcard = get18IDCard(idcard);
+		}
+		
+		return idcard.substring(6, 14);
+	}
+	
+	private static String getLastCharAtIdCard(String idcard17){
+		int totalmulAiWi = 0;
+		for (int i = 0; i < 17; i++) {
+			totalmulAiWi += Integer.parseInt(String.valueOf(idcard17.charAt(i)))* Wi[i];
+		}
+		int modValue = totalmulAiWi % 11;
+		return ValCodeArr[modValue];
+	}
 	
 	public static void main(String[] args) {
-		String idcard = "111111111111111111";
+		String idcard = "111111111111111";
 		System.out.println(validateIDCard(idcard));
+		System.out.println(getIDCardArea(idcard));
+		System.out.println(getIDCardBirthday(idcard));
 	}
 }
