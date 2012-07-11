@@ -18,7 +18,7 @@ import org.hibernate.annotations.FetchMode;
 <#assign id_is_string=true>
 <#if table.keys[0].datatype?contains("CHAR")><#else><#assign id_is_string=false></#if>
 
-<#macro type datatype precision><#if datatype?contains("CHAR")>String<#elseif datatype=="INT">int<#elseif precision?exists>double<#else>long</#if></#macro>
+<#macro type datatype precision><#if datatype?contains("CHAR")>String<#elseif datatype=="INT">int<#elseif precision != "">double<#else>long</#if></#macro>
 @Entity
 @Table(name = "${table.code}")
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
