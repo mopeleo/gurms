@@ -7,7 +7,7 @@
 
 <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
 <link href="resources/css/livevalidation.css" rel="stylesheet" type="text/css"/>
-<script src="resources/js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="resources/js/jquery.min.js" type="text/javascript"></script>
 <script src="resources/js/jquery.form.js" type="text/javascript"></script>
 <script src="resources/js/md5.js" type="text/javascript"></script>
 <script src="resources/js/common.js" type="text/javascript"></script>
