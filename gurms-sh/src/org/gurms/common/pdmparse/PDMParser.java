@@ -56,7 +56,11 @@ public class PDMParser {
 				table.setCode(elementCode.getTextTrim().toLowerCase());
 
 				Element elementCommont = elementTable.element(ELEMENT_COMMENT);
-				table.setComment(elementCommont.getTextTrim());
+				if(elementCommont == null){
+					table.setComment(elementName.getTextTrim());
+				}else{
+					table.setComment(elementCommont.getTextTrim());
+				}
 				
 				//解析c:PrimaryKey节点
 				Element elementPK = elementTable.element(ELEMENT_PRIMARYKEY).element(ELEMENT_KEY);
@@ -98,13 +102,21 @@ public class PDMParser {
 					column.setCode(elementCode.getTextTrim().toLowerCase());
 
 					elementCommont = elementColumn.element(ELEMENT_COMMENT);
-					column.setComment(elementCommont.getTextTrim());
+					if(elementCommont == null){
+						column.setComment(elementName.getTextTrim());
+					}else{
+						column.setComment(elementCommont.getTextTrim());
+					}
 
 					Element elementDataType = elementColumn.element(ELEMENT_DATATYPE);
 					column.setDatatype(elementDataType.getTextTrim());
 
 					Element elementLength = elementColumn.element(ELEMENT_LENGTH);
-					column.setLength(elementLength.getTextTrim());
+					if(elementLength == null){
+						column.setLength("");
+					}else{
+						column.setLength(elementLength.getTextTrim());
+					}
 
 					Element elementPrecision = elementColumn.element(ELEMENT_PRECISION);
 					if(elementPrecision == null){

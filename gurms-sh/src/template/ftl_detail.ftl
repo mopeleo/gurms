@@ -11,7 +11,7 @@
                 <table>
 					<#list table.columns as column>
                     <tr>
-                        <td class="tdwidth2">${column.comment}</td>
+                        <td class="tdwidth2">${column.name}</td>
                         <td><input type="text" name="${column.code}" id="${column.code}" value="${'$'}{result.${column.code}}" /></td>
                     </tr>
 					</#list>
@@ -20,7 +20,7 @@
                 <table>
 					<#list table.columns as column>
                     <tr>
-                        <td class="tdwidth2">${column.comment}</td>
+                        <td class="tdwidth2">${column.name}</td>
                         <td><input type="text" name="${column.code}" id="${column.code}"/></td>
                     </tr>
 					</#list>
