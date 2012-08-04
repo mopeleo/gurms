@@ -21,6 +21,7 @@
 				$("head").append(data); //alert(data);
 			  }
 		);
+		genValidcode();
 	});
 
 	function preSubmit(formData){
