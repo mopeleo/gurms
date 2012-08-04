@@ -73,8 +73,7 @@ public class ${entity}Controller extends BaseController {
 	public PageResult ajaxDelete(String id){
 		PageResult page = null;
 		try{
-			${service}.delete(id);
-			page = new PageResult();
+			page = ${service}.delete(id);
 		}catch(Exception e){
 			page = processException(e, "删除数据出错");
 		}
