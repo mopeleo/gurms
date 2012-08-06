@@ -289,6 +289,13 @@ function Dialog(content, options)
         if(undefined != options.beforeHide && !options.beforeHide())
         {   return;  }
 
+    	if(typeof(options.confirmFunc) != 'undefined' && options.confirmFunc instanceof Function){
+    		var funcres = options.confirmFunc(options.confirmParam);
+    		if(funcres == false){
+    			return false;
+    		}
+    	}
+    	
         dialog.fadeOut('slow',function(){
             if(undefined != options.afterHide){   options.afterHide(); }
         });
@@ -298,10 +305,6 @@ function Dialog(content, options)
 
         isShow = false;
         
-    	if(typeof(options.confirmFunc) != 'undefined' && options.confirmFunc instanceof Function){
-    		options.confirmFunc(options.confirmParam);
-    	}
-    	
         forward();
     }
     
