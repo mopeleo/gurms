@@ -211,7 +211,7 @@ function Dialog(content, options)
                 div.css("height",402);
         	    dialog.css("width",800);
         	    dialog.css("height",450);
-        	    dialog.find("#_buttom").hide();
+//        	    dialog.find("#_buttom").hide();
                 break;
             case 'text':
             default:
