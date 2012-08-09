@@ -39,14 +39,57 @@ public class DateUtil {
 		return Calendar.getInstance().get(Calendar.YEAR);
 	}
 	
+	/**
+	 * 
+	 * @param date  ：格式为YYYYMMDD的日期字符串
+	 * @param num ： 要加减的数字，可为负
+	 * @param arithtype ： 要加减的类型，1天、2月、3年
+	 * @return
+	 * @throws ParseException 
+	 */
+	private static String dateArith(String date, int num, int arithtype) throws ParseException{
+		Date d = parseDate(pattern_date, date);
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		switch(arithtype){
+			case 1:
+				c.add(Calendar.DAY_OF_MONTH, num);
+				break;
+			case 2:
+				c.add(Calendar.MONTH, num);
+				break;
+			case 3:
+				c.add(Calendar.YEAR, num);
+				break;
+			default:
+				break;
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf.applyPattern(pattern_date);
+		return sdf.format(c.getTime());
+	}
+	
+	public static String addYear(String date, int year) throws ParseException{
+		return dateArith(date, year, 3);
+	}
+
 	public static int getCurrentMonth(){
 		return Calendar.getInstance().get(Calendar.MONTH);
 	}
 	
+	public static String addMonth(String date, int month) throws ParseException{
+		return dateArith(date, month, 2);
+	}
+
 	public static int getCurrentDay(){
 		return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 	}
 	
+	public static String addDay(String date, int day) throws ParseException{
+		return dateArith(date, day, 1);
+	}
+
 	public static String getCurrentTime(String pattern){
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf.applyPattern(pattern);
@@ -85,9 +128,9 @@ public class DateUtil {
 		return String.valueOf(System.currentTimeMillis());
 	}
 	
-	public static void main(String[] args) {
-		String s = "2008214";
+	public static void main(String[] args) throws ParseException {
+		String s = "20080229";
 		System.out.println(isDate(s));
-		System.out.println(getTimeStamp());
+		System.out.println(addDay(s, 3));
 	}
 }
