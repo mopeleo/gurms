@@ -7,6 +7,7 @@ import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageRequest.Sort;
 import org.gurms.entity.system.SysDictValue;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,5 +26,9 @@ public class SysDictValueDao extends HibernateDao<SysDictValue> {
 	
 	public List<SysDictValue> getDictByType(String dicttype){
 		return createQuery(GET_DICT_BY_TYPE, dicttype).list();
+	}
+	
+	public List<SysDictValue> getAll(){
+		return getSession().createCriteria(SysDictValue.class).addOrder(Order.asc("dictorder")).list();
 	}
 }

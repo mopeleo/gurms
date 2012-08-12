@@ -60,7 +60,7 @@ public class SysMenu implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "parentmenu")
-	@OrderBy(value = "menuorder")
+	@OrderBy(value = "menuorder asc")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	public List<SysMenu> getSubmenus() {
 		return submenus;
