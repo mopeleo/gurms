@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
+//import org.activiti.engine.ProcessEngine;
+//import org.activiti.engine.RepositoryService;
+//import org.gurms.activiti.ActivitiTest;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.DateUtil;
@@ -88,6 +91,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 			}
 		}
 		sysRoleDao.save(role);
+		
+//		ProcessEngine pe = ActivitiTest.getProcessEngine();
+//		RepositoryService rs = pe.getRepositoryService();
+//		String workflowId = rs.createDeployment().addClasspathResource("workflow/activititest.xml").deploy().getId();
+//		System.out.println(workflowId);
 		return page;
 	}
 
