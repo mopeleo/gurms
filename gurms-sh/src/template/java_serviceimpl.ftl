@@ -1,5 +1,6 @@
 package ${project}.service.impl<#if model?exists>.${model}</#if>;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,12 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 		this.${dao} = ${dao};
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<${entity}> query(Map<String, Object> request){
+		return ${dao}.find(PropertyFilter.buildFromRequestMap(request));
+	}
+	
 	@Override
 	@Transactional(readOnly = true)
 	public PageResult<${entity}> query(Map<String, Object> request, PageRequest page){
