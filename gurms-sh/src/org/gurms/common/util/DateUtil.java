@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import org.gurms.common.exception.GurmsException;
+
 public class DateUtil {
 
 	public static final String pattern_time = "HHmmss";
@@ -35,10 +37,6 @@ public class DateUtil {
 		return getCurrentTime(pattern_fulltime);
 	}
 	
-	public static int getCurrentYear(){
-		return Calendar.getInstance().get(Calendar.YEAR);
-	}
-	
 	/**
 	 * 
 	 * @param date  ：格式为YYYYMMDD的日期字符串
@@ -47,8 +45,8 @@ public class DateUtil {
 	 * @return
 	 * @throws ParseException 
 	 */
-	private static String dateArith(String date, int num, int arithtype) throws ParseException{
-		Date d = parseDate(pattern_date, date);
+	private static String dateArith(String date, int num, int arithtype){
+		Date d = parseDate(date);
 		Calendar c = Calendar.getInstance();
 		c.setTime(d);
 		switch(arithtype){
@@ -70,7 +68,11 @@ public class DateUtil {
 		return sdf.format(c.getTime());
 	}
 	
-	public static String addYear(String date, int year) throws ParseException{
+	public static int getCurrentYear(){
+		return Calendar.getInstance().get(Calendar.YEAR);
+	}
+	
+	public static String addYear(String date, int year){
 		return dateArith(date, year, 3);
 	}
 
@@ -78,7 +80,7 @@ public class DateUtil {
 		return Calendar.getInstance().get(Calendar.MONTH);
 	}
 	
-	public static String addMonth(String date, int month) throws ParseException{
+	public static String addMonth(String date, int month){
 		return dateArith(date, month, 2);
 	}
 
@@ -86,7 +88,7 @@ public class DateUtil {
 		return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 	}
 	
-	public static String addDay(String date, int day) throws ParseException{
+	public static String addDay(String date, int day){
 		return dateArith(date, day, 1);
 	}
 
@@ -96,21 +98,32 @@ public class DateUtil {
 		return sdf.format(Calendar.getInstance().getTime());
 	}
 	
-	public static Date parseDate(String datestring) throws ParseException{
-		return parseDate(pattern_date, datestring);
+	public static Date parseDate(String datestring){
+		if(datestring == null || datestring.length() != 8){
+			throw new GurmsException(datestring + "必须为yyyyMMdd形式字符串");
+		}
+		if(isDate(datestring)){
+			return parseDate(pattern_date, datestring);
+		}else{
+			throw new GurmsException(datestring + "是错误的日期字符串");
+		}
 	}
 	
-	public static Date parseDate(String pattern, String datestring) throws ParseException{
+	public static Date parseDate(String pattern, String datestring){
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf.applyPattern(pattern);
-		return sdf.parse(datestring);
+		try {
+			return sdf.parse(datestring);
+		} catch (ParseException e) {
+			throw new GurmsException(e.getMessage());
+		}
 	}
 	
-	public static boolean dateBetween(String date, String startdate, String enddate) throws ParseException{
+	public static boolean dateBetween(String date, String startdate, String enddate){
 		return dateBetween(pattern_date, date, startdate, enddate);
 	}
 	
-	public static boolean dateBetween(String pattern, String date, String startdate, String enddate) throws ParseException{
+	public static boolean dateBetween(String pattern, String date, String startdate, String enddate){
 		long d = parseDate(pattern, date).getTime();
 		long start = parseDate(pattern, startdate).getTime();
 		long end = parseDate(pattern, enddate).getTime();
@@ -128,7 +141,7 @@ public class DateUtil {
 		return String.valueOf(System.currentTimeMillis());
 	}
 	
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args){
 		String s = "20080229";
 		System.out.println(isDate(s));
 		System.out.println(addDay(s, 3));

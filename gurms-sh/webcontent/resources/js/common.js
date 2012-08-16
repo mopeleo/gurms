@@ -333,6 +333,10 @@ function totalIFrameSize(){
 	}
 }
 
+function setDocumentCharset(charset){
+	document.charset=charset;
+}
+
 Array.prototype.contains=function(obj){
     var arrayStr = "\x0f" + this.join("\x0f") + "\x0f";
     if(arrayStr.indexOf("\x0f" + obj + "\x0f")>=0) return true;
