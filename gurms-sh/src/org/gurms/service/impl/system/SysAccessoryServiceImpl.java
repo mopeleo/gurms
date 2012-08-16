@@ -1,5 +1,6 @@
 package org.gurms.service.impl.system;
 
+import java.util.List;
 import java.util.Map;
 
 import org.gurms.dao.hibernate.system.SysAccessoryDao;
@@ -31,6 +32,12 @@ public class SysAccessoryServiceImpl implements SysAccessoryService {
 	@Transactional(readOnly = true)
 	public PageResult<SysAccessory> query(Map<String, Object> request, PageRequest page) {
 		return sysAccessoryDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<SysAccessory> query(Map<String, Object> request) {
+		return sysAccessoryDao.find(PropertyFilter.buildFromRequestMap(request));
 	}
 
 	@Override

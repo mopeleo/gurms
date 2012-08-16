@@ -44,6 +44,12 @@ public class SysOrgServiceImpl implements SysOrgService {
 
 	@Override
 	@Transactional(readOnly = true)
+	public List<SysOrg> query(Map<String, Object> request) {
+		return sysOrgDao.find(PropertyFilter.buildFromRequestMap(request));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public PageResult<SysOrg> query(Map<String, Object> request, PageRequest page) {
 		return sysOrgDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}

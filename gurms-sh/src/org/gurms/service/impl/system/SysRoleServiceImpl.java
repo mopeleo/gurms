@@ -1,12 +1,8 @@
 package org.gurms.service.impl.system;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
-//import org.activiti.engine.ProcessEngine;
-//import org.activiti.engine.RepositoryService;
-//import org.gurms.activiti.ActivitiTest;
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.DateUtil;
@@ -71,17 +67,10 @@ public class SysRoleServiceImpl implements SysRoleService {
 		PageResult<SysRole> page = new PageResult<SysRole>();
 		if(StringUtils.isBlank(role.getRolestatus())){
 			String today = DateUtil.getCurrentDate();
-			try {
-				if(DateUtil.dateBetween(today, role.getStartdate(), role.getEnddate())){
-					role.setRolestatus(GlobalParam.DICT_VALID_YES);
-				}else{
-					role.setRolestatus(GlobalParam.DICT_VALID_NO);
-				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-				page.setSuccess(false);
-				page.setReturnmsg(e.getMessage());
-				return page;
+			if(DateUtil.dateBetween(today, role.getStartdate(), role.getEnddate())){
+				role.setRolestatus(GlobalParam.DICT_VALID_YES);
+			}else{
+				role.setRolestatus(GlobalParam.DICT_VALID_NO);
 			}
 		}
 		if(role.getSysmenuids() != null){

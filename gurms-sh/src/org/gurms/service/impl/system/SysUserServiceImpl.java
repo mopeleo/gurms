@@ -1,13 +1,13 @@
 package org.gurms.service.impl.system;
 
-import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalConfig;
 import org.gurms.common.config.GlobalParam;
-import org.gurms.common.util.EncryptUtil;
 import org.gurms.common.util.DateUtil;
+import org.gurms.common.util.EncryptUtil;
 import org.gurms.common.util.ObjectMapper;
 import org.gurms.dao.hibernate.system.SysLogLoginDao;
 import org.gurms.dao.hibernate.system.SysParamDao;
@@ -102,6 +102,12 @@ public class SysUserServiceImpl implements SysUserService{
 
 	@Override
 	@Transactional(readOnly = true)
+	public List<SysUser> query(Map<String, Object> request) {
+		return sysUserDao.find(PropertyFilter.buildFromRequestMap(request));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public PageResult<SysUser> query(Map<String, Object> request, PageRequest page) {
 		return sysUserDao.findPage(page, PropertyFilter.buildFromRequestMap(request));
 	}
@@ -190,14 +196,7 @@ public class SysUserServiceImpl implements SysUserService{
 				//距上次锁定间隔是否达到清0条件
 				if(StringUtils.isNotBlank(u.getLogindate())&&StringUtils.isNotBlank(u.getLogintime())){
 					String logtime = u.getLogindate() + u.getLogintime();
-					long dif = 0;
-					try {
-						dif = System.currentTimeMillis() - DateUtil.parseDate(DateUtil.pattern_fulltime, logtime).getTime();
-					} catch (ParseException e) {
-						result.setReturnmsg(e.getMessage());
-						result.setSuccess(false);
-						return result;
-					}
+					long dif = System.currentTimeMillis() - DateUtil.parseDate(DateUtil.pattern_fulltime, logtime).getTime();
 					if(dif > (Long.parseLong(locktime.getParamvalue()))*3600*1000){
 						u.setErrorcount(0);
 					}
