@@ -1,5 +1,6 @@
 package org.gurms.service.system;
 
+import java.util.List;
 import java.util.Map;
 
 import org.gurms.common.validate.GurmsValid;
@@ -11,6 +12,10 @@ import org.gurms.entity.system.SysUserInfo;
 
 public interface SysUserService{
 
+	public List<SysUser> query(Map<String, Object> request);
+	
+	public PageResult<SysUser> query(Map<String, Object> request, PageRequest page);
+	
 	@GurmsValid(type=SysUser.class, props={"userid","username"})
 	public PageResult<SysUser> save(SysUser user);
 
@@ -18,8 +23,6 @@ public interface SysUserService{
 	public PageResult<SysUser> insert(SysUser user);
 
 	public SysUser get(String userid);
-	
-	public PageResult<SysUser> query(Map<String, Object> request, PageRequest page);
 	
 	public PageResult<SysUser> delete(String id);
 	

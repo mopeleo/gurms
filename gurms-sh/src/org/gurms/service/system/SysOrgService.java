@@ -1,5 +1,6 @@
 package org.gurms.service.system;
 
+import java.util.List;
 import java.util.Map;
 
 import org.gurms.common.validate.GurmsValid;
@@ -8,6 +9,8 @@ import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysOrg;
 
 public interface SysOrgService {
+
+	public List<SysOrg> query(Map<String, Object> request);
 
 	public PageResult<SysOrg> query(Map<String, Object> request, PageRequest page);
 	
