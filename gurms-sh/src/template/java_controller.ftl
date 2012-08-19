@@ -63,7 +63,7 @@ public class ${entity}Controller extends BaseController {
 		try{
 			page = ${service}.save(entity);
 		}catch(Exception e){
-			page = processException(e, "保存数据出错");
+			page = processException(e, "保存数据出错:"+e.getMessage());
 		}
 		return page;
 	}
@@ -75,7 +75,7 @@ public class ${entity}Controller extends BaseController {
 		try{
 			page = ${service}.delete(id);
 		}catch(Exception e){
-			page = processException(e, "删除数据出错");
+			page = processException(e, "删除数据出错:"+e.getMessage());
 		}
 		return page;
 	}
