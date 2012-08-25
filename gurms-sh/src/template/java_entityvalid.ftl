@@ -1,3 +1,7 @@
+<#macro length column>{rule: 'Length', maximum: ${column.length}, msg: '${column.name}不能超过${column.length}位'}</#macro>
+<#macro presence column><#if column.mandatory?exists && column.mandatory=="1">,{rule: 'Presence', msg: '${column.name}不能为空'}</#if></#macro>
+<#macro number column><#if column.datatype=="INT" || column.precision != "">,{rule: 'Numericality', msg: '${column.name}只能为数字'}</#if></#macro>
+
 <#list tables as t>
 	<#assign entity="">
 	<#assign position = t.code?index_of("_", 0)>
@@ -11,7 +15,7 @@
 		<#assign entity=t.code?cap_first>
 	</#if>
 	<#list t.columns as column>
-${project}.entity<#if model?exists>.${model}</#if>.${entity}.${column.code}=[{rule: 'Presence', msg: '${column.name}不能为空'}]
+${project}.entity<#if model?exists>.${model}</#if>.${entity}.${column.code}=[<@length column=column/><@presence column=column/><@number column=column/>]
 	</#list>
 	
 </#list>
