@@ -10,7 +10,7 @@ public class Column {
 	private String datatype;
 	private String length;
 	private String precision;
-	private String mandatory;
+	private String mandatory;  //值为1表示不能为空
 	public String getId() {
 		return id;
 	}
