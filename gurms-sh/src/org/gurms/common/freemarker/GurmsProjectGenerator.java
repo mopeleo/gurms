@@ -18,6 +18,7 @@ public class GurmsProjectGenerator {
 
 	public static final String TEMPLATE_DAO = GlobalConfig.getConfig("template_dao");
 	public static final String TEMPLATE_ENTITY = GlobalConfig.getConfig("template_entity");
+	public static final String TEMPLATE_ENTITYVALID = GlobalConfig.getConfig("template_entityvalid");
 	public static final String TEMPLATE_SERVICE = GlobalConfig.getConfig("template_service");
 	public static final String TEMPLATE_SERVICEIMPL = GlobalConfig.getConfig("template_serviceimpl");
 	public static final String TEMPLATE_CONTROLLER = GlobalConfig.getConfig("template_controller");
@@ -26,6 +27,7 @@ public class GurmsProjectGenerator {
 	
 	public static final String FILETYPE_DAO = "Dao.java";
 	public static final String FILETYPE_ENTITY = ".java";
+	public static final String FILETYPE_ENTITYVALID = "entityvalid.properties";
 	public static final String FILETYPE_SERVICE = "Service.java";
 	public static final String FILETYPE_SERVICEIMPL = "ServiceImpl.java";
 	public static final String FILETYPE_CONTROLLER = "Controller.java";
@@ -44,6 +46,10 @@ public class GurmsProjectGenerator {
 	
 	public static void entityGenerate(Map params, String outFile){
 		generate(params, TEMPLATE_ENTITY, outFile);
+	}	
+	
+	public static void entityValidGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_ENTITYVALID, outFile);
 	}	
 	
 	public static void daoGenerate(Map params, String outFile){
@@ -100,9 +106,16 @@ public class GurmsProjectGenerator {
 	
 	public static void projectGenerate(String pdmFile, String projectPrefix, String javaOutDir, String webOutDir){
 		Model model = PDMParser.parse(new File(pdmFile));
+		String outFile = null;
 		Map params = new HashMap();
 		params.put("project", projectPrefix);
+
 		List<Table> tables = model.getTables();
+		params.put("tables", tables);
+		params.put("entity", "");
+		outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITYVALID);
+		entityValidGenerate(params, outFile);
+
 		for(Table table : tables){
 			String tableCode = table.getCode();
 			String entity = "";
@@ -118,7 +131,7 @@ public class GurmsProjectGenerator {
 			params.put("entity", entity);
 			
 			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码开始----------");
-			String outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_DAO, FILETYPE_DAO);
+			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_DAO, FILETYPE_DAO);
 			daoGenerate(params, outFile);
 			
 			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_SERVICE, FILETYPE_SERVICE);
@@ -156,7 +169,9 @@ public class GurmsProjectGenerator {
 //			e.printStackTrace();
 //		}
 		
-//	    String filepath = "D:\\kcrm\\doc\\02.设计\\2.3数据库设计\\gurms-test.pdm";
+//	    String filepath = "D:\\My Projects\\model\\tongfa.pdm";
+//		projectGenerate(filepath, "org.test", "e:\\test\\", "e:\\test\\web\\");
+		
 	    String pdm = args[0];
 	    System.out.println("pdm : " + pdm);
 	    String pkgprefix = args[1];
