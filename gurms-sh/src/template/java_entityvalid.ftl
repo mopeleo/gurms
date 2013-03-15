@@ -1,6 +1,7 @@
-<#macro length column><#if column.length?exists>{rule: 'Length', maximum: ${column.length}, msg: '${column.name}不能超过${column.length}位'}</#if></#macro>
-<#macro presence column><#if column.mandatory?exists && column.mandatory=="1">,{rule: 'Presence', msg: '${column.name}不能为空'}</#if></#macro>
-<#macro number column><#if column.datatype=="INT" || column.precision != "">,{rule: 'Numericality', msg: '${column.name}只能为数字'}</#if></#macro>
+<#assign flag=false>
+<#macro length column><#if column.length?exists && column.length != ""><#assign flag=true>{rule: 'Length', maximum: ${column.length}, msg: '${column.name}不能超过${column.length}位'}<#else><#assign flag=false></#if></#macro>
+<#macro presence column><#if column.mandatory?exists && column.mandatory=="1"><#if flag>,</#if><#assign flag=true>{rule: 'Presence', msg: '${column.name}不能为空'}<#else><#assign flag=false></#if></#macro>
+<#macro number column><#if column.datatype=="INT" || column.precision != ""><#if flag>,</#if><#assign flag=false>{rule: 'Numericality', msg: '${column.name}只能为数字'}</#if></#macro>
 
 <#list tables as t>
 	<#assign entity="">
