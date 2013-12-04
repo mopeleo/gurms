@@ -17,7 +17,16 @@
 			classpath*:/activiti.cfg.xml
 		</param-value>
 	</context-param>
-
+	
+	<!--  spring3可以配置多套环境，通过此参数来进行选择
+	      Spring3自定义环境配置 <beans profile="">
+	<context-param>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>default</param-value>
+	</context-param>
+	-->
+	
+	
 	<!-- 配置SpringMVC参数 -->  
    	<servlet>  
     	<servlet-name>gurms</servlet-name>  
