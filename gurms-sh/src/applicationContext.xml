@@ -32,47 +32,32 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
-	<bean id="gurmsDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 		<!-- Connection Info -->
 		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
 		<property name="url" value="${hibernate.connection.url}" />
 		<property name="username" value="${hibernate.connection.username}" />
 		<property name="password" value="${hibernate.connection.password}" />
 
-		<!-- Connection Pooling DBCP -->
-		<property name="initialSize" value="5" />
-		<property name="maxActive" value="80" />
+		<!-- Connection Pooling -->
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="10" />
+		<!-- 最大活动连接数量 -->
+		<property name="maxActive" value="100" />
+		<!-- 最大空闲连接数量  -->
 		<property name="maxIdle" value="10" />
-		<property name="maxWait" value="1000" />
-		<property name="poolPreparedStatements" value="true" />
+		<!-- 如果池里已没有连接，最大等待时间，超过报错 -->
+		<property name="maxWait" value="10000" />
+		<!-- 每多少毫秒扫描一次空闲连接  -->
+		<property name="timeBetweenEvictionRunsMillis" value="10000" />
+		<!-- 空间超过多少毫秒的连接回收  -->
+		<property name="minEvictableIdleTimeMillis" value="60000" />
 		<property name="defaultAutoCommit" value="false" />
-		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
-		<property name="minEvictableIdleTimeMillis" value="3600000" />
 	</bean>
 
-	<!-- activiti数据源 -->
-	<bean id="activitiDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<!-- Connection Info -->
-		<property name="driverClassName" value="${activiti.connection.driver_class}" />
-		<property name="url" value="${activiti.connection.url}" />
-		<property name="username" value="${activiti.connection.username}" />
-		<property name="password" value="${activiti.connection.password}" />
-
-		<!-- Connection Pooling DBCP -->
-		<property name="initialSize" value="5" />
-		<property name="maxActive" value="80" />
-		<property name="maxIdle" value="10" />
-		<property name="maxWait" value="1000" />
-		<property name="poolPreparedStatements" value="true" />
-		<property name="defaultAutoCommit" value="false" />
-		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
-		<property name="minEvictableIdleTimeMillis" value="3600000" />
-	</bean>
-
-	<!-- 多数据源 -->
+	<!-- 多数据源 配置，适用用jdbcTemplate,若适用hibernate，必须配置多个sessionFactory
 	<bean id="dataSource" class="org.gurms.dao.datasource.DynamicDataSource">
-	    <!-- 通过key-value的形式来关联数据源 -->
 	    <property name="targetDataSources">
 	        <map key-type="java.lang.String">
 	            <entry key="gurms" value-ref="gurmsDataSource"></entry>
@@ -81,6 +66,7 @@
 	    </property>
 	    <property name="defaultTargetDataSource" ref="gurmsDataSource"/>
 	</bean>
+	-->
 
 	<!-- 数据源配置,使用应用服务器的数据库连接池 -->
 	<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" />-->
