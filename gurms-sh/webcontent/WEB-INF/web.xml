@@ -19,12 +19,11 @@
 	</context-param>
 	
 	<!--  spring3可以配置多套环境，通过此参数来进行选择
-	      Spring3自定义环境配置 <beans profile="">
+	      Spring3自定义环境配置 <beans profile=""> -->
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
-		<param-value>default</param-value>
+		<param-value>development</param-value>
 	</context-param>
-	-->
 	
 	
 	<!-- 配置SpringMVC参数 -->  
@@ -38,7 +37,8 @@
      	<load-on-startup>1</load-on-startup>  
    	</servlet>
    	  
-	<!-- 这里可以用 / 但不能用 /* ,拦截了所有请求会导致静态资源无法访问，所以要在spring3-servlet.xml中配置mvc:resources -->
+	<!-- 这里可以用 / 但不能用 /* ,拦截了所有请求会导致静态资源无法访问，
+		所以要在spring3-servlet.xml中配置mvc:resources -->
    	<servlet-mapping>  
     	<servlet-name>gurms</servlet-name>  
     	<url-pattern>/</url-pattern>  

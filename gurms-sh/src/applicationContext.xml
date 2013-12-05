@@ -11,19 +11,6 @@
 	<!-- spring工具类,启动自动加载 -->
 	<bean class="org.gurms.common.util.SpringUtil" lazy-init="false" />
 
-	<!-- 定义受环境影响易变的变量 -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="ignoreResourceNotFound" value="true" />
-		<property name="locations">
-			<list>
-				<value>classpath*:/hibernate.properties</value>
-				<!-- <value><value>classpath:application.properties</value></value> -->
-				<!-- <value>file:/var/myapp/application.server.properties</value> -->
-			</list>
-		</property>
-	</bean>
-
 	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入,可重复 -->
 	<context:component-scan base-package="org.gurms">
 		<!-- 排除某些package -->
@@ -31,30 +18,6 @@
 		<!-- 在主容器中（applicationContext.xml），将Controller的注解排除掉  -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
-	<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
-	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-		<!-- Connection Info -->
-		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
-		<property name="url" value="${hibernate.connection.url}" />
-		<property name="username" value="${hibernate.connection.username}" />
-		<property name="password" value="${hibernate.connection.password}" />
-
-		<!-- Connection Pooling -->
-		<!-- 初始化连接数量 -->
-		<property name="initialSize" value="10" />
-		<!-- 最大活动连接数量 -->
-		<property name="maxActive" value="100" />
-		<!-- 最大空闲连接数量  -->
-		<property name="maxIdle" value="10" />
-		<!-- 如果池里已没有连接，最大等待时间，超过报错 -->
-		<property name="maxWait" value="10000" />
-		<!-- 每多少毫秒扫描一次空闲连接  -->
-		<property name="timeBetweenEvictionRunsMillis" value="10000" />
-		<!-- 空间超过多少毫秒的连接回收  -->
-		<property name="minEvictableIdleTimeMillis" value="60000" />
-		<property name="defaultAutoCommit" value="false" />
-	</bean>
 
 	<!-- 多数据源 配置，适用用jdbcTemplate,若适用hibernate，必须配置多个sessionFactory
 	<bean id="dataSource" class="org.gurms.dao.datasource.DynamicDataSource">
@@ -108,6 +71,9 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
 	<!-- 实现使用自定义的拦截器 -->
 	<bean id="gurmsValidInterceptor" class="org.gurms.common.validate.GurmsValidInterceptor" />
 
@@ -125,7 +91,58 @@
 		</property>
 	</bean>
 
-	<!-- 使用annotation定义事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	<!-- production环境 ,多个配置文件用逗号分隔 -->
+ 	<beans profile="production">
+		<context:property-placeholder ignore-resource-not-found="true"
+			location="classpath*:/hibernate.properties,
+          			  classpath*:/hibernate.development.properties" />	
+		
+		<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+			<!-- Connection Info -->
+			<property name="driverClassName" value="${oracle.jdbc.driver}" />
+			<property name="url" value="${oracle.jdbc.url}" />
+			<property name="username" value="${oracle.jdbc.username}" />
+			<property name="password" value="${oracle.jdbc.password}" />
+	
+			<!-- Connection Pooling -->
+			<!-- 初始化连接数量 -->
+			<property name="initialSize" value="${jdbc.pool.initialSize}" />
+			<!-- 最大活动连接数量 -->
+			<property name="maxActive" value="${jdbc.pool.maxActive}" />
+			<!-- 最大空闲连接数量  -->
+			<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+			<!-- 如果池里已没有连接，最大等待时间，超过报错 -->
+			<property name="maxWait" value="10000" />
+			<!-- 每15分钟扫描一次空闲连接  -->
+			<property name="timeBetweenEvictionRunsMillis" value="900000" />
+			<!-- 空间超过30分钟的连接超时回收  -->
+			<property name="minEvictableIdleTimeMillis" value="1800000" />
+			<property name="defaultAutoCommit" value="false" />
+		</bean>
+	</beans>
+	
+	<!-- local development环境 -->
+	<beans profile="development">
+ 		<context:property-placeholder ignore-unresolvable="true"
+			location="classpath*:/hibernate.properties" />	
+
+		<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+			<!-- Connection Info -->
+			<property name="driverClassName" value="${h2.jdbc.driver}" />
+			<property name="url" value="${h2.jdbc.url}" />
+			<property name="username" value="${h2.jdbc.username}" />
+			<property name="password" value="${h2.jdbc.password}" />
+	
+			<property name="initialSize" value="${jdbc.pool.initialSize}" />
+			<property name="maxActive" value="${jdbc.pool.maxActive}" />
+			<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+			<property name="maxWait" value="10000" />
+			<property name="timeBetweenEvictionRunsMillis" value="900000" />
+			<property name="minEvictableIdleTimeMillis" value="1800000" />
+			<property name="defaultAutoCommit" value="false" />
+		</bean>
+	</beans>
 	
 </beans>
