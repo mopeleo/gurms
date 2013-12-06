@@ -2,16 +2,6 @@ package org.gurms.web;
 
 public abstract class WebConstants {
 	
-	//-- Content Type 定义 --//
-	public static final String TYPE_TEXT = "text/plain";
-	public static final String TYPE_JSON = "application/json";
-	public static final String TYPE_XML = "text/xml";
-	public static final String TYPE_HTML = "text/html";
-	public static final String TYPE_JS = "text/javascript";
-	public static final String TYPE_IMG = "image/jpeg";
-	public static final String TYPE_EXCEL = "application/vnd.ms-excel";
-	public static final String TYPE_PDF = "application/pdf";
-
 	//-- Header 定义 --//
 	public static final String AUTHENTICATION_HEADER = "Authorization";
 
