@@ -18,6 +18,7 @@ import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysLogLogin;
 import org.gurms.entity.system.SysLogOperate;
 import org.gurms.service.system.SysLogService;
+import org.gurms.web.MediaTypes;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
 import org.gurms.web.controller.BaseController;
@@ -59,7 +60,7 @@ public class SysLogController extends BaseController {
 	public void pdf(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
 		final List<SysLogLogin> result = sysLogService.queryLogin(requestMap);
-		response.setContentType(WebConstants.TYPE_PDF);
+		response.setContentType(MediaTypes.TYPE_PDF);
 		ServletUtil.setFileDownloadHeader(response, "SysLogLogin.pdf");
 		
 		try {
@@ -105,7 +106,7 @@ public class SysLogController extends BaseController {
 	public void excel(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
 		final List<SysLogLogin> result = sysLogService.queryLogin(requestMap);
-		response.setContentType(WebConstants.TYPE_EXCEL);
+		response.setContentType(MediaTypes.TYPE_EXCEL);
 		ServletUtil.setFileDownloadHeader(response, "SysLogLogin.xls");
 		
 		try {

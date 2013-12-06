@@ -11,6 +11,7 @@ import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.ValidCodeGenerator;
 import org.gurms.common.validate.GurmsValid.FilterType;
 import org.gurms.common.validate.GurmsValidator;
+import org.gurms.web.MediaTypes;
 import org.gurms.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class CommonController extends BaseController {
 	@RequestMapping
 	public void validcode(HttpSession session, HttpServletResponse response) {
 		try {
-			response.setContentType(WebConstants.TYPE_IMG);
+			response.setContentType(MediaTypes.TYPE_IMG);
 			String code = ValidCodeGenerator.generate(response.getOutputStream());
 			session.setAttribute(WebConstants.S_KEY_VALIDCODE, code);
 		} catch (IOException e) {
@@ -33,7 +34,7 @@ public class CommonController extends BaseController {
 	// 生成前段效验的JS代码
 	@RequestMapping
 	public void validscript(HttpServletRequest request, HttpServletResponse response){
-		response.setContentType(WebConstants.TYPE_TEXT);
+		response.setContentType(MediaTypes.TEXT_PLAIN);
 //		String js = "<script>function test(){alert("+className+");}test();</script>";
 		String className = request.getParameter("className");
 		String formId = request.getParameter("formId");

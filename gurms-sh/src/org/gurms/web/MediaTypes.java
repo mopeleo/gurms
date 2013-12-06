@@ -1,6 +1,11 @@
 package org.gurms.web;
 
 public class MediaTypes {
+
+	public static final String TYPE_IMG = "image/jpeg";
+	public static final String TYPE_EXCEL = "application/vnd.ms-excel";
+	public static final String TYPE_PDF = "application/pdf";
+
 	public final static String APPLICATION_XML = "application/xml";
 	public final static String APPLICATION_XML_UTF_8 = "application/xml; charset=UTF-8";
 
