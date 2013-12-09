@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>金证信托综合业务管理平台</title>
+<title>通用角色权限管理系统</title>
 <%@ include file="/common/meta.jsp" %>
 
 <link href="resources/css/login.css" rel="stylesheet" type="text/css"/>
@@ -21,7 +21,7 @@
 				$("head").append(data); //alert(data);
 			  }
 		);
-		genValidcode();
+//		genValidcode();
 	});
 
 	function preSubmit(formData){
