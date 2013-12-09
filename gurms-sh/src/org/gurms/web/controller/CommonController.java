@@ -25,7 +25,7 @@ public class CommonController extends BaseController {
 		try {
 			response.setContentType(MediaTypes.TYPE_IMG);
 			String code = ValidCodeGenerator.generate(response.getOutputStream());
-//			System.out.println("-----------"+code+"---------------");
+			System.out.println("-----------"+code+"---------------");
 			session.setAttribute(WebConstants.S_KEY_VALIDCODE, code);
 		} catch (IOException e) {
 			e.printStackTrace();

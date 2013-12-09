@@ -21,7 +21,7 @@
 				$("head").append(data); //alert(data);
 			  }
 		);
-//		genValidcode();
+		genValidcode();
 	});
 
 	function preSubmit(formData){
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                 	<td></td>
-                    <td><img onclick="genValidcode()" id="validcode_img" src="common/validcode" style="cursor:pointer;border:1px solid #555"/><p>点击换一张</p></td>
+                    <td><img onclick="genValidcode()" id="validcode_img" src="" style="cursor:pointer;border:1px solid #555"/><p>点击换一张</p></td>
                 </tr>
                 <tr>
                     <td colspan="2">
