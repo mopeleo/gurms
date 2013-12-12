@@ -162,9 +162,9 @@ public class SysUserServiceImpl implements SysUserService{
 		PageResult<SysUser> result = new PageResult<SysUser>();
 		SysUser sessionUser = null;
 
-		SysUser u = sysUserDao.get(user.getUserid());
+		SysUser userEntity = sysUserDao.get(user.getUserid());
 		//用户不存在
-		if(u == null){
+		if(userEntity == null){
 			result.setSuccess(false);
 			result.setReturnmsg("用户名或密码错误");
 		}else{
@@ -174,52 +174,50 @@ public class SysUserServiceImpl implements SysUserService{
 			String currentTime = DateUtil.getCurrentTime();
 			
 			//用户被锁定
-			if (GlobalParam.DICT_USERSTSTUS_PWLOCK.equals(user.getUserstatus())) {
+			if (GlobalParam.DICT_USERSTSTUS_PWLOCK.equals(userEntity.getUserstatus())) {
 				result.setSuccess(false);
 				result.setReturnmsg("用户密码已被锁定");
 			//密码一致登录成功
-			}else if (user.getLoginpassword().equalsIgnoreCase(u.getLoginpassword())) {
-				u.setLogincount(u.getLogincount() + 1);
-				u.setErrorcount(0);
-				u.setErrordate(null);
-				u.setErrortime(null);
+			}else if (userEntity.getLoginpassword().equalsIgnoreCase(user.getLoginpassword())) {
+				userEntity.setLogincount(userEntity.getLogincount() + 1);
+				userEntity.setErrorcount(0);
+				userEntity.setErrordate(null);
+				userEntity.setErrortime(null);
 				
-				sessionUser = ObjectMapper.map(u, SysUser.class);
+				sessionUser = ObjectMapper.map(userEntity, SysUser.class);
 				sessionUser.setLoginip(user.getLoginip());
 				sessionUser.setSysroles(null);
 				
-				u.setLogindate(currentDate);
-				u.setLogintime(currentTime);
-				u.setOnlineflag(GlobalParam.DICT_ONLINEFLAG_YES);
+				userEntity.setLogindate(currentDate);
+				userEntity.setLogintime(currentTime);
+				userEntity.setOnlineflag(GlobalParam.DICT_ONLINEFLAG_YES);
 			//密码错误
 			}else{
-				//距上次锁定间隔是否达到清0条件
-				if(StringUtils.isNotBlank(u.getLogindate())&&StringUtils.isNotBlank(u.getLogintime())){
-					String logtime = u.getLogindate() + u.getLogintime();
-					long dif = System.currentTimeMillis() - DateUtil.parseDate(DateUtil.pattern_fulltime, logtime).getTime();
+				//距上次错误时间间隔是否达到错误次数清0条件
+				if(StringUtils.isNotBlank(userEntity.getErrordate())&&StringUtils.isNotBlank(userEntity.getErrortime())){
+					String lastErrortime = userEntity.getErrordate() + userEntity.getErrortime();
+					long dif = System.currentTimeMillis() - DateUtil.parseDate(DateUtil.pattern_fulltime, lastErrortime).getTime();
 					if(dif > (Long.parseLong(locktime.getParamvalue()))*3600*1000){
-						u.setErrorcount(0);
+						userEntity.setErrorcount(0);
 					}
 				}
-				//记录时间周期内第一次错误时间
-				if(u.getErrorcount() == 0){
-					u.setErrordate(currentDate);
-					u.setErrortime(currentTime);
-				}
-				u.setErrorcount(u.getErrorcount() + 1);
+				//记录密码错误时间和次数
+				userEntity.setErrordate(currentDate);
+				userEntity.setErrortime(currentTime);
+				userEntity.setErrorcount(userEntity.getErrorcount() + 1);
 				//时间周期内达到错误次数锁定
-				if(u.getErrorcount() == Integer.parseInt(errorcount.getParamvalue())){
-					u.setUserstatus(GlobalParam.DICT_USERSTSTUS_PWLOCK);
+				if(userEntity.getErrorcount() == Integer.parseInt(errorcount.getParamvalue())){
+					userEntity.setUserstatus(GlobalParam.DICT_USERSTSTUS_PWLOCK);
 				}
 				result.setSuccess(false);
 				result.setReturnmsg("用户名或密码错误");
 			}
 			
-			sysUserDao.save(u);
+			sysUserDao.save(userEntity);
 			
 			//记录登录日志
 			SysLogLogin sll = new SysLogLogin();
-			sll.setUserid(u.getUserid());
+			sll.setUserid(user.getUserid());
 			sll.setLogindate(currentDate);
 			sll.setLogintime(currentTime);
 			sll.setLoginip(user.getLoginip());
