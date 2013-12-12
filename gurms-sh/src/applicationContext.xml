@@ -33,6 +33,30 @@
 
 	<!-- 数据源配置,使用应用服务器的数据库连接池 -->
 	<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" />-->
+	
+	<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- Connection Pooling -->
+		<!-- 初始化连接数量 -->
+		<property name="initialSize" value="${jdbc.pool.initialSize}" />
+		<!-- 最大活动连接数量 -->
+		<property name="maxActive" value="${jdbc.pool.maxActive}" />
+		<!-- 最大空闲连接数量  -->
+		<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
+		<!-- 如果池里已没有连接，最大等待时间，超过报错 -->
+		<property name="maxWait" value="10000" />
+		<!-- 每15分钟扫描一次空闲连接  -->
+		<property name="timeBetweenEvictionRunsMillis" value="900000" />
+		<!-- 空间超过30分钟的连接超时回收  -->
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
 
 	<!-- Hibernate配置 -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -94,55 +118,15 @@
 	<!-- production环境 ,多个配置文件用逗号分隔 -->
  	<beans profile="production">
 		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/hibernate.properties,
-          			  classpath*:/hibernate.development.properties" />	
-		
-		<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
-		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-			<!-- Connection Info -->
-			<property name="driverClassName" value="${oracle.jdbc.driver}" />
-			<property name="url" value="${oracle.jdbc.url}" />
-			<property name="username" value="${oracle.jdbc.username}" />
-			<property name="password" value="${oracle.jdbc.password}" />
-	
-			<!-- Connection Pooling -->
-			<!-- 初始化连接数量 -->
-			<property name="initialSize" value="${jdbc.pool.initialSize}" />
-			<!-- 最大活动连接数量 -->
-			<property name="maxActive" value="${jdbc.pool.maxActive}" />
-			<!-- 最大空闲连接数量  -->
-			<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
-			<!-- 如果池里已没有连接，最大等待时间，超过报错 -->
-			<property name="maxWait" value="10000" />
-			<!-- 每15分钟扫描一次空闲连接  -->
-			<property name="timeBetweenEvictionRunsMillis" value="900000" />
-			<!-- 空间超过30分钟的连接超时回收  -->
-			<property name="minEvictableIdleTimeMillis" value="1800000" />
-			<property name="defaultAutoCommit" value="false" />
-		</bean>
+			location="classpath*:/jdbc-pub.properties,
+          			  classpath*:/jdbc-prod.properties" />	
 	</beans>
 	
 	<!-- local development环境 -->
 	<beans profile="development">
  		<context:property-placeholder ignore-unresolvable="true"
-			location="classpath*:/hibernate.properties" />	
-
-		<!-- 数据源配置,使用应用内的tomcat数据库连接池 -->
-		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-			<!-- Connection Info -->
-			<property name="driverClassName" value="${h2.jdbc.driver}" />
-			<property name="url" value="${h2.jdbc.url}" />
-			<property name="username" value="${h2.jdbc.username}" />
-			<property name="password" value="${h2.jdbc.password}" />
-	
-			<property name="initialSize" value="${jdbc.pool.initialSize}" />
-			<property name="maxActive" value="${jdbc.pool.maxActive}" />
-			<property name="maxIdle" value="${jdbc.pool.maxIdle}" />
-			<property name="maxWait" value="10000" />
-			<property name="timeBetweenEvictionRunsMillis" value="900000" />
-			<property name="minEvictableIdleTimeMillis" value="1800000" />
-			<property name="defaultAutoCommit" value="false" />
-		</bean>
+			location="classpath*:/jdbc-pub.properties,
+          			  classpath*:/jdbc-dev.properties" />	
 	</beans>
 	
 </beans>
