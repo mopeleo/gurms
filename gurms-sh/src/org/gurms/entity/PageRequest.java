@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalConfig;
-import org.gurms.entity.system.SysMenu;
 
 /**
  * 分页参数封装类.
