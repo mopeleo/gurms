@@ -26,3 +26,14 @@
 <script src="${base}/resources/js/livevalidation_standalone.js" type="text/javascript"></script>
 <script src="${base}/resources/js/jquery.form.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+$.ajaxSetup({cache: false});
+
+/**
+解决办法:
+方法一：把type改成post，并随便设置设置一个参数data: 'a=b'（一定要设置参数，否则仍然会被cache）
+方法二：type仍然使用get，但设置cache: false
+方法三：通过ajaxSetup来全局设置get方法下的cache
+$.ajaxSetup ({cache: false});
+*/
+</script>
