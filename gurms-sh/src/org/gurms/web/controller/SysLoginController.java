@@ -70,9 +70,9 @@ public class SysLoginController extends BaseController {
 	}		
 
 	@RequestMapping
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return redirect(WebConstants.URL_INDEX);
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return redirect("/");
 	}	
 	
 	private boolean checkValidcode(HttpServletRequest request){
