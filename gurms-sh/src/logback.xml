@@ -12,10 +12,10 @@
 	<!-- 可让每天产生一个日志文件，最多 30 个，自动回滚 -->
 	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>../log/gurms.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/gurms.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-        <encoder>
+        <encoder charset="UTF-8">
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
@@ -26,6 +26,7 @@
 		<appender-ref ref="rollingFile" />
 	</root>
 	
+	<!-- 该规则是 logback 的核心。级别排序为： TRACE < DEBUG < INFO < WARN < ERROR -->
 	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 --> 
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.springframework" level="WARN"/>

@@ -13,8 +13,8 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:/applicationContext.xml,
-			classpath*:/quartz.xml,
-			classpath*:/activiti.cfg.xml
+			classpath*:/quartz.xml
+			<!-- ,classpath*:/activiti.cfg.xml  -->
 		</param-value>
 	</context-param>
 	
