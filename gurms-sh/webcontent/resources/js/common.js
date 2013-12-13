@@ -3,7 +3,18 @@ var _CONSTANT = {
 	VALID_URL : "common/validscript"
 };
 
+/**
+解决IE缓存URL的办法:
+方法一：把type改成post，并随便设置设置一个参数data: 'a=b'（一定要设置参数，否则仍然会被cache）
+方法二：type仍然使用get，但设置cache: false（貌似不行）
+方法三：通过ajaxSetup来全局设置get方法下的cache：$.ajaxSetup ({cache: false});
+方法四：动态url，例如这样:URL+"&"+"t="+Math.random();或者new Date().getTime();
+*/
+//禁止IE缓存URL
+$.ajaxSetup({cache: false});
+
 $(document).ready(function(){
+	
 	$("#ajaxform").ajaxForm({
 		beforeSubmit:_beforeSubmit,
 		success:_processResponse
