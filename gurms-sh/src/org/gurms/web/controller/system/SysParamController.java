@@ -52,7 +52,13 @@ public class SysParamController extends BaseController {
 		}
 		return redirect(PARAM_LIST);
 	}
-	
+
+	@RequestMapping
+	public String restore(){
+		sysParamService.restoreInitSet();
+		return redirect(PARAM_LIST);		
+	}
+
 	@RequestMapping
 	@ResponseBody
 	public PageResult ajaxSave(HttpServletRequest request){

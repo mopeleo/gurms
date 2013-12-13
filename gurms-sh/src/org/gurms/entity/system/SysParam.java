@@ -20,6 +20,7 @@ public class SysParam implements Serializable{
 
 	private int paramid;
 	private String paramvalue;
+	private String initvalue;
 	private SysParamExt paramext;
 
 	public SysParam(){};
@@ -40,6 +41,14 @@ public class SysParam implements Serializable{
 
 	public String getParamvalue() {
 		return paramvalue;
+	}
+
+	public String getInitvalue() {
+		return initvalue;
+	}
+
+	public void setInitvalue(String initvalue) {
+		this.initvalue = initvalue;
 	}
 
 	public void setParamvalue(String paramvalue) {

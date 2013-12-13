@@ -15,4 +15,6 @@ public interface SysParamService {
 	public SysParam getParam(int id);
 	
 	public Map<Integer, String> getParamMap();
+	
+	public void restoreInitSet();
 }

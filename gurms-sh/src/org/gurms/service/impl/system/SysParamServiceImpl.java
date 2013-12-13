@@ -30,8 +30,16 @@ public class SysParamServiceImpl implements SysParamService {
 	@Override
 	public PageResult<SysParam> save(List<SysParam> paramList) {
 		PageResult<SysParam> result = new PageResult<SysParam>();
-		for(SysParam param : paramList){
-			paramDao.save(param);
+		List<SysParam> entityList = paramDao.getAll();
+		if(paramList != null){
+			for(SysParam param : paramList){
+				int index = entityList.indexOf(param);
+				if(index != -1){
+					SysParam entity = entityList.get(index);
+					entity.setParamvalue(param.getParamvalue());
+					paramDao.save(entity);
+				}
+			}
 		}
 		return result;
 	}
@@ -59,6 +67,16 @@ public class SysParamServiceImpl implements SysParamService {
 			}
 		}
 		return paramMap;
+	}
+	
+	public void restoreInitSet() {
+		List<SysParam> list = paramDao.getAll();
+		if(list != null){
+			for(SysParam param : list){
+				param.setParamvalue(param.getInitvalue());
+				paramDao.save(param);
+			}
+		}
 	}
 
 }
