@@ -45,7 +45,7 @@ public class SimpleHibernateDao<T>{
 	 * public class UserDao extends SimpleHibernateDao<User, Long>
 	 */
 	public SimpleHibernateDao() {
-		this.entityClass = ReflectionUtil.getSuperClassGenricType(getClass());
+		this.entityClass = ReflectionUtil.getClassGenricType(getClass());
 	}
 
 	public SimpleHibernateDao(Class<T> entityClass) {

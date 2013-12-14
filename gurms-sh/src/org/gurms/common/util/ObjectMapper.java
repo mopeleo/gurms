@@ -2,12 +2,9 @@ package org.gurms.common.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.lang.StringUtils;
 import org.dozer.DozerBeanMapper;
 
 /**
@@ -36,7 +33,7 @@ public class ObjectMapper {
 		return dozer.map(source, destinationClass);
 	}
 
-	public static void map(Object source, Object destination) {
+	public static void copy(Object source, Object destination) {
 		dozer.map(source, destination);
 	}
 
@@ -50,21 +47,6 @@ public class ObjectMapper {
 			destinationList.add(destinationObject);
 		}
 		return destinationList;
-	}
-
-	static {
-		//初始化日期格式为yyyy-MM-dd 或 yyyy-MM-dd HH:mm:ss
-		registerDateConverter("yyyyMMdd,yyyy-MM-dd,yyyy-MM-dd HH:mm:ss");
-	}
-
-	/**
-	 * 定义Apache BeanUtils日期Converter的格式,可注册多个格式,以','分隔
-	 */
-	public static void registerDateConverter(String patterns) {
-		DateConverter dc = new DateConverter();
-		dc.setUseLocaleFormat(true);
-		dc.setPatterns(StringUtils.split(patterns, ","));
-		ConvertUtils.register(dc, Date.class);
 	}
 
 	/**

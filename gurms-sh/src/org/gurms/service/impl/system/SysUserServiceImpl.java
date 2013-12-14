@@ -244,7 +244,7 @@ public class SysUserServiceImpl implements SysUserService{
 			sysUserInfoDao.save(userinfo);
 		}else{
 			String createDate = info.getCreatedate();
-			ObjectMapper.map(userinfo, info);
+			ObjectMapper.copy(userinfo, info);
 			info.setCreatedate(createDate);
 			sysUserInfoDao.save(info);
 		}
