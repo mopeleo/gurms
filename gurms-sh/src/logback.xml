@@ -16,7 +16,17 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder charset="UTF-8">
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 可让每天产生一个日志文件 -->
+	<appender name="jdbcLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/gurms-jdbc.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+			<pattern>%d{HH:mm:ss} [%thread] :: %msg%n</pattern>
 		</encoder>
 	</appender>
 	
@@ -28,15 +38,20 @@
 	
 	<!-- 该规则是 logback 的核心。级别排序为： TRACE < DEBUG < INFO < WARN < ERROR -->
 	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 --> 
-    <logger name="org.hibernate" level="WARN"/>
-    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
     <logger name="com.opensymphony" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
+	<!--log4jdbc 使用独立的appender，不继承Root的appender-->
+	<logger name="jdbc.sqltiming" level="INFO" additivity="false">
+		<appender-ref ref="jdbcLog" />
+	</logger>
  
-    <!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
+    <!-- show parameters for hibernate sql 专为 Hibernate 定制 
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
     <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/>
     <logger name="org.hibernate.SQL" level="DEBUG"/>
     <logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>
     <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>
+    -->
 </configuration>
