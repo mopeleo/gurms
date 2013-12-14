@@ -30,13 +30,8 @@ public class HibernateNativeDao {
 		return sessionFactory;
 	}
 
-	/**
-	 * 采用@Autowired按类型注入SessionFactory,当有多个SesionFactory的时候Override本函数.
-	 * 
-	 * @param sessionFactory
-	 */
 	@Autowired
-	public void setSessionFactory(final SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
