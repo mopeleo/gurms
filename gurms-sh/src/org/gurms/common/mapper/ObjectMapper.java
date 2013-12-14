@@ -1,4 +1,4 @@
-package org.gurms.common.util;
+package org.gurms.common.mapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
