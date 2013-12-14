@@ -5,7 +5,7 @@
 	<!-- 控制台输出日志 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder charset="UTF-8"> <!-- encoder 可以指定字符集，对于中文输出有意义 -->
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 	
@@ -31,15 +31,15 @@
 	</appender>
 	
 	<!-- root -->
-	<root level="WARN">
+	<root level="DEBUG">
 		<appender-ref ref="console" />
 		<appender-ref ref="rollingFile" />
 	</root>
 	
 	<!-- 该规则是 logback 的核心。级别排序为： TRACE < DEBUG < INFO < WARN < ERROR -->
 	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 --> 
-    <logger name="org.hibernate" level="INFO"/>
-    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
     <logger name="com.opensymphony" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
 	<!--log4jdbc 使用独立的appender，不继承Root的appender-->
