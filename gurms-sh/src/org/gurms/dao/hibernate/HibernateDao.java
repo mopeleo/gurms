@@ -284,7 +284,7 @@ public class HibernateDao<T> extends SimpleHibernateDao<T> {
 			orderEntries = (List) ReflectionUtil.getFieldValue(impl, "orderEntries");
 			ReflectionUtil.setFieldValue(impl, "orderEntries", new ArrayList());
 		} catch (Exception e) {
-			logger.error("不可能抛出的异常:{}", e.getMessage());
+			e.printStackTrace();
 		}
 
 		// 执行Count查询
@@ -303,7 +303,7 @@ public class HibernateDao<T> extends SimpleHibernateDao<T> {
 		try {
 			ReflectionUtil.setFieldValue(impl, "orderEntries", orderEntries);
 		} catch (Exception e) {
-			logger.error("不可能抛出的异常:{}", e.getMessage());
+			e.printStackTrace();
 		}
 
 		return totalCount;

@@ -17,8 +17,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.metadata.ClassMetadata;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -34,8 +32,6 @@ import org.springframework.util.Assert;
  */
 @SuppressWarnings("unchecked")
 public class SimpleHibernateDao<T>{
-
-	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected SessionFactory sessionFactory;
 
@@ -79,7 +75,6 @@ public class SimpleHibernateDao<T>{
 	public void save(final T entity) {
 		Assert.notNull(entity, "实体对象不能为空");
 		getSession().saveOrUpdate(entity);
-		logger.debug("save entity: {}", entity);
 	}
 
 	/**
@@ -90,7 +85,6 @@ public class SimpleHibernateDao<T>{
 	public void delete(final T entity) {
 		Assert.notNull(entity, "实体对象不能为空");
 		getSession().delete(entity);
-		logger.debug("delete entity: {}", entity);
 	}
 
 	/**
@@ -99,7 +93,6 @@ public class SimpleHibernateDao<T>{
 	public void delete(final Serializable id) {
 		Assert.notNull(id, "实体主键不能为空");
 		delete(get(id));
-		logger.debug("delete entity {},id is {}", entityClass.getSimpleName(), id);
 	}
 
 	/**
@@ -363,8 +356,6 @@ public class SimpleHibernateDao<T>{
 	public void merge(final T entity) {
 		Assert.notNull(entity, "实体对象不能为空");
 		getSession().merge(entity);
-		logger.debug("save entity: {}", entity);
 	}
-
 
 }

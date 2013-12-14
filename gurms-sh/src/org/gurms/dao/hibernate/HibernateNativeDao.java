@@ -18,17 +18,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.connection.ConnectionProvider;
 import org.hibernate.engine.SessionFactoryImplementor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class HibernateNativeDao {
 
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-
-	protected SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -102,11 +98,9 @@ public class HibernateNativeDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
-				logger.error("数据库回滚操作失败", e1);
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-			logger.error("数据库操作失败", e);
 			
 			result.setSuccess(false);
 			result.setReturnmsg("执行[" + spName + "]出错");
@@ -123,7 +117,6 @@ public class HibernateNativeDao {
 				}
 			} catch (SQLException ex) {
 				ex.printStackTrace();
-				logger.error("数据库关闭连接失败", ex);
 				
 				result.setSuccess(false);
 				result.setReturnmsg(ex.getMessage());
