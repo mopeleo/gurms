@@ -1,0 +1,37 @@
+<@c.html title="机构列表">
+	<form id="mainForm" name="mainForm" action="${base}/sysorg/list" method="post">
+		<@c.searchdiv>
+            <table>
+                <tr>
+                    <td>机构简称:</td>
+                    <td><input type="text" name="filter_EQ_shortname" value="${EQ_shortname}"></td>
+                    <td><input type="button" onclick="search()" class="button" value="查询" /></td>
+                </tr>
+            </table>
+		</@c.searchdiv>
+
+		
+	    <div class="contect">
+	    	<#assign titles=["机构简称","机构全称","机构联系人","联系电话","联系地址","机构类型","上级机构"]>
+	    	<#assign props=["shortname","fullname","linkman","linktel","address","orgtype","parentorg"]>
+	    	<@c.listtable titles=titles props=props rows=result.result?size>
+				<#list result.result as org>
+					<tr onclick="clickrow(this)">
+						<td>${org_index+1}</td>
+						<td>${org.shortname}</a></td>
+						<td>${org.fullname}</td>
+						<td>${org.linkman}</td>
+						<td>${org.linktel}</td>
+						<td>${org.address}</td>
+						<td><@c.dictdesc dicttype="0009" dictcode="${org.orgtype}"/></td>
+						<td><#if org.parentorg != null>${org.parentorg.shortname}</#if></td>
+						<input type="hidden" id="orgid" value="${org.orgid}" />
+					</tr>
+				</#list>
+	    	</@c.listtable>
+
+            <@c.bottomdiv params="orgid" />
+        </div>
+			
+	</form>
+</@c.html>
