@@ -29,6 +29,11 @@ public final class GlobalConfig {
         return CONFIG.getString(key);
     }
 
+    public static String getConfig(String key, String defaultValue) {
+		String value = CONFIG.getString(key);
+		return value != null ? value : defaultValue;
+    }
+
     public static int getIntConfig(String key) {
         return Integer.parseInt(getConfig(key));
     }
