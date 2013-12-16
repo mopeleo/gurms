@@ -141,9 +141,34 @@ public class DateUtil {
 		return String.valueOf(System.currentTimeMillis());
 	}
 	
+	public static int getAge(String birthDate){
+		Date birth = parseDate(birthDate);
+		Calendar c = Calendar.getInstance();
+		c.setTime(birth);
+		int currentYear = getCurrentYear();
+		int currentMonth = getCurrentMonth();
+		int currentDay = getCurrentDay();
+		int birthYear = c.get(Calendar.YEAR);
+		int birthMonth = c.get(Calendar.MONTH);
+		int birthDay = c.get(Calendar.DAY_OF_MONTH);
+		int age = currentYear - birthYear;
+		if(age < 0){
+			throw new GurmsException("请输入正确的出生年份:[" + birthYear + "]");
+		}
+		if(currentMonth < birthMonth){
+			age = age - 1;
+		}else if(currentMonth == birthMonth){
+			if(currentDay < birthDay){
+				age = age - 1;
+			}
+		}
+		return age;
+	}
+	
 	public static void main(String[] args){
-		String s = "20080229";
+		String s = "20081231";
 		System.out.println(isDate(s));
 		System.out.println(addDay(s, 3));
+		System.out.println(getAge(s));
 	}
 }
