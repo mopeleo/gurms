@@ -19,6 +19,7 @@
 	// TODO rewrite as a widget, removing all the extra plugins
 	$.extend($.fn, {
 		checkboxClick: function(){
+			//checked='true'  & checked='checked' 的区别
 			var checkboxInLi = $(this).closest("li").find(":checkbox");
 			var allLi = $(this).parents("li");
 			if($(this).attr("checked")){
@@ -31,7 +32,7 @@
 					checkboxInLi.removeAttr("checked");
 				}
 				allLi.find(":checkbox:first").removeAttr("checked");
-				allLi.find(":checkbox[checked='true']").parents("li").find(":checkbox:first").attr("checked", true);
+				allLi.find(":checkbox[checked='checked']").parents("li").find(":checkbox:first").attr("checked", true);
 			}
 		},
 		swapClass: function(c1, c2) {
