@@ -24,7 +24,7 @@
     		</list>
     	</property>
     </bean>
-	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />   
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />   
 
 	<!-- spring upload 组件，必须有id="multipartResolver"  -->	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
@@ -40,6 +40,7 @@
    	<!-- 自动搜索@Controller标注的类 -->
 	<context:component-scan base-package="org.gurms.web.controller">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 
 	<!-- 将指定URL 的匹配模式来访问静态文件 -->

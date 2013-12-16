@@ -17,6 +17,7 @@
 		<!-- <context:exclude-filter type="regex" expression="org\.gurms\.orm\.dao\.hibernate\..*"/> -->
 		<!-- 在主容器中（applicationContext.xml），将Controller的注解排除掉  -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 
 	<!-- 多数据源 配置，适用用jdbcTemplate,若适用hibernate，必须配置多个sessionFactory

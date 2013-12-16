@@ -42,7 +42,12 @@
     <logger name="org.springframework" level="WARN"/>
     <logger name="com.opensymphony" level="WARN"/>
     <logger name="org.apache" level="WARN"/>
+    <logger name="org.dozer" level="WARN"/>
+    <logger name="net.sf" level="WARN"/>
 	<!--log4jdbc 使用独立的appender，不继承Root的appender-->
+    <logger name="jdbc.audit" level="ERROR"/>
+    <logger name="jdbc.sqlonly" level="ERROR"/>
+    <logger name="jdbc.resultset" level="ERROR"/>
 	<logger name="jdbc.sqltiming" level="INFO" additivity="false">
 		<appender-ref ref="jdbcLog" />
 	</logger>
