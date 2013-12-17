@@ -2,10 +2,12 @@ package org.gurms.dao.hibernate;
 
 import javax.persistence.Table;
 
-import org.apache.commons.lang.StringUtils;
 import org.gurms.common.util.DateUtil;
+import org.gurms.common.util.SpringUtil;
 import org.gurms.entity.Logable;
 import org.gurms.entity.system.SysLogOperate;
+import org.gurms.entity.system.SysUser;
+import org.gurms.web.WebConstants;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.event.PostDeleteEvent;
@@ -39,22 +41,20 @@ public class HibernateEventListener implements PostInsertEventListener,
 	
 	private void doLog(Session session, Object entity, String id, String operatetype){
 		if (entity instanceof Logable) {
-			String operator = ((Logable)entity).getOperator();
-			if(StringUtils.isNotBlank(operator)){
-				SysLogOperate log = new SysLogOperate();
-				log.setOperatedate(DateUtil.getCurrentDate());
-				log.setOperatetime(DateUtil.getCurrentTime());
-				log.setOperatetype(operatetype);
-				log.setUserid(operator);
-				log.setRecordid(id);			
-				Table table = entity.getClass().getAnnotation(Table.class);
-				if(table != null){
-					log.setOperatetable(table.name());
-				}else{
-					log.setOperatetable(entity.getClass().getName());
-				}
-				saveLog(session, log);
+			SysUser user = (SysUser)SpringUtil.getHttpSession().getAttribute(WebConstants.S_KEY_USER);
+			SysLogOperate log = new SysLogOperate();
+			log.setOperatedate(DateUtil.getCurrentDate());
+			log.setOperatetime(DateUtil.getCurrentTime());
+			log.setOperatetype(operatetype);
+			log.setUserid(user.getUserid());
+			log.setRecordid(id);			
+			Table table = entity.getClass().getAnnotation(Table.class);
+			if(table != null){
+				log.setOperatetable(table.name());
+			}else{
+				log.setOperatetable(entity.getClass().getName());
 			}
+			saveLog(session, log);
 		}
 	}
 

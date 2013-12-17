@@ -42,6 +42,7 @@ public class SysLogController extends BaseController {
 
 	@RequestMapping
 	public void loginlist(HttpServletRequest request, PageRequest page, Model model) {
+		setIndividuation(request, page);
 		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
 		PageResult<SysLogLogin> result = sysLogService.queryLogin(requestMap, page);
 		model.addAttribute(WebConstants.KEY_RESULT, result);

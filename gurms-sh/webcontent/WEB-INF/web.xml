@@ -96,6 +96,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 为了可以使用RequestContextHolder获得request -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
 
 	<!-- Spring 刷新Introspector防止内存泄露 -->
 	<listener>

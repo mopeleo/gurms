@@ -79,14 +79,6 @@
 </#macro> 
 
 
-<#macro ajaxform action>  
-	<form method="post" id="ajaxform" action="${action}">
-		<input type="hidden" name="operator" id="operator" value="${session_user.userid}">
-        <#nested/>
-    </form>
-</#macro> 
-
-
 <#-- 列表表单  titles:表单中的标题,props:表单中每个单元格的属性ID,rows:表单有多少行-->
 <#macro listtable titles props id="chooselist" rows=0>
 	<script type="text/javascript">

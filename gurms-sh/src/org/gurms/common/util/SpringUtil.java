@@ -1,8 +1,22 @@
 package org.gurms.common.util;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * 加载Spring配置文件时，如果Spring配置文件中所定义的Bean类实现了ApplicationContextAware 接口，
+ * 那么在加载Spring配置文件时，会自动调用ApplicationContextAware 接口中的
+ * public void setApplicationContext(ApplicationContext context) throws BeansException
+ * 方法，获得ApplicationContext对象。
+ * 前提必须在Spring配置文件中指定该类
+ * @author Leo
+ *
+ */
 public class SpringUtil implements ApplicationContextAware {
 
 	private static ApplicationContext applicationContext;
@@ -35,4 +49,11 @@ public class SpringUtil implements ApplicationContextAware {
 		return (T) getApplicationContext().getBeansOfType(clazz);
 	}
 
+	public static HttpServletRequest getHttpRequest(){
+		return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+	}
+	
+	public static HttpSession getHttpSession(){
+		return getHttpRequest().getSession();
+	}
 }
