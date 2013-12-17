@@ -46,7 +46,11 @@ public class HibernateEventListener implements PostInsertEventListener,
 			log.setOperatedate(DateUtil.getCurrentDate());
 			log.setOperatetime(DateUtil.getCurrentTime());
 			log.setOperatetype(operatetype);
-			log.setUserid(user.getUserid());
+			if(user == null){
+				log.setUserid("-login-");
+			}else{
+				log.setUserid(user.getUserid());
+			}
 			log.setRecordid(id);			
 			Table table = entity.getClass().getAnnotation(Table.class);
 			if(table != null){
