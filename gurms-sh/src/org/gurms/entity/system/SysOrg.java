@@ -1,5 +1,6 @@
 package org.gurms.entity.system;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +18,12 @@ import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Logable
 @Entity
 @Table(name="sys_org")
 @org.hibernate.annotations.Entity(dynamicUpdate=true,dynamicInsert=true) 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class SysOrg extends Logable {
+public class SysOrg implements Serializable {
 	private String orgid;
 	private String shortname;
 	private String fullname;

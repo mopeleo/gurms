@@ -12,9 +12,11 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Logable
 @Entity
 @IdClass(SysDictPK.class)
 @Table(name = "sys_dict_value")

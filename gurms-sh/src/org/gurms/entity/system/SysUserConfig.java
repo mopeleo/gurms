@@ -7,10 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.gurms.entity.Logable;
 import org.gurms.entity.PageRequest;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Logable
 @Entity
 @Table(name = "sys_user_config")
 @org.hibernate.annotations.Entity(dynamicUpdate=true,dynamicInsert=true) 

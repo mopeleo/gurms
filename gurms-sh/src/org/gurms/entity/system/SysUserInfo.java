@@ -6,9 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Logable
 @Entity
 @Table(name="sys_user_info")
 @org.hibernate.annotations.Entity(dynamicUpdate=true,dynamicInsert=true) 

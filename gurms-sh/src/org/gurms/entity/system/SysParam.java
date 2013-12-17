@@ -10,9 +10,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+@Logable
 @Entity
 @Table(name = "sys_param")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

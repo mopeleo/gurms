@@ -16,11 +16,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+@Logable
 @Entity
 @Table(name = "sys_role")
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)

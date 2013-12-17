@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.gurms.entity.Logable;
+
+@Logable
 @Entity
 @Table(name="sys_accessory")
 public class SysAccessory implements Serializable {

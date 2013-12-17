@@ -40,7 +40,7 @@ public class HibernateEventListener implements PostInsertEventListener,
 	}
 	
 	private void doLog(Session session, Object entity, String id, String operatetype){
-		if (entity instanceof Logable) {
+		if (entity.getClass().isAnnotationPresent(Logable.class)) {
 			SysUser user = (SysUser)SpringUtil.getHttpSession().getAttribute(WebConstants.S_KEY_USER);
 			SysLogOperate log = new SysLogOperate();
 			log.setOperatedate(DateUtil.getCurrentDate());
