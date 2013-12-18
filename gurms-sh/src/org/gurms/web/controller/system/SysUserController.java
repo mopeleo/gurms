@@ -77,7 +77,7 @@ public class SysUserController extends BaseController {
 		try{
 			page = userService.saveUserInfo(userinfo);
 		}catch(Exception e){
-			page = processException(e, "保存用户信息出错");
+			page = processException(e, "保存用户信息出错:" + e.getMessage());
 		}
 		return page;
 	}
@@ -95,7 +95,7 @@ public class SysUserController extends BaseController {
 		try{
 			page = userService.save(user);
 		}catch(Exception e){
-			page = processException(e, "保存用户信息出错");
+			page = processException(e, "保存用户信息出错:" + e.getMessage());
 		}
 		return page;
 	}
@@ -107,7 +107,7 @@ public class SysUserController extends BaseController {
 		try{
 			page =  userService.insert(user);
 		}catch(Exception e){
-			page = processException(e, "新增用户信息出错");
+			page = processException(e, "新增用户信息出错:" + e.getMessage());
 		}
 		return page;
 	}
@@ -128,7 +128,7 @@ public class SysUserController extends BaseController {
 		try{
 			page = userService.setPassword(user);
 		}catch(Exception e){
-			page = processException(e, "修改密码出错");
+			page = processException(e, "修改密码出错:" + e.getMessage());
 		}
 		return page;
 	}
@@ -155,7 +155,7 @@ public class SysUserController extends BaseController {
 				request.getSession().removeAttribute(WebConstants.S_KEY_FASTMENU);
 			}
 		}catch(Exception e){
-			page = processException(e, "保存用户设置出错");
+			page = processException(e, "保存用户设置出错:" + e.getMessage());
 		}
 		return page;
 	}
