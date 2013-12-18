@@ -36,7 +36,8 @@ public interface SysUserService{
 	
 	public SysUserInfo getUserInfo(String userid);
 	
-	public PageResult<SysUser> saveUserInfo(SysUserInfo userinfo);
+	@GurmsValid(type=SysUserInfo.class, props={"userid","loginpassword"})
+	public PageResult<SysUserInfo> saveUserInfo(SysUserInfo userinfo);
 	
 	public SysUserConfig getUserConfig(String userid);
 	

@@ -20,6 +20,7 @@ $(document).ready(function(){
 		success:_processResponse
 	});
 
+	//input输入框回车键跳转
 	$("input").keypress(function (e) {
 		var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 		if (keyCode == 13){
@@ -35,6 +36,25 @@ $(document).ready(function(){
 			return true;
 		}
 	});
+
+	//屏蔽页面退格键
+	$(document).keydown(function (e) {
+	    var doPrevent = true;
+		var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+	    if (keyCode == 8) {
+	    	var d = (e.srcElement || e.target);
+	        var tag = d.tagName.toUpperCase();
+	        if (tag == 'INPUT' || tag == 'TEXTAREA') {
+	            doPrevent = d.readOnly || d.disabled;
+	        } else {
+	            doPrevent = true;
+	        }
+	    } else{
+	        doPrevent = false;
+	    }
+	    if (doPrevent)
+	        e.preventDefault();
+	});	
 });
 
 //列表页面一行数据;

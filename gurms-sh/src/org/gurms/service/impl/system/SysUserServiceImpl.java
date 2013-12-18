@@ -25,6 +25,8 @@ import org.gurms.entity.system.SysUser;
 import org.gurms.entity.system.SysUserConfig;
 import org.gurms.entity.system.SysUserInfo;
 import org.gurms.service.system.SysUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class SysUserServiceImpl implements SysUserService{
+
+	private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
 	@Autowired
 	private SysUserDao sysUserDao;
@@ -57,6 +61,7 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 	
 	public PageResult<SysUser> save(SysUser user) {
+		log.info("method :: save(SysUser user) begin......");
 		PageResult<SysUser> result = new PageResult<SysUser>();
 		if(StringUtils.isNotBlank(user.getSysroleids())){
 			String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
@@ -71,6 +76,8 @@ public class SysUserServiceImpl implements SysUserService{
 		po.setUsername(user.getUsername());
 		po.setSysorg(user.getSysorg());
 		sysUserDao.save(po);
+		log.info("user [id] is : " + po.getUserid());
+		log.info("method :: save(SysUser user) end......");
 		return result;
 	}
 
@@ -158,7 +165,7 @@ public class SysUserServiceImpl implements SysUserService{
 
 	@Override
 	public PageResult<SysUser> login(SysUser user) {
-		
+		log.info("method :: login(SysUser user) begin......");
 		PageResult<SysUser> result = new PageResult<SysUser>();
 		SysUser sessionUser = null;
 
@@ -226,6 +233,7 @@ public class SysUserServiceImpl implements SysUserService{
 			sysLogLoginDao.save(sll);
 		}
 		result.addResult(sessionUser);
+		log.info("method :: login(SysUser user) end......");
 		return result;
 	}
 
@@ -236,8 +244,8 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 
 	@Override
-	public PageResult<SysUser> saveUserInfo(SysUserInfo userinfo) {
-		PageResult<SysUser> page = new PageResult<SysUser>();
+	public PageResult<SysUserInfo> saveUserInfo(SysUserInfo userinfo) {
+		PageResult<SysUserInfo> page = new PageResult<SysUserInfo>();
 		SysUserInfo info = sysUserInfoDao.get(userinfo.getUserid());
 		if(info == null){
 			userinfo.setCreatedate(DateUtil.getCurrentDate());

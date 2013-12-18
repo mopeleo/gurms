@@ -681,6 +681,22 @@ var Validate = {
     	return true;
     },
     
+    ////手机号码，暂时支持,13,14,15,18打头的手机号
+    Mobile: function(value, paramsObj){
+    	var paramsObj = paramsObj || {};
+    	var message = paramsObj.failureMessage || "Must be a valid mobile no!";
+    	Validate.Format(value, { failureMessage: message, pattern: /^1[3|4|5|8][0-9]\d{8}$/i } );
+    	return true;
+    },
+    
+    ////固定电话号码，支持国际区号+地区区号+电话号码+分机号
+    Telno: function(value, paramsObj){
+    	var paramsObj = paramsObj || {};
+    	var message = paramsObj.failureMessage || "Must be a valid telephone no!";
+    	Validate.Format(value, { failureMessage: message, pattern: /^(([0\+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/i } );
+    	return true;
+    },
+    
     Date: function(value, paramsObj){
     	var paramsObj = paramsObj || {};
     	var message = paramsObj.failureMessage || "Must be a valid date!";

@@ -30,7 +30,7 @@ public class GurmsValidRule implements Serializable{
 	private String script;     //客户端效验JS
 	
 	private enum Rule {
-		Presence,Numericality,Format,Email,Date,Chinese,Idcard,Length,
+		Presence,Numericality,Format,Email,Date,Chinese,Mobile,Telno,Idcard,Length,
 		Inclusion,Exclusion,Confirmation,Acceptance;
 	}
 
@@ -169,10 +169,16 @@ public class GurmsValidRule implements Serializable{
 				pattern = Pattern.compile(getPattern());
 				return pattern.matcher(val).matches();
 			case Email:
-				pattern = Pattern.compile("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+",Pattern.CASE_INSENSITIVE);
+				pattern = Pattern.compile("^([^@\\s]+)@((?:[-a-z0-9]+\\.)+[a-z]{2,})$",Pattern.CASE_INSENSITIVE);
+				return pattern.matcher(val).matches();
+			case Mobile:
+				pattern = Pattern.compile("^1[3|4|5|8][0-9]\\d{8}$");
+				return pattern.matcher(val).matches();
+			case Telno:
+				pattern = Pattern.compile("^(([0\\+]\\d{2,3}-)?(0\\d{2,3})-)?(\\d{7,8})(-(\\d{3,}))?$");
 				return pattern.matcher(val).matches();
 			case Chinese:
-				pattern = Pattern.compile("[\\u4e00-\\u9fa5]+");
+				pattern = Pattern.compile("^[\\u4e00-\\u9fa5]+$");
 				return pattern.matcher(val).matches();
 			case Idcard:
 				return IDCardUtil.validateIDCard(val);
@@ -259,6 +265,10 @@ public class GurmsValidRule implements Serializable{
 				return ".add(Validate.Format,{pattern:" + gvr.getPattern() + ",failureMessage:'" + gvr.getMsg() + "'});";
 			case Email:
 				return ".add(Validate.Email,{failureMessage:'" + gvr.getMsg() + "'});";
+			case Mobile:
+				return ".add(Validate.Mobile,{failureMessage:'" + gvr.getMsg() + "'});";
+			case Telno:
+				return ".add(Validate.Telno,{failureMessage:'" + gvr.getMsg() + "'});";
 			case Chinese:
 				return ".add(Validate.Chinese,{failureMessage:'" + gvr.getMsg() + "'});";
 			case Idcard:

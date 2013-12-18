@@ -1,5 +1,5 @@
 <@c.html title="用户信息">
-	<@c.validscript classname="org.gurms.entity.system.SysUser" formid="ajaxform" props="userid,username"/>
+	<@c.validscript classname="org.gurms.entity.system.SysUserInfo" formid="ajaxform"/>
 	
 	<form method="post" id="ajaxform" action="${base}/sysuser/userinfo">
         <div class="messagelist">
@@ -43,15 +43,15 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">性别</td>
-                        <td><input type="text" name="sex" value="${(result.sex)!!}" /></td>
+                        <td><@c.dict id="sex" default="${result.sex}" dictcode="4"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">出生年月</td>
-                        <td><input type="text" name="birthday" value="${(result.birthday)!!}" /></td>
+                        <td><@c.calendar id="birthday" default="${(result.birthday)!!}"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在省份</td>
-                        <td><input type="text" name="province" value="${(result.province)!!}" /></td>
+                        <td><@c.dict id="province" default="${result.province}" dictcode="16"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在城市</td>
@@ -59,7 +59,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">教育程度</td>
-                        <td><input type="text" name="education" value="${(result.education)!!}" /></td>
+                        <td><@c.dict id="education" default="${result.education}" dictcode="15"/></td>
                     </tr>
                 </table>
             </div>

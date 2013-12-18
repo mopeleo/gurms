@@ -37,7 +37,7 @@
    	  <div class="rightDivborder">
    	  <div class="borderdiv">
         <@c.afterreturn forward="${base}/sysorg/list" />
-		<@c.ajaxform action="${base}/sysorg/detail">
+		<form method="post" id="ajaxform" action="${base}/sysorg/detail">
 	        <div class="messagelist">
 	            <div class="title_bg">
 	                <span>基本信息</span>
@@ -111,7 +111,7 @@
 					</table>
 	            </div>
 	        </div>
-		</@c.ajaxform>  
+		</form>  
 	  </div>
       </div>
    </div><!--messageRight end -->
