@@ -19,7 +19,8 @@ public class SysLogOperate implements Serializable{
 	private String operatetime;
 	private String operatetype;
 	private String operatetable;
-	private String recordid;
+	private String operateurl;
+	private String dataid;
 	@Id
 	@GeneratedValue(generator = "uuid")    
 	@GenericGenerator(name = "uuid", strategy = "uuid") 
@@ -59,11 +60,17 @@ public class SysLogOperate implements Serializable{
 	public void setOperatetable(String operatetable) {
 		this.operatetable = operatetable;
 	}
-	public String getRecordid() {
-		return recordid;
+	public String getOperateurl() {
+		return operateurl;
 	}
-	public void setRecordid(String recordid) {
-		this.recordid = recordid;
+	public void setOperateurl(String operateurl) {
+		this.operateurl = operateurl;
+	}
+	public String getDataid() {
+		return dataid;
+	}
+	public void setDataid(String dataid) {
+		this.dataid = dataid;
 	}
 	public boolean equals(Object o) {
 		if (o == null || !(o instanceof SysLogOperate)) {

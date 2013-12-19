@@ -15,8 +15,8 @@
 		</@c.searchdiv>
 		
 	    <div class="contect">
-	    	<#assign titles=["用户ID","操作日期","操作时间","操作类型","操作对象","操作对象ID"]>
-	    	<#assign props=["userid","operatedate","operatetime","operatetype","operatetable","recordid"]>
+	    	<#assign titles=["用户ID","操作日期","操作时间","操作类型","操作对象","操作对象ID","操作URL"]>
+	    	<#assign props=["userid","operatedate","operatetime","operatetype","operatetable","dataid","operateurl"]>
 	 	    <@c.listtable titles=titles props=props rows=result.result?size>
 				<#list result.result as log>
 					<tr onclick="clickrow(this)">
@@ -26,7 +26,8 @@
 						<td>${log.operatetime}</td>
 						<td>${log.operatetype}</td>
 						<td>${log.operatetable}</td>
-						<td>${log.recordid}</td>
+						<td>${log.dataid}</td>
+						<td>${log.operateurl}</td>
 					</tr>
 				</#list>
 	    	</@c.listtable>

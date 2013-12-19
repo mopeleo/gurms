@@ -51,7 +51,8 @@ public class HibernateEventListener implements PostInsertEventListener,
 			}else{
 				log.setUserid(user.getUserid());
 			}
-			log.setRecordid(id);			
+			log.setOperateurl(SpringUtil.getHttpRequest().getServletPath());
+			log.setDataid(id);			
 			Table table = entity.getClass().getAnnotation(Table.class);
 			if(table != null){
 				log.setOperatetable(table.name());
