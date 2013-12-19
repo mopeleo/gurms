@@ -39,9 +39,9 @@ public abstract class BaseController {
 		return page;
 	}
 	
-	protected String getPath(HttpServletRequest request){
-		String path = GlobalConfig.FILE_DIR;
-		if(GlobalConfig.FILE_DIR_MODE_RELATIVE.equals(GlobalConfig.FILE_DIR_MODE)){
+	protected String getUploadPath(HttpServletRequest request){
+		String path = GlobalConfig.UPLOAD_FILE_DIR;
+		if(GlobalConfig.UPLOAD_FILE_DIR_MODE_RELATIVE.equals(GlobalConfig.UPLOAD_FILE_DIR_MODE)){
 			// 获取路径
 			String ctxPath = request.getSession().getServletContext().getRealPath("/");
 			path = ctxPath + path;

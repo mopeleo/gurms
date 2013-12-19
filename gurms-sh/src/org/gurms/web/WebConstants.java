@@ -2,9 +2,6 @@ package org.gurms.web;
 
 public abstract class WebConstants {
 	
-	//-- Header 定义 --//
-	public static final String AUTHENTICATION_HEADER = "Authorization";
-
 	// session中的key
 	public static final String S_KEY_MENU = "session_menu";	
 	public static final String S_KEY_FASTMENU = "session_fastmenu";	

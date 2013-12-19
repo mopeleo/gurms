@@ -111,7 +111,7 @@ public class SysAccessoryController extends BaseController {
 		String status = request.getParameter("status");
 
 		// 获取路径
-		String ctxPath = getPath(request);
+		String ctxPath = getUploadPath(request);
 		// 获得文件名：
 		String realFileName = file.getOriginalFilename();
 		String fileSuffix = CommonUtil.getFileSuffix(realFileName);
@@ -145,7 +145,7 @@ public class SysAccessoryController extends BaseController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		String status = request.getParameter("status");
-		String ctxPath = getPath(request);
+		String ctxPath = getUploadPath(request);
 
 		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
 			// 上传文件名

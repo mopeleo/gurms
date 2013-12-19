@@ -22,6 +22,10 @@ public class ServletUtil {
 		return request.getSession().getServletContext();
 	}
 	
+	public static String getUrlFromRequest(HttpServletRequest request){
+		return getContext(request).getContextPath();
+	}
+	
 	/**
 	 * 设置客户端缓存过期时间 的Header.
 	 */
