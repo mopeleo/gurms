@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">性别</td>
-                        <td><@c.dict id="sex" default="${result.sex}" dictcode="4"/></td>
+                        <td><@c.dict id="sex" default="${(result.sex)!!}" dictcode="4"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">出生年月</td>
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在省份</td>
-                        <td><@c.dict id="province" default="${result.province}" dictcode="16"/></td>
+                        <td><@c.dict id="province" default="${(result.province)!!}" dictcode="16"/></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在城市</td>
@@ -59,7 +59,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">教育程度</td>
-                        <td><@c.dict id="education" default="${result.education}" dictcode="15"/></td>
+                        <td><@c.dict id="education" default="${(result.education)!!}" dictcode="15"/></td>
                     </tr>
                 </table>
             </div>
