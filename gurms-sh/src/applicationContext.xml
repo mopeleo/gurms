@@ -9,7 +9,7 @@
 	default-lazy-init="true">
 
 	<!-- spring工具类,启动自动加载 -->
-	<bean class="org.gurms.common.util.SpringUtil" lazy-init="false" />
+	<bean class="org.gurms.web.SpringUtil" lazy-init="false" />
 
 	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入,可重复 -->
 	<context:component-scan base-package="org.gurms">
