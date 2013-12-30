@@ -26,15 +26,15 @@ public class GurmsValidConfig {
      * @param className 类名
      * @return ArrayList<GurmsValidRule>
      */
-    public static List<GurmsValidRule> getBeanRules(String className, boolean serverValid){
-    	List<GurmsValidRule> rules = new ArrayList<GurmsValidRule>();
+    public static List<List<GurmsValidRule>> getBeanRules(String className, boolean serverValid){
+    	List<List<GurmsValidRule>> rules = new ArrayList<List<GurmsValidRule>>();
     	String tmpKey = className + ".";
     	for(String key : keySet){
     		if(key.startsWith(tmpKey)){
     			String rule = rb.getString(key);
     			String field = key.substring(tmpKey.length());
 				List<GurmsValidRule> gvr = json2Rule(rule, field, serverValid);
-    			rules.addAll(gvr);
+    			rules.add(gvr);
     		}
     	}
     	return rules;
@@ -46,18 +46,18 @@ public class GurmsValidConfig {
      * @param props 属性集合
      * @return ArrayList<GurmsValidRule>
      */
-    public static List<GurmsValidRule> getBeanRules(String className, String[] props, FilterType filter, boolean serverValid){
-		List<GurmsValidRule> rules = null;
+    public static List<List<GurmsValidRule>> getBeanRules(String className, String[] props, FilterType filter, boolean serverValid){
+		List<List<GurmsValidRule>> rules = null;
 		if(props == null || props.length == 0){
 			rules = GurmsValidConfig.getBeanRules(className, serverValid);			
 		}else{
-			rules = new ArrayList<GurmsValidRule>();
+			rules = new ArrayList<List<GurmsValidRule>>();
 			if(filter == FilterType.INCLUDE){
 				for(String field : props){
 					String validField = className + "." + field;
 					String rule = rb.getString(validField);
 					List<GurmsValidRule> gvr = json2Rule(rule, field, serverValid);
-					rules.addAll(gvr);
+					rules.add(gvr);
 				}
 			}else{
 		    	String tmpKey = className + ".";
@@ -67,7 +67,7 @@ public class GurmsValidConfig {
 		    				String rule = rb.getString(key);
 		    				String field = key.substring(tmpKey.length());
 							List<GurmsValidRule> gvr = json2Rule(rule, field, serverValid);
-			    			rules.addAll(gvr);
+			    			rules.add(gvr);
 		    			}
 		    		}
 		    	}

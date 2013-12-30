@@ -2,32 +2,53 @@ package org.gurms.common.validate;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.gurms.common.util.ReflectionUtil;
 import org.gurms.common.validate.GurmsValid.FilterType;
+import org.gurms.common.validate.GurmsValidRule.Rule;
 
 public class GurmsValidator {
 
 	public static String serverValid(String clzName, String[] props, FilterType filter, Object o){
-		List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter, true);
+		List<List<GurmsValidRule>> rules = GurmsValidConfig.getBeanRules(clzName, props, filter, true);
 		//若没有配置规则，则不验证
 		if(rules == null || rules.size() == 0){
 			return null;
 		}
 		
 		StringBuffer sb = new StringBuffer(2048);
-		for(GurmsValidRule g : rules){
-			Object valueObj = ReflectionUtil.recGetPropertyValue(o, g.getField());
-			if(valueObj != null){
-				g.setValue(String.valueOf(valueObj));
-			}
-			if(!g.validField()){
-				sb.append(g.getMsg()).append(",");
-//				if("1".equals(GurmsValidConfig.MSG_TYPE)){
-//					sb.append(g.getMsg()).append(",");
-//				}else{
-//					sb.append(g.getJsonMsg()).append(",");
-//				}
-			}
+		for(List<GurmsValidRule> list : rules){
+		    //通过反射获得属性的值
+            String valueStr = null;
+		    if(list != null && list.size() > 0){
+		        GurmsValidRule g = list.get(0);
+		        Object valueObj = ReflectionUtil.recGetPropertyValue(o, g.getField());
+		        valueStr = String.valueOf(valueObj);
+		    }
+		    //检查是否存在非空规则，若没有，值为空可以不必验证
+		    boolean allowEmpty = true;
+		    for(GurmsValidRule g : list){
+		        Rule r = Enum.valueOf(Rule.class, g.getRule());
+		        if(r == Rule.Presence){
+		            allowEmpty = false;
+		            break;
+		        }
+		    }
+		    if(allowEmpty && StringUtils.isBlank(valueStr)){
+		        continue;
+		    }
+		    //验证规则
+		    for(GurmsValidRule g : list){
+                g.setValue(String.valueOf(valueStr));
+    			if(!g.validField()){
+    				sb.append(g.getMsg()).append(",");
+    //				if("1".equals(GurmsValidConfig.MSG_TYPE)){
+    //					sb.append(g.getMsg()).append(",");
+    //				}else{
+    //					sb.append(g.getJsonMsg()).append(",");
+    //				}
+    			}
+		    }
 		}
 		
 		if(sb.length() > 1){
@@ -53,11 +74,13 @@ public class GurmsValidator {
 		script.append("<script>");
 
 		try{
-			List<GurmsValidRule> rules = GurmsValidConfig.getBeanRules(clzName, props, filter, false);
+			List<List<GurmsValidRule>> rules = GurmsValidConfig.getBeanRules(clzName, props, filter, false);
 			
 			GurmsValidRule temp = new GurmsValidRule();
-			for(GurmsValidRule g : rules){
-				temp.addScript(g);
+			for(List<GurmsValidRule> list : rules){
+			    for(GurmsValidRule g : list){
+			        temp.addScript(g);
+			    }
 			}
 			script.append(temp.getScript());
 			script.append("function _validForm(){");

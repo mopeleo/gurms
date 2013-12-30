@@ -29,7 +29,7 @@ public class GurmsValidRule implements Serializable{
 	private String value;      //属性对应的值
 	private String script;     //客户端效验JS
 	
-	private enum Rule {
+	public enum Rule {
 		Presence,Numericality,Format,Email,Date,Chinese,Mobile,Telno,Idcard,Length,
 		Inclusion,Exclusion,Confirmation,Acceptance;
 	}
