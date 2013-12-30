@@ -1,4 +1,4 @@
-package org.gurms.common.util;
+package org.gurms.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,5 +55,9 @@ public class SpringUtil implements ApplicationContextAware {
 	
 	public static HttpSession getHttpSession(){
 		return getHttpRequest().getSession();
+	}
+	
+	public static Object getFromSession(String key){
+	    return getHttpSession().getAttribute(key);
 	}
 }

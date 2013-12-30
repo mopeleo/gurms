@@ -5,10 +5,10 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.gurms.common.config.GlobalParam;
 import org.gurms.common.exception.GurmsException;
-import org.gurms.common.util.SpringUtil;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysUser;
 import org.gurms.service.system.SysUserService;
+import org.gurms.web.SpringUtil;
 import org.gurms.web.WebConstants;
 
 public class SysSessionListener implements HttpSessionListener {

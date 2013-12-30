@@ -9,7 +9,6 @@ import javax.servlet.ServletContextListener;
 
 import org.gurms.common.config.GlobalMessage;
 import org.gurms.common.config.GlobalParam;
-import org.gurms.common.util.SpringUtil;
 import org.gurms.entity.system.SysDictIndex;
 import org.gurms.entity.system.SysDictValue;
 import org.gurms.entity.system.SysMenu;
@@ -17,6 +16,7 @@ import org.gurms.service.system.SysDictService;
 import org.gurms.service.system.SysMenuService;
 import org.gurms.service.system.SysParamService;
 import org.gurms.service.system.SysRoleService;
+import org.gurms.web.SpringUtil;
 import org.gurms.web.WebConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
