@@ -12,7 +12,7 @@
 		
 	    <div class="contect">
 	    	<#assign titles=["字典代码","字典名称","字典项","字典项名称","显示顺序"]>
-	    	<#assign props=["dictcode","dictitem","itemname","dictorder"]>
+	    	<#assign props=["dictcode","dictindex","dictitem","itemname","dictorder"]>
 	    	<@c.listtable titles=titles props=props rows=result.result?size>
 				<#list result.result as dict>
 					<tr onclick="clickrow(this)">
