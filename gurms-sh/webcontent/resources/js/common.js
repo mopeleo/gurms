@@ -21,7 +21,7 @@ $(document).ready(function(){
 	});
 
 	//input输入框回车键跳转
-	$("input").keypress(function (e) {
+	$("input,select").keypress(function (e) {
 		var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 		if (keyCode == 13){
 			var i;
