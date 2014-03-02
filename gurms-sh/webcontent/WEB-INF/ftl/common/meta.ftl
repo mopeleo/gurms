@@ -8,6 +8,7 @@
 
 <link href="${base}/resources/css/global.css" type="text/css" rel="stylesheet"/>
 <script src="${base}/resources/js/common.js" type="text/javascript"></script>
+<script src="${base}/resources/js/fastsearch.js" type="text/javascript"></script>
 
 <link href="${base}/resources/css/jquery.multiselect2side.css" type="text/css" rel="stylesheet"/>
 
