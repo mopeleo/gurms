@@ -1,10 +1,24 @@
 <@c.html title="用户登录日志列表">
+	<script type="text/javascript">
+		$(document).ready(function(){
+  			//var datas=[{display:'aaaaaa',relvalue:'1'},{display:'bbbbbbbb',relvalue:'2'},{display:'ccccccccccccc',relvalue:'3'}];
+  			$.getJSON("${base}/common/genDictData", { dicttype: 11, prefix: "台" }, function(json){
+  				datas = json;
+				bindFastSearch("filter_EQS_userid",datas);
+  			});
+  			
+			//	bindFastSearch("filter_EQS_userid", "${base}/common/genDictData");
+		})
+	</script>
+
 	<form id="mainForm" name="mainForm" action="${base}/syslog/loginlist" method="post">
 		<@c.searchdiv>
             <table>
                 <tr>
                     <td>用户ID:</td>
-                    <td><input type="text" name="filter_EQS_userid" value="${EQS_userid}"></td>
+                    <td>
+                    	<input type="text" id="filter_EQS_userid" name="filter_EQS_userid" value="${EQS_userid}" onclick="showlist('baiduselect')">
+                    </td>
                     <td>登录起始日期:</td>
                     <td><@c.calendar id="filter_GES_logindate" default="${GES_logindate}" nextdate="filter_LTS_logindate"/></td>
                     <td>登录截止日期:</td>
