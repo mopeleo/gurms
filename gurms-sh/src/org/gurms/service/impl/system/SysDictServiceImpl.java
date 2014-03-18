@@ -58,11 +58,17 @@ public class SysDictServiceImpl implements SysDictService {
 		return sysDictValueDao.get(id);
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<SysDictValue> getDict(int dictcode) {
-		return sysDictValueDao.findBy("dictcode", dictcode);
-	}
+    @Override
+    @Transactional(readOnly = true)
+    public List<SysDictValue> getDict(int dictcode) {
+        return sysDictValueDao.findBy("dictcode", dictcode);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SysDictValue> getDict(int dictcode, String prefix) {
+        return sysDictValueDao.findByPrefix(dictcode, prefix);
+    }
 
 	@Override
 	public PageResult<SysDictValue> saveDict(SysDictValue dict) {

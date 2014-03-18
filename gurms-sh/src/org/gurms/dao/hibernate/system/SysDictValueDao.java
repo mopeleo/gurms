@@ -15,6 +15,7 @@ public class SysDictValueDao extends HibernateDao<SysDictValue> {
 	
 //	private static final String GET_DICT_BY_TYPE = "select m from SysDictValue m,SysDictIndex n where n.dicttype=? and m in elements(n.dictvalue)";
 	private static final String GET_DICT_BY_TYPE = "select n.dictvalue from SysDictIndex n where n.dicttype=?";
+	private static final String GET_DICT_BY_PREFIX = "from SysDictValue n where n.dictcode=? and n.itemname like ?";
 
 	@Override
 	protected void setDefaultOrderBy(final Criteria c, final PageRequest pageRequest){
@@ -30,5 +31,9 @@ public class SysDictValueDao extends HibernateDao<SysDictValue> {
 	
 	public List<SysDictValue> getAll(){
 		return getSession().createCriteria(SysDictValue.class).addOrder(Order.asc("dictorder")).list();
+	}
+	
+	public List<SysDictValue> findByPrefix(int dictcode, String prefix){
+	    return this.find(GET_DICT_BY_PREFIX, dictcode, prefix+"%");
 	}
 }

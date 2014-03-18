@@ -1,6 +1,8 @@
 package org.gurms.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,14 +13,21 @@ import org.gurms.common.config.GlobalParam;
 import org.gurms.common.util.ValidCodeGenerator;
 import org.gurms.common.validate.GurmsValid.FilterType;
 import org.gurms.common.validate.GurmsValidator;
+import org.gurms.entity.system.SysDictValue;
+import org.gurms.service.system.SysDictService;
 import org.gurms.web.MediaTypes;
+import org.gurms.web.SelectDivData;
 import org.gurms.web.WebConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CommonController extends BaseController {
 
+    @Autowired
+    private SysDictService dictService;
 	// 生成验证码
 	@RequestMapping
 	public void validcode(HttpSession session, HttpServletResponse response) {
@@ -54,5 +63,21 @@ public class CommonController extends BaseController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//生成字典下拉数据
+	//var datas=[{display:'aaaaaa',relvalue:'1'},{display:'bbbbbbbb',relvalue:'2'},{display:'ccccccccccccc',relvalue:'3'}];
+    @RequestMapping
+    @ResponseBody
+	public List<SelectDivData> genDictData(int dicttype, String prefix){
+        List<SelectDivData> list = new ArrayList<SelectDivData>();
+        List<SysDictValue> search = dictService.getDict(dicttype, prefix);
+        for(SysDictValue dict : search){
+            SelectDivData  sdd = new SelectDivData();
+            sdd.setDisplay(dict.getItemname());
+            sdd.setRelvalue(dict.getDictitem());
+            list.add(sdd);
+        }
+        return list;
 	}
 }

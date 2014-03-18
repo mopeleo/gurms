@@ -16,8 +16,10 @@ public interface SysDictService {
 	
 	public SysDictValue getDict(SysDictPK id);
 	
-	public List<SysDictValue> getDict(int dictcode);
-	
+    public List<SysDictValue> getDict(int dictcode);
+    
+    public List<SysDictValue> getDict(int dictcode, String prefix);
+    
 	public Map<String,List<SysDictValue>> getDictMap();
 
 	@GurmsValid(type=SysDictValue.class)
