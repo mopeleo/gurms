@@ -69,13 +69,19 @@ public class CommonController extends BaseController {
 	//var datas=[{display:'aaaaaa',relvalue:'1'},{display:'bbbbbbbb',relvalue:'2'},{display:'ccccccccccccc',relvalue:'3'}];
     @RequestMapping
     @ResponseBody
-	public List<SelectDivData> genDictData(int dicttype, String prefix){
+	public List<SelectDivData> genDictData(int dicttype, String prefix, int returnnum){
         List<SelectDivData> list = new ArrayList<SelectDivData>();
         List<SysDictValue> search = dictService.getDict(dicttype, prefix);
-        for(SysDictValue dict : search){
+        if(returnnum < 1){
+            returnnum = 10;
+        }
+        for(int i = 0 ; i < search.size(); i++){
+            if(i >= returnnum){
+                break;
+            }
             SelectDivData  sdd = new SelectDivData();
-            sdd.setDisplay(dict.getItemname());
-            sdd.setRelvalue(dict.getDictitem());
+            sdd.setDisplay(search.get(i).getItemname());
+            sdd.setRelvalue(search.get(i).getDictitem());
             list.add(sdd);
         }
         return list;

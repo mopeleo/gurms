@@ -1,5 +1,6 @@
 
-function bindFastSearch(inputId, data) {
+function bindFastSearch(inputId, queryUrl, queryParam) {
+	var _last_search = null;
 	$("#" + inputId).keyup(function(e) {
 		var inputId = $(this).attr("id");
 		var dynamicDivId = inputId + "_div";
@@ -9,15 +10,22 @@ function bindFastSearch(inputId, data) {
 			dynamicDivHidden = $(dynamicDiv).is(":hidden");
 		}
 
-		if (e.srcElement.value.length < 2) {
+		var queryPrefix = e.srcElement.value;
+		if (queryPrefix.length < 2) {
 			if (!dynamicDivHidden) {
 				hideDivSelect(inputId);
 			}
 			return;
 		} else {
 			if (dynamicDivHidden) {
-				if (!dynamicDiv) {
-					drawDivSelect(inputId, data);
+				if (!dynamicDiv || _last_search != queryPrefix) {
+					setQueryParam(queryParam, queryPrefix);
+		  			$.ajax({url:queryUrl, async:false, data:queryParam, success: function(json){
+		  				_last_search = queryPrefix;
+		  				drawDivSelect(inputId, json);
+		  			}});
+					
+					//drawDivSelect(inputId, data);
 				}
 				showDivSelect(inputId);
 			}
@@ -42,10 +50,23 @@ function bindFastSearch(inputId, data) {
 
 	});
 }
+
+function setQueryParam(params, queryPrefix){
+	if(params){
+		if(params.returnnum && params.returnnum > 0){
+		}else{
+			params.returnnum = 5;
+		}
+		
+		params.prefix = queryPrefix;
+	}
+}
+
 function drawDivSelect(inputId, showdata) {
 	var dynamiceDivId = inputId + "_div";
 	var div = document.getElementById(dynamiceDivId);
 	if (div) {
+		div = $(div);
 		div.empty();
 	} else {
 		div = $("<div id='" + dynamiceDivId + "'></div>");
