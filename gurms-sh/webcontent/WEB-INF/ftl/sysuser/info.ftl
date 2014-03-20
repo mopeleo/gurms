@@ -1,6 +1,12 @@
 <@c.html title="用户信息">
 	<@c.validscript classname="org.gurms.entity.system.SysUserInfo" formid="ajaxform"/>
 	
+	<script type="text/javascript">
+		$(document).ready(function(){
+				bindFastSearch("province", "${base}/common/genDictData", { dicttype: 16 });
+		})
+	</script>
+	
 	<form method="post" id="ajaxform" action="${base}/sysuser/userinfo">
         <div class="messagelist">
             <div class="title_bg">
@@ -51,7 +57,7 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在省份</td>
-                        <td><@c.dict id="province" default="${(result.province)!!}" dictcode="16"/></td>
+                        <td><input type="text" name="province" id="province" value="${(result.province)!!}" /></td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在城市</td>

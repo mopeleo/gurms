@@ -10,6 +10,7 @@ function bindFastSearch(inputId, queryUrl, queryParam) {
 			dynamicDivHidden = $(dynamicDiv).is(":hidden");
 		}
 
+		var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 		var queryPrefix = e.srcElement.value;
 		if (queryPrefix.length < 2) {
 			if (!dynamicDivHidden) {
@@ -18,17 +19,19 @@ function bindFastSearch(inputId, queryUrl, queryParam) {
 			return;
 		} else {
 			if (!dynamicDiv || _last_search != queryPrefix) {
-				setQueryParam(queryParam, queryPrefix);
-	  			$.ajax({url:queryUrl, async:false, data:queryParam, success: function(json){
-	  				_last_search = queryPrefix;
-	  				drawDivSelect(inputId, json);
-	  			}});
+				if(keyCode !=13 && keyCode !=27 && keyCode !=38 && keyCode!=40){
+					setQueryParam(queryParam, queryPrefix);
+		  			$.ajax({url:queryUrl, async:false, data:queryParam, success: function(json){
+		  				_last_search = queryPrefix;
+		  				drawDivSelect(inputId, json);
+		  			}});
+				}
 			}
 			if (dynamicDivHidden) {
 				showDivSelect(inputId);
 			}
 		}
-		var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+
 		var maxIndex = $(dynamicDiv).children("ul").children("li").length - 1;
 		var minIndex = 0;
 		var selectIndex = $(this).attr("seletedIndex") || -1;

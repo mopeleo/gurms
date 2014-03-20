@@ -15,7 +15,7 @@ public class SysDictValueDao extends HibernateDao<SysDictValue> {
 	
 //	private static final String GET_DICT_BY_TYPE = "select m from SysDictValue m,SysDictIndex n where n.dicttype=? and m in elements(n.dictvalue)";
 	private static final String GET_DICT_BY_TYPE = "select n.dictvalue from SysDictIndex n where n.dicttype=?";
-	private static final String GET_DICT_BY_PREFIX = "from SysDictValue n where n.dictcode=? and n.pinyin like ? or n.pinyin like ?";
+	private static final String GET_DICT_BY_PREFIX = "from SysDictValue n where n.dictcode=? and (n.pinyin like ? or n.pinyin like ?)";
 	private static final String GET_DICT_NOT_INIT = "from SysDictValue n where n.pinyin is null";
 
 	@Override
