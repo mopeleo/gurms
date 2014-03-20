@@ -50,18 +50,19 @@ public class SysContextListener implements ServletContextListener {
 		logger.info("initialize freemark resource success......");
 		
 		// 缓存数据----------------------------------
+        SysParamService paramService = SpringUtil.getBean("sysParamServiceImpl");
+        Map<Integer, String> paramMap = paramService.getParamMap();
+        context.setAttribute(WebConstants.C_KEY_PARAM, paramMap);
+        logger.info("cache sys_param data success......");
+        
 		SysDictService dictService = SpringUtil.getBean("sysDictServiceImpl");
 		List<SysDictIndex> dictType = dictService.getDictIndex();
 		context.setAttribute(WebConstants.C_KEY_DICTTYPE, dictType);
 
+		dictService.initDictPinyin();
 		Map<String, List<SysDictValue>> dictMap = dictService.getDictMap();
 		context.setAttribute(WebConstants.C_KEY_DICT, dictMap);
 		logger.info("cache sys_dict data success......");
-		
-		SysParamService paramService = SpringUtil.getBean("sysParamServiceImpl");
-		Map<Integer, String> paramMap = paramService.getParamMap();
-		context.setAttribute(WebConstants.C_KEY_PARAM, paramMap);
-		logger.info("cache sys_param data success......");
 		
 		SysMenuService menuService = SpringUtil.getBean("sysMenuServiceImpl");
 		SysMenu menuList = menuService.getMenuTree(GlobalParam.MENU_ROOTID);

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.gurms.common.util.ChineseUtil;
 import org.gurms.dao.hibernate.system.SysDictIndexDao;
 import org.gurms.dao.hibernate.system.SysDictValueDao;
 import org.gurms.entity.PageRequest;
@@ -67,7 +68,8 @@ public class SysDictServiceImpl implements SysDictService {
     @Override
     @Transactional(readOnly = true)
     public List<SysDictValue> getDict(int dictcode, String prefix) {
-        return sysDictValueDao.findByPrefix(dictcode, prefix);
+        String pinyin = prefix.toUpperCase();
+        return sysDictValueDao.findByPrefix(dictcode, pinyin);
     }
 
 	@Override
@@ -122,4 +124,12 @@ public class SysDictServiceImpl implements SysDictService {
 		return sysDictIndexDao.getAll();
 	}
 
+	public void initDictPinyin(){
+	    List<SysDictValue> list = sysDictValueDao.fintPinYinIsNull();
+	    for(SysDictValue dictValue : list){
+	        String pinyin = ChineseUtil.getFirstLeter(dictValue.getItemname());
+	        pinyin += "," + ChineseUtil.getAllLeter(dictValue.getItemname());
+	        dictValue.setPinyin(pinyin);
+	    }
+	}
 }

@@ -30,4 +30,6 @@ public interface SysDictService {
 	public SysDictIndex getDictIndex(int dictcode);
 
 	public List<SysDictIndex> getDictIndex();
+	
+	public void initDictPinyin();
 }

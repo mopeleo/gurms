@@ -17,16 +17,14 @@ function bindFastSearch(inputId, queryUrl, queryParam) {
 			}
 			return;
 		} else {
+			if (!dynamicDiv || _last_search != queryPrefix) {
+				setQueryParam(queryParam, queryPrefix);
+	  			$.ajax({url:queryUrl, async:false, data:queryParam, success: function(json){
+	  				_last_search = queryPrefix;
+	  				drawDivSelect(inputId, json);
+	  			}});
+			}
 			if (dynamicDivHidden) {
-				if (!dynamicDiv || _last_search != queryPrefix) {
-					setQueryParam(queryParam, queryPrefix);
-		  			$.ajax({url:queryUrl, async:false, data:queryParam, success: function(json){
-		  				_last_search = queryPrefix;
-		  				drawDivSelect(inputId, json);
-		  			}});
-					
-					//drawDivSelect(inputId, data);
-				}
 				showDivSelect(inputId);
 			}
 		}

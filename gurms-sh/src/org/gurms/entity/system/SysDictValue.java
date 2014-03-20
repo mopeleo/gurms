@@ -27,6 +27,7 @@ public class SysDictValue implements Serializable {
 	private int dictcode;
 	private String dictitem;
 	private String itemname;
+	private String pinyin;
 	private int dictorder;
 	
 	private SysDictIndex dictindex;
@@ -89,7 +90,15 @@ public class SysDictValue implements Serializable {
 		this.dictorder = dictorder;
 	}
 	
-	public boolean equals(Object o) {
+	public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
+    }
+
+    public boolean equals(Object o) {
 		if (o == null || !(o instanceof SysDictPK)) {
 			return false;
 		} else {
