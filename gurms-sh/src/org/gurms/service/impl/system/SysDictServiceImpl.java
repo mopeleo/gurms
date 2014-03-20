@@ -129,6 +129,9 @@ public class SysDictServiceImpl implements SysDictService {
 	    for(SysDictValue dictValue : list){
 	        String pinyin = ChineseUtil.getFirstLeter(dictValue.getItemname());
 	        pinyin += "," + ChineseUtil.getAllLeter(dictValue.getItemname());
+	        if(pinyin.length()>64){
+	            pinyin = pinyin.substring(0,63);
+	        }
 	        dictValue.setPinyin(pinyin);
 	    }
 	}
