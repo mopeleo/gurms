@@ -3,7 +3,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
-				bindFastSearch("province", "${base}/common/genDictData", { dicttype: 16 });
+				bindFastSearch("_province", "${base}/common/genDictData", { dicttype: 16 });
 		})
 	</script>
 	
@@ -57,7 +57,10 @@
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在省份</td>
-                        <td><input type="text" name="province" id="province" value="${(result.province)!!}" /></td>
+                        <td>
+                        	<input type="text" name="_province" id="_province" value="<@c.dictdesc dictcode="16" dictitem="${(result.province)!!}"/>" />
+                        	<input type="hidden" name="province" id="province" value="${(result.province)!!}" />
+                        </td>
                     </tr>
                     <tr>
                         <td class="tdwidth2">所在城市</td>

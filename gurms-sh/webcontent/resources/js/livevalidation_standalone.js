@@ -40,6 +40,7 @@ LiveValidation.PASSWORD = 3;
 LiveValidation.CHECKBOX = 4;
 LiveValidation.SELECT   = 5;
 LiveValidation.FILE     = 6;
+LiveValidation.HIDDEN = -1;
 
 //global
 LiveValidation.REGEX_DATE = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?"              //year1 闰年
@@ -91,6 +92,12 @@ LiveValidation.prototype = {
       // default properties that could not be initialised above
     	this.validations = [];
       this.elementType = this.getElementType();
+      if(this.elementType == LiveValidation.HIDDEN){
+    	  var diselement = document.getElementById("_"+element);
+    	  if(diselement){
+        	  this.element = diselement;
+    	  }
+      }
       this.form = this.element.form;
       // options
     	var options = optionsObj || {};
@@ -242,8 +249,9 @@ LiveValidation.prototype = {
         return LiveValidation.FILE;
       case (this.element.nodeName.toUpperCase() == 'SELECT'):
         return LiveValidation.SELECT;
-        case (this.element.nodeName.toUpperCase() == 'INPUT'):
-        	throw new Error('LiveValidation::getElementType - Cannot use LiveValidation on an ' + this.element.type + ' input!');
+        case (this.element.nodeName.toUpperCase() == 'INPUT' && this.element.type.toUpperCase() == 'HIDDEN'):
+        	return LiveValidation.HIDDEN;
+        	//throw new Error('LiveValidation::getElementType - Cannot use LiveValidation on an ' + this.element.type + ' input!');
         default:
         	throw new Error('LiveValidation::getElementType - Element must be an input, select, or textarea!');
       }

@@ -122,5 +122,11 @@ function selectedLi(inputId, selectIndex) {
 	var selectValue = dynamiceDiv.children("ul").children("li").eq(selectIndex).text();
 	$("#" + inputId).attr("seletedIndex", selectIndex);
 	$("#" + inputId).val(selectValue);
+	//存在隐藏域
+	if(inputId.indexOf("_") == 0){
+		var relValue = dynamiceDiv.children("ul").children("li").eq(selectIndex).children("input").val();
+		var realId = inputId.substring(1);
+		$("#" + realId).val(relValue);
+	}
 
 }
