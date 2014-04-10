@@ -1,17 +1,11 @@
 <@c.html title="用户登录日志列表">
-	<script type="text/javascript">
-		$(document).ready(function(){
-				bindFastSearch("filter_EQS_userid", "${base}/common/genDictData", { dicttype: 11 });
-		})
-	</script>
-
 	<form id="mainForm" name="mainForm" action="${base}/syslog/loginlist" method="post">
 		<@c.searchdiv>
             <table>
                 <tr>
                     <td>用户ID:</td>
                     <td>
-                    	<input type="text" id="filter_EQS_userid" name="filter_EQS_userid" value="${EQS_userid}" onclick="showlist('baiduselect')">
+                    	<input type="text" id="filter_EQS_userid" name="filter_EQS_userid" value="${EQS_userid}">
                     </td>
                     <td>登录起始日期:</td>
                     <td><@c.calendar id="filter_GES_logindate" default="${GES_logindate}" nextdate="filter_LTS_logindate"/></td>

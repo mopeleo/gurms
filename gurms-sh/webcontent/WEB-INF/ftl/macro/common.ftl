@@ -261,8 +261,8 @@
 <#macro dictdesc dictcode dictitem><#list context_dict[dictcode] as dict><#if dict.dictitem==dictitem>${dict.itemname}<#break></#if></#list></#macro> 
 
 
-<#macro dict id dictcode default="" nullable=false>  
-	<select class="selectstyle" name="${id}" id="${id}">
+<#macro dict id dictcode default="" nullable=false event="">  
+	<select class="selectstyle" name="${id}" id="${id}" ${event}>
 		<#if nullable>
 			<option value="">-请选择-</option>
 		</#if>
