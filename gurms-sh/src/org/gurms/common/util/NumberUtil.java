@@ -149,6 +149,23 @@ public class NumberUtil {
         return result;  
     }
 	
+	/**
+	 * double 类型 保留小数点后N位数四舍五入
+	 * @param sourse       原数据
+	 *                dotlength  小数点后位数
+	 *                halfup       是否四舍五入
+	 */
+	public static double doubleFormat(double sourse, int dotlength, boolean halfup){
+	    BigDecimal  df = new BigDecimal(sourse);
+	    double dest ;
+	    if(halfup){
+	        dest = df.setScale(dotlength, BigDecimal.ROUND_HALF_UP).doubleValue();
+	    }else{
+            dest = df.setScale(dotlength, BigDecimal.ROUND_DOWN).doubleValue();
+	    }
+	    return dest;
+	}
+	
 	public static void main(String[] args) {
 		int num = 777;
 		System.out.println(Integer.toBinaryString(num));

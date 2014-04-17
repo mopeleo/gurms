@@ -40,7 +40,7 @@ public class CommonController extends BaseController {
 		}
 	}
 	
-	// 生成前段效验的JS代码
+	// 生成前端效验的JS代码
 	@RequestMapping
 	public void validscript(HttpServletRequest request, HttpServletResponse response){
 		response.setContentType(MediaTypes.TEXT_PLAIN);
@@ -58,6 +58,7 @@ public class CommonController extends BaseController {
 			props = StringUtils.split(prop, GlobalParam.STRING_SEPARATOR);
 		}
 		String js = GurmsValidator.script(className, formId, props, filterType);
+//		System.out.println(js);
 		try {
 			response.getOutputStream().write(js.getBytes());
 		} catch (IOException e) {

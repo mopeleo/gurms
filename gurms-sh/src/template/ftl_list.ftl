@@ -18,7 +18,12 @@
 	 	    <${'@'}c.listtable titles=titles props=props rows=result.result?size>
 				<${'#'}list result.result as obj>
 					<tr onclick="clickrow(this)">
-						<td>${'$'}{obj_index+1}</td>
+						<td>
+							${'$'}{obj_index+1}
+							<#list table.keys as key>
+								<input type="hidden" id="${key.code}" name="${key.code}" value="${'$'}{obj.${key.code}}">
+							</#list>						
+						</td>
 						<#list table.columns as column>
 						<td>${'$'}{obj.${column.code}}</td>
 						</#list>
@@ -26,7 +31,7 @@
 				</${'#'}list>
 	    	</${'@'}c.listtable>
 	 
-            <${'@'}c.bottomdiv/>
+            <${'@'}c.bottomdiv params="<#list table.keys as key>${key.code}<#if (key_index+1)!=table.keys?size>,</#if></#list>"/>
         </div>
 			
 	</form>

@@ -244,7 +244,7 @@ public class GurmsValidRule implements Serializable{
 			case Numericality:
 				StringBuffer num = new StringBuffer();
 				num.append(".add(Validate.Numericality,{");
-				if(isOnlyInteger()){
+				if(gvr.isOnlyInteger()){
 					num.append("onlyInteger:true,notAnIntegerMessage:'"+gvr.getMsg()+"',");
 				}
 				if(StringUtils.isNotEmpty(gvr.getIs())){
