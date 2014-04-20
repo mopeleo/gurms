@@ -37,6 +37,11 @@ public class DateUtil {
 		return getCurrentTime(pattern_fulltime);
 	}
 	
+	public static long dateSub(String begindate, String enddate){
+        long begin = parseDate(begindate).getTime();
+        long end = parseDate(enddate).getTime();
+	    return  (end - begin)/(24*60*60*1000);	    
+	}
 	/**
 	 * 
 	 * @param date  ：格式为YYYYMMDD的日期字符串

@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
+import org.gurms.common.exception.GurmsException;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysOrg;
@@ -41,6 +43,9 @@ public class SysOrgController extends BaseController {
 	public void detail(String orgid, Model model){
 		if(StringUtils.isNotBlank(orgid)){
 			SysOrg org = orgService.get(orgid);
+			if(GlobalParam.ORG_ROOTID.equals(org.getOrgid())){
+			    throw new GurmsException("["+org.getShortname() + "]是根节点，不能修改");
+			}
 			model.addAttribute(WebConstants.KEY_RESULT, org);
 		}
 	}

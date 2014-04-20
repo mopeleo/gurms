@@ -70,6 +70,9 @@ public class SysUserServiceImpl implements SysUserService{
 				user.getSysroles().add(role);
 			}
 		}
+        if(StringUtils.isBlank(user.getSysorg().getOrgid())){
+            user.setSysorg(null);
+        }
 		
 		SysUser po = sysUserDao.get(user.getUserid());
 		po.setSysroles(user.getSysroles());
@@ -90,9 +93,12 @@ public class SysUserServiceImpl implements SysUserService{
 			if(StringUtils.isNotBlank(user.getSysroleids())){
 				String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 				for(String roleid : roleids){
-					SysRole role = sysRoleDao.get(Integer.parseInt(roleid));
+					SysRole role = sysRoleDao.get(Long.parseLong(roleid));
 					user.getSysroles().add(role);
 				}
+			}
+			if(StringUtils.isBlank(user.getSysorg().getOrgid())){
+			    user.setSysorg(null);
 			}
 			if(StringUtils.isBlank(user.getLoginpassword())){
 				user.setLoginpassword(EncryptUtil.md5Encode(GlobalConfig.INIT_PASSWORD));

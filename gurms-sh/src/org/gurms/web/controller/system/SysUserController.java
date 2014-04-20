@@ -112,7 +112,20 @@ public class SysUserController extends BaseController {
 		return page;
 	}
 	
-	@RequestMapping
+    @RequestMapping
+    @ResponseBody
+    public PageResult ajaxDelete(String userid){
+        PageResult page = null;
+        try{
+            userService.delete(userid);
+            page = new PageResult();
+        }catch(Exception e){
+            page = processException(e, "删除用户出错");
+        }
+        return page;
+    }
+
+    @RequestMapping
 	public String delete(String userid){
 		userService.delete(userid);
 		return redirect(USER_LIST);

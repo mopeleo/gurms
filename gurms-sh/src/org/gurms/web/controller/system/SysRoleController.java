@@ -112,7 +112,7 @@ public class SysRoleController extends BaseController {
 	
 	@RequestMapping
 	public String delete(String roleid){
-		roleService.delete(Integer.parseInt(roleid));
+		roleService.delete(Long.parseLong(roleid));
 		return redirect(ROLE_PULBIC);
 	}
 }
