@@ -51,9 +51,7 @@ public class DateUtil {
 	 * @throws ParseException 
 	 */
 	private static String dateArith(String date, int num, int arithtype){
-		Date d = parseDate(date);
-		Calendar c = Calendar.getInstance();
-		c.setTime(d);
+		Calendar c = getCalendarInstance(date);
 		switch(arithtype){
 			case 1:
 				c.add(Calendar.DAY_OF_MONTH, num);
@@ -73,9 +71,20 @@ public class DateUtil {
 		return sdf.format(c.getTime());
 	}
 	
-	public static int getCurrentYear(){
-		return Calendar.getInstance().get(Calendar.YEAR);
+	public static Calendar getCalendarInstance(String date){
+        Date d = parseDate(date);
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        return c;
 	}
+
+	public static int getCurrentYear(){
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+    
+	public static int getYear(String date){
+        return getCalendarInstance(date).get(Calendar.YEAR);
+    }
 	
 	public static String addYear(String date, int year){
 		return dateArith(date, year, 3);
@@ -85,14 +94,22 @@ public class DateUtil {
 		return Calendar.getInstance().get(Calendar.MONTH);
 	}
 	
+    public static int getMonth(String date){
+        return getCalendarInstance(date).get(Calendar.MONTH);
+    }
+    
 	public static String addMonth(String date, int month){
 		return dateArith(date, month, 2);
 	}
 
-	public static int getCurrentDay(){
-		return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-	}
-	
+    public static int getCurrentDay(){
+        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    }
+    
+    public static int getDay(String date){
+        return getCalendarInstance(date).get(Calendar.DAY_OF_MONTH);
+    }
+    
 	public static String addDay(String date, int day){
 		return dateArith(date, day, 1);
 	}
@@ -147,9 +164,7 @@ public class DateUtil {
 	}
 	
 	public static int getAge(String birthDate){
-		Date birth = parseDate(birthDate);
-		Calendar c = Calendar.getInstance();
-		c.setTime(birth);
+		Calendar c = getCalendarInstance(birthDate);
 		int currentYear = getCurrentYear();
 		int currentMonth = getCurrentMonth();
 		int currentDay = getCurrentDay();
@@ -175,5 +190,6 @@ public class DateUtil {
 		System.out.println(isDate(s));
 		System.out.println(addDay(s, 3));
 		System.out.println(getAge(s));
+		System.out.print(dateArith(s,2,2));
 	}
 }
