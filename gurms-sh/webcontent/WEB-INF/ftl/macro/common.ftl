@@ -40,6 +40,13 @@
 </#macro>
 
 
+<#macro pagebuttons>
+    <div class="page_kz">
+    	<#include "common/page.ftl" />
+    </div>
+</#macro>
+
+
 <#macro buttons params="">
 	<#if frameid?exists>
 		<script type="text/javascript">
