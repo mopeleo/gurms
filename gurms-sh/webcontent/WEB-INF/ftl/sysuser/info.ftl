@@ -5,6 +5,26 @@
 		$(document).ready(function(){
 				bindFastSearch("_province", "${base}/common/genDictData", { dicttype: 16 });
 		})
+
+		var _dialog1;
+		function popuserlist(){
+			if(!_dialog1){
+			 	_dialog1 = new Dialog({type:'iframe',value:'${base}/sysuser/poplist'},{confirmMode:true,confirmFunc:selectuser});	
+			 }
+			_dialog1.show();
+		}
+		
+		function selectuser(){
+			var selectrow = $('#_iframeid').contents().find(".trcoloryellow");
+			if(selectrow){
+				var userid = selectrow.find("td").eq(1).text();
+				var username = selectrow.find("td").eq(2).text();
+				// alert(userid +  " -- " + username);
+				$("#_investname").val(username);
+				document.getElementById("cust.custno").value = userid;
+			}
+		}
+		
 	</script>
 	
 	<form method="post" id="ajaxform" action="${base}/sysuser/userinfo">
@@ -60,6 +80,13 @@
                         <td>
                         	<input type="text" name="_province" id="_province" value="<@c.dictdesc dictcode="16" dictitem="${(result.province)!!}"/>" />
                         	<input type="hidden" name="province" id="province" value="${(result.province)!!}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdwidth2">弹出用户</td>
+                        <td>
+                        	<input type="text" name="_investname" id="_investname"  readonly="readonly" onclick="popuserlist()"/>
+                        	<input type="hidden" name="cust.custno" id="cust.custno" />
                         </td>
                     </tr>
                     <tr>

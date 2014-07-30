@@ -42,14 +42,22 @@ public class SysUserController extends BaseController {
 	@Autowired
 	private SysMenuService menuService;
 	
-	@RequestMapping
-	public void list(HttpServletRequest request, PageRequest page, Model model){
-		Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
-		PageResult<SysUser> result = userService.query(requestMap, page);
-		model.addAttribute(WebConstants.KEY_RESULT, result);
-		model.addAllAttributes(requestMap);
-	}
-	
+    @RequestMapping
+    public void list(HttpServletRequest request, PageRequest page, Model model){
+        Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
+        PageResult<SysUser> result = userService.query(requestMap, page);
+        model.addAttribute(WebConstants.KEY_RESULT, result);
+        model.addAllAttributes(requestMap);
+    }
+    
+    @RequestMapping
+    public void poplist(HttpServletRequest request, PageRequest page, Model model){
+        Map<String, Object> requestMap = ServletUtil.getParametersStartingWith(request);
+        PageResult<SysUser> result = userService.query(requestMap, page);
+        model.addAttribute(WebConstants.KEY_RESULT, result);
+        model.addAllAttributes(requestMap);
+    }
+    
 	@RequestMapping
 	public void detail(String userid, Model model){
 		Map<String, Object> roleMap = new HashMap<String, Object>();
