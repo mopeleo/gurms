@@ -1,5 +1,5 @@
 <@c.html title="附件列表">
-	<form id="mainForm" name="mainForm" action="${base}/sysaccessory/privates" method="post">
+	<form id="mainForm" name="mainForm" action="${base}/sysaccessory/privates"  method="post">
 		<@c.searchdiv>
             <table>
                 <tr>
