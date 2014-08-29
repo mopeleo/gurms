@@ -154,7 +154,7 @@ public class SysAccessoryController extends BaseController {
 			String fileSuffix = CommonUtil.getFileSuffix(realFileName);
 			String accessoryId = EncryptUtil.md5Encode(DateUtil.getTimeStamp());
 			String fullPath = ctxPath + accessoryId + "." + fileSuffix;
-			File uploadFile = new File(ctxPath + realFileName);
+			File uploadFile = new File(fullPath);
 			try {
 				FileCopyUtils.copy(file.getBytes(), uploadFile);
 
