@@ -19,6 +19,7 @@ public class GlobalParam {
 	//自动增长序列号 类型
 	public static final String SERIAL_SYS_ORG = "sys_org";
 	public static final String SERIAL_SYS_ROLE = "sys_role";
+	public static final String SERIAL_EF_LINK = "ef_link";
 	
 	//数据库参数
 	public static final int PARAM_ERRORCOUNT = 3;
@@ -38,6 +39,7 @@ public class GlobalParam {
 	public static final String DICT_ONLINEFLAG_NO  = "0";
 
 	public static final int DICT_USERSTATUS = 5;
+	public static final String DICT_USERSTATUS_DELETE = "0";
 	public static final String DICT_USERSTATUS_NORMAL = "1";
 	public static final String DICT_USERSTSTUS_PWLOCK = "2";
 	
@@ -54,10 +56,15 @@ public class GlobalParam {
 	public static final String DICT_ENABLEFLAG_STOP = "0";
 	public static final String DICT_ENABLEFLAG_ENABLE = "1";
 	
-	public static final int DICT_ORGYPE = 9;
-	public static final String DICT_ORGYPE_ROOT = "0";
-	public static final String DICT_ORGYPE_BRANCH = "1";
-	public static final String DICT_ORGYPE_DEPARTMENT = "2";
+	public static final int DICT_ORGTYPE = 9;
+	public static final String DICT_ORGTYPE_ROOT = "0";
+	public static final String DICT_ORGTYPE_BRANCH = "1";
+	public static final String DICT_ORGTYPE_DEPARTMENT = "2";
+	
+	public static final int DICT_DISPTYPE = 10;
+	public static final String DICT_DISPTYPE_TEXT = "0";
+	public static final String DICT_DISPTYPE_INPUT = "1";
+	public static final String DICT_DISPTYPE_SELECT = "2";
 	
 	private GlobalParam(){}
 }

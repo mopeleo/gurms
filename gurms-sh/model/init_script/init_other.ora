@@ -8,7 +8,7 @@ cache 20;
 prompt Loading SYS_ORG...
 truncate table sys_org;
 insert into SYS_ORG (ORGID, SHORTNAME, FULLNAME, LINKMAN, LINKTEL, PARENTORGID, ORGTYPE, ORGORDER, REMARK, FAXNO, ADDRESS, EMAIL, POSTCODE)
-values ('root', '金证科技', '金证科技股份有限公司', '李结义', '13589898989', null, '1', 0, '---', null, null, null, null);
+values ('root', 'XX股份', 'XX股份有限公司', '张三', '13589898989', null, '1', 0, '---', null, null, null, null);
 
 prompt Loading SYS_ROLE...
 truncate table sys_role;
@@ -26,7 +26,8 @@ insert into SYS_USER_ROLE (ROLEID, USERID) values (0, 'system');
 
 prompt Loading SYS_SERIALNO...
 truncate table SYS_SERIALNO;
-insert into SYS_SERIALNO (SERIALTYPE, PREVALUE) values ('sys_role', 1);
-insert into SYS_SERIALNO (SERIALTYPE, PREVALUE) values ('sys_org', 1);
+insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('sys_role', 1, '','','0',0);
+insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('sys_org', 1, '','','0',0);
+insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('ef_link', 1, '','','1',4);
 
 commit;

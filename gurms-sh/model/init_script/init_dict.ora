@@ -10,14 +10,14 @@ insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (2, 
 
 insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (3, '在线状态', 0, 0);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (3, '1', '在线', 0);
-insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (3, '2', '离线', 1);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (3, '0', '离线', 1);
 
 insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (4, '性别', 0, 0);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (4, '0', '女', 7);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (4, '1', '男', 1);
 
 insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (5, '用户状态', 0, 0);
-insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '0', '无效', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '0', '删除', 0);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '1', '正常', 1);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (5, '2', '密码锁定', 2);
 
@@ -38,5 +38,10 @@ insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (9, '
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (9, '0', '总部', 0);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (9, '1', '分支/网点', 1);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (9, '2', '部门', 2);
+
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (10, '参数显示类型', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (10, '0', '文本，不能修改', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (10, '1', '输入框，可以修改', 1);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (10, '2', '下拉框，可以修改', 2);
 
 commit;
