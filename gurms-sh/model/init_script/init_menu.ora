@@ -2,88 +2,103 @@ prompt Loading SYS_MENU...
 truncate table sys_menu;
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('root', '通用角色权限管理系统', '#', '0', '0', '0', null, '0', 0);
+
 --insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 --values ('0', '快捷', '#', '0', '0', '0', 'root', '0', 0);
 --insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 --values ('0001', '常用', '#', '0', '0', '0', '0', '0', 0);
+
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1', '系统', '#', '0', '0', '0', 'root', '0', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003', '个人', '#', '0', '0', '0', '1', '0', 0);
+values ('1001', '个人', '#', '0', '0', '0', '1', '0', 1001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003001', '个人信息', 'sysuser/info', '0', '0', '0', '1003', '1', 0);
+values ('1001001', '个人信息', 'sysuser/info', '0', '0', '0', '1001', '1', 1001001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003002', '个人设置', 'sysuser/config', '0', '0', '0', '1003', '1', 1);
+values ('1001002', '个人设置', 'sysuser/config', '0', '0', '0', '1001', '1',1001002);
 --insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
---values ('1003003', '快捷菜单', 'sysuser/fastmenu', '0', '0', '0', '1003', '1', 2);
+--values ('1001003', '快捷菜单', 'sysuser/fastmenu', '0', '0', '0', '1001', '1', 1001003);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003004', '个人授权', 'sysrole/privates', '0', '0', '0', '1003', '1', 2);
+values ('1001004', '个人授权', 'sysrole/privates', '0', '0', '0', '1001', '1', 1001004);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003004001', '新增', 'sysrole/privateDetail', '0', '0', '0', '1003004', '2', 1);
+values ('1001004001', '新增', 'sysrole/privateDetail', '0', '0', '0', '1001004', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003004002', '查看', 'sysrole/info', '1', '0', '0', '1003004', '2', 1);
+values ('1001004002', '查看', 'sysrole/info', '1', '0', '0', '1001004', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003004003', '修改', 'sysrole/privateDetail', '1', '0', '0', '1003004', '2', 1);
+values ('1001004003', '修改', 'sysrole/privateDetail', '1', '0', '0', '1001004', '2', 3);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003004004', '删除', 'sysrole/ajaxDelete', '1', '1', '1', '1003004', '2', 1);
+values ('1001004004', '删除', 'sysrole/ajaxDelete', '1', '1', '1', '1001004', '2', 4);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1003009', '密码修改', 'sysuser/password', '0', '0', '0', '1003', '1', 9);
+values ('1001009', '密码修改', 'sysuser/password', '0', '0', '0', '1001', '1', 1001009);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001', '用户', '#', '0', '0', '0', '1', '0', 1);
+values ('1003', '用户', '#', '0', '0', '0', '1', '0', 1003);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001002', '用户维护', 'sysuser/list', '0', '0', '0', '1001', '1', 0);
+values ('1003002', '用户维护', 'sysuser/list', '0', '0', '0', '1003', '1', 1003002);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001002001', '新增', 'sysuser/detail', '0', '0', '0', '1001002', '2', 1);
+values ('1003002001', '新增', 'sysuser/detail', '0', '0', '0', '1003002', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001002002', '查看', 'sysuser/info', '1', '0', '0', '1001002', '2', 1);
+values ('1003002002', '查看', 'sysuser/info', '1', '0', '0', '1003002', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001002003', '修改', 'sysuser/detail', '1', '0', '0', '1001002', '2', 1);
+values ('1003002003', '修改', 'sysuser/detail', '1', '0', '0', '1003002', '2', 3);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001002004', '删除', 'sysuser/delete', '1', '1', '1', '1001002', '2', 1);
+values ('1003002004', '删除', 'sysuser/delete', '1', '1', '1', '1003002', '2', 4);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001003', '角色维护', 'sysrole/publics', '0', '0', '0', '1001', '1', 1);
+values ('1003003', '角色维护', 'sysrole/publics', '0', '0', '0', '1003', '1', 1003003);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001003001', '新增', 'sysrole/publicDetail', '0', '0', '0', '1001003', '2', 1);
+values ('1003003001', '新增', 'sysrole/publicDetail', '0', '0', '0', '1003003', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001003002', '查看', 'sysrole/info', '1', '0', '0', '1001003', '2', 1);
+values ('1003003002', '查看', 'sysrole/info', '1', '0', '0', '1003003', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001003003', '修改', 'sysrole/publicDetail', '1', '0', '0', '1001003', '2', 1);
+values ('1003003003', '修改', 'sysrole/publicDetail', '1', '0', '0', '1003003', '2', 3);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1001003004', '删除', 'sysrole/ajaxDelete', '1', '1', '1', '1001003', '2', 1);
+values ('1003003004', '删除', 'sysrole/ajaxDelete', '1', '1', '1', '1003003', '2', 4);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002', '设置', '#', '0', '0', '0', '1', '0', 2);
+values ('1005', '设置', '#', '0', '0', '0', '1', '0', 1005);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002001', '机构维护', 'sysorg/list', '0', '0', '0', '1002', '1', 0);
+values ('1005001', '机构维护', 'sysorg/list', '0', '0', '0', '1005', '1', 1005001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002001000', '新增', 'sysorg/detail', '0', '0', '0', '1002001', '2', 1);
+values ('1005001000', '新增', 'sysorg/detail', '0', '0', '0', '1005001', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002001001', '修改', 'sysorg/detail', '1', '0', '0', '1002001', '2', 1);
+values ('1005001001', '修改', 'sysorg/detail', '1', '0', '0', '1005001', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002001002', '删除', 'sysorg/ajaxDelete', '1', '1', '1', '1002001', '2', 2);
+values ('1005001002', '删除', 'sysorg/ajaxDelete', '1', '1', '1', '1005001', '2', 3);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002002', '系统字典', 'sysdict/list', '0', '0', '0', '1002', '1', 1);
+values ('1005002', '系统字典', 'sysdict/list', '0', '0', '0', '1005', '1', 1005002);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1002003', '系统参数', 'sysparam/list', '0', '0', '0', '1002', '1', 2);
+values ('1005003', '系统参数', 'sysparam/list', '0', '0', '0', '1005', '1', 1005003);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005', '应用', '#', '0', '0', '0', '1', '0', 3);
+values ('1007', '应用', '#', '0', '0', '0', '1', '0', 1007);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005001', '私人资料', 'sysaccessory/privates', '0', '0', '0', '1005', '1', 0);
+values ('1007001', '私人资料', 'sysaccessory/privates', '0', '0', '0', '1007', '1', 1007001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005001002', '删除', 'sysaccessory/ajaxDelete', '1', '1', '1', '1005001', '2', 2);
+values ('1007001002', '删除', 'sysaccessory/ajaxDelete', '1', '1', '1', '1007001', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005002', '公共资料', 'sysaccessory/publics', '0', '0', '0', '1005', '1', 1);
+values ('1007002', '公共资料', 'sysaccessory/publics', '0', '0', '0', '1007', '1', 1007002);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1004', '日志', '#', '0', '0', '0', '1', '0', 3);
+values ('1009', '流程', '#', '0', '0', '0', '1', '0', 1009);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1004001', '登录日志', 'syslog/loginlist', '0', '0', '0', '1004', '1', 0);
+values ('1009001', '流程维护', 'efflow/list', '0', '0', '0', '1009', '1', 1009001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1004002', '操作日志', 'syslog/operatelist', '0', '0', '0', '1004', '1', 1);
+values ('1009001000', '新增', 'efflow/detail', '0', '0', '0', '1009001', '2', 1);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1009001001', '修改', 'efflow/detail', '1', '0', '0', '1009001', '2', 2);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1009001002', '删除', 'efflow/ajaxDelete', '1', '1', '1', '1009001', '2', 3);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1009002', '环节维护', 'eflink/list', '0', '0', '0', '1009', '1', 1009002);
+
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1011', '日志', '#', '0', '0', '0', '1', '0', 1011);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1011001', '登录日志', 'syslog/loginlist', '0', '0', '0', '1011', '1', 1011001);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1011002', '操作日志', 'syslog/operatelist', '0', '0', '0', '1011', '1', 1011002);
 commit;
