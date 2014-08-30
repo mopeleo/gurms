@@ -158,20 +158,6 @@ public class GurmsProjectGenerator {
 	}
 	
 	public static void main(String[] args) {
-//		String fullpath = TEMPLATE_DIR + File.separator + TEMPLATE_SERVICE;
-//		InputStream p = JavaCodeGenerator.class.getClassLoader().getResourceAsStream(fullpath);
-//		try{
-//			byte[] readed = new byte[1024];
-//			while(p.read(readed, 0, readed.length) != -1){
-//				System.out.println(new String(readed));
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-		
-//	    String filepath = "D:\\My Projects\\model\\tongfa.pdm";
-//		projectGenerate(filepath, "org.test", "e:\\test\\", "e:\\test\\web\\");
-		
 	    String pdm = args[0];
 	    System.out.println("pdm : " + pdm);
 	    String pkgprefix = args[1];

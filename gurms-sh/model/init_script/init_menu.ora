@@ -1,5 +1,7 @@
-prompt Loading SYS_MENU...
-truncate table sys_menu;
+
+delete from sys_menu;
+
+
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, AJAXMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('root', '通用角色权限管理系统', '#', '0', '0', '0', null, '0', 0);
 
