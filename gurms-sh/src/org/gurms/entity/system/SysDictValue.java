@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Logable
 @Entity
-@IdClass(SysDictPK.class)
+@IdClass(SysDictValuePk.class)
 @Table(name = "sys_dict_value")
 @org.hibernate.annotations.Entity(dynamicInsert=true,dynamicUpdate=true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -34,7 +34,7 @@ public class SysDictValue implements Serializable {
 
 	public SysDictValue(){}
 	
-	public SysDictValue(SysDictPK pk){
+	public SysDictValue(SysDictValuePk pk){
 		this.dictitem = pk.getDictitem();
 		this.dictcode = pk.getDictcode();
 	}
@@ -99,12 +99,12 @@ public class SysDictValue implements Serializable {
     }
 
     public boolean equals(Object o) {
-		if (o == null || !(o instanceof SysDictPK)) {
+		if (o == null || !(o instanceof SysDictValue)) {
 			return false;
 		} else {
-			SysDictPK pk = (SysDictPK) o;
-			return new EqualsBuilder().append(pk.getDictitem(), dictitem)
-					.append(pk.getDictcode(), dictcode).isEquals();
+			SysDictValue dv = (SysDictValue) o;
+			return new EqualsBuilder().append(dv.getDictitem(), dictitem)
+					.append(dv.getDictcode(), dictcode).isEquals();
 		}
 	}
 

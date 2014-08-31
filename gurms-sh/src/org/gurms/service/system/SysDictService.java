@@ -7,14 +7,14 @@ import org.gurms.common.validate.GurmsValid;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysDictIndex;
-import org.gurms.entity.system.SysDictPK;
 import org.gurms.entity.system.SysDictValue;
+import org.gurms.entity.system.SysDictValuePk;
 
 public interface SysDictService {
 
 	public PageResult<SysDictValue> queryDict(Map<String, Object> request, PageRequest page);
 	
-	public SysDictValue getDict(SysDictPK id);
+	public SysDictValue getDict(SysDictValuePk id);
 	
     public List<SysDictValue> getDict(int dictcode);
     
@@ -25,7 +25,7 @@ public interface SysDictService {
 	@GurmsValid(type=SysDictValue.class)
 	public PageResult<SysDictValue> saveDict(SysDictValue dict);
 	
-//	public PageResult<SysDictValue> deleteDict(SysDictPK id);
+//	public PageResult<SysDictValue> deleteDict(SysDictValuePk id);
 	
 	public SysDictIndex getDictIndex(int dictcode);
 

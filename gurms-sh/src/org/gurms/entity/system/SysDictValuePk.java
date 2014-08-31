@@ -7,13 +7,13 @@ import javax.persistence.Transient;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-public class SysDictPK implements Serializable {
+public class SysDictValuePk implements Serializable {
 	private int dictcode;
 	private String dictitem;
 
-	public SysDictPK(){}
+	public SysDictValuePk(){}
 	
-	public SysDictPK(int dictcode, String dictitem){
+	public SysDictValuePk(int dictcode, String dictitem){
 		this.dictitem = dictitem;
 		this.dictcode = dictcode;
 	}
@@ -41,10 +41,10 @@ public class SysDictPK implements Serializable {
 	}
 	
 	public boolean equals(Object o) {
-		if (o == null || !(o instanceof SysDictPK)) {
+		if (o == null || !(o instanceof SysDictValuePk)) {
 			return false;
 		} else {
-			SysDictPK pk = (SysDictPK) o;
+			SysDictValuePk pk = (SysDictValuePk) o;
 			return new EqualsBuilder().append(pk.getDictitem(), dictitem)
 					.append(pk.getDictcode(), dictcode).isEquals();
 		}
