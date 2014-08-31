@@ -18,6 +18,7 @@ public class GurmsProjectGenerator {
 
 	public static final String TEMPLATE_DAO = GlobalConfig.getConfig("template_dao");
 	public static final String TEMPLATE_ENTITY = GlobalConfig.getConfig("template_entity");
+	public static final String TEMPLATE_ENTITYID = GlobalConfig.getConfig("template_entityid");
 	public static final String TEMPLATE_ENTITYVALID = GlobalConfig.getConfig("template_entityvalid");
 	public static final String TEMPLATE_SERVICE = GlobalConfig.getConfig("template_service");
 	public static final String TEMPLATE_SERVICEIMPL = GlobalConfig.getConfig("template_serviceimpl");
@@ -27,6 +28,7 @@ public class GurmsProjectGenerator {
 	
 	public static final String FILETYPE_DAO = "Dao.java";
 	public static final String FILETYPE_ENTITY = ".java";
+	public static final String FILETYPE_ENTITYID = "Id.java";
 	public static final String FILETYPE_ENTITYVALID = "entityvalid.properties";
 	public static final String FILETYPE_SERVICE = "Service.java";
 	public static final String FILETYPE_SERVICEIMPL = "ServiceImpl.java";
@@ -46,6 +48,10 @@ public class GurmsProjectGenerator {
 	
 	public static void entityGenerate(Map params, String outFile){
 		generate(params, TEMPLATE_ENTITY, outFile);
+	}	
+	
+	public static void entityIdGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_ENTITYID, outFile);
 	}	
 	
 	public static void entityValidGenerate(Map params, String outFile){
@@ -128,7 +134,13 @@ public class GurmsProjectGenerator {
 			}else{
 				entity = tableCode.substring(0, 1).toUpperCase() + tableCode.substring(1);
 			}
+			
+			//一个table的非主键列至少存在一个
+			if(table.getColumns().size() < 1){
+				continue;
+			}
 			params.put("entity", entity);
+			params.put("table", table);
 			
 			System.out.println("---------生成 ["+table.getName() + "(" + table.getCode() + ")] 代码开始----------");
 			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_DAO, FILETYPE_DAO);
@@ -144,8 +156,12 @@ public class GurmsProjectGenerator {
 			controllerGenerate(params, outFile);
 			
 			outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITY);
-			params.put("table", table);
 			entityGenerate(params, outFile);
+
+			if(table.getKeys().size() > 1){
+				outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITYID);
+				entityIdGenerate(params, outFile);
+			}
 
 			outFile = getWebOutFile(params, webOutDir, FILETYPE_LISTFTL);
 			listGenerate(params, outFile);

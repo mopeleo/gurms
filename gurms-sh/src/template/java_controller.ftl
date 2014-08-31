@@ -9,6 +9,9 @@ import org.apache.commons.lang.StringUtils;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
+<#if (table.keys?size > 1) >
+import ${project}.entity<#if model?exists>.${model}</#if>.${entity}Id;
+</#if>
 import ${project}.service<#if model?exists>.${model}</#if>.${entity}Service;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
@@ -19,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<#macro type datatype precision><#if datatype?contains("CHAR")>String<#elseif datatype=="INT">Integer<#elseif precision != "">Double<#else>Long</#if></#macro>
 <#assign service = entity?uncap_first + "Service">
 @Controller
 public class ${entity}Controller extends BaseController {
@@ -37,11 +41,22 @@ public class ${entity}Controller extends BaseController {
 	}
 
 	@RequestMapping
-	public void detail(String id, Model model){
-		if(StringUtils.isNotBlank(id)){
-			${entity} entity = ${service}.get(id);
+	public void detail(<#list table.keys as column><@type datatype=column.datatype precision=column.precision /> ${column.code}, </#list>Model model){
+	<#if (table.keys?size > 1) >
+		${entity}Id id = new ${entity}Id();
+		<#list table.keys as column>
+		id.set${column.code?cap_first}(${column.code});
+		</#list>
+		if(!id.isNull()){
+			${entity} entity = ${service}.getById(id);
 			model.addAttribute(WebConstants.KEY_RESULT, entity);
 		}
+	<#else>
+		if(${table.keys[0].code} != null){
+			${entity} entity = ${service}.getById(${table.keys[0].code});
+			model.addAttribute(WebConstants.KEY_RESULT, entity);
+		}
+	</#if>
 	}
 	
 	@RequestMapping
@@ -51,8 +66,16 @@ public class ${entity}Controller extends BaseController {
 	}
 	
 	@RequestMapping
-	public String delete(String id){
-		${service}.delete(id);
+	public String delete(<#list table.keys as column><@type datatype=column.datatype precision=column.precision /> ${column.code}<#if (column_index+1)!=table.keys?size>, </#if></#list>){
+	<#if (table.keys?size > 1) >
+		${entity}Id id = new ${entity}Id();
+		<#list table.keys as column>
+		id.set${column.code?cap_first}(${column.code});
+		</#list>
+		${service}.deleteById(id);
+	<#else>
+		${service}.deleteById(<#list table.keys as column>${column.code}<#if (column_index+1)!=table.keys?size>, </#if></#list>);
+	</#if>
 		return redirect(${entity?upper_case}_LIST);
 	}
 
@@ -70,10 +93,18 @@ public class ${entity}Controller extends BaseController {
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult ajaxDelete(String id){
+	public PageResult ajaxDelete(<#list table.keys as column><@type datatype=column.datatype precision=column.precision /> ${column.code}<#if (column_index+1)!=table.keys?size>, </#if></#list>){
 		PageResult page = null;
 		try{
-			page = ${service}.delete(id);
+		<#if (table.keys?size > 1) >
+			${entity}Id id = new ${entity}Id();
+			<#list table.keys as column>
+			id.set${column.code?cap_first}(${column.code});
+			</#list>
+			page = ${service}.deleteById(id);
+		<#else>
+			page = ${service}.deleteById(<#list table.keys as column>${column.code}<#if (column_index+1)!=table.keys?size>, </#if></#list>);
+		</#if>
 		}catch(Exception e){
 			page = processException(e, "删除数据出错:"+e.getMessage());
 		}

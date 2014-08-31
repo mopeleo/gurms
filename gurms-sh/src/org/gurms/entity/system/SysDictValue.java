@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Logable
 @Entity
-@IdClass(SysDictValuePk.class)
+@IdClass(SysDictValueId.class)
 @Table(name = "sys_dict_value")
 @org.hibernate.annotations.Entity(dynamicInsert=true,dynamicUpdate=true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -34,7 +34,7 @@ public class SysDictValue implements Serializable {
 
 	public SysDictValue(){}
 	
-	public SysDictValue(SysDictValuePk pk){
+	public SysDictValue(SysDictValueId pk){
 		this.dictitem = pk.getDictitem();
 		this.dictcode = pk.getDictcode();
 	}

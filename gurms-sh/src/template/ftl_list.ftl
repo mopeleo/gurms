@@ -4,7 +4,7 @@
             <table>
                 <tr>
 					<#list table.keys as key>
-                    <td>${key.name}:</td>
+                    <td>${key.comment}:</td>
                     <td><input type="text" name="filter_EQS_${key.code}" value="${'$'}{EQS_${key.code}}"></td>
 					</#list>
                     <td><input type="button" onclick="search()" class="button" value="查询" /></td>
@@ -13,8 +13,8 @@
 		</${'@'}c.searchdiv>
 		
 	    <div class="contect">
-	    	<${'#'}assign titles=[<#list table.columns as column>"${column.name}"<#if (column_index+1)!=table.columns?size>,</#if></#list>]>
-	    	<${'#'}assign props=[<#list table.columns as column>"${column.code}"<#if (column_index+1)!=table.columns?size>,</#if></#list>]>
+	    	<${'#'}assign titles=[<#list table.keys as column>"${column.comment}",</#list><#list table.columns as column>"${column.comment}"<#if (column_index+1)!=table.columns?size>,</#if></#list>]>
+	    	<${'#'}assign props=[<#list table.keys as column>"${column.code}",</#list><#list table.columns as column>"${column.code}"<#if (column_index+1)!=table.columns?size>,</#if></#list>]>
 	 	    <${'@'}c.listtable titles=titles props=props rows=result.result?size>
 				<${'#'}list result.result as obj>
 					<tr onclick="clickrow(this)">

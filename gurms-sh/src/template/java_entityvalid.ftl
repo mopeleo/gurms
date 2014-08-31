@@ -15,6 +15,9 @@
 	<#else>
 		<#assign entity=t.code?cap_first>
 	</#if>
+	<#list t.keys as column>
+${project}.entity<#if model?exists>.${model}</#if>.${entity}.${column.code}=[<@length column=column/><@presence column=column/><@number column=column/>]
+	</#list>
 	<#list t.columns as column>
 ${project}.entity<#if model?exists>.${model}</#if>.${entity}.${column.code}=[<@length column=column/><@presence column=column/><@number column=column/>]
 	</#list>

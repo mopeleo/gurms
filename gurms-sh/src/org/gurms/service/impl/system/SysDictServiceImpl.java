@@ -14,7 +14,7 @@ import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
 import org.gurms.entity.system.SysDictIndex;
 import org.gurms.entity.system.SysDictValue;
-import org.gurms.entity.system.SysDictValuePk;
+import org.gurms.entity.system.SysDictValueId;
 import org.gurms.service.system.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class SysDictServiceImpl implements SysDictService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysDictValue getDict(SysDictValuePk id) {
+	public SysDictValue getDict(SysDictValueId id) {
 		return sysDictValueDao.get(id);
 	}
 
@@ -80,7 +80,7 @@ public class SysDictServiceImpl implements SysDictService {
 		return result;
 	}
 
-	public PageResult<SysDictValue> deleteDict(SysDictValuePk id) {
+	public PageResult<SysDictValue> deleteDict(SysDictValueId id) {
 		PageResult<SysDictValue> result = new PageResult<SysDictValue>();
 		sysDictValueDao.delete(id);
 		return result;

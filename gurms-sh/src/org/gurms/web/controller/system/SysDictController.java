@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.system.SysDictValue;
-import org.gurms.entity.system.SysDictValuePk;
+import org.gurms.entity.system.SysDictValueId;
 import org.gurms.service.system.SysDictService;
 import org.gurms.web.ServletUtil;
 import org.gurms.web.WebConstants;
@@ -34,7 +34,7 @@ public class SysDictController extends BaseController{
 	}
 	
 	@RequestMapping
-	public void detail(SysDictValuePk pk, Model model){
+	public void detail(SysDictValueId pk, Model model){
 		if(pk != null && !pk.isNull()){
 			SysDictValue dict = dictService.getDict(pk);
 			model.addAttribute(WebConstants.KEY_RESULT, dict);

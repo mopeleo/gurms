@@ -132,9 +132,10 @@ public class PDMParser {
 						column.setMandatory(elementMandatory.getTextTrim());
 					}
 					
-					table.addColumn(column);
 					if(keyList.contains(column.getId())){
 						table.addKey(column);
+					}else{
+						table.addColumn(column);
 					}
 				}
 

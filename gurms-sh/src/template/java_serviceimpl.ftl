@@ -8,6 +8,9 @@ import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.PropertyFilter;
 import ${project}.entity<#if model?exists>.${model}</#if>.${entity};
+<#if (table.keys?size > 1) >
+import ${project}.entity<#if model?exists>.${model}</#if>.${entity}Id;
+</#if>
 import ${project}.service<#if model?exists>.${model}</#if>.${entity}Service;
 import ${project}.dao.hibernate<#if model?exists>.${model}</#if>.${entity}Dao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 <#assign dao = entity?uncap_first + "Dao">
+<#macro type datatype precision><#if datatype?contains("CHAR")>String<#elseif datatype=="INT">Integer<#elseif precision != "">Double<#else>Long</#if></#macro>
 @Service
 @Transactional
 public class ${entity}ServiceImpl implements ${entity}Service {
@@ -44,7 +48,7 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public ${entity} get(String id){
+	public ${entity} getById(<#if (table.keys?size > 1) >${entity}Id id<#else><@type datatype=table.keys[0].datatype precision=table.keys[0].precision /> ${table.keys[0].code}</#if>){
 		return ${dao}.get(id);
 	}
 	
@@ -56,9 +60,13 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 	}
 
 	@Override
-	public PageResult<${entity}> delete(String id){
+	public PageResult<${entity}> deleteById(<#if (table.keys?size > 1) >${entity}Id id<#else><@type datatype=table.keys[0].datatype precision=table.keys[0].precision /> ${table.keys[0].code}</#if>){
 		PageResult<${entity}> result = new PageResult<${entity}>();
-		if(StringUtils.isBlank(id)){
+	<#if (table.keys?size > 1) >
+		if(id == null || id.isNull()){
+	<#else>
+		if(${table.keys[0].code} == null){
+	</#if>
 			result.setSuccess(false);
 			result.setReturnmsg("ID不能为空");
 		}else{
