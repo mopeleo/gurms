@@ -30,6 +30,7 @@
             	<#include "common/page.ftl" />
                 <div class="pager">
                     <input type="button" class="button" value="新增" onclick="new Dialog({type:'id',value:'new_dict'},{confirmButton:false}).show()"/>
+					<input type="button" class="button" value="删除" onclick="confirmDialog(buttonforward,{urlstring:'${base}/sysdict/ajaxDelete',optname:'删除',isajax:'1',ischeck:'1',keys:'dictitem,dictcode'})"/>
                 </div>
             </div>
         </div>

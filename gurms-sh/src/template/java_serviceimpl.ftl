@@ -49,7 +49,11 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 	@Override
 	@Transactional(readOnly = true)
 	public ${entity} getById(<#if (table.keys?size > 1) >${entity}Id id<#else><@type datatype=table.keys[0].datatype precision=table.keys[0].precision /> ${table.keys[0].code}</#if>){
+	<#if (table.keys?size > 1) >
 		return ${dao}.get(id);
+	<#else>
+		return ${dao}.get(${table.keys[0].code});
+	</#if>
 	}
 	
 	@Override
@@ -64,14 +68,19 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 		PageResult<${entity}> result = new PageResult<${entity}>();
 	<#if (table.keys?size > 1) >
 		if(id == null || id.isNull()){
-	<#else>
-		if(${table.keys[0].code} == null){
-	</#if>
 			result.setSuccess(false);
-			result.setReturnmsg("ID不能为空");
+			result.setReturnmsg("id不能为空");
 		}else{
 			${dao}.delete(id);
 		}
+	<#else>
+		if(${table.keys[0].code} == null){
+			result.setSuccess(false);
+			result.setReturnmsg("${table.keys[0].code}不能为空");
+		}else{
+			${dao}.delete(${table.keys[0].code});
+		}
+	</#if>
 		return result;
 	}
 }

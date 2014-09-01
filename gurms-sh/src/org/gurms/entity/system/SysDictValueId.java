@@ -57,6 +57,6 @@ public class SysDictValueId implements Serializable {
 
 	@Override
 	public String toString(){
-		return "dictitem: " + dictitem + ", dictcode: " + dictcode;
+		return "dictitem: '" + dictitem + "', dictcode: '" + dictcode + "'";
 	}	
 }

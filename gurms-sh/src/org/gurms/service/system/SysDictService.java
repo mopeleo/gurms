@@ -25,7 +25,7 @@ public interface SysDictService {
 	@GurmsValid(type=SysDictValue.class)
 	public PageResult<SysDictValue> saveDict(SysDictValue dict);
 	
-//	public PageResult<SysDictValue> deleteDict(SysDictValuePk id);
+	public PageResult<SysDictValue> deleteDict(SysDictValueId id);
 	
 	public SysDictIndex getDictIndex(Integer dictcode);
 

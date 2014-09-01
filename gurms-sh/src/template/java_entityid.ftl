@@ -39,6 +39,11 @@ public class ${entity}Id implements Serializable {
 		return <#list table.keys as column><#if column.datatype?contains("CHAR")>StringUtils.isBlank(${column.code})<#else>(${column.code} == null)<#if (column_index+1)!=table.keys?size>|| </#if></#if></#list>;
 	}
 	
+	@Override
+	public String toString(){
+		return <#list table.keys as column>"${column.code}: '" + ${column.code} + "'"<#if (column_index+1)!=table.keys?size> + ", " + </#if></#list>;
+	}
+	
 	public boolean equals(Object o) {
 		if(o == null || !(o instanceof ${entity})){
 			return false;
