@@ -20,18 +20,18 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysDictIndex implements Serializable{
 
-	private int dictcode;
+	private Integer dictcode;
 	private String dictname;
 	private String dicttype;
 	private String editflag;
 	private List<SysDictValue> dictvalue = new ArrayList<SysDictValue>();
 
 	@Id
-	public int getDictcode() {
+	public Integer getDictcode() {
 		return dictcode;
 	}
 
-	public void setDictcode(int dictcode) {
+	public void setDictcode(Integer dictcode) {
 		this.dictcode = dictcode;
 	}
 	

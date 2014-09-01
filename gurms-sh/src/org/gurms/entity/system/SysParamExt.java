@@ -22,14 +22,14 @@ import org.hibernate.annotations.Parameter;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysParamExt implements Serializable{
 
-	private int paramid;
+	private Integer paramid;
 	private String paramtitle;
 	private String paramtail;
 	private String paramgroup;
 	private String disptype;
 	private String valuelist;
 	private int paramorder;
-	private int dictcode;
+	private Integer dictcode;
 	private int paramlength;
 	
 	private SysParam sysparam;
@@ -39,11 +39,11 @@ public class SysParamExt implements Serializable{
     @GenericGenerator(name="fk", strategy="foreign", 
     		parameters = {@Parameter(name = "property", value = "sysparam")}  
     )
-	public int getParamid() {
+	public Integer getParamid() {
 		return paramid;
 	}
 
-	public void setParamid(int paramid) {
+	public void setParamid(Integer paramid) {
 		this.paramid = paramid;
 	}
 
@@ -97,11 +97,11 @@ public class SysParamExt implements Serializable{
 		this.disptype = disptype;
 	}
 
-	public int getDictcode() {
+	public Integer getDictcode() {
 		return dictcode;
 	}
 
-	public void setDictcode(int dictcode) {
+	public void setDictcode(Integer dictcode) {
 		this.dictcode = dictcode;
 	}
 

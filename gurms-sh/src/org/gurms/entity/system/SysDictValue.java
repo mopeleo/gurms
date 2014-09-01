@@ -24,7 +24,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysDictValue implements Serializable {
 	
-	private int dictcode;
+	private Integer dictcode;
 	private String dictitem;
 	private String itemname;
 	private String pinyin;
@@ -39,18 +39,18 @@ public class SysDictValue implements Serializable {
 		this.dictcode = pk.getDictcode();
 	}
 	
-	public SysDictValue(int dictcode, String dictitem){
+	public SysDictValue(Integer dictcode, String dictitem){
 		this.dictitem = dictitem;
 		this.dictcode = dictcode;
 	}
 	
 	@Id
 	@Column(insertable=false, updatable=false)
-	public int getDictcode() {
+	public Integer getDictcode() {
 		return dictcode;
 	}
 
-	public void setDictcode(int dictcode) {
+	public void setDictcode(Integer dictcode) {
 		this.dictcode = dictcode;
 	}
 
@@ -109,6 +109,6 @@ public class SysDictValue implements Serializable {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder().append(dictitem).append(dictcode).hashCode();
+		return new HashCodeBuilder().append(dictitem).append(dictcode).toHashCode();
 	}
 }

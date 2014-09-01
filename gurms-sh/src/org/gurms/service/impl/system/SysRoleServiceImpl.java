@@ -58,7 +58,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysRole get(long id) {
+	public SysRole get(Long id) {
 		return sysRoleDao.get(id);
 	}
 
@@ -104,7 +104,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public void delete(long id) {
+	public void delete(Long id) {
 		sysRoleDao.delete(id);
 	}
 

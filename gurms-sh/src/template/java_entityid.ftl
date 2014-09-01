@@ -15,6 +15,14 @@ public class ${entity}Id implements Serializable {
 	private <@type datatype=column.datatype precision=column.precision /> ${column.code};    //${column.comment}
 </#list>
 
+	public ${entity}Id(){}
+	
+	public ${entity}Id(<#list table.keys as column><@type datatype=column.datatype precision=column.precision /> ${column.code}<#if (column_index+1)!=table.keys?size>, </#if></#list>){
+	<#list table.keys as column>
+		this.${column.code} = ${column.code};
+	</#list>
+	}
+	
 <#list table.keys as column>
 	public <@type datatype=column.datatype precision=column.precision /> get${column.code?cap_first}() {
 		return ${column.code};
@@ -49,6 +57,6 @@ public class ${entity}Id implements Serializable {
 	<#list table.keys as column>
 		hcb.append(${column.code});
 	</#list>
-		return hcb.hashCode();
+		return hcb.toHashCode();
 	}
 }

@@ -29,7 +29,7 @@ import org.hibernate.annotations.FetchMode;
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysRole implements Serializable {
-	private long roleid;
+	private Long roleid;
 	private String remark;
 	private String creator;
 	private String enddate;
@@ -59,11 +59,11 @@ public class SysRole implements Serializable {
 
 //	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sys_seq")   
 //	@SequenceGenerator(name="sys_seq", sequenceName="sys_seq", allocationSize=1) 
-	public long getRoleid() {
+	public Long getRoleid() {
 		return roleid;
 	}
 
-	public void setRoleid(long roleid) {
+	public void setRoleid(Long roleid) {
 		this.roleid = roleid;
 	}
 

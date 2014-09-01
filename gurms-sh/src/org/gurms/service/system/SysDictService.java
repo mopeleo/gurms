@@ -16,9 +16,9 @@ public interface SysDictService {
 	
 	public SysDictValue getDict(SysDictValueId id);
 	
-    public List<SysDictValue> getDict(int dictcode);
+    public List<SysDictValue> getDict(Integer dictcode);
     
-    public List<SysDictValue> getDict(int dictcode, String prefix);
+    public List<SysDictValue> getDict(Integer dictcode, String prefix);
     
 	public Map<String,List<SysDictValue>> getDictMap();
 
@@ -27,7 +27,7 @@ public interface SysDictService {
 	
 //	public PageResult<SysDictValue> deleteDict(SysDictValuePk id);
 	
-	public SysDictIndex getDictIndex(int dictcode);
+	public SysDictIndex getDictIndex(Integer dictcode);
 
 	public List<SysDictIndex> getDictIndex();
 	

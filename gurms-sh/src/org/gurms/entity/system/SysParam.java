@@ -20,24 +20,24 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SysParam implements Serializable{
 
-	private int paramid;
+	private Integer paramid;
 	private String paramvalue;
 	private String initvalue;
 	private SysParamExt paramext;
 
 	public SysParam(){};
 	
-	public SysParam(int id, String value){
+	public SysParam(Integer id, String value){
 		this.paramid = id;
 		this.paramvalue = value;
 	}
 	
 	@Id
-	public int getParamid() {
+	public Integer getParamid() {
 		return paramid;
 	}
 
-	public void setParamid(int paramid) {
+	public void setParamid(Integer paramid) {
 		this.paramid = paramid;
 	}
 

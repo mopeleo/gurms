@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.gurms.common.config.GlobalParam;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
@@ -50,19 +49,19 @@ public class SysRoleController extends BaseController {
 	}
 	
 	@RequestMapping
-	public void publicDetail(String roleid, Model model){
+	public void publicDetail(Long roleid, Model model){
 		info(roleid, model);
 	}
 	
 	@RequestMapping
-	public void privateDetail(String roleid, Model model){
+	public void privateDetail(Long roleid, Model model){
 		info(roleid, model);
 	}
 	
 	@RequestMapping
-	public void info(String roleid, Model model){
-		if(StringUtils.isNotBlank(roleid)){
-			SysRole role = roleService.get(Long.parseLong(roleid));
+	public void info(Long roleid, Model model){
+		if(roleid != null){
+			SysRole role = roleService.get(roleid);
 			model.addAttribute(WebConstants.KEY_RESULT, role);
 		}
 	}
@@ -99,10 +98,10 @@ public class SysRoleController extends BaseController {
 	
 	@RequestMapping
 	@ResponseBody
-	public PageResult ajaxDelete(String roleid){
+	public PageResult ajaxDelete(Long roleid){
 		PageResult page = null;
 		try{
-			roleService.delete(Long.parseLong(roleid));
+			roleService.delete(roleid);
 			page = new PageResult();
 		}catch(Exception e){
 			page = processException(e, "删除角色出错");
@@ -111,8 +110,8 @@ public class SysRoleController extends BaseController {
 	}
 	
 	@RequestMapping
-	public String delete(String roleid){
-		roleService.delete(Long.parseLong(roleid));
+	public String delete(Long roleid){
+		roleService.delete(roleid);
 		return redirect(ROLE_PULBIC);
 	}
 }

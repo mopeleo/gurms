@@ -4,26 +4,27 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class SysDictValueId implements Serializable {
-	private int dictcode;
+	private Integer dictcode;
 	private String dictitem;
 
 	public SysDictValueId(){}
 	
-	public SysDictValueId(int dictcode, String dictitem){
+	public SysDictValueId(Integer dictcode, String dictitem){
 		this.dictitem = dictitem;
 		this.dictcode = dictcode;
 	}
 	
 
-	public int getDictcode() {
+	public Integer getDictcode() {
 		return dictcode;
 	}
 
-	public void setDictcode(int dictcode) {
+	public void setDictcode(Integer dictcode) {
 		this.dictcode = dictcode;
 	}
 
@@ -37,7 +38,7 @@ public class SysDictValueId implements Serializable {
 
 	@Transient
 	public boolean isNull(){
-		return dictcode == 0 || dictitem == null;
+		return dictcode == null || StringUtils.isBlank(dictitem);
 	}
 	
 	public boolean equals(Object o) {
@@ -51,11 +52,11 @@ public class SysDictValueId implements Serializable {
 	}
 
 	public int hashCode() {
-		return new HashCodeBuilder().append(dictitem).append(dictcode).hashCode();
+		return new HashCodeBuilder().append(dictitem).append(dictcode).toHashCode();
 	}
 
 	@Override
 	public String toString(){
 		return "dictitem: " + dictitem + ", dictcode: " + dictcode;
-	}
+	}	
 }

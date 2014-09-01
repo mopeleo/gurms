@@ -61,13 +61,13 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<SysDictValue> getDict(int dictcode) {
+    public List<SysDictValue> getDict(Integer dictcode) {
         return sysDictValueDao.findBy("dictcode", dictcode);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<SysDictValue> getDict(int dictcode, String prefix) {
+    public List<SysDictValue> getDict(Integer dictcode, String prefix) {
         String pinyin = prefix.toUpperCase();
         return sysDictValueDao.findByPrefix(dictcode, pinyin);
     }
@@ -114,7 +114,7 @@ public class SysDictServiceImpl implements SysDictService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysDictIndex getDictIndex(int dictcode) {
+	public SysDictIndex getDictIndex(Integer dictcode) {
 		return sysDictIndexDao.get(dictcode);
 	}
 
