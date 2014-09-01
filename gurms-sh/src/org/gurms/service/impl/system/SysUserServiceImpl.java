@@ -56,8 +56,8 @@ public class SysUserServiceImpl implements SysUserService{
 	private SysUserConfigDao sysUserConfigDao;
 	
 	@Transactional(readOnly = true)
-	public SysUser get(String id){
-		return sysUserDao.get(id);
+	public SysUser getById(String id){
+		return sysUserDao.getById(id);
 	}
 	
 	public PageResult<SysUser> save(SysUser user) {
@@ -66,7 +66,7 @@ public class SysUserServiceImpl implements SysUserService{
 		if(StringUtils.isNotBlank(user.getSysroleids())){
 			String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 			for(String roleid : roleids){
-				SysRole role = sysRoleDao.get(Long.parseLong(roleid));
+				SysRole role = sysRoleDao.getById(Long.parseLong(roleid));
 				user.getSysroles().add(role);
 			}
 		}
@@ -74,7 +74,7 @@ public class SysUserServiceImpl implements SysUserService{
             user.setSysorg(null);
         }
 		
-		SysUser po = sysUserDao.get(user.getUserid());
+		SysUser po = sysUserDao.getById(user.getUserid());
 		po.setSysroles(user.getSysroles());
 		po.setUsername(user.getUsername());
 		po.setSysorg(user.getSysorg());
@@ -86,14 +86,14 @@ public class SysUserServiceImpl implements SysUserService{
 
 	public PageResult<SysUser> insert(SysUser user) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
-		if(sysUserDao.get(user.getUserid()) != null){
+		if(sysUserDao.getById(user.getUserid()) != null){
 			result.setSuccess(false);
 			result.setReturnmsg("用户[" + user.getUserid() + "]已存在");
 		}else{
 			if(StringUtils.isNotBlank(user.getSysroleids())){
 				String[] roleids = StringUtils.split(user.getSysroleids(), GlobalParam.STRING_SEPARATOR);
 				for(String roleid : roleids){
-					SysRole role = sysRoleDao.get(Long.parseLong(roleid));
+					SysRole role = sysRoleDao.getById(Long.parseLong(roleid));
 					user.getSysroles().add(role);
 				}
 			}
@@ -126,15 +126,15 @@ public class SysUserServiceImpl implements SysUserService{
 	}
 
 	@Override
-	public PageResult<SysUser> delete(String userid) {
+	public PageResult<SysUser> deleteById(String userid) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
-		SysUser user = sysUserDao.get(userid);
+		SysUser user = sysUserDao.getById(userid);
 		if(GlobalParam.DICT_ONLINEFLAG_YES.equals(user.getOnlineflag())){
 			result.setSuccess(false);
 			result.setReturnmsg("在线用户不能删除");
 		}else{
-			sysUserDao.delete(userid);
-			sysUserInfoDao.delete(userid);
+			sysUserDao.deleteById(userid);
+			sysUserInfoDao.deleteById(userid);
 		}
 		return result;
 	}
@@ -142,7 +142,7 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	@Transactional(readOnly = true)
 	public boolean isAdmin(String userid) {
-		SysUser user = sysUserDao.get(userid);
+		SysUser user = sysUserDao.getById(userid);
 		boolean isAdmin = false;
 		for(SysRole role : user.getSysroles()){
 			if(GlobalParam.SYSTEM_ROLE == role.getRoleid()){
@@ -157,7 +157,7 @@ public class SysUserServiceImpl implements SysUserService{
 	@Override
 	public PageResult<SysUser> setPassword(SysUser user) {
 		PageResult<SysUser> result = new PageResult<SysUser>();
-		SysUser u = sysUserDao.get(user.getUserid());
+		SysUser u = sysUserDao.getById(user.getUserid());
 		if(!u.getLoginpassword().equalsIgnoreCase(user.getOldpassword())){
 			result.setReturnmsg("输入的原密码错误!");
 			result.setSuccess(false);			
@@ -175,14 +175,14 @@ public class SysUserServiceImpl implements SysUserService{
 		PageResult<SysUser> result = new PageResult<SysUser>();
 		SysUser sessionUser = null;
 
-		SysUser userEntity = sysUserDao.get(user.getUserid());
+		SysUser userEntity = sysUserDao.getById(user.getUserid());
 		//用户不存在
 		if(userEntity == null){
 			result.setSuccess(false);
 			result.setReturnmsg("用户名或密码错误");
 		}else{
-			SysParam errorcount = sysParamDao.get(GlobalParam.PARAM_ERRORCOUNT);
-			SysParam locktime = sysParamDao.get(GlobalParam.PARAM_LOCKTIME);
+			SysParam errorcount = sysParamDao.getById(GlobalParam.PARAM_ERRORCOUNT);
+			SysParam locktime = sysParamDao.getById(GlobalParam.PARAM_LOCKTIME);
 			String currentDate = DateUtil.getCurrentDate();
 			String currentTime = DateUtil.getCurrentTime();
 			
@@ -245,14 +245,14 @@ public class SysUserServiceImpl implements SysUserService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysUserInfo getUserInfo(String userid) {
-		return sysUserInfoDao.get(userid);
+	public SysUserInfo getUserInfoById(String userid) {
+		return sysUserInfoDao.getById(userid);
 	}
 
 	@Override
 	public PageResult<SysUserInfo> saveUserInfo(SysUserInfo userinfo) {
 		PageResult<SysUserInfo> page = new PageResult<SysUserInfo>();
-		SysUserInfo info = sysUserInfoDao.get(userinfo.getUserid());
+		SysUserInfo info = sysUserInfoDao.getById(userinfo.getUserid());
 		if(info == null){
 			userinfo.setCreatedate(DateUtil.getCurrentDate());
 			sysUserInfoDao.save(userinfo);
@@ -267,8 +267,8 @@ public class SysUserServiceImpl implements SysUserService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysUserConfig getUserConfig(String userid) {
-		return sysUserConfigDao.get(userid);
+	public SysUserConfig getUserConfigById(String userid) {
+		return sysUserConfigDao.getById(userid);
 	}
 
 	@Override

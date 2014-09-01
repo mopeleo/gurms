@@ -15,7 +15,7 @@ public interface SysAccessoryService {
 
 	public PageResult<SysAccessory> save(SysAccessory accessory);
 	
-	public void delete(String id);
+	public void deleteById(String id);
 	
-	public SysAccessory get(String id);
+	public SysAccessory getById(String id);
 }

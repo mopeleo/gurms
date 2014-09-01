@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public class SysSerialnoDao extends HibernateDao<SysSerialno> {
 	
 	public synchronized long next(String type){
-		SysSerialno serial = get(type);
+		SysSerialno serial = getById(type);
 		long nextvalue = serial.getPrevalue() + 1;
 		serial.setPrevalue(nextvalue);
 		return nextvalue;

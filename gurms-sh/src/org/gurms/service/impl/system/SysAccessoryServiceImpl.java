@@ -48,14 +48,14 @@ public class SysAccessoryServiceImpl implements SysAccessoryService {
 	}
 
 	@Override
-	public void delete(String id) {
-		sysAccessoryDao.delete(id);
+	public void deleteById(String id) {
+		sysAccessoryDao.deleteById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysAccessory get(String id) {
-		return sysAccessoryDao.get(id);
+	public SysAccessory getById(String id) {
+		return sysAccessoryDao.getById(id);
 	}
 
 }

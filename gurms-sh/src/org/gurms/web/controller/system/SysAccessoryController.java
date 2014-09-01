@@ -63,7 +63,7 @@ public class SysAccessoryController extends BaseController {
 	@RequestMapping
 	public void detail(String accessoryid, Model model) {
 		if (StringUtils.isNotBlank(accessoryid)) {
-			SysAccessory role = accessoryService.get(accessoryid);
+			SysAccessory role = accessoryService.getById(accessoryid);
 			model.addAttribute(WebConstants.KEY_RESULT, role);
 		}
 	}
@@ -73,11 +73,11 @@ public class SysAccessoryController extends BaseController {
 	public PageResult ajaxDelete(String accessoryid) {
 		PageResult page = null;
 		try {
-			SysAccessory accessory = accessoryService.get(accessoryid);
+			SysAccessory accessory = accessoryService.getById(accessoryid);
 			File accFile = new File(accessory.getSavepath());
 			accFile.delete();
 
-			accessoryService.delete(accessoryid);
+			accessoryService.deleteById(accessoryid);
 			page = new PageResult();
 		} catch (Exception e) {
 			page = processException(e, "删除附件出错");
@@ -87,11 +87,11 @@ public class SysAccessoryController extends BaseController {
 
 	@RequestMapping
 	public String delete(String accessoryid) {
-		SysAccessory accessory = accessoryService.get(accessoryid);
+		SysAccessory accessory = accessoryService.getById(accessoryid);
 		File accFile = new File(accessory.getSavepath());
 		accFile.delete();
 
-		accessoryService.delete(accessoryid);
+		accessoryService.deleteById(accessoryid);
 		return redirect(ACCESSORY_PULBIC);
 	}
 
@@ -181,7 +181,7 @@ public class SysAccessoryController extends BaseController {
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
 
-		SysAccessory accessory = accessoryService.get(accessoryid);
+		SysAccessory accessory = accessoryService.getById(accessoryid);
 		String ctxPath = accessory.getSavepath();
 		ServletUtil.setFileDownloadHeader(response, accessory.getAccessoryname());
 

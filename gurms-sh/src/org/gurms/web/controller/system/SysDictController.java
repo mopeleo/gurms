@@ -38,7 +38,7 @@ public class SysDictController extends BaseController{
 	@RequestMapping
 	public void detail(SysDictValueId pk, Model model){
 		if(pk != null && !pk.isNull()){
-			SysDictValue dict = dictService.getDict(pk);
+			SysDictValue dict = dictService.getDictById(pk);
 			model.addAttribute(WebConstants.KEY_RESULT, dict);
 		}
 	}
@@ -60,7 +60,7 @@ public class SysDictController extends BaseController{
 	
 	@RequestMapping
 	public String delete(HttpServletRequest request, SysDictValueId pk){
-		dictService.deleteDict(pk);
+		dictService.deleteDictById(pk);
 		
 		//更新缓存
 		SysDictValue dict = new SysDictValue(pk);
@@ -78,7 +78,7 @@ public class SysDictController extends BaseController{
 	public PageResult ajaxDelete(HttpServletRequest request, SysDictValueId pk) {
 		PageResult page = null;
 		try {
-			dictService.deleteDict(pk);
+			dictService.deleteDictById(pk);
 			//更新缓存
 			SysDictValue dict = new SysDictValue(pk);
 			Map dictMap = (Map)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_DICT);

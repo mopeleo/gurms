@@ -66,7 +66,7 @@ public class SysUserController extends BaseController {
 		model.addAttribute("allroles", publics);
 		
 		if(StringUtils.isNotBlank(userid)){
-			SysUser vo = userService.get(userid);
+			SysUser vo = userService.getById(userid);
 			model.addAttribute(WebConstants.KEY_RESULT, vo);
 		}
 	}
@@ -74,7 +74,7 @@ public class SysUserController extends BaseController {
 	@RequestMapping
 	public void info(HttpServletRequest request, Model model){
 		SysUser user = (SysUser)request.getSession().getAttribute(WebConstants.S_KEY_USER);
-		SysUserInfo info = userService.getUserInfo(user.getUserid());
+		SysUserInfo info = userService.getUserInfoById(user.getUserid());
 		model.addAttribute(WebConstants.KEY_RESULT, info);
 	}
 	
@@ -125,7 +125,7 @@ public class SysUserController extends BaseController {
     public PageResult ajaxDelete(String userid){
         PageResult page = null;
         try{
-            userService.delete(userid);
+            userService.deleteById(userid);
             page = new PageResult();
         }catch(Exception e){
             page = processException(e, "删除用户出错");
@@ -135,7 +135,7 @@ public class SysUserController extends BaseController {
 
     @RequestMapping
 	public String delete(String userid){
-		userService.delete(userid);
+		userService.deleteById(userid);
 		return redirect(USER_LIST);
 	}
 	

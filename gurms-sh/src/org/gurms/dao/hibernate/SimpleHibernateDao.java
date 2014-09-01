@@ -90,15 +90,15 @@ public class SimpleHibernateDao<T>{
 	/**
 	 * 按id删除对象.
 	 */
-	public void delete(final Serializable id) {
+	public void deleteById(final Serializable id) {
 		Assert.notNull(id, "实体主键不能为空");
-		delete(get(id));
+		delete(getById(id));
 	}
 
 	/**
 	 * 按id get获取对象.
 	 */
-	public T get(final Serializable id) {
+	public T getById(final Serializable id) {
 		Assert.notNull(id, "实体主键不能为空");
 		return (T) getSession().get(entityClass, id);
 	}
@@ -106,7 +106,7 @@ public class SimpleHibernateDao<T>{
 	/**
 	 * 按id load 获取对象.
 	 */
-	public T load(final Serializable id) {
+	public T loadById(final Serializable id) {
 		Assert.notNull(id, "实体主键不能为空");
 		return (T) getSession().load(entityClass, id);
 	}

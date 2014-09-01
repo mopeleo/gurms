@@ -22,7 +22,7 @@ public class SysSessionListener implements HttpSessionListener {
 		SysUser sessionUser = (SysUser)event.getSession().getAttribute(WebConstants.S_KEY_USER);
 		if(sessionUser != null){
 			SysUserService userService = SpringUtil.getBean("sysUserServiceImpl");
-			SysUser user = userService.get(sessionUser.getUserid());
+			SysUser user = userService.getById(sessionUser.getUserid());
 			user.setOnlineflag(GlobalParam.DICT_ONLINEFLAG_NO);
 			PageResult<SysUser> result = userService.save(user);
 			if(!result.isSuccess()){

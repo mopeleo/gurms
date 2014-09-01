@@ -55,8 +55,8 @@ public class SysDictServiceImpl implements SysDictService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysDictValue getDict(SysDictValueId id) {
-		return sysDictValueDao.get(id);
+	public SysDictValue getDictById(SysDictValueId id) {
+		return sysDictValueDao.getById(id);
 	}
 
     @Override
@@ -80,9 +80,9 @@ public class SysDictServiceImpl implements SysDictService {
 		return result;
 	}
 
-	public PageResult<SysDictValue> deleteDict(SysDictValueId id) {
+	public PageResult<SysDictValue> deleteDictById(SysDictValueId id) {
 		PageResult<SysDictValue> result = new PageResult<SysDictValue>();
-		sysDictValueDao.delete(id);
+		sysDictValueDao.deleteById(id);
 		return result;
 	}
 
@@ -115,7 +115,7 @@ public class SysDictServiceImpl implements SysDictService {
 	@Override
 	@Transactional(readOnly = true)
 	public SysDictIndex getDictIndex(Integer dictcode) {
-		return sysDictIndexDao.get(dictcode);
+		return sysDictIndexDao.getById(dictcode);
 	}
 
 	@Override

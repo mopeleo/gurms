@@ -19,12 +19,12 @@ public class SysRoleDao extends HibernateDao<SysRole> {
 	 * 删除sysrole不级联删除sysuser，但要删除两者之间的关系
 	 * 所以要手动更新user的sysroles属性
 	 */
-	public void delete(Serializable id){
-		SysRole role = get(id);
+	public void deleteById(Serializable id){
+		SysRole role = getById(id);
 		for(SysUser user : role.getSysusers()){
 			user.getSysroles().remove(role);
 		}
-		super.delete(id);
+		super.deleteById(id);
 	}
 	
 	public void freshRole(){

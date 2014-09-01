@@ -56,8 +56,8 @@ public class SysOrgServiceImpl implements SysOrgService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysOrg get(String id) {
-		return sysOrgDao.get(id);
+	public SysOrg getById(String id) {
+		return sysOrgDao.getById(id);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 			if(org.getOrgid().equals(GlobalParam.ORG_ROOTID)){
 				org.setParentorg(null);
 			}
-			oldParent = sysOrgDao.get(org.getOrgid()).getParentorg();
+			oldParent = sysOrgDao.getById(org.getOrgid()).getParentorg();
 		}
 		SysOrg parent = org.getParentorg();
 		if(parent != null && StringUtils.isNotBlank(parent.getOrgid())){
@@ -80,7 +80,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 				result.setSuccess(false);
 				result.setReturnmsg("上级机构不能是自己");
 			}else{
-				parent = sysOrgDao.get(parent.getOrgid());
+				parent = sysOrgDao.getById(parent.getOrgid());
 				//同一父节点下不能同名
 				List<SysOrg> sons = parent.getSuborgs();
 				for(SysOrg son : sons){
@@ -110,7 +110,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 	}
 
 	@Override
-	public PageResult<SysOrg> delete(String id) {
+	public PageResult<SysOrg> deleteById(String id) {
 		PageResult<SysOrg> result = new PageResult<SysOrg>();
 		if(StringUtils.isBlank(id)){
 			result.setSuccess(false);
@@ -119,7 +119,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 			result.setSuccess(false);
 			result.setReturnmsg("根机构不能删除");
 		}else{
-			sysOrgDao.delete(id);
+			sysOrgDao.deleteById(id);
 		}
 		return result;
 	}
@@ -127,7 +127,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@Override
 	@Transactional(readOnly = true)
 	public SysOrg getRoot() {
-		SysOrg root = sysOrgDao.get(GlobalParam.ORG_ROOTID);
+		SysOrg root = sysOrgDao.getById(GlobalParam.ORG_ROOTID);
 //		initOrgs(root);
 		return root;
 	}

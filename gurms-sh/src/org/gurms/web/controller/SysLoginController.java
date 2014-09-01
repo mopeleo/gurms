@@ -93,7 +93,7 @@ public class SysLoginController extends BaseController {
 		session.setAttribute(WebConstants.S_KEY_USER, user);
 		session.setAttribute(WebConstants.S_KEY_MENU, root);
 		
-		SysUserConfig config = sysUserService.getUserConfig(user.getUserid());
+		SysUserConfig config = sysUserService.getUserConfigById(user.getUserid());
 		if(config == null){
 			config = new SysUserConfig();
 		}

@@ -52,8 +52,8 @@ public class SysParamServiceImpl implements SysParamService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysParam getParam(Integer id) {
-		return paramDao.get(id);
+	public SysParam getParamById(Integer id) {
+		return paramDao.getById(id);
 	}
 
 	@Override

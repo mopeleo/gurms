@@ -61,7 +61,7 @@ public class SysRoleController extends BaseController {
 	@RequestMapping
 	public void info(Long roleid, Model model){
 		if(roleid != null){
-			SysRole role = roleService.get(roleid);
+			SysRole role = roleService.getById(roleid);
 			model.addAttribute(WebConstants.KEY_RESULT, role);
 		}
 	}
@@ -101,7 +101,7 @@ public class SysRoleController extends BaseController {
 	public PageResult ajaxDelete(Long roleid){
 		PageResult page = null;
 		try{
-			roleService.delete(roleid);
+			roleService.deleteById(roleid);
 			page = new PageResult();
 		}catch(Exception e){
 			page = processException(e, "删除角色出错");
@@ -111,7 +111,7 @@ public class SysRoleController extends BaseController {
 	
 	@RequestMapping
 	public String delete(Long roleid){
-		roleService.delete(roleid);
+		roleService.deleteById(roleid);
 		return redirect(ROLE_PULBIC);
 	}
 }

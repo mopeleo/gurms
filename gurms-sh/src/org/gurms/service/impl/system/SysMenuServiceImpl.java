@@ -34,7 +34,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Override
 	@Transactional(readOnly = true)
 	public SysMenu getMenuTree(String nodeId) {
-		SysMenu root = sysMenuDao.get(nodeId);
+		SysMenu root = sysMenuDao.getById(nodeId);
 		initMenus(root);
 		return root;
 	}

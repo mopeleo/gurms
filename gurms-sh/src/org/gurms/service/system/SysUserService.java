@@ -22,9 +22,9 @@ public interface SysUserService{
 	@GurmsValid(type=SysUser.class, props={"userid","username"})
 	public PageResult<SysUser> insert(SysUser user);
 
-	public SysUser get(String userid);
+	public SysUser getById(String userid);
 	
-	public PageResult<SysUser> delete(String id);
+	public PageResult<SysUser> deleteById(String id);
 	
 	@GurmsValid(type=SysUser.class, props={"userid","loginpassword"})
 	public PageResult<SysUser> login(SysUser user);
@@ -34,12 +34,12 @@ public interface SysUserService{
 	@GurmsValid(type=SysUser.class, props={"userid","loginpassword"})
 	public PageResult<SysUser> setPassword(SysUser user);
 	
-	public SysUserInfo getUserInfo(String userid);
+	public SysUserInfo getUserInfoById(String userid);
 	
 	@GurmsValid(type=SysUserInfo.class)
 	public PageResult<SysUserInfo> saveUserInfo(SysUserInfo userinfo);
 	
-	public SysUserConfig getUserConfig(String userid);
+	public SysUserConfig getUserConfigById(String userid);
 	
 	@GurmsValid(type=SysUserConfig.class)
 	public PageResult<SysUser> saveUserConfig(SysUserConfig config);

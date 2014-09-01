@@ -58,8 +58,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public SysRole get(Long id) {
-		return sysRoleDao.get(id);
+	public SysRole getById(Long id) {
+		return sysRoleDao.getById(id);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		}
 		if(role.getSysmenuids() != null){
 			for(String menuid : role.getSysmenuids()){
-				SysMenu menu = sysMenuDao.get(menuid);
+				SysMenu menu = sysMenuDao.getById(menuid);
 				role.getSysmenus().add(menu);
 			}
 		}
@@ -104,8 +104,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		sysRoleDao.delete(id);
+	public void deleteById(Long id) {
+		sysRoleDao.deleteById(id);
 	}
 
 	@Override

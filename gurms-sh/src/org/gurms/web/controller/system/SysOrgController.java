@@ -42,7 +42,7 @@ public class SysOrgController extends BaseController {
 	@RequestMapping
 	public void detail(String orgid, Model model){
 		if(StringUtils.isNotBlank(orgid)){
-			SysOrg org = orgService.get(orgid);
+			SysOrg org = orgService.getById(orgid);
 			if(GlobalParam.ORG_ROOTID.equals(org.getOrgid())){
 			    throw new GurmsException("["+org.getShortname() + "]是根节点，不能修改");
 			}
@@ -61,7 +61,7 @@ public class SysOrgController extends BaseController {
 	public PageResult<SysOrg> ajaxGet(String orgid){
 		PageResult<SysOrg> page = new PageResult<SysOrg>();
 		if(StringUtils.isNotBlank(orgid)){
-			SysOrg org = orgService.get(orgid);
+			SysOrg org = orgService.getById(orgid);
 			org.setSuborgs(null);
 			if(org.getParentorg() != null){
 				org.getParentorg().setSuborgs(null);
@@ -92,7 +92,7 @@ public class SysOrgController extends BaseController {
 	public PageResult ajaxDelete(String orgid){
 		PageResult page = null;
 		try{
-			page = orgService.delete(orgid);
+			page = orgService.deleteById(orgid);
 		}catch(Exception e){
 			page = processException(e, "删除机构信息出错");
 		}
@@ -107,7 +107,7 @@ public class SysOrgController extends BaseController {
 			SysOrg org = orgService.getRoot();
 			list.add(TreeView.getSysOrgTree(org, endnode));
 		}else{
-			SysOrg org = orgService.get(root);
+			SysOrg org = orgService.getById(root);
 			for(SysOrg o : org.getSuborgs()){
 				list.add(TreeView.getSysOrgTree(o, endnode));
 			}

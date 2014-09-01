@@ -14,8 +14,8 @@ public class SysOrgDao extends HibernateDao<SysOrg> {
 	/**
 	 * 删除sysorg不级联删除sysuser，所以要手动更新user的sysorg属性
 	 */
-	public void delete(Serializable id){
-		SysOrg org = get(id);
+	public void deleteById(Serializable id){
+		SysOrg org = getById(id);
 		for(SysUser user : org.getSysusers()){
 			user.setSysorg(null);
 		}
@@ -23,6 +23,6 @@ public class SysOrgDao extends HibernateDao<SysOrg> {
 		//手动删除父子关系
 		SysOrg parent = org.getParentorg();
 		parent.getSuborgs().remove(org);
-		super.delete(id);
+		super.deleteById(id);
 	}
 }

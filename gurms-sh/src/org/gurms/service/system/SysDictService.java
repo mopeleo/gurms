@@ -14,7 +14,7 @@ public interface SysDictService {
 
 	public PageResult<SysDictValue> queryDict(Map<String, Object> request, PageRequest page);
 	
-	public SysDictValue getDict(SysDictValueId id);
+	public SysDictValue getDictById(SysDictValueId id);
 	
     public List<SysDictValue> getDict(Integer dictcode);
     
@@ -25,7 +25,7 @@ public interface SysDictService {
 	@GurmsValid(type=SysDictValue.class)
 	public PageResult<SysDictValue> saveDict(SysDictValue dict);
 	
-	public PageResult<SysDictValue> deleteDict(SysDictValueId id);
+	public PageResult<SysDictValue> deleteDictById(SysDictValueId id);
 	
 	public SysDictIndex getDictIndex(Integer dictcode);
 

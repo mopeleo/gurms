@@ -14,12 +14,12 @@ public interface SysOrgService {
 
 	public PageResult<SysOrg> query(Map<String, Object> request, PageRequest page);
 	
-	public SysOrg get(String id);
+	public SysOrg getById(String id);
 
 	@GurmsValid(type=SysOrg.class)
 	public PageResult<SysOrg> save(SysOrg org);
 	
-	public PageResult<SysOrg> delete(String id);
+	public PageResult<SysOrg> deleteById(String id);
 	
 	public SysOrg getRoot();
 }
