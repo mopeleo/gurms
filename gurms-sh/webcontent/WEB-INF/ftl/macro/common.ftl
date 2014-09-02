@@ -79,7 +79,11 @@
 		<input type="button" class="button" value="添加" onclick="addObj('${frameid}')">
 	<#else>
 		<#list button as menu>
+			<#if menu.menuevent != "">
+			<input type="button" class="button" value="${menu.menuname}" ${menu.menuevent}/>
+			<#else>
 			<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog(buttonforward,<#else>buttonforward(</#if>{urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
+			</#if>
 	    </#list>
 	</#if>  
     <#nested/>    

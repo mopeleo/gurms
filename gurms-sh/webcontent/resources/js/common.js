@@ -250,14 +250,14 @@ function buttonforward(params){
 			forward(urlstring);
 		}
 	}else{
+		var formid = params.formid;
 		if(params.isajax == '1'){
-			var formid = params.formid;
 			if(!formid){
 				formid = $("form").get(0).id;
 			}
 			ajaxsubmiturl(formid, urlstring);
 		}else{
-			forward(urlstring);
+			submiturl(formid, urlstring);
 		}
 	}
 //	new Dialog({type:'iframe',value:urlstring}).show();

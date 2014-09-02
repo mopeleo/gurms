@@ -79,10 +79,10 @@ public class SysDictIndex implements Serializable{
 			return false;
 		}
 		SysDictIndex dict = (SysDictIndex)o;
-		return dict.getDictcode() == dictcode;
+		return dict.getDictcode().intValue() == dictcode.intValue();
 	}
 	
 	public int hashCode(){
-		return dictcode;
+		return dictcode.hashCode();
 	}
 }

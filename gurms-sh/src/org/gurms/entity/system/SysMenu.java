@@ -32,6 +32,7 @@ public class SysMenu implements Serializable {
 	private String ajaxmode;
 	private String checked;
 	private String confirmed;
+	private String menuevent;
 	private int    menuorder;
 
 	private SysMenu parentmenu;
@@ -130,6 +131,14 @@ public class SysMenu implements Serializable {
 
 	public void setMenutype(String menutype) {
 		this.menutype = menutype;
+	}
+
+	public String getMenuevent() {
+		return menuevent;
+	}
+
+	public void setMenuevent(String menuevent) {
+		this.menuevent = menuevent;
 	}
 
 	public int getMenuorder() {

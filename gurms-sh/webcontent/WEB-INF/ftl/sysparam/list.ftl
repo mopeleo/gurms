@@ -36,11 +36,7 @@
                 <table>
                     <tr>
                         <td class="tdwidth2"></td>
-                        <td>
-							<input type="submit" class="button" value="保存" />
-							<input type="reset" class="button" value="重置"/>
-							<input type="button" class="button" onclick="confirmDialog(buttonforward,{urlstring:'${base}/sysparam/restore',optname:'恢复初始'})" value="恢复初始设置"/>
-						</td>
+                        <td><@c.buttons /></td>
 					</tr>
 				</table>
             </div>

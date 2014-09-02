@@ -126,11 +126,11 @@ public class SysParamExt implements Serializable{
 			return false;
 		}else{
 			SysParamExt param = (SysParamExt)o;
-			return param.getParamid() == paramid;
+			return param.getParamid().intValue() == paramid.intValue();
 		}
 	}
 	
 	public int hashCode(){
-		return paramid;
+		return paramid.hashCode();
 	}
 }

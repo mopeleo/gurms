@@ -169,12 +169,12 @@ public class SysRole implements Serializable {
 			return false;
 		} else {
 			SysRole role = (SysRole) o;
-			return role.getRoleid() == roleid;
+			return role.getRoleid().longValue() == roleid.longValue();
 		}
 	}
 
 	public int hashCode() {
-		return String.valueOf(roleid).hashCode();
+		return roleid.hashCode();
 	}
 
 	// ///扩展属性，非持久层属性
