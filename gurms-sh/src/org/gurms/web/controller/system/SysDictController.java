@@ -49,7 +49,7 @@ public class SysDictController extends BaseController{
 		
 		//更新缓存
 		Map<String, List<SysDictValue>> dictMap = (Map<String, List<SysDictValue>>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_DICT);
-		List<SysDictValue> list = dictMap.get(dict.getDictitem());
+		List<SysDictValue> list = dictMap.get(dict.getDictcode().toString());
 		if(list.contains(dict)){
 			list.set(list.indexOf(dict), dict);
 		}else{
@@ -64,8 +64,8 @@ public class SysDictController extends BaseController{
 		
 		//更新缓存
 		SysDictValue dict = new SysDictValue(pk);
-		Map dictMap = (Map)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_DICT);
-		List<SysDictValue> list = (List<SysDictValue>)dictMap.get(dict.getDictitem());
+		Map<String, List<SysDictValue>> dictMap = (Map<String, List<SysDictValue>>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_DICT);
+		List<SysDictValue> list = (List<SysDictValue>)dictMap.get(dict.getDictcode().toString());
 		list.remove(dict);
 		if(list.size() == 0){
 			dictMap.remove(dict.getDictitem());
@@ -81,8 +81,8 @@ public class SysDictController extends BaseController{
 			dictService.deleteDictById(pk);
 			//更新缓存
 			SysDictValue dict = new SysDictValue(pk);
-			Map dictMap = (Map)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_DICT);
-			List<SysDictValue> list = (List<SysDictValue>)dictMap.get(dict.getDictitem());
+			Map<String, List<SysDictValue>> dictMap = (Map<String, List<SysDictValue>>)ServletUtil.getContext(request).getAttribute(WebConstants.C_KEY_DICT);
+			List<SysDictValue> list = (List<SysDictValue>)dictMap.get(dict.getDictcode().toString());
 			list.remove(dict);
 			if(list.size() == 0){
 				dictMap.remove(dict.getDictitem());
