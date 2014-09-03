@@ -13,9 +13,9 @@ public interface EfFlowService{
 	
 	public PageResult<EfFlow> query(Map<String, Object> request, PageRequest page);
 	
-	public EfFlow get(String id);
+	public EfFlow getById(Long flowid);
 	
 	public PageResult<EfFlow> save(EfFlow obj);
 
-	public PageResult<EfFlow> delete(String id);
+	public PageResult<EfFlow> deleteById(Long flowid);
 }

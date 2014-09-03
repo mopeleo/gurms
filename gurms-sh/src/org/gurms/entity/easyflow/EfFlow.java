@@ -18,37 +18,37 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class EfFlow implements Serializable {
 
-	private long flowId;
-	private String flowName;
-	private String flowStatus;
+	private Long flowid;
+	private String flowname;
+	private String flowstatus;
 	private String userid;
 	private String remark;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sys_seq")   
 	@SequenceGenerator(name="sys_seq", sequenceName="sys_seq", allocationSize=1) 
-	public long getFlowId() {
-		return flowId;
+	public Long getFlowid() {
+		return flowid;
 	}
 
-	public void setFlowId(long flowId) {
-		this.flowId = flowId;
+	public void setFlowid(Long flowid) {
+		this.flowid = flowid;
 	}
 
-	public String getFlowName() {
-		return flowName;
+	public String getFlowname() {
+		return flowname;
 	}
 
-	public void setFlowName(String flowName) {
-		this.flowName = flowName;
+	public void setFlowname(String flowname) {
+		this.flowname = flowname;
 	}
 
-	public String getFlowStatus() {
-		return flowStatus;
+	public String getFlowstatus() {
+		return flowstatus;
 	}
 
-	public void setFlowStatus(String flowStatus) {
-		this.flowStatus = flowStatus;
+	public void setFlowstatus(String flowstatus) {
+		this.flowstatus = flowstatus;
 	}
 
 	public String getUserid() {
@@ -72,12 +72,12 @@ public class EfFlow implements Serializable {
 			return false;
 		} else {
 			EfFlow flow = (EfFlow) o;
-			return flow.getFlowId() == this.flowId;
+			return flow.getFlowid() == this.flowid;
 		}
 	}
 
 	public int hashCode() {
-		return String.valueOf(flowId).hashCode();
+		return flowid.hashCode();
 	}
 
 }

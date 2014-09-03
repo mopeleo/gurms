@@ -1,4 +1,10 @@
 <@c.html title="字典列表">
+	<script type="text/javascript">
+		function toAdd(params){
+			dialog({type:'id',value:'new_dict'},{confirmButton:false});
+		}
+		
+	</script>
 	<form id="mainForm" name="mainForm" action="${base}/sysdict/list" method="post">
 		<@c.searchdiv>
             <table>

@@ -52,7 +52,7 @@
 		<script type="text/javascript">
 			function addObj(frameid){
 				if(_R.size() == 0){
-					new Dialog("请选中要添加的数据!").show();
+					dAlter("请选中要添加的数据!");
 					return false;
 				}
 				var parentctx = $(window.parent.document);
@@ -79,8 +79,8 @@
 		<input type="button" class="button" value="添加" onclick="addObj('${frameid}')">
 	<#else>
 		<#list button as menu>
-			<#if menu.menuevent != "">
-			<input type="button" class="button" value="${menu.menuname}" ${menu.menuevent}/>
+			<#if menu.onclick != "">
+			<input type="button" class="button" value="${menu.menuname}" onclick="${menu.onclick}({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
 			<#else>
 			<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog(buttonforward,<#else>buttonforward(</#if>{urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
 			</#if>
@@ -168,17 +168,18 @@
 </#macro> 
 
 
-<#-- ajax调用执行后调用的代码 forwardurl:执行成功后跳转的页面-->
+<#-- ajax调用执行后调用的代码 forwardurl:执行成功后跳转的页面,popmode是否弹出窗口模式-->
 <#macro afterreturn forward>  
     <script type="text/javascript">
     	function afterReturn(result, status){
     		var flag = result['success'];
     		if(typeof(flag) == 'boolean' && flag){
-				new Dialog(result['returnmsg'],{fresh:true,forwardurl:'${forward}'}).show();
+				dialog(result['returnmsg'],{fresh:true,forwardurl:'${forward}'});
     		}else{
-				new Dialog(result['returnmsg']).show();
+				dAlter(result['returnmsg']);
     		}
-    	}                
+    	}  
+    	
     </script>
 </#macro> 
 

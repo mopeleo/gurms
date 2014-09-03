@@ -24,7 +24,7 @@ function Dialog(content, options)
         modal:true,         // 是否是模态对话框 
 //        center:true,        // 是否居中。 
         fixed:true,         // 是否跟随页面滚动。
-        removeContent:false, //关闭窗口是否删除内容
+        removeContent:true, //关闭窗口是否删除内容
         confirmButton:true,  //是否添加确定按钮
         fresh:false, //点击确定按钮是否刷新页面
         forwardurl:'', //刷新跳转的页面
@@ -348,3 +348,40 @@ function dialog(content, options)
 	return dlg;
 }
 
+function dAlert(msg){
+	dialog(msg);
+}
+
+function dConfirm(msg, jumpUrl, formId){
+	var params;
+	if(formId){
+		params = {url:jumpUrl,form:formId};
+	}else{
+		params = {url:jumpUrl};
+	}
+	dialog(msg, {confirmMode:true,confirmFunc:__jump, confirmParam:params});
+}
+
+function dPopWindow(openUrl){
+	dialog({type:'iframe',value:openUrl},{confirmButton:false, fresh:true});	
+}
+
+function dLoading(picUrl){
+	var pic = 'img/loading.gif';
+	if(picUrl){
+		pic = picUrl;
+	}
+	dialog({type:'img',value:pic});
+}
+
+function __jump(params){
+	if(params.form){
+		var form = document.getElementById(params.form);
+		if(params.url && params.url != null){
+			form.action = params.url;
+		}	
+		form.submit();
+	}else{
+		window.location.href=params.url;
+	}
+}

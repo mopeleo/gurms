@@ -32,7 +32,7 @@ public class SysMenu implements Serializable {
 	private String ajaxmode;
 	private String checked;
 	private String confirmed;
-	private String menuevent;
+	private String onclick;
 	private int    menuorder;
 
 	private SysMenu parentmenu;
@@ -133,12 +133,12 @@ public class SysMenu implements Serializable {
 		this.menutype = menutype;
 	}
 
-	public String getMenuevent() {
-		return menuevent;
+	public String getOnclick() {
+		return onclick;
 	}
 
-	public void setMenuevent(String menuevent) {
-		this.menuevent = menuevent;
+	public void setOnclick(String onclick) {
+		this.onclick = onclick;
 	}
 
 	public int getMenuorder() {

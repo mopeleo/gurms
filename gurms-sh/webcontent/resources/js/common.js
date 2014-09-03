@@ -161,8 +161,7 @@ function cleardata(objid){
 var loadingDialog;
 function _beforeSubmit(formData, jqForm, options){
 	// 显示进度条
-//	loadingDialog = new Dialog({type:'img',value:'img/loading.gif'});
-//	loadingDialog.show();
+//	loadingDialog = dLoading();
 	
 	var preResult = true;
 	if(typeof(preSubmit) != 'undefined' && preSubmit instanceof Function){
@@ -185,7 +184,7 @@ function _processResponse(responseText, statusText){
 	if(typeof(afterReturn) != 'undefined' && afterReturn instanceof Function){
 		afterReturn(responseText, statusText);
 	}else{
-		new Dialog(responseText['returnmsg']).show();
+		dAlter(responseText['returnmsg']);
 	}
 }
 
@@ -209,7 +208,7 @@ function ajaxsubmiturl(formid, urlstring){
 function confirmDialog(func, params){
 	if(params.ischeck == '1'){
 		if(_R.size() == 0){
-			new Dialog("请选中要" + params.optname + "的数据!").show();
+			dAlter("请选中要" + params.optname + "的数据!");
 			return false;
 		}
 	}
@@ -219,7 +218,7 @@ function confirmDialog(func, params){
 	}else{
 		txt = "确定执行此操作?";
 	}
-	new Dialog(txt, {confirmMode:true,confirmFunc:func, confirmParam:params}).show();
+	dialog(txt, {confirmMode:true,confirmFunc:func, confirmParam:params});
 }
 
 function forward(urlstring){
@@ -230,7 +229,7 @@ function buttonforward(params){
 	var urlstring = params.urlstring;
 	if(params.ischeck == '1'){
 		if(_R.size() == 0){
-			new Dialog("请选中要" + params.optname + "的数据!").show();
+			dAlter("请选中要" + params.optname + "的数据!");
 			return false;
 		}
 		if(params.keys && params.keys.length > 0){
@@ -245,7 +244,7 @@ function buttonforward(params){
 		}
 //		alert(urlstring);
 		if(params.isajax == '1'){
-			$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
+			$.get(urlstring, function(data){dialog(data['returnmsg'],{fresh:true});});
 		}else{
 			forward(urlstring);
 		}
@@ -257,17 +256,21 @@ function buttonforward(params){
 			}
 			ajaxsubmiturl(formid, urlstring);
 		}else{
-			submiturl(formid, urlstring);
+			if(formid){
+				submiturl(formid, urlstring);
+			}else{
+				forward(urlstring);
+			}
 		}
 	}
-//	new Dialog({type:'iframe',value:urlstring}).show();
+//	dialog({type:'iframe',value:urlstring});
 }
 
 /*
 function buttonforward(urlstring, optname, isajax, confirmed, params){
 	if(params && params.length > 0){
 		if(_R.size() == 0){
-			new Dialog("请选中要" + optname + "的数据!").show();
+			dAlter("请选中要" + optname + "的数据!");
 			return false;
 		}
 		urlstring += "?1=1";
@@ -281,7 +284,7 @@ function buttonforward(urlstring, optname, isajax, confirmed, params){
 	}
 //	alert(urlstring);
 	if(isajax == '1'){
-		$.get(urlstring, function(data){new Dialog(data['returnmsg'],{fresh:true}).show();});
+		$.get(urlstring, function(data){dialog(data['returnmsg'],{fresh:true});});
 	}else{
 		forward(urlstring);
 	}

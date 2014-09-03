@@ -3,7 +3,6 @@ package org.gurms.service.impl.easyflow;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.gurms.dao.hibernate.easyflow.EfFlowDao;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
@@ -43,8 +42,8 @@ public class EfFlowServiceImpl implements EfFlowService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public EfFlow get(String id){
-		return efFlowDao.get(id);
+	public EfFlow getById(Long id){
+		return efFlowDao.getById(id);
 	}
 	
 	@Override
@@ -55,13 +54,13 @@ public class EfFlowServiceImpl implements EfFlowService {
 	}
 
 	@Override
-	public PageResult<EfFlow> delete(String id){
+	public PageResult<EfFlow> deleteById(Long flowid){
 		PageResult<EfFlow> result = new PageResult<EfFlow>();
-		if(StringUtils.isBlank(id)){
+		if(flowid == null){
 			result.setSuccess(false);
-			result.setReturnmsg("ID不能为空");
+			result.setReturnmsg("flowid不能为空");
 		}else{
-			efFlowDao.delete(id);
+			efFlowDao.deleteById(flowid);
 		}
 		return result;
 	}
