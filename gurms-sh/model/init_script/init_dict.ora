@@ -44,4 +44,9 @@ insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (10,
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (10, '1', '输入框，可以修改', 1);
 insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (10, '2', '下拉框，可以修改', 2);
 
+insert into sys_dict_index (dictcode, dictname, dicttype, editflag) values (11, '菜单打开方式', 0, 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (11, '0', '本页刷新跳转', 0);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (11, '1', 'ajax跳转', 1);
+insert into sys_dict_value (dictcode, dictitem, itemname, dictorder) values (11, '2', '弹出窗口', 2);
+
 commit;

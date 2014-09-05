@@ -52,7 +52,7 @@
 		<script type="text/javascript">
 			function addObj(frameid){
 				if(_R.size() == 0){
-					dAlter("请选中要添加的数据!");
+					dAlert("请选中要添加的数据!");
 					return false;
 				}
 				var parentctx = $(window.parent.document);
@@ -80,9 +80,9 @@
 	<#else>
 		<#list button as menu>
 			<#if menu.onclick != "">
-			<input type="button" class="button" value="${menu.menuname}" onclick="${menu.onclick}({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
+			<input type="button" class="button" value="${menu.menuname}" onclick="${menu.onclick}({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',openmode:'${menu.openmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
 			<#else>
-			<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog(buttonforward,<#else>buttonforward(</#if>{urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',isajax:'${menu.ajaxmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
+			<input type="button" class="button" value="${menu.menuname}" onclick="<#if menu.confirmed == "1">confirmDialog<#else>buttonforward</#if>({urlstring:'${base}/${menu.menuurl}',optname:'${menu.menuname}',openmode:'${menu.openmode}',ischeck:'${menu.checked}'<#if params!= "">,keys:'${params}'</#if>})"/>
 			</#if>
 	    </#list>
 	</#if>  
@@ -176,7 +176,7 @@
     		if(typeof(flag) == 'boolean' && flag){
 				dialog(result['returnmsg'],{fresh:true,forwardurl:'${forward}'});
     		}else{
-				dAlter(result['returnmsg']);
+				dAlert(result['returnmsg']);
     		}
     	}  
     	

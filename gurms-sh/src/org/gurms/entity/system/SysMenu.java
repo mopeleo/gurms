@@ -29,7 +29,7 @@ public class SysMenu implements Serializable {
 	private String menuname;
 	private String menuurl;
 	private String menutype;
-	private String ajaxmode;
+	private String openmode;
 	private String checked;
 	private String confirmed;
 	private String onclick;
@@ -101,12 +101,12 @@ public class SysMenu implements Serializable {
 		this.menuurl = menuurl;
 	}
 
-	public String getAjaxmode() {
-		return ajaxmode;
+	public String getOpenmode() {
+		return openmode;
 	}
 
-	public void setAjaxmode(String ajaxmode) {
-		this.ajaxmode = ajaxmode;
+	public void setOpenmode(String openmode) {
+		this.openmode = openmode;
 	}
 
 	public String getChecked() {

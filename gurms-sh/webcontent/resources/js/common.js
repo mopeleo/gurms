@@ -184,7 +184,7 @@ function _processResponse(responseText, statusText){
 	if(typeof(afterReturn) != 'undefined' && afterReturn instanceof Function){
 		afterReturn(responseText, statusText);
 	}else{
-		dAlter(responseText['returnmsg']);
+		dAlert(responseText['returnmsg']);
 	}
 }
 
@@ -205,10 +205,10 @@ function ajaxsubmiturl(formid, urlstring){
 	return false;
 }
 
-function confirmDialog(func, params){
+function confirmDialog(params){
 	if(params.ischeck == '1'){
 		if(_R.size() == 0){
-			dAlter("请选中要" + params.optname + "的数据!");
+			dAlert("请选中要" + params.optname + "的数据!");
 			return false;
 		}
 	}
@@ -218,7 +218,7 @@ function confirmDialog(func, params){
 	}else{
 		txt = "确定执行此操作?";
 	}
-	dialog(txt, {confirmMode:true,confirmFunc:func, confirmParam:params});
+	dialog(txt, {confirmMode:true,confirmFunc:buttonforward, confirmParam:params});
 }
 
 function forward(urlstring){
@@ -229,7 +229,7 @@ function buttonforward(params){
 	var urlstring = params.urlstring;
 	if(params.ischeck == '1'){
 		if(_R.size() == 0){
-			dAlter("请选中要" + params.optname + "的数据!");
+			dAlert("请选中要" + params.optname + "的数据!");
 			return false;
 		}
 		if(params.keys && params.keys.length > 0){
@@ -242,35 +242,32 @@ function buttonforward(params){
 				}
 			}
 		}
-//		alert(urlstring);
-		if(params.isajax == '1'){
+	}
+	
+//	alert(urlstring);
+	var formid = params.formid;
+	if(params.openmode == '1'){
+		if(formid){
+			ajaxsubmiturl(formid, urlstring);
+		}else{
 			$.get(urlstring, function(data){dialog(data['returnmsg'],{fresh:true});});
+		}
+	}else if(params.openmode == '2'){
+		dPopWindow(urlstring);
+	}else{
+		if(formid){
+			submiturl(formid, urlstring);
 		}else{
 			forward(urlstring);
 		}
-	}else{
-		var formid = params.formid;
-		if(params.isajax == '1'){
-			if(!formid){
-				formid = $("form").get(0).id;
-			}
-			ajaxsubmiturl(formid, urlstring);
-		}else{
-			if(formid){
-				submiturl(formid, urlstring);
-			}else{
-				forward(urlstring);
-			}
-		}
 	}
-//	dialog({type:'iframe',value:urlstring});
 }
 
 /*
-function buttonforward(urlstring, optname, isajax, confirmed, params){
+function buttonforward(urlstring, optname, openmode, confirmed, params){
 	if(params && params.length > 0){
 		if(_R.size() == 0){
-			dAlter("请选中要" + optname + "的数据!");
+			dAlert("请选中要" + optname + "的数据!");
 			return false;
 		}
 		urlstring += "?1=1";
@@ -283,7 +280,7 @@ function buttonforward(urlstring, optname, isajax, confirmed, params){
 		}
 	}
 //	alert(urlstring);
-	if(isajax == '1'){
+	if(openmode == '1'){
 		$.get(urlstring, function(data){dialog(data['returnmsg'],{fresh:true});});
 	}else{
 		forward(urlstring);
