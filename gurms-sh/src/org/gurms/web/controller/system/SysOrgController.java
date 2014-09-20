@@ -23,6 +23,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Controller
 public class SysOrgController extends BaseController {
 
@@ -62,11 +64,14 @@ public class SysOrgController extends BaseController {
 		PageResult<SysOrg> page = new PageResult<SysOrg>();
 		if(StringUtils.isNotBlank(orgid)){
 			SysOrg org = orgService.getById(orgid);
-			org.setSuborgs(null);
-			if(org.getParentorg() != null){
-				org.getParentorg().setSuborgs(null);
-				org.getParentorg().setParentorg(null);
-			}
+			//解决spring mvc JSON 无限死循环 .1、手工设置循环引用属性为空，2.实体类使用@JsonIgnoreProperties(value={"sysusers","suborgs"})过滤属性
+//			org.setSuborgs(null);
+//			org.setSysusers(null);
+//			if(org.getParentorg() != null){
+//				org.getParentorg().setSuborgs(null);
+//				org.getParentorg().setParentorg(null);
+//				org.getParentorg().setSysusers(null);
+//			}
 			page.addResult(org);
 		}else{
 			page.setSuccess(false);

@@ -3,5 +3,7 @@ package org.gurms.service.system;
 
 public interface SysSerialnoService {
 
-	public long next(String type);
+	public String getId(String type);
+	
+	public String[] getBatchId(String type,int num);
 }

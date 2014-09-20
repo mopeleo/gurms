@@ -64,9 +64,9 @@ values ('1005', '设置', '#', '0', '0', '0', '1', '0', 1005);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1005001', '机构维护', 'sysorg/list', '0', '0', '0', '1005', '1', 1005001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005001000', '新增', 'sysorg/detail', '0', '0', '0', '1005001', '2', 1);
+values ('1005001000', '新增', 'sysorg/detail', '0', '0', '2', '1005001', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1005001001', '修改', 'sysorg/detail', '1', '0', '0', '1005001', '2', 2);
+values ('1005001001', '修改', 'sysorg/detail', '1', '0', '2', '1005001', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1005001002', '删除', 'sysorg/ajaxDelete', '1', '1', '1', '1005001', '2', 3);
 
@@ -97,13 +97,19 @@ values ('1009', '流程', '#', '0', '0', '0', '1', '0', 1009);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1009001', '流程维护', 'efflow/list', '0', '0', '0', '1009', '1', 1009001);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1009001000', '新增', 'efflow/popdetail', '0', '0', '2', '1009001', '2', 1);
+values ('1009001000', '新增', 'efflow/detail', '0', '0', '0', '1009001', '2', 1);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
-values ('1009001001', '修改', 'efflow/popdetail', '1', '0', '2', '1009001', '2', 2);
+values ('1009001001', '修改', 'efflow/detail', '1', '0', '0', '1009001', '2', 2);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1009001002', '删除', 'efflow/ajaxDelete', '1', '1', '1', '1009001', '2', 3);
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1009002', '环节维护', 'eflink/list', '0', '0', '0', '1009', '1', 1009002);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1009002000', '新增', 'eflink/detail', '0', '0', '0', '1009002', '2', 1);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1009002001', '修改', 'eflink/detail', '1', '0', '0', '1009002', '2', 2);
+insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
+values ('1009002002', '删除', 'eflink/ajaxDelete', '1', '1', '1', '1009002', '2', 3);
 
 insert into SYS_MENU (MENUID, MENUNAME, MENUURL, CHECKED, CONFIRMED, OPENMODE, PARENTMENUID, MENUTYPE, MENUORDER)
 values ('1011', '日志', '#', '0', '0', '0', '1', '0', 1011);

@@ -263,31 +263,6 @@ function buttonforward(params){
 	}
 }
 
-/*
-function buttonforward(urlstring, optname, openmode, confirmed, params){
-	if(params && params.length > 0){
-		if(_R.size() == 0){
-			dAlert("请选中要" + optname + "的数据!");
-			return false;
-		}
-		urlstring += "?1=1";
-		var keys = params.split(",");
-		for(var i = 0; i < keys.length; i++){
-			var val = _R.get(keys[i]);
-			if(val){
-				urlstring += '&' + keys[i] + '=' + val;
-			}
-		}
-	}
-//	alert(urlstring);
-	if(openmode == '1'){
-		$.get(urlstring, function(data){dialog(data['returnmsg'],{fresh:true});});
-	}else{
-		forward(urlstring);
-	}
-}
-*/
-
 function jumpPage(pageNo) {
 	if(pageNo){
 		$("#pageNo").val(pageNo);

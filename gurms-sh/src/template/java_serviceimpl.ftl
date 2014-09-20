@@ -50,9 +50,9 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 	@Transactional(readOnly = true)
 	public ${entity} getById(<#if (table.keys?size > 1) >${entity}Id id<#else><@type datatype=table.keys[0].datatype precision=table.keys[0].precision /> ${table.keys[0].code}</#if>){
 	<#if (table.keys?size > 1) >
-		return ${dao}.get(id);
+		return ${dao}.getById(id);
 	<#else>
-		return ${dao}.get(${table.keys[0].code});
+		return ${dao}.getById(${table.keys[0].code});
 	</#if>
 	}
 	
@@ -71,14 +71,14 @@ public class ${entity}ServiceImpl implements ${entity}Service {
 			result.setSuccess(false);
 			result.setReturnmsg("id不能为空");
 		}else{
-			${dao}.delete(id);
+			${dao}.deleteById(id);
 		}
 	<#else>
 		if(${table.keys[0].code} == null){
 			result.setSuccess(false);
 			result.setReturnmsg("${table.keys[0].code}不能为空");
 		}else{
-			${dao}.delete(${table.keys[0].code});
+			${dao}.deleteById(${table.keys[0].code});
 		}
 	</#if>
 		return result;

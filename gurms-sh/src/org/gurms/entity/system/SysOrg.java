@@ -18,11 +18,14 @@ import org.gurms.entity.Logable;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Logable
 @Entity
 @Table(name="sys_org")
 @org.hibernate.annotations.Entity(dynamicUpdate=true,dynamicInsert=true) 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties(value={"sysusers","suborgs"})
 public class SysOrg implements Serializable {
 	private String orgid;
 	private String shortname;

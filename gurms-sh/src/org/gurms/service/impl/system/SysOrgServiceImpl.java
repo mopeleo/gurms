@@ -24,7 +24,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 	private SysOrgDao sysOrgDao;
 	
 	@Autowired
-	private SysSerialnoDao serialnoDao;
+	private SysSerialnoDao sysSerialnoDao;
 	
 	public SysOrgDao getSysOrgDao() {
 		return sysOrgDao;
@@ -34,12 +34,12 @@ public class SysOrgServiceImpl implements SysOrgService {
 		this.sysOrgDao = sysOrgDao;
 	}
 
-	public SysSerialnoDao getSerialnoDao() {
-		return serialnoDao;
+	public SysSerialnoDao getSysSerialnoDao() {
+		return sysSerialnoDao;
 	}
 
-	public void setSerialnoDao(SysSerialnoDao serialnoDao) {
-		this.serialnoDao = serialnoDao;
+	public void setSysSerialnoDao(SysSerialnoDao sysSerialnoDao) {
+		this.sysSerialnoDao = sysSerialnoDao;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 		
 		SysOrg oldParent = null;
 		if(StringUtils.isBlank(org.getOrgid())){
-			long nextvalue = serialnoDao.next(GlobalParam.SERIAL_SYS_ORG);
+			String nextvalue = sysSerialnoDao.getId(GlobalParam.SERIAL_SYS_ORG).generateId();
 			org.setOrgid(String.valueOf(nextvalue));
 		}else{
 			if(org.getOrgid().equals(GlobalParam.ORG_ROOTID)){

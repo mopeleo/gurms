@@ -1,33 +1,4 @@
 <@c.html title="列表信息">
-	<script type="text/javascript">
-		function toAdd(params){
-			dPopWindow(params.urlstring);
-		}
-		
-		function toEdit(params){
-			var urlstring = params.urlstring;			
-			if(params.ischeck == '1'){
-				if(_R.size() == 0){
-					dAlert("请选中要" + params.optname + "的数据!");
-					return false;
-				}
-			
-				if(params.keys && params.keys.length > 0){
-					urlstring += "?1=" + new Date().getTime();
-					var keys = params.keys.split(",");
-					for(var i = 0; i < keys.length; i++){
-						var val = _R.get(keys[i]);
-						if(val){
-							urlstring += '&' + keys[i] + '=' + val;
-						}
-					}
-				}
-			}
-			
-			dPopWindow(urlstring);
-		}
-		
-	</script>
 	<form id="mainForm" name="mainForm" action="${base}/efflow/list" method="post">
 		<@c.searchdiv>
             <table>

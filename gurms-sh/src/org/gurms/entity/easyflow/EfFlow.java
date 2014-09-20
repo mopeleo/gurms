@@ -1,11 +1,16 @@
 package org.gurms.entity.easyflow;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,6 +28,7 @@ public class EfFlow implements Serializable {
 	private String flowstatus;
 	private String userid;
 	private String remark;
+	private List<EfLink> links = new ArrayList<EfLink>();
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sys_seq")   
@@ -37,6 +43,20 @@ public class EfFlow implements Serializable {
 
 	public String getFlowname() {
 		return flowname;
+	}
+
+	@OneToMany(
+		cascade = {CascadeType.PERSIST, CascadeType.MERGE}, 
+		fetch = FetchType.LAZY, 
+		mappedBy = "flow"
+	)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	public List<EfLink> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<EfLink> links) {
+		this.links = links;
 	}
 
 	public void setFlowname(String flowname) {
@@ -67,6 +87,10 @@ public class EfFlow implements Serializable {
 		this.remark = remark;
 	}
 
+	public void addLink(EfLink link){
+		this.links.add(link);
+	}
+	
 	public boolean equals(Object o) {
 		if (o == null || !(o instanceof EfFlow)) {
 			return false;

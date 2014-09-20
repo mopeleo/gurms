@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+import org.gurms.common.config.GlobalParam;
+import org.gurms.common.exception.GurmsException;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -69,6 +73,35 @@ public class SysSerialno implements Serializable {
 
 	public void setFixlength(int fixlength) {
 		this.fixlength = fixlength;
+	}
+
+	public String generateId(){
+		String fillStr = getFillString();
+		return getPrefix() + fillStr + getPrevalue() + getSuffix();
+	}
+	
+	@Transient
+	private String getFillString(){
+		String fillStr = "";
+		if(getFixflag().equals(GlobalParam.DICT_YESORNO_NO)){
+			return fillStr;
+		}
+		int serialLen = getFixlength();
+		if(StringUtils.isNotBlank(getPrefix())){
+			serialLen = serialLen - getPrefix().length();
+		}
+		if(StringUtils.isNotBlank(getSuffix())){
+			serialLen = serialLen - getSuffix().length();
+		}
+		int fillLen = serialLen - String.valueOf(getPrevalue()).length();
+		if(fillLen < 0){
+			throw new GurmsException("主键定长长度设置过短");
+		}else{
+			for(int i = 0; i < fillLen; i++){
+				fillStr += "0";
+			}
+		}
+		return fillStr;
 	}
 
 	public boolean equals(Object o) {

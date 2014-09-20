@@ -113,7 +113,6 @@
                     </tr>
                 </table>
 
-                <@c.afterreturn forward="${base}/sysorg/list" />
             </#if>
             </div>                   
             <div class="messagetable messageOK">

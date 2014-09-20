@@ -28,6 +28,6 @@ prompt Loading SYS_SERIALNO...
 truncate table SYS_SERIALNO;
 insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('sys_role', 1, '','','0',0);
 insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('sys_org', 1, '','','0',0);
-insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('ef_link', 1, '','','1',4);
+insert into SYS_SERIALNO (SERIALTYPE, PREVALUE, prefix, suffix, fixflag, fixlength) values ('ef_link', 1, 'LK','','1',8);
 
 commit;

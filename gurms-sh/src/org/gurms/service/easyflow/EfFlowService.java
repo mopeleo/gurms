@@ -6,6 +6,7 @@ import java.util.Map;
 import org.gurms.entity.PageRequest;
 import org.gurms.entity.PageResult;
 import org.gurms.entity.easyflow.EfFlow;
+import org.gurms.entity.easyflow.EfLink;
 
 public interface EfFlowService{
 
@@ -16,6 +17,8 @@ public interface EfFlowService{
 	public EfFlow getById(Long flowid);
 	
 	public PageResult<EfFlow> save(EfFlow obj);
+
+	public PageResult<EfFlow> save(EfFlow flow, List<EfLink> links);
 
 	public PageResult<EfFlow> deleteById(Long flowid);
 }
