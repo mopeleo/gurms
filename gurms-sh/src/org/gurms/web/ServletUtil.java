@@ -7,6 +7,7 @@ import java.util.TreeMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -95,5 +96,15 @@ public class ServletUtil {
 			}
 		}
 		return params;
+	}
+	
+	public static void deleteCookie(HttpServletRequest request, HttpServletResponse response){
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+        	cookie.setValue(null);
+        	cookie.setMaxAge(0);
+        	cookie.setPath("/");
+        	response.addCookie(cookie);
+        }
 	}
 }

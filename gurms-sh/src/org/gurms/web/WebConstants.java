@@ -16,6 +16,10 @@ public abstract class WebConstants {
 	public static final String C_KEY_MENU = "context_menu";
 	public static final String C_KEY_ORG = "context_org";
 	
+	//cookie中的name
+	public static final String COOKIE_USERID = "userid";
+	public static final String COOKIE_PASSWORD = "password";
+	
 	// request/model 中结果集的KEY
 	public static final String KEY_RESULT = "result";
 	
@@ -23,6 +27,6 @@ public abstract class WebConstants {
 	public static final String PREFIX_QUERY = "filter_";
 	
 	// 首页URL
-	public static final String URL_INDEX = "index.jsp";	
+	public static final String URL_LOGIN = "/login.jsp";	
 
 }

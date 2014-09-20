@@ -18,7 +18,7 @@ values (0, '系统管理员', '1', '0', '00000000', '99999999', '1', '-', '系统管理员
 prompt Loading SYS_USER...
 truncate table sys_user;
 insert into SYS_USER (USERID, USERNAME, ORGID, LOGINPASSWORD, ONLINEFLAG, USERSTATUS, LOGINCOUNT, ERRORCOUNT)
-values ('system', 'system', null, '202cb962ac59075b964b07152d234b70', '1', '1', 0, 0);
+values ('system', '系统管理员', null, '202cb962ac59075b964b07152d234b70', '1', '1', 0, 0);
 
 prompt Loading SYS_USER_ROLE...
 truncate table SYS_USER_ROLE;

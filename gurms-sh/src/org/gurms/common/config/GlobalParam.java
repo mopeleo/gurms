@@ -22,8 +22,11 @@ public class GlobalParam {
 	public static final String SERIAL_EF_LINK = "ef_link";
 	
 	//数据库参数
+	public static final int PARAM_SYSVERSION = 1;
+	public static final int PARAM_USECACHE = 2;
 	public static final int PARAM_ERRORCOUNT = 3;
 	public static final int PARAM_LOCKTIME = 4;
+	public static final int PARAM_COOKIEDAYS = 5;
 	
 	//数据库字典
 	public static final int DICT_YESORNO = 1;
