@@ -25,6 +25,7 @@ public class GurmsProjectGenerator {
 	public static final String TEMPLATE_CONTROLLER = GlobalConfig.getConfig("template_controller");
 	public static final String TEMPLATE_LIST = GlobalConfig.getConfig("template_list");
 	public static final String TEMPLATE_DETAIL = GlobalConfig.getConfig("template_detail");
+	public static final String TEMPLATE_SQLMENU = GlobalConfig.getConfig("template_sqlmenu");
 	
 	public static final String FILETYPE_DAO = "Dao.java";
 	public static final String FILETYPE_ENTITY = ".java";
@@ -35,6 +36,7 @@ public class GurmsProjectGenerator {
 	public static final String FILETYPE_CONTROLLER = "Controller.java";
 	public static final String FILETYPE_LISTFTL = "list.ftl";
 	public static final String FILETYPE_DETAILFTL = "detail.ftl";
+	public static final String FILETYPE_SQLMENU = "menu.sql";
 
 	public static final String PACKAGE_DAO = "dao.hibernate";
 	public static final String PACKAGE_ENTITY = "entity";
@@ -82,6 +84,10 @@ public class GurmsProjectGenerator {
 		generate(params, TEMPLATE_DETAIL, outFile);
 	}	
 	
+	public static void sqlMenuGenerate(Map params, String outFile){
+		generate(params, TEMPLATE_SQLMENU, outFile);
+	}	
+	
 	private static String getJavaOutFile(Map params, String outDir, String projectPrefix, String pkgName, String fileSuffix){
 		String outFileName = outDir + (projectPrefix + "." + pkgName).replace('.', File.separatorChar);
 		Object model = params.get("model");
@@ -121,6 +127,9 @@ public class GurmsProjectGenerator {
 		params.put("entity", "");
 		outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_ENTITYVALID);
 		entityValidGenerate(params, outFile);
+
+		outFile = getJavaOutFile(params, javaOutDir, projectPrefix, PACKAGE_ENTITY, FILETYPE_SQLMENU);
+		sqlMenuGenerate(params, outFile);
 
 		for(Table table : tables){
 			String tableCode = table.getCode();
